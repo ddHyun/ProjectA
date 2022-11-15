@@ -1,12 +1,24 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-	<head></head>
-	<body>
-		<h1 th:text="${welcome}"></h1>
-		<table>
-			<tr>
-				<th th:text="#{review.reviewTitle}"></th>
-			</tr>
-		</table>
-	</body>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layouts/main}">
+	<main layout:fragment="content">
+		<form method="get" th:action="@{/community/review/search}">
+			<input type="text" placeholder="여행지 검색" name="search">
+			<button type="submit" th:text="#{review.search}"></button>
+		</form>
+		<div>
+			<table>
+				<tr>
+					<th th:text="#{review.reviewTitle}"></th>
+					<th:block th:if="${search==null}">
+						<td>내용</td>
+					</th:block>
+					<th:block th:unless="${search==null}">
+						<td th:text="${search}"></td>
+					</th:block>
+				</tr>
+			</table>
+		</div>
+	</main>
 </html>

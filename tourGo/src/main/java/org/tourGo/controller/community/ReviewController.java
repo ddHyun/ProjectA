@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.tourGo.service.community.ReviewService;
 
 @Controller
-@RequestMapping("/community/review")
+//@RequestMapping("/community/review")
 public class ReviewController {
 	
 	@Autowired
@@ -17,6 +17,12 @@ public class ReviewController {
 	@GetMapping("/review_main")
 	public String index(Model model) {
 		model.addAttribute("welcome", "안녕하세요!");
+		return "views/community/review/review_main";
+	}
+	
+	@GetMapping("/search")
+	public String searchRegion(String search, Model model) {
+		model.addAttribute("search", search);
 		return "views/community/review/review_main";
 	}
 }
