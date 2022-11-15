@@ -17,6 +17,6 @@ public class ReviewController {
 	@GetMapping("/review_main")
 	public String index(Model model) {
 		model.addAttribute("welcome", "안녕하세요!");
-		return "community/review/review_main";
+		return "views/community/review/review_main";
 	}
 }
