@@ -2,6 +2,7 @@ package org.tourGo.controller.community.review;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,22 +23,16 @@ public class ReviewController {
 	@GetMapping("/review_main")
 	public String index(Model model) {		
 		
-		List<ReviewRequest> lists = new ArrayList<>();
-		
-		for(int i=1; i<=10; i++) {
-			ReviewRequest reviewRequest = new ReviewRequest();
-			reviewRequest.setReviewNo(i-1);
-			reviewRequest.setName("사용자"+i);
-			reviewRequest.setReviewTitle("제목"+i);
-			reviewRequest.setRead(i+1);
-			lists.add(reviewRequest);
-		}
+		List<ReviewRequest> lists = reviewService.getAllReviewList();	
+		Map<String, Integer> pageMap = reviewService.paging();
 		
 		model.addAttribute("lists", lists);
+		model.addAttribute("startPage", pageMap.get("startPage"));
+		model.addAttribute("endPage", pageMap.get("endPage"));
 		return "community/review/review_main";
 	}
 	
-	//검색어 입력
+	//여행지 검색어로 조회하기
 	@GetMapping("/search")
 	public String searchRegion(@RequestParam String search, Model model) {
 		model.addAttribute("search", search);
@@ -46,7 +41,7 @@ public class ReviewController {
 	
 	//제목 클릭시 후기읽기 페이지 이동
 	@GetMapping("/review_read")
-	public String reviewRead(int reviewNo, Model model) {
+	public String readReview(int reviewNo, Model model) {
 		model.addAttribute("reviewNo", reviewNo);
 		return "community/review/review_read";
 	}
