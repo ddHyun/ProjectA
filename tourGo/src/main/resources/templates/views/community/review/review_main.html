@@ -14,17 +14,10 @@
 				<button type="submit" th:text="#{review.search}"></button>
 			</form>
 		</div>
+		
+		<!-- 여행후기(테이블) -->
 		<div>
-			<table>
-				<!-- <tr>
-					<th th:text="#{review.reviewTitle}"></th>
-					<th:block th:if="${search==null}">
-						<td>내용</td>
-					</th:block>
-					<th:block th:unless="${search==null}">
-						<td th:text="${search}"></td>
-					</th:block>
-				</tr> -->
+			<table>				
 				<tr>
 					<th th:text="#{review.index}">글번호</th>
 					<th th:text="#{review.reviewTitle}">제목</th>
@@ -42,7 +35,8 @@
 				<th:block th:unless="${lists==null}">
 					<tr th:each="list, status:${lists}" th:object="${list}">
 						<td th:text="${status.count}"></td>
-						<td th:text="*{reviewTitle}"></td>
+						<td><a th:href="@{/community/review/review_read?reviewNo={replace}(replace=*{reviewNo})}" 
+						th:text="*{reviewTitle}"></a></td>
 						<td></td>
 						<td></td>
 						<td th:text="*{name}"></td>

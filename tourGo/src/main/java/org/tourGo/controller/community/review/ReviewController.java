@@ -18,6 +18,7 @@ public class ReviewController {
 	@Autowired
 	private ReviewService reviewService;
 	
+	//여행후기 메인페이지
 	@GetMapping("/review_main")
 	public String index(Model model) {		
 		
@@ -25,6 +26,7 @@ public class ReviewController {
 		
 		for(int i=1; i<=10; i++) {
 			ReviewRequest reviewRequest = new ReviewRequest();
+			reviewRequest.setReviewNo(i-1);
 			reviewRequest.setName("사용자"+i);
 			reviewRequest.setReviewTitle("제목"+i);
 			reviewRequest.setRead(i+1);
@@ -35,10 +37,17 @@ public class ReviewController {
 		return "community/review/review_main";
 	}
 	
+	//검색어 입력
 	@GetMapping("/search")
 	public String searchRegion(@RequestParam String search, Model model) {
-		System.out.println("search: "+search);
 		model.addAttribute("search", search);
 		return "community/review/review_main";
+	}
+	
+	//제목 클릭시 후기읽기 페이지 이동
+	@GetMapping("/review_read")
+	public String reviewRead(int reviewNo, Model model) {
+		model.addAttribute("reviewNo", reviewNo);
+		return "community/review/review_read";
 	}
 }
