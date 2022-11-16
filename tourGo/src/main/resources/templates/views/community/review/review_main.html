@@ -34,10 +34,26 @@
 					<th th:text="#{review.reviewRegDt}">작성일</th>
 					<th th:text="#{review.read}">조회수</th>
 				</tr>
-				<!-- <tr th:each="list, status:${lists}">
-					<td th:text="status.count"></td>
-				</tr> -->
+				
+				<!-- 후기조회 결과가 없을 경우 -->
+				<th:block th:if="${lists==null}"></th:block>
+				
+				<!-- 후기조회 결과가 있을 경우 -->
+				<th:block th:unless="${lists==null}">
+					<tr th:each="list, status:${lists}" th:object="${list}">
+						<td th:text="${status.count}"></td>
+						<td th:text="*{reviewTitle}"></td>
+						<td></td>
+						<td></td>
+						<td th:text="*{name}"></td>
+						<td></td>
+						<td th:text="*{read}"></td>
+					</tr>
+				</th:block>
 			</table>
+		</div>
+		<div>
+			<button type="submit" th:text="#{review.write}"></button>
 		</div>
 	</main>
 </html>
