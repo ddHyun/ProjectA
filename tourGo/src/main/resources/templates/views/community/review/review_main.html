@@ -1,12 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-	<head></head>
-	<body>
-		<h1 th:text="${welcome}"></h1>
-		<table>
-			<tr>
-				<th th:text="#{review.reviewTitle}"></th>
-			</tr>
-		</table>
-	</body>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layouts/main}">
+	
+	<main layout:fragment="content">
+		<!-- 커뮤니티 공통 상단 네비바 -->
+		<th:block th:replace="outlines/community_top::community_top"></th:block>
+		
+		<!-- 여행지 검색 -->
+		<div>
+			<form method="get" th:action="@{/community/review/search}">
+				<input type="text" placeholder="여행지 검색" name="search">
+				<button type="submit" th:text="#{review.search}"></button>
+			</form>
+		</div>
+		
+		<!-- 여행후기(테이블) -->
+		<div>
+			<table>				
+				<tr>
+					<th th:text="#{review.index}">글번호</th>
+					<th th:text="#{review.reviewTitle}">제목</th>
+					<th th:text="#{common.region}">여행지</th>
+					<th th:text="#{review.period}">기간</th>
+					<th th:text="#{common.userName}">작성자</th>
+					<th th:text="#{review.reviewRegDt}">작성일</th>
+					<th th:text="#{review.read}">조회수</th>
+				</tr>
+				
+				<!-- 후기조회 결과가 없을 경우 -->
+				<th:block th:if="${lists==null}"></th:block>
+				
+				<!-- 후기조회 결과가 있을 경우 -->
+				<th:block th:unless="${lists==null}">
+					<tr th:each="list, status:${lists}" th:object="${list}">
+						<td th:text="${status.count}"></td>
+						<td><a th:href="@{/community/review/review_read?reviewNo={replace}(replace=*{reviewNo})}" 
+						th:text="*{reviewTitle}"></a></td>
+						<td></td>
+						<td></td>
+						<td th:text="*{name}"></td>
+						<td></td>
+						<td th:text="*{read}"></td>
+					</tr>
+				</th:block>
+			</table>
+		</div>
+		<div>
+			<button type="submit" th:text="#{review.write}"></button>
+		</div>
+	</main>
 </html>
