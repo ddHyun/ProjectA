@@ -17,7 +17,7 @@ public class TourGoApplication {
 	@Bean
 	public MessageSource messageSource() {
 		ResourceBundleMessageSource ms = new ResourceBundleMessageSource();
-		ms.setBasenames("messages.community"); //메시지파일 여기에 추가하기
+		ms.setBasenames("messages.community", "messages.common"); //메시지파일 여기에 추가하기
 		ms.setDefaultEncoding("UTF-8");
 		
 		return ms;
