@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>지도 생성하기</title>
+    <link href="css/plan/makePlan.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<div class="left_items">
+<div class="whether">
+    <button type="button" onclick="alert('날씨배너칸')">날씨배너칸</button>
+</div>
+
+<div class="list">
+<div class="day"> <button type="button" onclick="f1()">day1</button></div>
+<div class="list_items" id="output">리스트 내용들입니다</div>
+
+<div class="day"> <button type="button" onclick="alert('day1')">day2</button></div>
+<div class="list_items"></div>
+
+<div class="day"> <button type="button" onclick="alert('day1')">day3</button></div>
+<div class="list_items"></div>
+
+<div class="day"> <button type="button" onclick="alert('day1')">day4</button></div>
+<div class="list_items"></div>
+
+<div class="day"> <button type="button" onclick="alert('day1')">day5</button></div>
+<div class="list_items"></div>
+
+<div class="day"> <button type="button" onclick="alert('day1')">day6</button></div>
+<div class="list_items"></div>
+
+</div>
+
+</div>
+
+<div class="tourApi">
+asdsad
+
+</div>
+
+<!-- 지도를 표시할 div 입니다 -->
+<div id="map"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5cf0f012351259a60d2d7388a32df3af"></script>
+<script>
+//지도생성s
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+    mapOption = { 
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+ 
+// 마커를 표시할 위치와 title 객체 배열입니다 
+var positions = [
+    {
+        title: '카카오', 
+        latlng: new kakao.maps.LatLng(33.450705, 126.570677)
+    },
+    {
+        title: '생태연못', 
+        latlng: new kakao.maps.LatLng(33.450936, 126.569477)
+    },
+    {
+        title: '텃밭', 
+        latlng: new kakao.maps.LatLng(33.450879, 126.569940)
+    },
+    {
+        title: '근린공원',
+        latlng: new kakao.maps.LatLng(33.451393, 126.570738)
+    }
+];
+
+// 마커 이미지의 이미지 주소입니다
+var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+    
+for (var i = 0; i < positions.length; i ++) {
+    
+    // 마커 이미지의 이미지 크기 입니다
+    var imageSize = new kakao.maps.Size(24, 35); 
+    
+    // 마커 이미지를 생성합니다    
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+    
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng, // 마커를 표시할 위치
+        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        image : markerImage // 마커 이미지 
+    });
+}
+//마커표시e
+
+</script>
+<script>
+function f1(){
+	document.getElementById(`output`).innerHTML="리스트출력!";
+}
+</script>
+</body>
+</html>
