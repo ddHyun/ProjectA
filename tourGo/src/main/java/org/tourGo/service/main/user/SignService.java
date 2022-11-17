@@ -1,4 +1,4 @@
-package org.tourGo.service.main.sign;
+package org.tourGo.service.main.user;
 
 import org.springframework.stereotype.Service;
 
