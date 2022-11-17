@@ -11,7 +11,7 @@
 		<!-- 여행지 검색 -->
 		<div>
 			<div>총건수/페이지</div>
-			<form method="get" th:action="@{/community/review/search}">
+			<form method="get" th:action="@{/community/review_search}">
 				<input type="text" placeholder="여행지 검색" name="search">
 				<button type="submit" th:text="#{review.search}"></button>
 			</form>
@@ -37,7 +37,7 @@
 				<th:block th:unless="${lists==null}">
 					<tr th:each="list, status:${lists}" th:object="${list}">
 						<td th:text="${status.size-status.index}"></td>
-						<td><a th:href="@{/community/review/review_read?reviewNo={replace}(replace=*{reviewNo})}" 
+						<td><a th:href="@{/community/review_read?reviewNo={replace}(replace=*{reviewNo})}" 
 							th:text="*{reviewTitle}"></a></td>
 						<td></td>
 						<td></td>
@@ -50,7 +50,7 @@
 		</div>
 		<div>
 			<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-				<a th:href="@{/community/review/review_main?pageSize=10&page={replace}(replace=${page})}" 
+				<a th:href="@{/community/review_main?pageSize=10&page={replace}(replace=${page})}" 
 					th:text="${page}"></a>
 			</th:block>
 			<button type="submit" th:text="#{review.write}"></button>

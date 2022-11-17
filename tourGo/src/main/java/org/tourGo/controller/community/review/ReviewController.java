@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.tourGo.service.community.ReviewService;
 
 @Controller
-@RequestMapping("/community/review")
+@RequestMapping("/community")
 public class ReviewController {
 	
 	@Autowired
@@ -33,7 +33,7 @@ public class ReviewController {
 	}
 	
 	//여행지 검색어로 조회하기
-	@GetMapping("/search")
+	@GetMapping("/review_search")
 	public String searchRegion(@RequestParam String search, Model model) {
 		model.addAttribute("search", search);
 		return "community/review/review_main";

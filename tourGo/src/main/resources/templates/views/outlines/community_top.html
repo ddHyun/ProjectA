@@ -4,9 +4,9 @@
 	<!-- 커뮤니티 공통 상단 네비바 -->
 	<th:block th:fragment="community_top">
 		<nav>
-			<a th:href="@{/community/notice/notice_main}" th:text="#{community.notice}">공지</a>
+			<a th:href="@{/community/notice_main}" th:text="#{community.notice}">공지</a>
 			<a href=# th:text="#{community.query}">문의</a>
-			<a th:href="@{/community/review/review_main}" th:text="#{community.review}">후기</a>
+			<a th:href="@{/community/review_main}" th:text="#{community.review}">후기</a>
 		</nav>
 	</th:block>
 </html>
