@@ -1,4 +1,4 @@
-package org.tourGo.controller.main.sign;
+package org.tourGo.controller.main.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
