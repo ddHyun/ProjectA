@@ -1,5 +1,6 @@
 package org.tourGo.service.community;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,5 +67,23 @@ public class ReviewService {
 		pageMap.put("endPage", endPage);
 		
 		return pageMap;
+	}
+
+	//글번호로 내용조회
+	public ReviewRequest getOneReview(int reviewNo) {
+		//ReviewDto reviewDto = new ReviewDto();
+		//reviewDto.setReviewNo(reviewNo);
+		//reviewDto.setId(id);
+		//ReviewRequest reviewRequest = reviewDao.getOneReview(reviewNo, id);
+		
+		ReviewRequest reviewRequest = new ReviewRequest();
+		reviewRequest.setReviewTitle("제목임");
+		reviewRequest.setName("작성자임");
+		reviewRequest.setReviewContent("내용임");
+		reviewRequest.setRegion("여행지임");
+		reviewRequest.setPeriod("기간임");
+		reviewRequest.setReviewRegDt(LocalDateTime.now());
+		
+		return reviewRequest;
 	}
 }

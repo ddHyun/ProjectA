@@ -6,9 +6,11 @@
 	<main layout:fragment="content">
 		<!-- 커뮤니티 공통 상단 네비바 -->
 		<th:block th:replace="outlines/community_top::community_top"></th:block>
-		
+		<!-- 게시판명 -->
+		<div th:text="#{community.review}"></div>
 		<!-- 여행지 검색 -->
 		<div>
+			<div>총건수/페이지</div>
 			<form method="get" th:action="@{/community/review/search}">
 				<input type="text" placeholder="여행지 검색" name="search">
 				<button type="submit" th:text="#{review.search}"></button>

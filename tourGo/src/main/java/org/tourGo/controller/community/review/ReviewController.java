@@ -42,7 +42,9 @@ public class ReviewController {
 	//제목 클릭시 후기읽기 페이지 이동
 	@GetMapping("/review_read")
 	public String readReview(int reviewNo, Model model) {
-		model.addAttribute("reviewNo", reviewNo);
+		//세션에 저장된 아이디 가져와서 글번호랑 아이디 같이 넘기기
+		ReviewRequest reviewRequest = reviewService.getOneReview(reviewNo);
+		model.addAttribute("reviewRequest", reviewRequest);
 		return "community/review/review_read";
 	}
 }
