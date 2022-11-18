@@ -30,9 +30,8 @@
 		</div>
 		<!-- 목록으로 돌아가기 -->
 		<div>
-			<form method="get" th:action="@{/community/review_main}">
-				<button type="submit" th:text="#{community.list}"></button>
-			</form>
+			<button th:onclick="|location.href='@{/community/review_main}'|" 
+			type="button" th:text="#{community.list}"></button>
 		</div>
 	</main>
 </html>
