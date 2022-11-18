@@ -23,11 +23,12 @@ public class ReviewController {
 	public String index(Model model) {		
 		
 		List<ReviewRequest> lists = reviewService.getAllReviewList();	
-		Map<String, Integer> pageMap = reviewService.paging();
+		Map<String, Integer> pageMap = reviewService.paging();		
 		
 		model.addAttribute("lists", lists);
 		model.addAttribute("startPage", pageMap.get("startPage"));
 		model.addAttribute("endPage", pageMap.get("endPage"));
+		model.addAttribute("board", "review"); //여행후기 게시판임을 알림
 		return "community/review/review_main";
 	}
 	

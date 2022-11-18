@@ -6,7 +6,12 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+		<!-- 커뮤니티/여행후기 css -->
+		<th:block layout:fragment="review_css"></th:block>
+		
 		<script th:src="@{/js/common.js}"></script>
+		<!-- 커뮤니티/여행후기 js -->
+		<th:block layout:fragment="community_common"></th:block>
 	</head>
 	<body>
 		<header th:replace="outlines/header::header"></header>

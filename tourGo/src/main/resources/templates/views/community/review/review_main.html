@@ -3,6 +3,12 @@
 		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 		layout:decorate="~{layouts/main}">
 	
+	<!-- css -->
+	<th:block layout:fragment="review_css"> 
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/litera/bootstrap.min.css" 
+			integrity="sha384-enpDwFISL6M3ZGZ50Tjo8m65q06uLVnyvkFO3rsoW0UC15ATBFz3QEhr3hmxpYsn" crossorigin="anonymous">
+	</th:block>
+	
 	<main layout:fragment="content">
 		<!-- 커뮤니티 공통 상단 네비바 -->
 		<th:block th:replace="outlines/community_top::community_top"></th:block>
@@ -11,9 +17,9 @@
 		<!-- 여행지 검색 -->
 		<div>
 			<div>총건수/페이지</div>
-			<form method="get" th:action="@{/community/review_search}">
-				<input type="text" placeholder="여행지 검색" name="search">
-				<button type="submit" th:text="#{review.search}"></button>
+			<form class="d-flex" method="get" th:action="@{/community/review_search}">
+				<input type="text" class="form-control me-sm-2" placeholder="여행지 검색" name="search">
+				<button type="submit" class="btn btn-outline-info" th:text="#{review.search}"></button>
 			</form>
 		</div>
 		
@@ -55,5 +61,15 @@
 			</th:block>
 			<button type="submit" th:text="#{review.write}"></button>
 		</div>
+	
+		<!-- script -->
+		<script>
+			/* controller의 model에 보낸 값 바로 사용하기 */
+			let board='[[${board}]]';
+		</script>		
+		<th:block layout:fragment="community_common">
+			<script type="text/javascript" src="/js/community_common.js"></script>
+		</th:block>	
 	</main>
+	
 </html>

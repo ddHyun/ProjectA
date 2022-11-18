@@ -12,6 +12,8 @@ public class NoticeController {
 	@GetMapping("/notice_main")
 	public String index(Model model) {
 		
+		model.addAttribute("board", "notice");
+		
 		return "community/notice/notice_main";
 	}
 }
