@@ -5,15 +5,9 @@
 	
 	<!-- css -->
 	<th:block layout:fragment="review_css"> 
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/litera/bootstrap.min.css" 
-			integrity="sha384-enpDwFISL6M3ZGZ50Tjo8m65q06uLVnyvkFO3rsoW0UC15ATBFz3QEhr3hmxpYsn" crossorigin="anonymous">
+		
 	</th:block>
 	
-	<main layout:fragment="content">
-	<!-- 커뮤니티 공통 상단 네비바 -->
-		<th:block th:replace="outlines/community_top::community_top"></th:block>
-		
-	<h3>공지사항</h3>
 	<!-- script -->
 		<script>
 			/* controller의 model에 보낸 값 바로 사용하기 */
@@ -22,5 +16,13 @@
 		<th:block layout:fragment="community_common">
 			<script type="text/javascript" src="/js/community_common.js"></script>
 		</th:block>	
+	
+	<!-- 메인시작 -->
+	<main layout:fragment="content">
+	<!-- 커뮤니티 공통 상단 네비바 -->
+		<th:block th:replace="outlines/community_top::community_top"></th:block>
+		
+	<h3>공지사항</h3>
+	
 	</main>
 </html>

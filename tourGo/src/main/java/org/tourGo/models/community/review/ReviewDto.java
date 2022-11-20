@@ -2,35 +2,79 @@ package org.tourGo.models.community.review;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.*;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-@Entity //클래스를 엔티티로 선언
-@Table(name="review_t") //엔티티와 매핑할 테이블을 지정
-@Getter
-@Setter
-@ToString
 public class ReviewDto {
 
-	@Id //=PK
-	@GeneratedValue(strategy=GenerationType.AUTO) //=AI
 	private int reviewNo;
-	@Column(nullable=false, length=45)
 	private String id;
-	@Column(nullable=false, length=100)
 	private String reviewTitle;
-	@Column(nullable=false, length=20)
 	private String region;
-	@Column(nullable=false, length=20)
 	private String period;
-	@Column(nullable=false)
 	private String reviewContent;
-	@Column(length=100)
 	private String image;
 	private LocalDateTime reviewRegDt;
-	@Column(columnDefinition="int default '0'")
 	private int reviewRead;
+	
+	public int getReviewNo() {
+		return reviewNo;
+	}
+	public void setReviewNo(int reviewNo) {
+		this.reviewNo = reviewNo;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getReviewTitle() {
+		return reviewTitle;
+	}
+	public void setReviewTitle(String reviewTitle) {
+		this.reviewTitle = reviewTitle;
+	}
+	public String getRegion() {
+		return region;
+	}
+	public void setRegion(String region) {
+		this.region = region;
+	}
+	public String getPeriod() {
+		return period;
+	}
+	public void setPeriod(String period) {
+		this.period = period;
+	}
+	public String getReviewContent() {
+		return reviewContent;
+	}
+	public void setReviewContent(String reviewContent) {
+		this.reviewContent = reviewContent;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	public LocalDateTime getReviewRegDt() {
+		return reviewRegDt;
+	}
+	public void setReviewRegDt(LocalDateTime reviewRegDt) {
+		this.reviewRegDt = reviewRegDt;
+	}
+	public int getReviewRead() {
+		return reviewRead;
+	}
+	public void setReviewRead(int reviewRead) {
+		this.reviewRead = reviewRead;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "ReviewDto [reviewNo=" + reviewNo + ", id=" + id + ", reviewTitle=" + reviewTitle + ", region=" + region
+				+ ", period=" + period + ", reviewContent=" + reviewContent + ", image=" + image + ", reviewRegDt="
+				+ reviewRegDt + ", reviewRead=" + reviewRead + "]";
+	}	
+	
 }

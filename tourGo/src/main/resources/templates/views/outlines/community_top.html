@@ -3,32 +3,10 @@
 	
 	<!-- 커뮤니티 공통 상단 네비바 -->
 	<th:block th:fragment="community_top">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-		  <div class="container-fluid">
-		    <div class="collapse navbar-collapse" id="navbarColor01">
-		      <ul class="navbar-nav me-auto">
-		        <li class="nav-item">		           
-		           <a class="nav-link" id="notice" th:href="@{/community/notice_main}" th:text="#{community.notice}">공지</a>
-		        </li>
-		        <li class="nav-item">
-		          <a class="nav-link" id="query" href="#" th:text="#{community.query}">문의</a>
-		        </li>
-		        <li class="nav-item">
-		          <a class="nav-link" id="review" th:href="@{/community/review_main}" th:text="#{community.review}">후기</a>
-		        </li>
-		        <!-- <li class="nav-item dropdown">
-		          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-		          <div class="dropdown-menu">
-		            <a class="dropdown-item" href="#">Action</a>
-		            <a class="dropdown-item" href="#">Another action</a>
-		            <a class="dropdown-item" href="#">Something else here</a>
-		            <div class="dropdown-divider"></div>
-		            <a class="dropdown-item" href="#">Separated link</a>
-		          </div>
-		        </li> -->
-		      </ul>
-		    </div>
-		  </div>
-		</nav>
+		<nav>
+			<a id="notice" th:href="@{/community/notice_main}" th:text="#{community.notice}">공지</a>
+			<a id="query" href="#" th:text="#{community.query}">문의</a>
+			<a id="review" th:href="@{/community/review_main}" th:text="#{community.review}">후기</a>
+		</nav>		
 	</th:block>
 </html>
