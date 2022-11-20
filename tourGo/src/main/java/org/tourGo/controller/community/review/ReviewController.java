@@ -21,11 +21,12 @@ public class ReviewController {
 	//여행후기 메인페이지
 	@GetMapping("/review_main")
 	public String index(Model model) {		
-		
+		//전체목록
 		List<ReviewRequest> lists = reviewService.getAllReviewList();	
+		int totalCount = lists.size(); //총 게시물 수
 		Map<String, Integer> pageMap = reviewService.paging();		
-		
 		model.addAttribute("lists", lists);
+		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("startPage", pageMap.get("startPage"));
 		model.addAttribute("endPage", pageMap.get("endPage"));
 		model.addAttribute("board", "review"); //여행후기 게시판임을 알림
@@ -39,10 +40,10 @@ public class ReviewController {
 		return "community/review/review_main";
 	}
 	
-	//제목 클릭시 후기읽기 페이지 이동
+	//제목 클릭시 후기읽기 페이지
 	@GetMapping("/review_read")
-	public String readReview(int reviewNo, Model model) {
-		ReviewRequest reviewRequest = reviewService.getOneReview(reviewNo);
+	public String readReview(@RequestParam int reviewNo, Model model) {
+		ReviewRequest reviewRequest = reviewService.getOneReviewList(reviewNo);
 		model.addAttribute("reviewRequest", reviewRequest);
 		return "community/review/review_read";
 	}

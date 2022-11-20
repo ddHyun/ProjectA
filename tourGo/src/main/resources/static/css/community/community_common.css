@@ -1,0 +1,17 @@
+html{
+	font-size: 16px;
+}
+.font3{
+	font-size: 3rem;
+}
+.content{
+	width: 960px;
+	border: 1px solid black;
+	margin: auto;
+}
+a{
+	text-decoration: none;
+}
+th, td{
+	border-bottom : 1px solid #808080;
+}

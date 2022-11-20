@@ -16,10 +16,9 @@ public class ReviewService {
 
 	@Autowired
 	private ReviewDao reviewDao;
-
-	// 여행후기 모든 목록 조회
-	public List<ReviewRequest> getAllReviewList() {
-		
+	
+	//(공통)전체목록 조회
+	private List<ReviewRequest> getReviewLists(){
 		List<ReviewDto> lists = reviewDao.getAllReviewList();
 		//DTO에 담긴 데이터를 커맨드객체로 옮기기
 		List<ReviewRequest> requestLists = new ArrayList<>(); 
@@ -27,7 +26,7 @@ public class ReviewService {
 			ReviewRequest request = new ReviewRequest();
 			request.setReviewNo(lists.get(i).getReviewNo());
 			request.setId(lists.get(i).getId());
-			request.setName(lists.get(i).getId());
+			request.setName(lists.get(i).getName());
 			request.setReviewTitle(lists.get(i).getReviewTitle());
 			request.setReviewRegDt(lists.get(i).getReviewRegDt());
 			request.setPeriod(lists.get(i).getPeriod());
@@ -35,8 +34,27 @@ public class ReviewService {
 			request.setReviewContent(lists.get(i).getReviewContent());
 			requestLists.add(request);
 		}
-
 		return requestLists;
+	}
+
+	// 여행후기 모든 목록 조회
+	public List<ReviewRequest> getAllReviewList() {		
+		
+		return getReviewLists();
+	}
+	
+	// 한 가지 목록 조회
+	public ReviewRequest getOneReviewList(int reviewNo) {
+		List<ReviewRequest> lists = getReviewLists();
+		
+		//전체목록 중 파라미터로 받은 reviewNo과 같은 결과만 결과로 보내기
+		int idxNum = 0;
+		for(int i=0; i< lists.size(); i++) {
+			if(lists.get(i).getReviewNo()==reviewNo) {
+				idxNum = i;
+			}
+		}
+		return lists.get(idxNum);
 	}
 
 	// 페이징
@@ -70,25 +88,6 @@ public class ReviewService {
 		pageMap.put("endPage", endPage);
 
 		return pageMap;
-	}
-
-	
-	 //글번호로 내용조회 
-	public ReviewRequest getOneReview(int reviewNo) { 
-	
-		ReviewDto reviewDto = reviewDao.getOneReview(reviewNo);
-		ReviewRequest request = new ReviewRequest();
-		request.setReviewNo(reviewDto.getReviewNo());
-		request.setId(reviewDto.getId());
-		request.setName(reviewDto.getId());
-		request.setReviewTitle(reviewDto.getReviewTitle());
-		request.setReviewRegDt(reviewDto.getReviewRegDt());
-		request.setPeriod(reviewDto.getPeriod());
-		request.setRegion(reviewDto.getRegion());
-		request.setReviewContent(reviewDto.getReviewContent());
-		
-		return request;
-	}
-	 
+	}	 
 
 }

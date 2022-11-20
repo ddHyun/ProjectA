@@ -6,6 +6,7 @@ public class ReviewDto {
 
 	private int reviewNo;
 	private String id;
+	private String name;//테이블 컬럼이 없어도 rowMapping해줄 때 유의하면 변수 사용 가능
 	private String reviewTitle;
 	private String region;
 	private String period;
@@ -25,6 +26,12 @@ public class ReviewDto {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getReviewTitle() {
 		return reviewTitle;
@@ -72,9 +79,9 @@ public class ReviewDto {
 	
 	@Override
 	public String toString() {
-		return "ReviewDto [reviewNo=" + reviewNo + ", id=" + id + ", reviewTitle=" + reviewTitle + ", region=" + region
-				+ ", period=" + period + ", reviewContent=" + reviewContent + ", image=" + image + ", reviewRegDt="
-				+ reviewRegDt + ", reviewRead=" + reviewRead + "]";
+		return "ReviewDto [reviewNo=" + reviewNo + ", id=" + id + ", name=" + name + ", reviewTitle=" + reviewTitle
+				+ ", region=" + region + ", period=" + period + ", reviewContent=" + reviewContent + ", image=" + image
+				+ ", reviewRegDt=" + reviewRegDt + ", reviewRead=" + reviewRead + "]";
 	}	
 	
 }

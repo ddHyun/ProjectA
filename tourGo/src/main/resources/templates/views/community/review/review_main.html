@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-		layout:decorate="~{layouts/main}">
+		layout:decorate="~{layouts/main}">	
 	
 	<!-- css -->
-	<th:block layout:fragment="review_css"> 
-		
+	<th:block layout:fragment="community_css"> 
+		<link rel="stylesheet" type="text/css" th:href="@{/css/community/community_common.css}">
 	</th:block>
 	
 	<!-- script -->
-		<script>
-			/* controller의 model에 보낸 값 바로 사용하기 */
-			let board='[[${board}]]';
-		</script>		
-		<th:block layout:fragment="community_common">
-			<script type="text/javascript" src="/js/community_common.js"></script>
-		</th:block>	
-	
+	<script>
+		/* controller의 model에 보낸 값 바로 사용하기 */
+		let board='[[${board}]]';
+	</script>		
+	<th:block layout:fragment="community_common">
+		<script type="text/javascript" src="/js/community_common.js"></script>
+	</th:block>	
+		
 	<!-- 메인시작 -->
-	<main layout:fragment="content">
+	<main layout:fragment="content" class="content">
 		<!-- 커뮤니티 공통 상단 네비바 -->
 		<th:block th:replace="outlines/community_top::community_top"></th:block>
 		<!-- 게시판명 -->
-		<div th:text="#{community.review}"></div>
+		<div class="font3" th:text="#{community.review}"></div>
 		<!-- 여행지 검색 -->
 		<div>
-			<div>총건수/페이지</div>
+			<span>[총건수 : <span th:text="${totalCount}"></span>/페이지]</span>
 			<form method="get" th:action="@{/community/review_search}">
 				<input type="text" placeholder="여행지 검색" name="search">
 				<button type="submit" th:text="#{review.search}"></button>
