@@ -24,12 +24,18 @@ public class ReviewController {
 		//전체목록
 		List<ReviewRequest> lists = reviewService.getAllReviewList();	
 		int totalCount = lists.size(); //총 게시물 수
-		Map<String, Integer> pageMap = reviewService.paging();		
+		String[] addCss = {"community/community_common"}; //추가할 css 경로
+		String[] addScript = {"community_common"}; //추가할 js 경로
+		Map<String, Integer> pageMap = reviewService.paging();	
+		
 		model.addAttribute("lists", lists);
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("startPage", pageMap.get("startPage"));
 		model.addAttribute("endPage", pageMap.get("endPage"));
 		model.addAttribute("board", "review"); //여행후기 게시판임을 알림
+		model.addAttribute("addCss", addCss); //css추가
+		model.addAttribute("addScript", addScript); //js추가
+
 		return "community/review/review_main";
 	}
 	
@@ -37,6 +43,8 @@ public class ReviewController {
 	@GetMapping("/review_search")
 	public String searchRegion(@RequestParam String search, Model model) {
 		model.addAttribute("search", search);
+		model.addAttribute("addCss", new String[] {"community/community_common"});
+		model.addAttribute("addScript", new String[] { "community_common"} );
 		return "community/review/review_main";
 	}
 	
@@ -45,6 +53,8 @@ public class ReviewController {
 	public String readReview(@RequestParam int reviewNo, Model model) {
 		ReviewRequest reviewRequest = reviewService.getOneReviewList(reviewNo);
 		model.addAttribute("reviewRequest", reviewRequest);
+		model.addAttribute("addCss", new String[] {"community/community_common"});
+		model.addAttribute("addScript", new String[] { "community_common"} );
 		return "community/review/review_read";
 	}
 }

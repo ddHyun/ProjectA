@@ -1,11 +1,16 @@
+*{
+	margin: 0; padding: 0;
+}
 html{
 	font-size: 16px;
+	background-color: #f0f8ff;
 }
 .font3{
 	font-size: 3rem;
 }
-.content{
-	width: 960px;
+main.content{
+	width: 980px;
+	background-color: #fff;
 	border: 1px solid black;
 	margin: auto;
 }
@@ -14,4 +19,11 @@ a{
 }
 th, td{
 	border-bottom : 1px solid #808080;
+}
+.wrap{
+	width: 100%;
+	padding: 10px;
+}
+.top_nav a{
+	width: 33.33333333%;
 }
