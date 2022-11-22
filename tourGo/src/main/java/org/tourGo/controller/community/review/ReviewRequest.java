@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ReviewRequest {
 
 	private int reviewNo; 		//글번호
+	private String id;			//아이디
 	private String name;		//작성자
 	private String reviewTitle;	//제목
 	private String region;		//여행지
@@ -25,6 +26,14 @@ public class ReviewRequest {
 
 	public void setReviewNo(int reviewNo) {
 		this.reviewNo = reviewNo;
+	}	
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {

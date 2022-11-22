@@ -3,12 +3,38 @@
 		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 		layout:decorate="~{layouts/main}">
 	
-	<main layout:fragment="content">
+	<main layout:fragment="content" class="content">
+		<input type="hidden" id="board" value="${board}">
 		<!-- 커뮤니티 공통 상단 네비바 -->
 		<th:block th:replace="outlines/community_top::community_top"></th:block>
 		
+		<!-- 후기 내용 -->
 		<div>
-			<h3 th:text="${reviewNo}"></h3>
+			<table th:object="${reviewRequest}">
+				<tr>
+					<td th:text="*{reviewTitle}"></td>
+				</tr>
+				<tr>
+					<th th:text="#{common.region}"></th>
+					<td th:text="*{region}"></td>
+					<th th:text="#{review.period}"></th>
+					<td th:text="*{period}"></td>
+				</tr>
+				<tr>
+					<td th:text="*{name}"></td>
+					<td th:text="*{#temporals.format(reviewRegDt, 'yyyy-MM-dd HH:mm')}"></td>
+				</tr>
+				<tr>
+					<td th:text="*{reviewContent}"></td>
+				</tr>
+			</table>
+		</div>
+		<!-- 목록으로 돌아가기 -->
+		<div>
+			<button th:onclick="|location.href='@{/community/review_main}'|" 
+			type="button" th:text="#{community.list}"></button>
+			<button type="button" th:text="#{community.modify}">수정</button>
+			<button type="button" th:text="#{community.delete}">삭제</button>
 		</div>
 	</main>
 </html>
