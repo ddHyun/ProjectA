@@ -11,6 +11,10 @@ public class PlannerController {
 	public String plannerDetails() {
 		return "plan/planDetails";
 	}
+	@GetMapping("/makeplan")
+	public String makePlan() {
+		return "plan/makePlan";
+	}
 		
 		
 }
