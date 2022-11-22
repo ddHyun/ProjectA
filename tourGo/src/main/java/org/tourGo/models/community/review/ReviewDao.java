@@ -40,4 +40,7 @@ public class ReviewDao {
 		}
 	}	
 	
+	//검색어로 조회
+	
+	
 }

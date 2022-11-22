@@ -11,9 +11,8 @@
 		<!-- 게시판명 -->
 		<div class="wrap font3 centerW marginTop30" th:text="#{community.review}"></div>
 		<!-- 여행지 검색 -->
-		<div class="wrap">
+		<div class="wrap search">
 			<form method="get" th:action="@{/community/review_search}">
-			<span>[총건수 : <span th:text="${totalCount}"></span>/페이지]</span>
 				<input type="text" placeholder="여행지 검색" name="search">
 				<button type="submit" th:text="#{review.search}"></button>
 			</form>
@@ -51,9 +50,8 @@
 			</table>
 		</div>
 		<div class="wrap">
-			<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-				<a th:href="@{/community/review_main?pageSize=10&page={replace}(replace=${page})}" 
-					th:text="${page}"></a>
+			<th:block th:each="page : ${#numbers.sequence(1, pageMap.endPage)}">
+				<a href="?page=${page}" th:text="${page}"></a>
 			</th:block>
 			<button type="submit" th:text="#{review.write}"></button>
 		</div>
