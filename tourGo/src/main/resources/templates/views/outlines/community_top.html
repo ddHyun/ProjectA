@@ -3,6 +3,9 @@
 	
 	<!-- 커뮤니티 공통 상단 네비바 -->
 	<th:block th:fragment="community_top">
+		<div class="wide">
+			<img class="wideImg" th:src="@{/images/img.jpg}" alt="세계 자연유산 제주도">
+		</div>
 		<div class="wrap">
 			<nav class="top_nav font2 centerW">
 				<a id="notice" th:href="@{/community/notice_main}" th:text="#{community.notice}">공지</a>

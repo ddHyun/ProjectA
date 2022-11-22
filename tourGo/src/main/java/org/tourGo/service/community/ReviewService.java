@@ -56,6 +56,12 @@ public class ReviewService {
 		}
 		return lists.get(idxNum);
 	}
+	
+	// 검색어로 조회
+	public List<ReviewRequest> searchList(String search){
+		//List<ReviewRequest> 
+		return null;
+	}
 
 	// 페이징
 	public Map<String, Integer> paging() {

@@ -42,16 +42,12 @@ public class ReviewController {
 	public String index(Model model) {		
 		//전체목록
 		List<ReviewRequest> lists = reviewService.getAllReviewList();	
-		//총 게시물 수
-		int totalCount = lists.size(); 
 		//css, js 추가
 		Map<String, String[]> pathMap = getFileLists();
-		Map<String, Integer> pageMap = reviewService.paging();	
+		Map<String, Integer> pageMap = reviewService.paging();
 		
 		model.addAttribute("lists", lists);
-		model.addAttribute("totalCount", totalCount);
-		model.addAttribute("startPage", pageMap.get("startPage"));
-		model.addAttribute("endPage", pageMap.get("endPage"));
+		model.addAttribute("pageMap", pageMap);
 		model.addAttribute("board", "review"); //여행후기 게시판임을 알림
 		model.addAttribute("addCss", pathMap.get("addCss")); //css추가
 		model.addAttribute("addScript", pathMap.get("addScript")); //js추가
