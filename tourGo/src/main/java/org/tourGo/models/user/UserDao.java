@@ -14,9 +14,9 @@ public class UserDao {
 							"VALUES(?, ?, ? ,? ,?, ?, ?)";
 		
 		int affectedRows = jdbcTemplate.update(sql, 
-																user.getuId(),
-																user.getuPw(),
-																user.getuNm(),
+																user.getUId(),
+																user.getUPw(),
+																user.getUNm(),
 																user.getBirth(),
 																user.getEmail(),
 																user.getMobile());

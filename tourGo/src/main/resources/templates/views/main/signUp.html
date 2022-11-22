@@ -3,9 +3,107 @@
 		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 		>
 	<head>
-	
+		<link rel="stylesheet" type="text/css" th:href="@{/css/main/sign.css}">
 	</head>
 	<body>
-		회원가입
+		<form>
+			<div>회원가입</div>
+				<div id="sign_form" class="form_01">
+					<h3>
+						기본정보
+						<span class="req">
+							필수입력사항
+						</span>
+					</h3>
+					<div class="regi_table">
+						<table>
+							<tr>
+								<th scope="row">
+									<label for="reg_u_id" class="req">
+										"아이디"
+									</label>
+								</th>
+								<td>
+									<input type="text" name="uId" >
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">
+									<label for="reg_u_pw" class="req">
+										"비밀번호"
+									</label>
+								</th>
+								<td>
+									<input type="text" name="uPw" >
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">
+									<label for="reg_u_pw_re" class="req">
+										"비밀번호 확인"
+									</label>
+								</th>
+								<td>
+									<input type="text" name="uPwRe" >
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">
+									<label for="reg_u_nm" class="req">
+										"이름"
+									</label>
+								</th>
+								<td>
+									<input type="text" name="uNm" >
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">
+									<label for="reg_birth" class="req">
+										"생년월일"
+									</label>
+								</th>
+								<td>
+									<input type="text" name="birth" >
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">
+									<label for="reg_email" class="req">
+										"이메일"
+									</label>
+								</th>
+								<td>
+									<input type="text" name="email" >
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">
+									<label for="reg_mobile" class="req">
+										"휴대전화"
+									</label>
+								</th>
+								<td>
+									<input type="text" name="mobile" >
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">
+									<label for="reg_u_id">
+										"자기소개"
+									</label>
+								</th>
+								<td>
+									<textarea rows="5" cols="8"></textarea>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="btn_confirm">
+						<button th:onclick="'location.href=\'' + @{/main/login} + '\''" type="button">취소</button>
+						<button th:onclick="'location.href=\'' + @{/main/login} + '\''" type="submit">확인</button>
+					</div>
+				</div>
+		</form>
 	</body>
 </html>

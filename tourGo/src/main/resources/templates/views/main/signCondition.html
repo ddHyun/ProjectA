@@ -3,7 +3,7 @@
 		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 		>
 	<head>
-	
+		
 	</head>
 	<body>
 		<div>회원 가입</div>
@@ -36,8 +36,8 @@
 				<input type="checkbox" id="checkAll" name="checkAll"> 위의 이용약관 및 개인정보 수집 및 이용에 대한 안내에 동의합니다.
 			</div>
 			<div>
-				<button th:onclick="'location.href=\'' + @{/main/signUp} + '\''" type="submit">확인</button>
 				<button th:onclick="'location.href=\'' + @{/main/login} + '\''" type="button">취소</button>
+				<button th:onclick="'location.href=\'' + @{/main/signUp} + '\''" type="submit">확인</button>
 			</div>
 		</form>
 	</body>
