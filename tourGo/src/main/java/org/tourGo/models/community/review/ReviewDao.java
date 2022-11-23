@@ -3,6 +3,7 @@ package org.tourGo.models.community.review;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -41,6 +42,24 @@ public class ReviewDao {
 	}	
 	
 	//검색어로 조회
+	public List<ReviewDto> searchList(String search){
+		try {
+			String sql = "SELECT r.*, u.name FROM review_t r LEFT JOIN user_t u ON u.id=r.id WHERE region LIKE ?";
+			List<ReviewDto> lists = jdbcTemplate.query(sql, rowMapper, search);
+			
+			return lists;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}		
+	}
 	
+	// 한 가지 목록 조회
+	public ReviewDto getOneReviewList(int reviewNo) {
+		String sql = "SELECT r.*, u.name FROM review_t r LEFT JOIN user_t u on r.id=u.id WHERE r.reviewNo=?";
+		ReviewDto list = jdbcTemplate.queryForObject(sql, rowMapper, reviewNo);
+		
+		return list;
+	}
 	
 }

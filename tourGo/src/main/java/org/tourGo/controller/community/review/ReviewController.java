@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.tourGo.service.community.ReviewService;
 
 @Controller
@@ -57,10 +58,12 @@ public class ReviewController {
 	
 	//여행지 검색어로 조회하기
 	@GetMapping("/review_search")
-	public String searchRegion(@RequestParam String search, Model model) {
-		model.addAttribute("search", search);
-		
-		return "community/review/review_main";
+	public String searchRegion(String search, Model model, RedirectAttributes red) {
+		List<ReviewRequest> searchLists = reviewService.searchList(search);
+		model.addAttribute("searchLists", searchLists);
+		red.addFlashAttribute("searchLists", searchLists);
+		System.out.println("=================searchLists : "+searchLists);
+		return "redirect:/community/review_main";
 	}
 	
 	//제목 클릭시 후기읽기 페이지

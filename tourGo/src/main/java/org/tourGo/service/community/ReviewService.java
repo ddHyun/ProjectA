@@ -17,21 +17,21 @@ public class ReviewService {
 	@Autowired
 	private ReviewDao reviewDao;
 	
-	//(공통)전체목록 조회
-	private List<ReviewRequest> getReviewLists(){
-		List<ReviewDto> lists = reviewDao.getAllReviewList();
+	//(공통)List타입 목록 조회
+	private List<ReviewRequest> getRequestLists(List<ReviewDto> dtoLists){
 		//DTO에 담긴 데이터를 커맨드객체로 옮기기
 		List<ReviewRequest> requestLists = new ArrayList<>(); 
-		for(int i=lists.size()-1; i>=0; i--) {
+		for(int i=dtoLists.size()-1; i>=0; i--) {
 			ReviewRequest request = new ReviewRequest();
-			request.setReviewNo(lists.get(i).getReviewNo());
-			request.setId(lists.get(i).getId());
-			request.setName(lists.get(i).getName());
-			request.setReviewTitle(lists.get(i).getReviewTitle());
-			request.setReviewRegDt(lists.get(i).getReviewRegDt());
-			request.setPeriod(lists.get(i).getPeriod());
-			request.setRegion(lists.get(i).getRegion());
-			request.setReviewContent(lists.get(i).getReviewContent());
+			request.setReviewNo(dtoLists.get(i).getReviewNo());
+			request.setId(dtoLists.get(i).getId());
+			request.setName(dtoLists.get(i).getName());
+			request.setReviewTitle(dtoLists.get(i).getReviewTitle());
+			request.setReviewRegDt(dtoLists.get(i).getReviewRegDt());
+			request.setPeriod(dtoLists.get(i).getPeriod());
+			request.setRegion(dtoLists.get(i).getRegion());
+			request.setReviewContent(dtoLists.get(i).getReviewContent());
+			request.setRead(dtoLists.get(i).getReviewRead());
 			requestLists.add(request);
 		}
 		return requestLists;
@@ -39,28 +39,34 @@ public class ReviewService {
 
 	// 여행후기 모든 목록 조회
 	public List<ReviewRequest> getAllReviewList() {		
-		
-		return getReviewLists();
+		List<ReviewDto> dtoLists = reviewDao.getAllReviewList();
+		List<ReviewRequest> requestLists = getRequestLists(dtoLists);
+		return requestLists;
 	}
 	
 	// 한 가지 목록 조회
 	public ReviewRequest getOneReviewList(int reviewNo) {
-		List<ReviewRequest> lists = getReviewLists();
+		ReviewDto list = reviewDao.getOneReviewList(reviewNo);
+		ReviewRequest requestList = new ReviewRequest();
+		requestList.setReviewNo(list.getReviewNo());
+		requestList.setId(list.getId());
+		requestList.setName(list.getName());
+		requestList.setReviewTitle(list.getReviewTitle());
+		requestList.setReviewContent(list.getReviewContent());
+		requestList.setPeriod(list.getPeriod());
+		requestList.setRegion(list.getRegion());
+		requestList.setImage(list.getImage());
+		requestList.setReviewRegDt(list.getReviewRegDt());
+		requestList.setRead(list.getReviewRead());
 		
-		//전체목록 중 파라미터로 받은 reviewNo과 같은 결과만 결과로 보내기
-		int idxNum = 0;
-		for(int i=0; i< lists.size(); i++) {
-			if(lists.get(i).getReviewNo()==reviewNo) {
-				idxNum = i;
-			}
-		}
-		return lists.get(idxNum);
+		return requestList;
 	}
 	
 	// 검색어로 조회
 	public List<ReviewRequest> searchList(String search){
-		//List<ReviewRequest> 
-		return null;
+		List<ReviewDto> dtoLists = reviewDao.searchList(search);
+		List<ReviewRequest> requestLists = getRequestLists(dtoLists);
+		return requestLists;
 	}
 
 	// 페이징

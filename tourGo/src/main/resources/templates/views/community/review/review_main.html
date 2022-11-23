@@ -32,11 +32,22 @@
 				</tr>
 				
 				<!-- 후기조회 결과가 없을 경우 -->
-				<th:block th:if="${lists==null}"></th:block>
-				
+				<th:block th:if="${lists==null or searchLists==null}"></th:block>
 				<!-- 후기조회 결과가 있을 경우 -->
-				<th:block th:unless="${lists==null}">
+				<th:block th:if="${lists!=null and searchLists==null}">
 					<tr th:each="list, status:${lists}" th:object="${list}">
+						<td th:text="${status.size-status.index}">글번호</td>
+						<td><a th:href="@{/community/review_read/{replace}(replace=*{reviewNo})}" 
+							th:text="*{reviewTitle}">제목</a></td>
+						<td th:text="*{region}">여행지</td>
+						<td th:text="*{period}">기간</td>
+						<td th:text="*{name}">작성자</td>
+						<td th:text="*{#temporals.format(reviewRegDt,'yyyy-MM-dd HH:mm')}">작성일</td>
+						<td th:text="*{read}">조회수</td>
+					</tr>
+				</th:block>
+				<th:block th:if="${lists!=null and searchLists!=null}">
+					<tr th:each="list, status:${searchLists}" th:object="${list}">
 						<td th:text="${status.size-status.index}">글번호</td>
 						<td><a th:href="@{/community/review_read/{replace}(replace=*{reviewNo})}" 
 							th:text="*{reviewTitle}">제목</a></td>

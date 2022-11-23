@@ -2,11 +2,13 @@ package org.tourGo.models.community.review;
 
 import java.time.LocalDateTime;
 
+import org.tourGo.controller.community.review.ReviewRequest;
+
 public class ReviewDto {
 
 	private int reviewNo;
 	private String id;
-	private String name;//테이블 컬럼이 없어도 rowMapping해줄 때 유의하면 변수 사용 가능
+	private String name; //outer join으로 테이블 병합 결과 필요
 	private String reviewTitle;
 	private String region;
 	private String period;
@@ -83,5 +85,6 @@ public class ReviewDto {
 				+ ", region=" + region + ", period=" + period + ", reviewContent=" + reviewContent + ", image=" + image
 				+ ", reviewRegDt=" + reviewRegDt + ", reviewRead=" + reviewRead + "]";
 	}	
+	
 	
 }
