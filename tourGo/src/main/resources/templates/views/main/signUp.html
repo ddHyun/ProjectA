@@ -6,7 +6,7 @@
 		<link rel="stylesheet" type="text/css" th:href="@{/css/main/sign.css}">
 	</head>
 	<body>
-		<form>
+		<form method="POST" th:action="@{/main/signUp}" th:object="${signRequest}">
 			<div>회원가입</div>
 				<div id="sign_form" class="form_01">
 					<h3>
@@ -24,7 +24,7 @@
 									</label>
 								</th>
 								<td>
-									<input type="text" name="uId" >
+									<input type="text" name="userId" th:field="*{userId}">
 								</td>
 							</tr>
 							<tr>
@@ -34,7 +34,7 @@
 									</label>
 								</th>
 								<td>
-									<input type="text" name="uPw" >
+									<input type="password" name="userPw" th:field="*{userPw}">
 								</td>
 							</tr>
 							<tr>
@@ -44,7 +44,7 @@
 									</label>
 								</th>
 								<td>
-									<input type="text" name="uPwRe" >
+									<input type="password" name="userPwRe">
 								</td>
 							</tr>
 							<tr>
@@ -54,7 +54,7 @@
 									</label>
 								</th>
 								<td>
-									<input type="text" name="uNm" >
+									<input type="text" name="userNm" th:field="*{userNm}">
 								</td>
 							</tr>
 							<tr>
@@ -64,7 +64,7 @@
 									</label>
 								</th>
 								<td>
-									<input type="text" name="birth" >
+									<input type="text" name="birth" th:field="*{birth}">
 								</td>
 							</tr>
 							<tr>
@@ -74,7 +74,7 @@
 									</label>
 								</th>
 								<td>
-									<input type="text" name="email" >
+									<input type="text" name="email" th:field="*{email}">
 								</td>
 							</tr>
 							<tr>
@@ -84,7 +84,7 @@
 									</label>
 								</th>
 								<td>
-									<input type="text" name="mobile" >
+									<input type="text" name="mobile" th:field="*{mobile}">
 								</td>
 							</tr>
 							<tr>
@@ -94,14 +94,14 @@
 									</label>
 								</th>
 								<td>
-									<textarea rows="5" cols="8"></textarea>
+									<textarea rows="5" cols="8" name="intro" th:field="*{intro}"></textarea>
 								</td>
 							</tr>
 						</table>
 					</div>
 					<div class="btn_confirm">
 						<button th:onclick="'location.href=\'' + @{/main/login} + '\''" type="button">취소</button>
-						<button th:onclick="'location.href=\'' + @{/main/login} + '\''" type="submit">확인</button>
+						<button type="submit">확인</button>
 					</div>
 				</div>
 		</form>

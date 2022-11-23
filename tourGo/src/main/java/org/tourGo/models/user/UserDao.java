@@ -9,17 +9,18 @@ public class UserDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	public boolean register(UserDto user) {
+	public boolean register(User user) {
 		String sql = "INSERT INTO user(userId, userPw, userNm, birth, email, mobile, intro) " +
 							"VALUES(?, ?, ? ,? ,?, ?, ?)";
 		
 		int affectedRows = jdbcTemplate.update(sql, 
-																user.getUId(),
-																user.getUPw(),
-																user.getUNm(),
+																user.getUserId(),
+																user.getUserPw(),
+																user.getUserNm(),
 																user.getBirth(),
 																user.getEmail(),
-																user.getMobile());
+																user.getMobile(),
+																user.getIntro());
 		
 		return affectedRows > 0;
 	}
