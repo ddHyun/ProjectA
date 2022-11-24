@@ -1,5 +1,6 @@
 package org.tourGo.service.community;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,12 +11,22 @@ import org.springframework.stereotype.Service;
 import org.tourGo.controller.community.review.ReviewRequest;
 import org.tourGo.models.community.review.ReviewDao;
 import org.tourGo.models.community.review.ReviewDto;
+import org.tourGo.models.community.review.ReviewEntity;
+import org.tourGo.models.community.review.ReviewEntityRepository;
+import org.tourGo.models.community.review.UserTestRepository;
+import org.tourGo.models.community.review.User_test;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor //final붙은 필드에 대해 생성자 생성해줌. -> @Autowired 필요X
 public class ReviewService {
 
 	@Autowired
 	private ReviewDao reviewDao;
+	
+	private final ReviewEntityRepository rRepository;
+	private final UserTestRepository uRepository;
 	
 	//(공통)List타입 목록 조회
 	private List<ReviewRequest> getRequestLists(List<ReviewDto> dtoLists){
@@ -27,11 +38,11 @@ public class ReviewService {
 			request.setId(dtoLists.get(i).getId());
 			request.setName(dtoLists.get(i).getName());
 			request.setReviewTitle(dtoLists.get(i).getReviewTitle());
-			request.setReviewRegDt(dtoLists.get(i).getReviewRegDt());
+			request.setRegDt(dtoLists.get(i).getRegDt());
 			request.setPeriod(dtoLists.get(i).getPeriod());
 			request.setRegion(dtoLists.get(i).getRegion());
 			request.setReviewContent(dtoLists.get(i).getReviewContent());
-			request.setRead(dtoLists.get(i).getReviewRead());
+			request.setReviewRead(dtoLists.get(i).getReviewRead());
 			requestLists.add(request);
 		}
 		return requestLists;
@@ -39,26 +50,50 @@ public class ReviewService {
 
 	// 여행후기 모든 목록 조회
 	public List<ReviewRequest> getAllReviewList() {		
-		List<ReviewDto> dtoLists = reviewDao.getAllReviewList();
-		List<ReviewRequest> requestLists = getRequestLists(dtoLists);
-		return requestLists;
+		
+		User_test user1 = new User_test();
+		user1.setId("user02");
+		user1.setName("사용자02");
+		uRepository.save(user1);
+		
+		ReviewEntity entity = new ReviewEntity();
+		entity.setUser_test(user1);
+		entity.setPeriod("2박3일");
+		entity.setRegion("부산");
+		entity.setReviewContent("부산 최고");
+		entity.setReviewTitle("굿여행");
+		
+		rRepository.save(entity);
+		List<ReviewEntity> lists = rRepository.findAll();
+		List<ReviewDto> dtoLists = new ArrayList<>();
+		
+		//entity -> dto
+		for(ReviewEntity reviewEntity : lists) {
+			ReviewDto reviewDto = ReviewDto.toDto(reviewEntity);
+			dtoLists.add(reviewDto);
+		}
+		
+		List<ReviewRequest> requestLists = new ArrayList<>();
+		if(dtoLists.size() > 0) {
+			//dto -> 커맨드객체
+			for(ReviewDto reviewDto : dtoLists) {
+				ReviewRequest reviewRequest = ReviewRequest.toRequest(reviewDto);
+				requestLists.add(reviewRequest);
+			}
+			return requestLists;
+		}else {
+			return null;
+		}
+		
 	}
 	
 	// 한 가지 목록 조회
 	public ReviewRequest getOneReviewList(int reviewNo) {
-		ReviewDto list = reviewDao.getOneReviewList(reviewNo);
-		ReviewRequest requestList = new ReviewRequest();
-		requestList.setReviewNo(list.getReviewNo());
-		requestList.setId(list.getId());
-		requestList.setName(list.getName());
-		requestList.setReviewTitle(list.getReviewTitle());
-		requestList.setReviewContent(list.getReviewContent());
-		requestList.setPeriod(list.getPeriod());
-		requestList.setRegion(list.getRegion());
-		requestList.setImage(list.getImage());
-		requestList.setReviewRegDt(list.getReviewRegDt());
-		requestList.setRead(list.getReviewRead());
-		
+		//entity -> dto -> request
+		ReviewEntity entityList = rRepository.findByReviewNo(reviewNo);
+		ReviewDto dtoList = ReviewDto.toDto(entityList);
+		ReviewRequest requestList = ReviewRequest.toRequest(dtoList); 	
+
 		return requestList;
 	}
 	

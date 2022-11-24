@@ -12,7 +12,7 @@
 		<div class="wrap font3 centerW marginTop30" th:text="#{community.review}"></div>
 		<!-- 여행지 검색 -->
 		<div class="wrap search">
-			<form method="get" th:action="@{/community/review_search}">
+			<form method="get" th:action="@{/community/review_main}">
 				<input type="text" placeholder="여행지 검색" name="search">
 				<button type="submit" th:text="#{review.search}"></button>
 			</form>
@@ -20,44 +20,33 @@
 		
 		<!-- 여행후기(테이블) -->
 		<div class="wrap centerW">
-			<table class="communityT marginAuto">				
-				<tr>
-					<th th:text="#{review.index}">글번호</th>
-					<th th:text="#{review.reviewTitle}">제목</th>
-					<th th:text="#{common.region}">여행지</th>
-					<th th:text="#{review.period}">기간</th>
-					<th th:text="#{common.userName}">작성자</th>
-					<th th:text="#{review.reviewRegDt}">작성일</th>
-					<th th:text="#{review.read}">조회수</th>
-				</tr>
-				
-				<!-- 후기조회 결과가 없을 경우 -->
-				<th:block th:if="${lists==null or searchLists==null}"></th:block>
-				<!-- 후기조회 결과가 있을 경우 -->
-				<th:block th:if="${lists!=null and searchLists==null}">
-					<tr th:each="list, status:${lists}" th:object="${list}">
-						<td th:text="${status.size-status.index}">글번호</td>
-						<td><a th:href="@{/community/review_read/{replace}(replace=*{reviewNo})}" 
-							th:text="*{reviewTitle}">제목</a></td>
-						<td th:text="*{region}">여행지</td>
-						<td th:text="*{period}">기간</td>
-						<td th:text="*{name}">작성자</td>
-						<td th:text="*{#temporals.format(reviewRegDt,'yyyy-MM-dd HH:mm')}">작성일</td>
-						<td th:text="*{read}">조회수</td>
+			<table class="communityT marginAuto">
+				<thead>				
+					<tr>
+						<th th:text="#{review.index}">글번호</th>
+						<th th:text="#{review.reviewTitle}">제목</th>
+						<th th:text="#{common.region}">여행지</th>
+						<th th:text="#{review.period}">기간</th>
+						<th th:text="#{common.userName}">작성자</th>
+						<th th:text="#{community.regDt}">작성일</th>
+						<th th:text="#{review.reviewRead}">조회수</th>
 					</tr>
-				</th:block>
-				<th:block th:if="${lists!=null and searchLists!=null}">
-					<tr th:each="list, status:${searchLists}" th:object="${list}">
-						<td th:text="${status.size-status.index}">글번호</td>
-						<td><a th:href="@{/community/review_read/{replace}(replace=*{reviewNo})}" 
-							th:text="*{reviewTitle}">제목</a></td>
-						<td th:text="*{region}">여행지</td>
-						<td th:text="*{period}">기간</td>
-						<td th:text="*{name}">작성자</td>
-						<td th:text="*{#temporals.format(reviewRegDt,'yyyy-MM-dd HH:mm')}">작성일</td>
-						<td th:text="*{read}">조회수</td>
-					</tr>
-				</th:block>
+				</thead>
+				<tbody>
+					<th:block>
+						<tr th:each="list, status:${lists}" th:object="${list}">
+							<td th:text="${status.size-status.index}">글번호</td>
+							<!-- <td><a th:href="@{/community/review_read?search={search}&No={no}(search=${session.s_search},no=*{reviewNo})}" --> 
+ 							<td><a th:href="@{/community/review_read/{reviewNo}(reviewNo=*{reviewNo})}" 
+								th:text="*{reviewTitle}">제목</a></td>
+							<td th:text="*{region}">여행지</td>
+							<td th:text="*{period}">기간</td>
+							<td th:text="*{name}">작성자</td>
+							<td th:text="*{#temporals.format(regDt,'yyyy-MM-dd HH:mm')}">작성일</td>
+							<td th:text="*{reviewRead}">조회수</td>
+						</tr>
+					</th:block>
+				</tbody>
 			</table>
 		</div>
 		<div class="wrap">

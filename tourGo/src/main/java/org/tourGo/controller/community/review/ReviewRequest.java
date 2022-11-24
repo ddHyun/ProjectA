@@ -3,7 +3,11 @@ package org.tourGo.controller.community.review;
 import java.time.LocalDateTime;
 
 import org.springframework.web.multipart.MultipartFile;
+import org.tourGo.models.community.review.ReviewDto;
 
+import lombok.*;
+
+@Getter @Setter
 public class ReviewRequest {
 
 	private int reviewNo; 		//글번호
@@ -13,106 +17,28 @@ public class ReviewRequest {
 	private String region;		//여행지
 	private String period;		//기간
 	private String reviewContent;	//내용
-	private String image;		//사진파일명
-	private LocalDateTime reviewRegDt;	//작성일
-	private int read;			//조회수
+	private String fileName;		//사진파일명
+	private LocalDateTime regDt;	//작성일
+	private LocalDateTime modDt;	//수정일
+	private int reviewRead;			//조회수
 	
-	private MultipartFile imageFile;	//실제파일
-
+	private MultipartFile imageFile;	//실제파일	
 	
-	public int getReviewNo() {
-		return reviewNo;
-	}
-
-	public void setReviewNo(int reviewNo) {
-		this.reviewNo = reviewNo;
-	}	
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getReviewTitle() {
-		return reviewTitle;
-	}
-
-	public void setReviewTitle(String reviewTitle) {
-		this.reviewTitle = reviewTitle;
-	}
-
-	public String getRegion() {
-		return region;
-	}
-
-	public void setRegion(String region) {
-		this.region = region;
-	}
-
-	public String getPeriod() {
-		return period;
-	}
-
-	public void setPeriod(String period) {
-		this.period = period;
-	}
-
-	public String getReviewContent() {
-		return reviewContent;
-	}
-
-	public void setReviewContent(String reviewContent) {
-		this.reviewContent = reviewContent;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
-	public LocalDateTime getReviewRegDt() {
-		return reviewRegDt;
-	}
-
-	public void setReviewRegDt(LocalDateTime reviewRegDt) {
-		this.reviewRegDt = reviewRegDt;
-	}
-
-	public int getRead() {
-		return read;
-	}
-
-	public void setRead(int read) {
-		this.read = read;
-	}
-
-	public MultipartFile getImageFile() {
-		return imageFile;
-	}
-
-	public void setImageFile(MultipartFile imageFile) {
-		this.imageFile = imageFile;
-	}
-
-	@Override
-	public String toString() {
-		return "ReviewRequest [reviewNo=" + reviewNo + ", name=" + name + ", reviewTitle=" + reviewTitle + ", region="
-				+ region + ", period=" + period + ", reviewContent=" + reviewContent + ", image=" + image
-				+ ", reviewRegDt=" + reviewRegDt + ", read=" + read + "]";
+	//dto -> 커맨드로 바꾸기
+	public static ReviewRequest toRequest(ReviewDto dto) {
+		ReviewRequest request = new ReviewRequest();
+		request.setReviewNo(dto.getReviewNo());
+		request.setId(dto.getId());
+		request.setName(dto.getName());
+		request.setReviewTitle(dto.getReviewTitle());
+		request.setRegion(dto.getRegion());
+		request.setPeriod(dto.getPeriod());
+		request.setReviewContent(dto.getReviewContent());
+		request.setFileName(dto.getFileName());
+		request.setRegDt(dto.getRegDt());
+		request.setReviewRead(dto.getReviewRead());
+		
+		return request;
 	}
 	
 }

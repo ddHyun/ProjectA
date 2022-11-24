@@ -2,8 +2,9 @@ package org.tourGo.models.community.review;
 
 import java.time.LocalDateTime;
 
-import org.tourGo.controller.community.review.ReviewRequest;
+import lombok.*;
 
+@Getter @Setter
 public class ReviewDto {
 
 	private int reviewNo;
@@ -13,78 +14,26 @@ public class ReviewDto {
 	private String region;
 	private String period;
 	private String reviewContent;
-	private String image;
-	private LocalDateTime reviewRegDt;
+	private String fileName;
+	private LocalDateTime regDt;
+	private LocalDateTime modDt;
 	private int reviewRead;
 	
-	public int getReviewNo() {
-		return reviewNo;
-	}
-	public void setReviewNo(int reviewNo) {
-		this.reviewNo = reviewNo;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getReviewTitle() {
-		return reviewTitle;
-	}
-	public void setReviewTitle(String reviewTitle) {
-		this.reviewTitle = reviewTitle;
-	}
-	public String getRegion() {
-		return region;
-	}
-	public void setRegion(String region) {
-		this.region = region;
-	}
-	public String getPeriod() {
-		return period;
-	}
-	public void setPeriod(String period) {
-		this.period = period;
-	}
-	public String getReviewContent() {
-		return reviewContent;
-	}
-	public void setReviewContent(String reviewContent) {
-		this.reviewContent = reviewContent;
-	}
-	public String getImage() {
-		return image;
-	}
-	public void setImage(String image) {
-		this.image = image;
-	}
-	public LocalDateTime getReviewRegDt() {
-		return reviewRegDt;
-	}
-	public void setReviewRegDt(LocalDateTime reviewRegDt) {
-		this.reviewRegDt = reviewRegDt;
-	}
-	public int getReviewRead() {
-		return reviewRead;
-	}
-	public void setReviewRead(int reviewRead) {
-		this.reviewRead = reviewRead;
-	}
 	
-	
-	@Override
-	public String toString() {
-		return "ReviewDto [reviewNo=" + reviewNo + ", id=" + id + ", name=" + name + ", reviewTitle=" + reviewTitle
-				+ ", region=" + region + ", period=" + period + ", reviewContent=" + reviewContent + ", image=" + image
-				+ ", reviewRegDt=" + reviewRegDt + ", reviewRead=" + reviewRead + "]";
-	}	
-	
-	
+	//entity -> dto로 변환
+	public static ReviewDto toDto(ReviewEntity entity) {
+		ReviewDto dto = new ReviewDto();
+		dto.setReviewNo(entity.getReviewNo());
+		dto.setId(entity.getUser_test().getId());
+		dto.setName(entity.getUser_test().getName());
+		dto.setReviewTitle(entity.getReviewTitle());
+		dto.setRegion(entity.getRegion());
+		dto.setPeriod(entity.getPeriod());
+		dto.setReviewContent(entity.getReviewContent());
+		dto.setFileName(entity.getFileName());
+		dto.setRegDt(entity.getRegDt());
+		dto.setReviewRead(entity.getReviewRead());
+		
+		return dto;
+	}
 }

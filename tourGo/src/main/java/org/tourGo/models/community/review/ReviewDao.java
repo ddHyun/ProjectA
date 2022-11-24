@@ -3,7 +3,6 @@ package org.tourGo.models.community.review;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -20,20 +19,20 @@ public class ReviewDao {
 		reviewDto.setReviewNo(rs.getInt("reviewNo"));
 		reviewDto.setId(rs.getString("id"));
 		reviewDto.setName(rs.getString("name"));
-		reviewDto.setImage(rs.getString("image"));
+		reviewDto.setFileName(rs.getString("fileName"));
 		reviewDto.setPeriod(rs.getString("period"));
 		reviewDto.setRegion(rs.getString("region"));
 		reviewDto.setReviewContent(rs.getString("reviewContent"));
 		reviewDto.setReviewRead(rs.getInt("reviewRead"));
 		reviewDto.setReviewTitle(rs.getString("reviewTitle"));
-		reviewDto.setReviewRegDt(rs.getTimestamp("reviewRegDt").toLocalDateTime());
+		reviewDto.setRegDt(rs.getTimestamp("reviewRegDt").toLocalDateTime());
 		return reviewDto;
 	};	
 	
 	//후기 전체목록 조회
 	public List<ReviewDto> getAllReviewList() {
 		try {
-			String sql = "SELECT r.*, u.name FROM review_t r LEFT JOIN user_t u on r.id=u.id";
+			String sql = "SELECT * FROM review_v";
 			List<ReviewDto> lists = jdbcTemplate.query(sql,rowMapper);
 			return lists;
 		} catch (Exception e) {
@@ -44,8 +43,9 @@ public class ReviewDao {
 	//검색어로 조회
 	public List<ReviewDto> searchList(String search){
 		try {
-			String sql = "SELECT r.*, u.name FROM review_t r LEFT JOIN user_t u ON u.id=r.id WHERE region LIKE ?";
-			List<ReviewDto> lists = jdbcTemplate.query(sql, rowMapper, search);
+			String sql = "SELECT * FROM review_v WHERE region LIKE ?";
+			String likeSearch = "%"+search+"%";
+			List<ReviewDto> lists = jdbcTemplate.query(sql, rowMapper, likeSearch);
 			
 			return lists;
 		} catch (Exception e) {
@@ -56,7 +56,7 @@ public class ReviewDao {
 	
 	// 한 가지 목록 조회
 	public ReviewDto getOneReviewList(int reviewNo) {
-		String sql = "SELECT r.*, u.name FROM review_t r LEFT JOIN user_t u on r.id=u.id WHERE r.reviewNo=?";
+		String sql = "SELECT * FROM review_v WHERE reviewNo=?";
 		ReviewDto list = jdbcTemplate.queryForObject(sql, rowMapper, reviewNo);
 		
 		return list;
