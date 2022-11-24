@@ -44,37 +44,25 @@ public class ReviewController {
 	
 	//여행후기 메인페이지
 	@GetMapping("/review_main")
-	public String index(String search, Model model) {		
+	public String index(ReviewSearchRequest reviewSearchRequest, Model model) {		
 		//css, js 추가
 		Map<String, String[]> pathMap = getFileLists();
 		model.addAttribute("addCss", pathMap.get("addCss")); 
 		model.addAttribute("addScript", pathMap.get("addScript"));
 		
-		String s_search = (String)session.getAttribute("s_search");
+		System.out.println("=============main시작/커맨드객체 : "+reviewSearchRequest);
 		
-		//목록 출력
-		if(s_search==null) {
-			//세션 없지만 검색어 있어 세션에 저장 후 검색리스트 가져옴
-			if(search!=null) {
-				session.setAttribute("s_search", search);
-				List<ReviewRequest> searchLists = reviewService.searchList(search);
-				model.addAttribute("lists", searchLists);
-			}else {
-				//전체목록(세션없고 검색어 없을때)
-				List<ReviewRequest> lists = reviewService.getAllReviewList();	
-				model.addAttribute("lists", lists);
-			}
+		if(reviewSearchRequest.getKeyword() == null) {
+			//전체목록 조회
+			List<ReviewRequest> allLists = reviewService.getAllReviewList();	
+			model.addAttribute("lists", allLists);
+			System.out.println("=============main 전체목록 조회/커맨드객체: "+reviewSearchRequest);
 		}else {
-			//세션 있지만 검색어 달라 세션 업데이트 후 검색리스트 가져옴
-			if(!s_search.equals(search)&&search!=null) {
-				session.setAttribute("s_search", search);
-				List<ReviewRequest> searchLists = reviewService.searchList(search);
-				model.addAttribute("lists", searchLists);
-			}else {
-				//세션 있고 검색어 같을때
-				List<ReviewRequest> searchLists = reviewService.searchList(s_search);
-				model.addAttribute("lists", searchLists);
-			}
+			//검색어 조회
+			List<ReviewRequest> searchLists = reviewService.searchList(reviewSearchRequest);
+			model.addAttribute("lists", searchLists);
+			model.addAttribute("reviewSearchRequest", reviewSearchRequest);
+			System.out.println("=============main단 검색어 살아있음/"+reviewSearchRequest.getKeyword());
 		}
 		
 		Map<String, Integer> pageMap = reviewService.paging();		
@@ -87,12 +75,12 @@ public class ReviewController {
 	
 	//제목 클릭시 후기읽기 페이지
 	@GetMapping("/review_read/{reviewNo}")
-//	@GetMapping("/review_read")
 	public String readReview(@PathVariable int reviewNo, Model model) {
-		System.out.println("=============="+reviewNo);
+		
 		//글번호에 맞는 후기 가져오기
 		ReviewRequest reviewRequest = reviewService.getOneReviewList(reviewNo);
 		model.addAttribute("reviewRequest", reviewRequest);
+		
 		//css, js 추가
 		Map<String, String[]> pathMap = getFileLists();
 		model.addAttribute("addCss", pathMap.get("addCss"));

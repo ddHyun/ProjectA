@@ -12,8 +12,8 @@
 		<div class="wrap font3 centerW marginTop30" th:text="#{community.review}"></div>
 		<!-- 여행지 검색 -->
 		<div class="wrap search">
-			<form method="get" th:action="@{/community/review_main}">
-				<input type="text" placeholder="여행지 검색" name="search">
+			<form method="get" th:action="@{/community/review_main}" th:object="${reviewSearchRequest}">
+				<input type="text" placeholder="여행지 검색" name="search" th:field="*{keyword}">
 				<button type="submit" th:text="#{review.search}"></button>
 			</form>
 		</div>

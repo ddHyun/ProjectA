@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface ReviewEntityRepository extends JpaRepository<ReviewEntity, Integer>{
 
@@ -11,13 +12,12 @@ public interface ReviewEntityRepository extends JpaRepository<ReviewEntity, Inte
 	//글번호로 내용조회
 	ReviewEntity findByReviewNo(int reviewNo);
 	
-	//전체목록 조회
-	List<ReviewEntity> findAll();
+	//전체목록 조회(정렬시 ByOrderBy)
+	List<ReviewEntity> findAllByOrderByRegDtDesc();
 	
 	//후기등록
 	ReviewEntity save(ReviewEntity reviewEntity);
 	
 	//검색어로 결과 조회 예
-//	@Query("select r from ReviewEntity r where r.reviewContents like %:reviewContents%")
-//	List<ReviewEntity> findByReviewContents(@Param("reviewContents") String reviewContents);
+	List<ReviewEntity> findByReviewTitleContaining(String reviewTitle);
 }
