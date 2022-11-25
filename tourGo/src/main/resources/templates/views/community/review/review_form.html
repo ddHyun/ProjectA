@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layouts/main}">
+
+	<!-- 메인시작 -->
+	<main layout:fragment="content" class="content">
+		<input type="hidden" id="board" th:value="${board}">
+		<!-- 커뮤니티 공통 상단 네비바 -->
+		<th:block th:replace="outlines/community_top::community_top"></th:block>
+		
+		<div class="marginTop150"></div>
+		
+		<!-- 후기 작성 -->
+		<div class="wrap centerW">
+			<form method="post" th:action="@{/community/review_register}" enctype="multipart/form-data">
+				<table class="communityT marginAuto" th:object="${reviewRequest}">					
+					<tr>						
+						<td colspan="4" align="left"><!-- 제목 -->
+							<input class="width100 borderX clkBorderX font2" type="text" name="reviewTitle" 
+								placeholder="제목을 입력해 주세요" th:field="*{reviewTitle}">
+						</td>
+					</tr>
+					<tr>
+						<th th:text="#{common.region}"></th><!-- 여행지 -->
+						<td align="left">
+							<select class="width100 borderX clkBorderX" name="region" th:field="*{region}">
+								<option value="">선택[필수]</option>
+								<option th:each="region, status : ${regionLists}" th:value="${status.index}" th:text="${region}"></option>
+							</select>
+						</td>
+						<th th:text="#{review.period}"></th><!-- 여행기간 -->
+						<td align="left">
+							<select name="period" th:field="*{period}">
+								<option value="">선택[필수]</option>
+								<option th:each="period, status : ${periodLists}" th:text="${period}" th:value="${status.index}"></option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th th:text="#{review.file}"></th><!-- 파일 -->
+						<td colspan="3" align="left">
+							<input type="file" name="fileName" multiple="multiple" th:field="*{fileName}">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4"> <!-- 내용 -->
+							<textarea rows="20" name="reviewContent" 
+								placeholder="내용을 입력해 주세요" th:field="*{reviewContent}"></textarea>
+						</td>
+					</tr>
+				</table>
+				<div class="marginTop30"></div>
+				<button class="btn1 width25" type="submit" th:text="#{community.register}">등록</button>
+			</form>
+		</div>
+	</main>	
+</html>

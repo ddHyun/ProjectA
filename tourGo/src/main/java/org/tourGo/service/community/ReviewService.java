@@ -51,28 +51,12 @@ public class ReviewService {
 
 	// 여행후기 모든 목록 조회
 	public List<ReviewRequest> getAllReviewList() {		
-		
+			
 		User_test user1 = new User_test();
 		user1.setId("user02");
 		user1.setName("사용자02");
 		uRepository.save(user1);
 		
-		ReviewEntity entity = new ReviewEntity();
-		entity.setUser_test(user1);
-		entity.setPeriod("2박3일");
-		entity.setRegion("부산");
-		entity.setReviewContent("부산 최고");
-		entity.setReviewTitle("굿여행");
-		
-		ReviewEntity entity2 = new ReviewEntity();
-		entity2.setUser_test(user1);
-		entity2.setPeriod("5박6일");
-		entity2.setRegion("제주도");
-		entity2.setReviewContent("바닷물 색깔 실화임?");
-		entity2.setReviewTitle("제주도 최고!");
-		
-		rRepository.save(entity);
-		rRepository.save(entity2);
 		List<ReviewEntity> lists = rRepository.findAllByOrderByRegDtDesc();
 		
 		if(lists.size() > 0) {	//entity -> dto -> request

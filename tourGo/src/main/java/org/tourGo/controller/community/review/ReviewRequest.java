@@ -7,7 +7,7 @@ import org.tourGo.models.community.review.ReviewDto;
 
 import lombok.*;
 
-@Getter @Setter
+@Getter @Setter @ToString
 public class ReviewRequest {
 
 	private int reviewNo; 		//글번호
@@ -18,23 +18,23 @@ public class ReviewRequest {
 	private String period;		//기간
 	private String reviewContent;	//내용
 	private String fileName;		//사진파일명
+	private String gid;
 	private LocalDateTime regDt;	//작성일
 	private LocalDateTime modDt;	//수정일
 	private int reviewRead;			//조회수
-	
-	private MultipartFile imageFile;	//실제파일	
 	
 	//dto -> 커맨드로 바꾸기
 	public static ReviewRequest toRequest(ReviewDto dto) {
 		ReviewRequest request = new ReviewRequest();
 		request.setReviewNo(dto.getReviewNo());
-		request.setId(dto.getId());
-		request.setName(dto.getName());
+		request.setId(dto.getUser_test().getId());
+		request.setName(dto.getUser_test().getName());
 		request.setReviewTitle(dto.getReviewTitle());
 		request.setRegion(dto.getRegion());
 		request.setPeriod(dto.getPeriod());
 		request.setReviewContent(dto.getReviewContent());
-		request.setFileName(dto.getFileName());
+//		request.setFileName(dto.getFileName());
+		request.setGid(dto.getGid());
 		request.setRegDt(dto.getRegDt());
 		request.setReviewRead(dto.getReviewRead());
 		

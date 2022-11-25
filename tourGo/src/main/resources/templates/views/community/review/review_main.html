@@ -11,8 +11,8 @@
 		<!-- 게시판명 -->
 		<div class="wrap font3 centerW marginTop30" th:text="#{community.review}"></div>
 		<!-- 여행지 검색 -->
-		<div class="wrap search">
-			<form method="get" th:action="@{/community/review_main}" th:object="${reviewSearchRequest}">
+		<div class="search wrap">
+			<form method="get" th:action="@{/community/review_main}" th:object="${searchRequest}">
 				<input type="text" placeholder="여행지 검색" name="search" th:field="*{keyword}">
 				<button type="submit" th:text="#{review.search}"></button>
 			</form>
@@ -36,8 +36,7 @@
 					<th:block>
 						<tr th:each="list, status:${lists}" th:object="${list}">
 							<td th:text="${status.size-status.index}">글번호</td>
-							<!-- <td><a th:href="@{/community/review_read?search={search}&No={no}(search=${session.s_search},no=*{reviewNo})}" --> 
- 							<td><a th:href="@{/community/review_read/{reviewNo}(reviewNo=*{reviewNo})}" 
+ 							<td><a th:href="@{/community/review_read/reviewNo_{reviewNo}?keyword={keyword}(reviewNo=*{reviewNo}, keyword=${searchRequest.keyword})}" 
 								th:text="*{reviewTitle}">제목</a></td>
 							<td th:text="*{region}">여행지</td>
 							<td th:text="*{period}">기간</td>
@@ -49,11 +48,12 @@
 				</tbody>
 			</table>
 		</div>
+		<div class="marginTop30"></div>
 		<div class="wrap">
 			<th:block th:each="page : ${#numbers.sequence(1, pageMap.endPage)}">
 				<a href="?page=${page}" th:text="${page}"></a>
 			</th:block>
-			<button type="submit" th:text="#{review.write}"></button>
+				<button class="btn1 width25" type="submit" th:text="#{review.write}" th:onclick="|location.href='@{/community/review_form}'|"></button>
 		</div>
 	
 		
