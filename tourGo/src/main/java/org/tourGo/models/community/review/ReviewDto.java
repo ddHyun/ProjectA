@@ -33,9 +33,6 @@ public class ReviewDto {
 		dto.setPeriod(entity.getPeriod());
 		dto.setReviewContent(entity.getReviewContent());
 		dto.setGid(entity.getGid());
-//		if(entity.getFileInfo()!=null) {
-//			for(int i=0; i<entity.getFileInfo())
-//		}
 		dto.setRegDt(entity.getRegDt());
 		dto.setReviewRead(entity.getReviewRead());
 		

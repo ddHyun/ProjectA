@@ -2,7 +2,6 @@ package org.tourGo.controller.community.review;
 
 import java.time.LocalDateTime;
 
-import org.springframework.web.multipart.MultipartFile;
 import org.tourGo.models.community.review.ReviewDto;
 
 import lombok.*;

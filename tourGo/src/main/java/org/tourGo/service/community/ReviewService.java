@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.tourGo.controller.community.review.ReviewRequest;
 import org.tourGo.controller.community.review.ReviewSearchRequest;
 import org.tourGo.models.community.review.ReviewDao;
@@ -86,6 +87,15 @@ public class ReviewService {
 		}else {
 			return null;
 		}
+	}
+	
+	//후기 등록하기
+	public boolean registerReview(ReviewRequest reviewRequest, List<MultipartFile> files) {
+		for(MultipartFile file : files) {
+			System.out.println("===============서비스단");
+			System.out.println(file.getOriginalFilename());
+		}
+		return false;
 	}
 
 	// 페이징
