@@ -15,6 +15,7 @@ public class TourGoApplication {
 		SpringApplication.run(TourGoApplication.class, args);
 	}
 
+
 	//메시지식 설정
 	@Bean
 	public MessageSource messageSource() {
@@ -24,4 +25,5 @@ public class TourGoApplication {
 		
 		return ms;
 	}
+ 
 }

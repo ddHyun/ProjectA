@@ -32,6 +32,11 @@ html{
 	margin-top: 30px;
 }
 
+/* 위쪽 여백 60 */
+.marginTop60{
+	margin-top: 60px;
+}
+
 /* 위쪽 여백 150 */
 .marginTop150{
 	margin-top: 150px;
@@ -101,6 +106,7 @@ main.content{
 .wide{
 	width: 2000px; 
 	height: 24rem;
+	overflow: hidden;
 	margin-left : -400px !important;
 }
 
@@ -111,15 +117,13 @@ main.content{
 .top_nav{
 	background-color: #09c;
 	height: 50px;
-}
-
-.top_nav{
 	line-height: 50px;
 }
 
 .top_nav a{
 	display: inline-block;
 	width: 33.33333%;
+	box-sizing: border-size;
 	/* inline-block의 마진 없애기 */
 	margin-right: -8px;
 	color: #fff;
@@ -174,8 +178,25 @@ main.content{
 	text-align: right;
 }
 
-.search button{
-	margin-right: 3rem;	
+.search input{
+	line-height: 30px;	
+	padding: 2px;
+	outline: none;
+}
+
+.marginR3{
+	margin-right: 6.5rem;	
+}
+
+.move::after{
+	clear:both;
+	display: block;
+	content: "";
+}
+
+/* 요소 오른쪽에 위치시키기 */
+.floatR{
+	float: right;
 }
 
 td select{

@@ -28,12 +28,14 @@ public class ReviewEntity extends BaseEntity {
 	@Column(columnDefinition="LONGTEXT", nullable=false)
 	private String reviewContent;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="fileInfo")
-	private FileInfo fileInfo;
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name="fileInfo")
+//	private FileInfo fileInfo;
+	
 	@Column(length=45)	//파일들 그룹명(FileInfo에서 게시글 별 파일 조회할 때 유용)
 	private String gid;
 	
+	private String fileName;	
 	private int reviewRead;
 	
 }

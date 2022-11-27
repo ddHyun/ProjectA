@@ -1,4 +1,4 @@
-package org.tourGo.commons;
+package org.tourGo.common;
 
 import java.util.ArrayList;
 import java.util.List;
