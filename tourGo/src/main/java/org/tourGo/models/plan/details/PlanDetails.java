@@ -11,4 +11,6 @@ public class PlanDetails {//여행 세부일정을 담당하는 dto
 	    private String name;
 	    private Float x;
 	    private Float y;
+	    private int day;
+	    private String image;
 }
