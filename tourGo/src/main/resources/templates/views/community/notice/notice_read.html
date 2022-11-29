@@ -12,15 +12,16 @@
 				
 		<!-- 공지 내용 -->
 		<div class="wrap centerW">
-			<table class="communityT marginAuto">
+			<table class="communityT marginAuto" th:object="${noticeRequest}">
 				<tr>
-					<td align="left">제목</td>				
+					<td align="left" th:text="*{title}">제목</td>				
 				</tr>
 				<tr>
-					<td align="right"><span>작성자</span><span>작성일</span></td>
+					<td align="right"><span th:text="*{id}">작성자</span>
+						<span th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</span></td>
 				</tr>
 				<tr>
-					<td align="left">내용</td>
+					<td align="left" th:text="*{noticeContent}">내용</td>
 				</tr>
 			</table>
 		<div class="marginTop30"></div>

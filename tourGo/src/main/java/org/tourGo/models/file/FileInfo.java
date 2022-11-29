@@ -1,8 +1,8 @@
-package org.tourGo.models.entity;
+package org.tourGo.models.file;
 
 import javax.persistence.*;
 
-import org.tourGo.models.community.review.ReviewEntity;
+import org.tourGo.common.BaseEntity;
 
 import lombok.*;
 
@@ -14,12 +14,8 @@ public class FileInfo extends BaseEntity{
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;		//파일 증감번호
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="review")
-	private ReviewEntity reviewEntity;
-	
-//	@Column(length=45, nullable=false)
-//	private String gid;		//그룹ID(그룹으로 묶어서 관리)	
+	@Column(length=45, nullable=false)
+	private String gid;		//그룹ID(그룹으로 묶어서 관리)	
 	
 	@Column(length=100, nullable=false)
 	private String fileName;//원본파일명

@@ -1,4 +1,4 @@
-package org.tourGo.models.entity;
+package org.tourGo.common;
 
 import java.time.LocalDateTime;
 
