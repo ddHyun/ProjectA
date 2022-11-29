@@ -13,7 +13,7 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 	
-	private String fixed_url = "views/main/";
+	private String fixed_url = "main/";
 	
 	@GetMapping("/login")
 	public String login() {
