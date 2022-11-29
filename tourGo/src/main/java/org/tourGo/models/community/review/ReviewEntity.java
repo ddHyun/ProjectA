@@ -2,8 +2,8 @@ package org.tourGo.models.community.review;
 
 import javax.persistence.*;
 
-import org.tourGo.models.entity.BaseEntity;
-import org.tourGo.models.entity.FileInfo;
+import org.tourGo.common.BaseEntity;
+import org.tourGo.models.file.FileInfo;
 
 import lombok.*;
 

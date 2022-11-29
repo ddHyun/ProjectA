@@ -1,7 +1,5 @@
 package org.tourGo.controller.community.review;
 
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,10 +15,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.tourGo.models.file.FileInfo;
 import org.tourGo.service.community.ReviewService;
+import org.tourGo.services.file.FileUploadService;
 
 @Controller
 @RequestMapping("/community")
@@ -28,6 +28,8 @@ public class ReviewController {
 	
 	@Autowired
 	private ReviewService reviewService;
+	@Autowired
+	private FileUploadService uploadService;
 	@Autowired
 	HttpSession session;
 	
@@ -123,23 +125,21 @@ public class ReviewController {
 	
 	//후기 등록하기
 	@PostMapping("/review_register")
-	public String registerReview(@RequestParam(value="files", required=false) MultipartFile[] files, MultipartHttpServletRequest mr) {		
+	@ResponseBody
+	public String registerReview(@RequestParam(required=false) MultipartFile[] files, MultipartHttpServletRequest mr) {		
 
 		
 		//양식데이터는 MultipartHttpServletRequest.getParameter로 가져오기
-		String sessionId = "user01";//세션에 저장된 아이디로 바꾸기
-		ReviewRequest reviewRequest = new ReviewRequest();
-		reviewRequest.setId(sessionId);
-		reviewRequest.setReviewTitle(mr.getParameter("reviewTitle"));
-		String period = periodLists[Integer.valueOf(mr.getParameter("period"))];
-		reviewRequest.setPeriod(period);
-		String region = regionLists[Integer.valueOf(mr.getParameter("region"))];
-		reviewRequest.setRegion(region);
-		reviewRequest.setReviewContent(mr.getParameter("reviewContent"));
-		
-		System.out.println("==============================");
-		System.out.println(reviewRequest);
-//		boolean isSuccess = reviewService.registerReview(reviewRequest, files);
+//		String sessionId = "user01";//세션에 저장된 아이디로 바꾸기
+//		ReviewRequest reviewRequest = new ReviewRequest();
+//		reviewRequest.setId(sessionId);
+//		reviewRequest.setReviewTitle(mr.getParameter("reviewTitle"));
+//		String period = periodLists[Integer.valueOf(mr.getParameter("period"))];
+//		reviewRequest.setPeriod(period);
+//		String region = regionLists[Integer.valueOf(mr.getParameter("region"))];
+//		reviewRequest.setRegion(region);
+//		reviewRequest.setReviewContent(mr.getParameter("reviewContent"));
+		List<FileInfo> fileLists = uploadService.process(files);		
 		
 		return null;
 	}

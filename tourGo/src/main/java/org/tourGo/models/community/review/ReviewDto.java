@@ -3,7 +3,7 @@ package org.tourGo.models.community.review;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.tourGo.models.entity.FileInfo;
+import org.tourGo.models.file.FileInfo;
 
 import lombok.*;
 

@@ -1,6 +1,5 @@
 package org.tourGo.service.community;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,8 +22,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class ReviewService {
 
-	@Autowired
-	private ReviewDao reviewDao;
 	@Autowired
 	private ReviewEntityRepository rRepository;
 	@Autowired

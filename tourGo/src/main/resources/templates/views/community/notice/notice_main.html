@@ -28,7 +28,7 @@
 					<tr th:each="list, status : ${lists}" th:object="${list}">
 						<td th:text="${status.size-status.index}">번호</td>
 						<td><a th:href="@{/community/notice_read/noticeNo_{noticeNo}(noticeNo=*{noticeNo})}" th:text="*{title}">제목</a></td>
-						<td th:text="*{name}">작성자</td>
+						<td th:text="*{id}">작성자</td>
 						<td th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</td>
 						<td th:text="*{noticeRead}">조회수</td>
 					</tr>
