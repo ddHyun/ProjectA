@@ -15,7 +15,5 @@ public interface ReviewEntityRepository extends JpaRepository<ReviewEntity, Inte
 	
 	//후기등록
 	ReviewEntity save(ReviewEntity reviewEntity);
-	
-	//검색어로 결과 조회 예
-	List<ReviewEntity> findByReviewTitleContaining(String reviewTitle);
+
 }

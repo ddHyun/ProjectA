@@ -9,11 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tourGo.controller.community.review.ReviewRequest;
 import org.tourGo.controller.community.review.ReviewSearchRequest;
+import org.tourGo.models.community.review.QReviewEntity;
 import org.tourGo.models.community.review.ReviewDto;
 import org.tourGo.models.community.review.ReviewEntity;
 import org.tourGo.models.community.review.ReviewEntityRepository;
 import org.tourGo.models.community.review.UserTestRepository;
 import org.tourGo.models.community.review.User_test;
+
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Service
 public class ReviewService {
@@ -22,6 +26,8 @@ public class ReviewService {
 	private ReviewEntityRepository rRepository;
 	@Autowired
 	private UserTestRepository uRepository;
+	@Autowired
+	private JPAQueryFactory jpaQueryFactory;
 	
 	//(공통) entity -> 커맨드(List)
 	public List<ReviewRequest> entityToRequest(List<ReviewEntity> lists){
@@ -81,13 +87,24 @@ public class ReviewService {
 	
 	// 검색어로 조회
 	public List<ReviewRequest> searchList(ReviewSearchRequest searchRequest){
-		List<ReviewEntity> lists = rRepository.findByReviewTitleContaining(searchRequest.getKeyword());
-		if(lists.size() > 0) {	//entity -> dto -> request
-			List<ReviewRequest> requestLists = entityToRequest(lists);
-			return requestLists;
+		String keyword = searchRequest.getKeyword();
+		/*Querydsl*/
+		QReviewEntity qReview = QReviewEntity.reviewEntity; //Querydsl로 쿼리생성 위해 QReviewEntity객체 사용
+		JPAQuery<ReviewEntity> query = jpaQueryFactory.selectFrom(qReview)
+													.where(qReview.reviewTitle.contains(keyword)
+													.or(qReview.region.like("%"+keyword+"%"))
+													.or(qReview.reviewContent.contains(keyword)))
+													.orderBy(qReview.regDt.desc());
+		List<ReviewEntity> searchLists = query.fetch(); //조회결과 리스트 반환
+		
+		List<ReviewRequest> requestLists = new ArrayList<>();
+		
+		if(searchLists.size() > 0) {	//entity -> dto -> request
+			requestLists = entityToRequest(searchLists);
 		}else {
-			return null;
+			throw new RuntimeException("조회결과가 없습니다");
 		}
+		return requestLists;
 	}
 	
 	//후기 등록하기

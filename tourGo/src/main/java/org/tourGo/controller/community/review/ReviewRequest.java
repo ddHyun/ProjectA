@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import org.tourGo.models.community.review.ReviewDto;
 import org.tourGo.models.community.review.User_test;
-import org.tourGo.models.file.FileInfo;
 
 import lombok.*;
 

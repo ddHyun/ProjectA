@@ -38,7 +38,7 @@ public class ReviewController {
 	private String[] addCss;
 	@Value("${community.addScript}")
 	private String[] addScript;
-	
+
 	
 	String[] regionLists = {"광주", "대구", "대전", "부산", "서울", "울산", "인천", 
 							"강원도", "경기도", "경상도", "전라도", "제주도", "충청도"};
@@ -60,15 +60,14 @@ public class ReviewController {
 		Map<String, String[]> pathMap = getFileLists();
 		model.addAttribute("addCss", pathMap.get("addCss")); 
 		model.addAttribute("addScript", pathMap.get("addScript"));
+		model.addAttribute("board", "review"); //여행후기 게시판임을 알림
 		
 		if(searchRequest.getKeyword() == null) {
 			//전체목록 조회
 			List<ReviewRequest> allLists = reviewService.getAllReviewList();	
-			System.out.println("=====================");
-			System.out.println(allLists);
 			model.addAttribute("lists", allLists);
 		}else {
-			//검색어 조회
+			//검색어 조회			
 			List<ReviewRequest> searchLists = reviewService.searchList(searchRequest);
 			model.addAttribute("lists", searchLists);
 		}
@@ -76,9 +75,7 @@ public class ReviewController {
 		model.addAttribute("searchRequest", searchRequest);
 		
 //		Map<String, Integer> pageMap = reviewService.paging();		
-//		model.addAttribute("pageMap", pageMap);
-		
-		model.addAttribute("board", "review"); //여행후기 게시판임을 알림
+//		model.addAttribute("pageMap", pageMap);		
 
 		return "community/review/review_main";
 	}

@@ -2,14 +2,14 @@ package org.tourGo.models.community.review;
 
 import javax.persistence.*;
 
-import org.tourGo.common.BaseTimeEntity;
+import org.tourGo.common.BaseEntity;
 
 import lombok.*;
 
 @Entity
 @Table(name="review")
 @Getter @Setter @ToString
-public class ReviewEntity extends BaseTimeEntity {
+public class ReviewEntity extends BaseEntity {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int reviewNo;

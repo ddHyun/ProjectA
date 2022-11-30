@@ -2,14 +2,14 @@ package org.tourGo.models.file;
 
 import javax.persistence.*;
 
-import org.tourGo.common.BaseTimeEntity;
+import org.tourGo.common.BaseEntity;
 
 import lombok.*;
 
 @Entity 
 @Table
 @Getter @Setter @ToString
-public class FileInfo extends BaseTimeEntity{
+public class FileInfo extends BaseEntity{
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;		//파일 증감번호
