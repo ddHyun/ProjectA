@@ -20,6 +20,7 @@ public class SignService {
 		user.setBirth(request.getBirth());
 		user.setEmail(request.getEmail());
 		user.setMobile(request.getMobile());
+		user.setIntro(request.getIntro());
 		
 		boolean result = userDao.register(user);
 		if(!result) {

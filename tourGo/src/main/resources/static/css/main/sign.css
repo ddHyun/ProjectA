@@ -1,3 +1,8 @@
+/*  
+input[type='checkbox'] { display: none; };
+input[type='checkbox']+label { padding-left: 50px; }
+input[type='checkbox']:checked+label { border: 1px solid red; }
+*/
 /*폼 리스트*/
 .form_01 h2{margin:0 0 10px;font-size:1.167em}
 .form_01 li{margin:10px 0}
@@ -39,80 +44,80 @@
 
 
 /* 회원가입 입력 */
-#register_form {
+#sign_form {
 	max-width: 600px; margin: 50px auto 0; padding: 70px 40px;
 	background: #fff; border: 1px solid #d8d9de; border-radius: 4px;
 }
-#fregisterform .form_01 div, #fregisterform .form_01 li  { margin: 0; }
+#signform .form_01 div, #signform .form_01 li  { margin: 0; }
 
-#register_form h3, #register_agree h3 {
+#sign_form h3, #register_agree h3 {
 	position: relative; padding: 0 0 10px 0;
 	font-size: 16px; color: #2d2f43; font-weight: 500; border-bottom: 2px solid #3d435f;
 }
-#register_form h3 { margin-bottom: 10px; }
-#register_form h3:after { content: ""; display: block; clear: both; visibility: hidden; }
+#sign_form h3 { margin-bottom: 10px; }
+#sign_form h3:after { content: ""; display: block; clear: both; visibility: hidden; }
 /*
-#register_form h3 span { float: right; } 
+#sign_form h3 span { float: right; } 
 
-.regi_table tbody th label, #register_form h3 span { font-size: 14px; color: #2d2f43; font-weight: 500; height: 20px; line-height: 20px; }
-.regi_table tbody th label:before, #register_form h3 span:before {
+.sign_table tbody th label, #sign_form h3 span { font-size: 14px; color: #2d2f43; font-weight: 500; height: 20px; line-height: 20px; }
+.sign_table tbody th label:before, #sign_form h3 span:before {
 	content: ""; display: inline-block;
     font-size: 30px; color: #e5433e; font-weight: 500;
     font-style: normal; text-align: left;
     width: 20px; line-height: 10px; height: 11px;
     overflow: hidden;
 }
-.regi_table tbody th label.req:before, #register_form h3 span.req:before { content: "·"; }
+.sign_table tbody th label.req:before, #sign_form h3 span.req:before { content: "·"; }
 */
 
 
-.regi_table tbody th label, #register_form h3 span { position: relative; font-size: 14px; color: #2d2f43; font-weight: 500; height: 20px; padding-left: 13px; }
-.regi_table tbody th label.req:before, #register_form h3 span.req:before {
+.sign_table tbody th label, #sign_form h3 span { position: relative; font-size: 14px; color: #2d2f43; font-weight: 500; height: 20px; padding-left: 13px; }
+.sign_table tbody th label.req:before, #sign_form h3 span.req:before {
 	content: ""; display: block; position: absolute;
 	top: 50%; left: 0; width: 5px; height: 5px; margin-top: -2.5px;
 	background: #e5433e; border-radius: 2.5px; overflow: hidden;
 }
-#register_form h3 span { position: absolute; right: 0; bottom: 10px; }
+#sign_form h3 span { position: absolute; right: 0; bottom: 10px; }
 
-.regi_table table { width:100%;border-collapse:collapse;border-spacing:0; }
-.regi_table caption {padding:0;font-size:0;line-height:0;overflow:hidden}
-.regi_table tbody th {
+.sign_table table { width:100%;border-collapse:collapse;border-spacing:0; }
+.sign_table caption {padding:0;font-size:0;line-height:0;overflow:hidden}
+.sign_table tbody th {
 	width: 130px; line-height: 50px;  padding: 0;
 	font-size: 14px; color: #2d2f43; font-weight: 500;
 	background-color: #fff; border: 0;
 	vertical-align: top; text-align: left;
 }
-.regi_table tbody td {
+.sign_table tbody td {
 	line-height: 50px; padding: 3px 0;
 	font-size: 14px; color: #2d2f43; font-weight: 400;
 	background-color: #fff; border: 0;
 	vertical-align: top; text-align: left;
 	word-break: break-all; word-wrap: break-word;
 }
-input[type=text].reg_input, input[type=password].reg_input, select.reg_input, .reg_input {
+input[type=text].sign_input, input[type=password].sign_input, select.sign_input, .sign_input {
 	padding: 0;
 	width: 100%; height: 50px; line-height: 50px;
 	font-size: 14px; color: #444; font-weight: normal;
 	 background: #fff; border: 0 !important; border-bottom: 1px solid #d8d9df !important;
 	vertical-align: top; box-shadow: none !important; outline: none !important
 }
-.regi_table select.reg_input {
+.sign_table select.sign_input {
 	-webkit-appearance: none; -moz-appearance: none; appearance: none;
 	background-image: url(./img/arr_down3.png);
 	background-position: right 10px center;
 	background-repeat: no-repeat;	
 	background-color: #fff;
 }
-.regi_table select.reg_input::-ms-expand {display: none;}
-.regi_table textarea {
+.sign_table select.sign_input::-ms-expand {display: none;}
+.sign_table textarea {
 	padding: 20px 0 10px; width: 100%; height: 120px; line-height: 1.5em;
 	font-size: 14px; color: #444; font-weight: normal;
-	background: #fff; border: 0 !important; border-bottom: 1px solid #d8d9df !important;
+	background: #fff; border: 1px solid #d8d9df !important;
 	vertical-align: top; box-shadow: none !important; outline: none !important;
 	overflow: auto; resize: none;
 }
 
-.regi_table #reg_mb_name, .regi_table #reg_mb_zip { width: 180px; }
+.sign_table #reg_mb_name, .sign_table #reg_mb_zip { width: 180px; }
 
 .emailselect_wrap { position: relative; }
 .emailselect_wrap:before { content: ""; display: block; position: absolute;  left: 0; bottom: 0; width: 100%; height: 1px; background: #d8d9df; z-index: 2; }
@@ -121,7 +126,7 @@ input[type=text].reg_input, input[type=password].reg_input, select.reg_input, .r
 .emailselect_wrap b { float: left; width: 10%; text-align: center; }
 .telselect_wrap b { float: left; width: 5%; text-align: center; }
 
-.regi_table .btn_frmline {
+.sign_table .btn_frmline {
 	min-width: 90px; height: 40px; line-height: 38px;  padding: 0 15px;
 	font-size: 14px; color: #2d2f43; font-weight: normal;
     background: #fff; border: 1px solid #b7bac4; border-radius: 20px;
@@ -132,13 +137,13 @@ input[type=text].reg_input, input[type=password].reg_input, select.reg_input, .r
     -o-transition: all 0.3s;
     transition: all 0.3s;
 }
-.regi_table .btn_frmline:hover { background: #f3f3f3; }
-#fregisterform .frm_info { display: none; margin-top: 5px; line-height: 1.5em; font-size: 0.833em; }
-#fregisterform #msg_certify { line-height: 1.7em; }
+.sign_table .btn_frmline:hover { background: #f3f3f3; }
+#signform .frm_info { display: none; margin-top: 5px; line-height: 1.5em; font-size: 0.833em; }
+#signform #msg_certify { line-height: 1.7em; }
 
-.reg_input::placeholder { color: #c1c1c1; opacity: 1; }
-.reg_input:-ms-input-placeholder { color: #c1c1c1; }
-.reg_input::-ms-input-placeholder { color: #c1c1c1; }
+.sign_input::placeholder { color: #c1c1c1; opacity: 1; }
+.sign_input:-ms-input-placeholder { color: #c1c1c1; }
+.sign_input::-ms-input-placeholder { color: #c1c1c1; }
 
 
 .agree_chk { margin: 5px 0 0 0 !Important; }
@@ -192,18 +197,18 @@ input[type=text].reg_input, input[type=password].reg_input, select.reg_input, .r
 #mb_login_notmb .btn_submit { line-height: 53px; }
 
 #fregister .btn_confirm .btn_submit { padding: 0; height: 55px; border-radius: 50px; font-size: 16px; font-weight: 400; }
-#fregisterform .btn_confirm .btn_submit { padding: 0; height: 55px; font-size: 16px; font-weight: 400; }
-#fregisterform .btn_confirm .btn_cancel { padding: 0; height: 55px; line-height: 53px; font-size: 16px; font-weight: 400; }
+#signform .btn_confirm .btn_submit { padding: 0; height: 55px; font-size: 16px; font-weight: 400; }
+#signform .btn_confirm .btn_cancel { padding: 0; height: 55px; line-height: 53px; font-size: 16px; font-weight: 400; }
 
-#fregisterform .reg_msg {
+#signform .reg_msg {
 	display: block; position: relative;
 	margin: 0; margin-top: -1px; line-height: 30px;
 	font-size: 0.833em; color: #2d2f43; font-weight: normal;
 	border-top: 1px solid #d8d9df;
 	z-index: 2;
 }
-#fregisterform .reg_msg.nok { color: #e5433e !important; border-color: #e5433e !important; }
-/* #fregisterform .reg_msg.ok { color: #32b71c !important; border-color: #32b71c !important; } */
+#signform .reg_msg.nok { color: #e5433e !important; border-color: #e5433e !important; }
+/* #signform .reg_msg.ok { color: #32b71c !important; border-color: #32b71c !important; } */
 
 
 /* 회원가입 약관 */
