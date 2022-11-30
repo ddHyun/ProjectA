@@ -8,6 +8,7 @@ import lombok.*;
 
 @Getter
 @Setter
+@ToString
 public class SignRequest {
 	
 	@NotBlank
@@ -32,5 +33,6 @@ public class SignRequest {
 	
 	@NotBlank
 	private String mobile;
+	
 	private String intro;
 }
