@@ -11,5 +11,9 @@ public class TourGoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TourGoApplication.class, args);
 	}
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 정재욱
 }
