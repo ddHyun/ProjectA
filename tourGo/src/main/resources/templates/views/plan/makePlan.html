@@ -24,7 +24,7 @@
 <form action="http://www.naver.com" method="get" style="height: 100%;">
 
 <div class="search_input">
-<input type="text" value="입력하세요" style="width:100%; height:100%; font-size : 20px; padding : 0;">
+<input id="keyword" type="text" value="입력하세요" style="width:100%; height:100%; font-size : 20px; padding : 0;">
 </div>
 </div>
 <div class="search_button">
@@ -65,70 +65,17 @@ close
  <div class="x_button"> <span class="material-symbols-outlined">
 close
 </span></div></a>
-    <div >
-        <img src="exImage\명동교자.jpg">
-    </div>
-    <div>
-       	관광지 이름
-    </div>
-    <div >
-        <div>
-       
-            <label for="">시간</label>
-            <input type="time" name="check-in-time">        
-        </div>
-   
-    </div>
+    
   
 </div>
 
 
-<div class="selected_items">
- 	<div class="x_button"> <span class="material-symbols-outlined">
-close
-</span></div>
-    <div >
-        <img src="exImage\명동교자.jpg">
-    </div>
-    <div>
-       	관광지 이름
-    </div>
-    <div >
-        <div>
-       
-            <label for="">시간</label>
-            <input type="time" name="check-in-time">        
-        </div>
-   
-    </div>
-  
-</div>
-
-
-<div class="selected_items">
-
- <div class="x_button"> <span class="material-symbols-outlined">
-close
-</span></div>
-    <div >
-        <img src="exImage\명동교자.jpg">
-    </div>
-    <div>
-       	관광지 이름
-    </div>
-    <div >
-        <div>
-       
-            <label for="">시간</label>
-            <input type="time" name="check-in-time">        
-        </div>
-   
-    </div>
   
 </div>
 
 </div>
 <div class="api_list">
+<!--
 <div class="selected_items">
  
     <div >
@@ -185,7 +132,7 @@ close
     </div>
   
 </div>
-
+-->
 </div>
 <div class="map_container"><div id="map"></div></div>
 
@@ -208,7 +155,7 @@ close
 
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5cf0f012351259a60d2d7388a32df3af"></script>
-<script type="text/javascript" th:src="@{js/plan/makePlan/kakaoMap.js}"></script>
+<!--<script type="text/javascript" th:src="@{js/plan/makePlan/kakaoMap.js}"></script>-->
 <script type="text/javascript" th:src="@{js/plan/makePlan/makePlan.js}"></script>
 
 </body>

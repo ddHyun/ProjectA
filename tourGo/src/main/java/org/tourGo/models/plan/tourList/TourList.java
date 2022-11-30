@@ -38,7 +38,6 @@ public class TourList {//관광지관련 dto
 	private String title;
     
 
-    //검색어
-    private String searchKeyword;
-	    
+  
+    
 }
