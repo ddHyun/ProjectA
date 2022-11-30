@@ -31,6 +31,7 @@ public class SignController {
 	public String signUp(Model model) {
 		SignRequest signRequest = new SignRequest();
 		model.addAttribute("addCss", new String[] {"main/sign"});
+		model.addAttribute("addScript", new String[] {"main/signUp"});
 		model.addAttribute("signRequest", signRequest);
 		return fixed_url + "signUp";
 	}
@@ -43,6 +44,7 @@ public class SignController {
 		
 		if(errors.hasErrors()) {
 			model.addAttribute("addCss", new String[] {"main/sign"});
+			model.addAttribute("addScript", new String[] {"main/signUp"});
 			return fixed_url +"signUp";
 			// return "redirect:/"+ fixed_url +"signUp";
 		}
