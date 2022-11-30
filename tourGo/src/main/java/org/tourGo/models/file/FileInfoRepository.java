@@ -24,12 +24,12 @@ public interface FileInfoRepository extends JpaRepository<FileInfo, Long>{
 	//삭제(id)
 	@Modifying
 	@Transactional
-	int deleteById(long id);
+	Boolean deleteById(long id);
 	
 	//삭제(gid)
 	@Modifying
 	@Transactional
-	int deleteByGid(String gid);
+	Boolean deleteByGid(String gid);
 	
 	//작업완료 치리
 	@Modifying

@@ -11,8 +11,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
-@Getter @Setter
-public abstract class BaseEntity {
+@Getter
+public abstract class BaseTimeEntity {
 	//엔티티 공통 속성들 모음, 사용시 엔티티에서 상속받기
 	
 	@CreatedDate   	    //등록일

@@ -7,17 +7,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import org.tourGo.controller.community.review.ReviewRequest;
 import org.tourGo.controller.community.review.ReviewSearchRequest;
-import org.tourGo.models.community.review.ReviewDao;
 import org.tourGo.models.community.review.ReviewDto;
 import org.tourGo.models.community.review.ReviewEntity;
 import org.tourGo.models.community.review.ReviewEntityRepository;
 import org.tourGo.models.community.review.UserTestRepository;
 import org.tourGo.models.community.review.User_test;
-
-import lombok.RequiredArgsConstructor;
 
 @Service
 public class ReviewService {
@@ -27,24 +23,32 @@ public class ReviewService {
 	@Autowired
 	private UserTestRepository uRepository;
 	
-	//(공통) entity -> dto -> review커맨드로 이동
+	//(공통) entity -> 커맨드(List)
 	public List<ReviewRequest> entityToRequest(List<ReviewEntity> lists){
 		
 		//entity -> dto
 		List<ReviewDto> dtoLists = new ArrayList<>();
 		for(ReviewEntity entity : lists) {
-			ReviewDto dto = ReviewDto.toDto(entity);
+			ReviewDto dto = ReviewDto.entityToDto(entity);
 			dtoLists.add(dto);
 		}
 		
 		//dto -> review커맨드
 		List<ReviewRequest> requestLists = new ArrayList<>();
 		for(ReviewDto dto : dtoLists) {
-			ReviewRequest request = ReviewRequest.toRequest(dto);
+			ReviewRequest request = ReviewRequest.dtoToRequest(dto);
 			requestLists.add(request);
 		}
 		
 		return requestLists;
+	}
+	
+	//(공통) entity -> 커맨드(단일)
+	public ReviewRequest entityToRequest(ReviewEntity entity) {
+		ReviewDto reviewDto = ReviewDto.entityToDto(entity);
+		ReviewRequest reviewRequest = ReviewRequest.dtoToRequest(reviewDto);
+		
+		return reviewRequest;
 	}
 
 	// 여행후기 모든 목록 조회
@@ -67,10 +71,10 @@ public class ReviewService {
 	
 	// 한 가지 목록 조회
 	public ReviewRequest getOneReviewList(int reviewNo) {
-		//entity -> dto -> request
+		
 		ReviewEntity entityList = rRepository.findByReviewNo(reviewNo);
-		ReviewDto dtoList = ReviewDto.toDto(entityList);
-		ReviewRequest requestList = ReviewRequest.toRequest(dtoList); 	
+		//entity -> dto -> request
+		ReviewRequest requestList = entityToRequest(entityList); 	
 
 		return requestList;
 	}
@@ -87,12 +91,17 @@ public class ReviewService {
 	}
 	
 	//후기 등록하기
-	public boolean registerReview(ReviewRequest reviewRequest, List<MultipartFile> files) {
-		for(MultipartFile file : files) {
-			System.out.println("===============서비스단");
-			System.out.println(file.getOriginalFilename());
-		}
-		return false;
+	public ReviewRequest registerReview(ReviewRequest reviewRequest) {
+		//request -> dto -> entity
+		ReviewDto dto = ReviewRequest.requestToDto(reviewRequest);
+		ReviewEntity entity = ReviewDto.dtoToEntity(dto);
+	
+		entity = rRepository.save(entity);
+		
+		//entity -> dto -> request
+		ReviewRequest request = entityToRequest(entity); 
+		
+		return request;
 	}
 
 	// 페이징

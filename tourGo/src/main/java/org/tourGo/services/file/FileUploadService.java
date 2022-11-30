@@ -1,7 +1,6 @@
 package org.tourGo.services.file;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,22 +44,20 @@ public class FileUploadService {
 			
 			fileInfo = repository.save(fileInfo);
 			
-			System.out.println("===========insert후 fileInfo: "+fileInfo.toString());
-
 			//id로 업로드파일경로 설정
 			long id = fileInfo.getId();
 			String uploadDir = uploadPath+"/"+(id%10);
 			File _uploadDir = new File(uploadDir);
 			if(!_uploadDir.exists()) {//폴더 없으면 생성
-				_uploadDir.mkdir();
+				_uploadDir.mkdirs();
 			}
 			String uploadFilePath = uploadDir+"/"+id;
 			
 			//파일 업로드
 			try {//업로드 성공한 file정보만 담기
 				file.transferTo(new File(uploadFilePath));
-				fileLists.add(fileInfo);
 				repository.updateSuccess(fileInfo.getGid());
+				fileLists.add(fileInfo);
 			} catch (Exception e) {//실패시 실패파일 정보 삭제
 				e.printStackTrace();
 				repository.deleteById(id);

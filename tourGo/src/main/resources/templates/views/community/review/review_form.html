@@ -14,6 +14,7 @@
 		<!-- 후기 작성 -->
 		<div class="wrap centerW">
 			<form method="post" th:action="@{/community/review_register}" enctype="multipart/form-data">
+				<input type="hidden" name="gid" id="gid" th:value="${gid}">
 				<table class="communityT marginAuto" th:object="${reviewRequest}">					
 					<tr>						
 						<td colspan="4" align="left"><!-- 제목 -->
@@ -40,7 +41,7 @@
 					<tr>
 						<th th:text="#{review.file}"></th><!-- 파일 -->
 						<td colspan="3" align="left">
-							<input type="file" name="files" id="files" multiple>
+							<input type="file" name="files" id="files" multiple data-gid>
 						</td>
 					</tr>
 					<tr>

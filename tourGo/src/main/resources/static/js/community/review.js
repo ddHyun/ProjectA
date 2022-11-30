@@ -30,6 +30,7 @@ const fileUpload = {
 window.addEventListener("DOMContentLoaded", function(){
 	console.log('reviewjs시작');
 	
+	/**파일업로드 */
 	const filesEl = document.getElementById("files");
 	if(filesEl){
 		filesEl.addEventListener("change", function(e){
@@ -37,4 +38,11 @@ window.addEventListener("DOMContentLoaded", function(){
 			fileUpload.register(files);
 		});
 	}
+	
+	/**gid */
+	const gidEl = document.getElementById("gid");
+	if(gidEl){
+		const gid = gidEl.value;
+		filesEl.dataset.gid=gid;
+	}	
 });

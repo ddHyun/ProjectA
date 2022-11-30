@@ -16,7 +16,6 @@ public class ReviewDto {
 	private String region;
 	private String period;
 	private String reviewContent;
-	private List<FileInfo> fileInfo;
 	private String gid;
 	private LocalDateTime regDt;
 	private LocalDateTime modDt;
@@ -24,7 +23,7 @@ public class ReviewDto {
 	
 	
 	//entity -> dto로 변환 : 객체로 받는 데이터들 주의!
-	public static ReviewDto toDto(ReviewEntity entity) {
+	public static ReviewDto entityToDto(ReviewEntity entity) {
 		ReviewDto dto = new ReviewDto();
 		dto.setReviewNo(entity.getReviewNo());
 		dto.setUser_test(entity.getUser_test());
@@ -34,8 +33,21 @@ public class ReviewDto {
 		dto.setReviewContent(entity.getReviewContent());
 		dto.setGid(entity.getGid());
 		dto.setRegDt(entity.getRegDt());
-		dto.setReviewRead(entity.getReviewRead());
+		dto.setReviewRead(entity.getReviewRead());		
 		
 		return dto;
+	}
+	
+	//dto -> entity로 바꾸기
+	public static ReviewEntity dtoToEntity(ReviewDto dto) {
+		ReviewEntity entity = new ReviewEntity();
+		entity.setUser_test(dto.getUser_test());
+		entity.setReviewTitle(dto.getReviewTitle());
+		entity.setRegion(dto.getRegion());
+		entity.setPeriod(dto.getPeriod());
+		entity.setReviewContent(dto.getReviewContent());
+		entity.setGid(dto.getGid());
+		
+		return entity;
 	}
 }
