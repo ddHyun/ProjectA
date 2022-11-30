@@ -6,6 +6,14 @@ const formValidator = {
 	handleEvent(e) {
 		try {
 			const requiredEls = document.getElementsByClassName("required");
+			const errorEls = document.getElementsByClassName("err");
+			
+			// 에러 호출 메시지 초기화
+			for(const err of errorEls) {
+				err.innerText = '';
+			}
+			
+			// 빈 값 체크
 			for (const el of requiredEls) {
 				const type = el.type;
 	
@@ -27,64 +35,30 @@ const formValidator = {
 					default :  // 나머지는 값의 유무로 체크 처리
 						const v = el.value;
 						if (!v || (typeof v == 'string' && v.trim() == "")) {
+							const name = el.name;
 							const inputType = el.nodeName == 'SELECT' ? "선택":"입력";
 							const msg = `${title}은(는) 필수 ${inputType}항목입니다.`;
+							document.getElementById("err_"+name).innerText = msg;
 							throw new Error(msg);
 						}
 				}
+				
+				// const xhr = new XMLHttpRequest();
+
+				// xhr.open('POST', '', true);
+				// xhr.responseType='json';
+				// xhr.setRequestHeader('Content-Type', 'application/json');
+				// xhr.send(JSON.stringify(reqJson));
 			}
 		} catch (err) {
 			e.preventDefault();
-			alert(err.message);
-			if (this.target) target.focus();
+			// alert(err.message);
+			if (this.target) this.target.focus();
 		}
 	}
 };
 
+// 회원가입 submit 버튼
 window.addEventListener("DOMContentLoaded", function() {
-	const checkAll = document.getElementById("checkAll");
-	const checkBoxes = document.querySelectorAll(".input_check input")
-	const agreements = {
-		checkbox1 : false,
-		checkbox2 : false
-	}
-	
-	checkBoxes.forEach((item) => item.addEventListener('input', toggleCheckbox));
-
-	// 각 체크박스 클릭 이벤트 함수
-	function toggleCheckbox(e) {
-		const { checked, id } = e.target;
-		agreements[id] = checked;
-		this.parentNode.classList.toggle('active');
-		// console.log(checkBoxes);
-		checkAllStatus();
-	}
-	
-	// 체크박스 이벤트로 인한 전체 동의 체크 여부
-	function checkAllStatus() {
-		const { check1, check2 } = agreements;
-		if(check1 && check2) {
-			checkAll.checked = true;
-		} else {
-			checkAll.checked = false;
-		}
-	}
-	
-	// 이용약관 전체 동의 체크박스 이벤트
-	checkAll.addEventListener('click', (e) => {
-		const { checked } = e.target;
-		if(checked) {
-			checkBoxes.forEach((item) => {
-				item.checked = true;
-				agreements[item.id] = true;
-			});
-		} else {
-			checkBoxes.forEach((item) => {
-				item.checked = false;
-				agreements[item.id] = false;
-			});
-		}
-	});
-	
-	frmSign.addEventListener("submit", formValidator);
+	signform.addEventListener("submit", formValidator);
 });
