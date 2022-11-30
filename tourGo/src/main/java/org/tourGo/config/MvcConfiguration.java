@@ -27,7 +27,7 @@ public class MvcConfiguration implements WebMvcConfigurer{
 		@Bean
 		public MessageSource messageSource() {
 			ResourceBundleMessageSource ms = new ResourceBundleMessageSource();
-			ms.setBasenames("messages.community", "messages.common"); //메시지파일 여기에 추가하기
+			ms.setBasenames("messages.community", "messages.common","messages.user"); //메시지파일 여기에 추가하기
 			ms.setDefaultEncoding("UTF-8");
 			
 			return ms;
