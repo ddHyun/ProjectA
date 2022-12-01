@@ -32,6 +32,7 @@ public class ReviewController {
 	private FileUploadService uploadService;
 	@Autowired
 	HttpSession session;
+
 	
 	//application.properties에 사용할 css, js경로 추가
 	@Value("${community.addCss}")
@@ -44,23 +45,22 @@ public class ReviewController {
 							"강원도", "경기도", "경상도", "전라도", "제주도", "충청도"};
 	String[] periodLists = {"당일치기", "1박2일", "2박3일", "3박4일", "4박5일", "5박6일 이상"};
 	
-	//css, js 추가파일 경로
-	private Map<String, String[]> getFileLists() {
+	//css, js 추가파일 경로, 게시판명
+	private void setStyle(String boardName, Model model) {
 		Map<String,	String[]> pathMap = new HashMap<>();
 		pathMap.put("addCss", addCss);
 		pathMap.put("addScript", addScript);
 		
-		return pathMap;
+		model.addAttribute("addCss", pathMap.get("addCss"));
+		model.addAttribute("addScript", pathMap.get("addScript"));
+		model.addAttribute("board", boardName); //게시판명
 	}	
 	
 	//여행후기 메인페이지
 	@GetMapping("/review_main")
 	public String index(ReviewSearchRequest searchRequest, Model model) {		
-		//css, js 추가
-		Map<String, String[]> pathMap = getFileLists();
-		model.addAttribute("addCss", pathMap.get("addCss")); 
-		model.addAttribute("addScript", pathMap.get("addScript"));
-		model.addAttribute("board", "review"); //여행후기 게시판임을 알림
+		//css, js, board 추가
+		setStyle("review", model);
 		
 		if(searchRequest.getKeyword() == null) {
 			//전체목록 조회
@@ -84,12 +84,8 @@ public class ReviewController {
 	@GetMapping("/review_read/reviewNo_{reviewNo}")
 	public String readReview(@PathVariable int reviewNo, String keyword, Model model) {
 		
-		//css, js 추가
-		Map<String, String[]> pathMap = getFileLists();
-		model.addAttribute("addCss", pathMap.get("addCss"));
-		model.addAttribute("addScript", pathMap.get("addScript"));
-		
-		model.addAttribute("board", "review"); //여행후기 게시판임을 알림
+		//css, js, board 추가
+		setStyle("review", model);
 
 		//글번호에 맞는 후기 가져오기
 		ReviewRequest reviewRequest = reviewService.getOneReviewList(reviewNo);
@@ -109,14 +105,12 @@ public class ReviewController {
 //			return "redirect:/login";
 //		}
 		
-		//css, js 추가
-		Map<String, String[]> pathMap = getFileLists();
-		model.addAttribute("addCss", pathMap.get("addCss"));
-		model.addAttribute("addScript", pathMap.get("addScript"));
+		//css, js, board 추가
+		setStyle("review", model);
+		
 		//지역, 기간 목록
 		model.addAttribute("regionLists", regionLists);
 		model.addAttribute("periodLists", periodLists);
-		model.addAttribute("board", "review"); //여행후기 게시판임을 알림
 
 		//그룹아이디 설정
 		gid = gid==null? ""+System.currentTimeMillis() : gid;
@@ -141,7 +135,9 @@ public class ReviewController {
 		reviewRequest.setPeriod(period);
 		String region = regionLists[Integer.valueOf(mr.getParameter("region"))];
 		reviewRequest.setRegion(region);
-		reviewRequest.setReviewContent(mr.getParameter("reviewContent"));
+		String reviewContent = mr.getParameter("reviewContent");
+		reviewContent = reviewContent.replace("\r\n", "<br>");
+		reviewRequest.setReviewContent(reviewContent);
 		reviewRequest.setGid(gid);
 		
 		//내용 등록
