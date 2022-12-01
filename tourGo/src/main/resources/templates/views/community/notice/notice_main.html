@@ -8,8 +8,33 @@
 		<input type="hidden" id="board" th:value="${board}">
 		<!-- 커뮤니티 공통 상단 네비바 -->
 		<th:block th:replace="outlines/community_top::community_top"></th:block>
+		<!-- 게시판명 -->
+		<div class="wrap font3 centerW marginTop60" th:text="#{community.notice}"></div>
+		<div class="marginTop60"></div>
 		
-	<h3>공지사항</h3>
-	
+		<!-- 테이블 -->
+		<div class="wrap centerW">
+			<table class="communityT marginAuto">
+				<thead>
+					<tr>
+						<th th:text="#{community.index}">번호</th>
+						<th th:text="#{notice.title}">제목</th>
+						<th th:text="#{common.userName}">작성자</th>
+						<th th:text="#{community.regDt}">작성일</th>
+						<th th:text="#{notice.noticeRead}">조회수</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="list, status : ${lists}" th:object="${list}">
+						<td th:text="${status.size-status.index}">번호</td>
+						<td><a th:href="@{/community/notice_read/noticeNo_{noticeNo}(noticeNo=*{noticeNo})}" th:text="*{title}">제목</a></td>
+						<td th:text="*{id}">작성자</td>
+						<td th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</td>
+						<td th:text="*{noticeRead}">조회수</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
 	</main>
 </html>

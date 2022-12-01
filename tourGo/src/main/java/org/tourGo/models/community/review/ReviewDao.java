@@ -17,9 +17,9 @@ public class ReviewDao {
 	private RowMapper<ReviewDto> rowMapper = (rs, rowNum) -> {
 		ReviewDto reviewDto = new ReviewDto();
 		reviewDto.setReviewNo(rs.getInt("reviewNo"));
-		reviewDto.setId(rs.getString("id"));
-		reviewDto.setName(rs.getString("name"));
-		reviewDto.setFileName(rs.getString("fileName"));
+//		reviewDto.setId(rs.getString("id"));
+//		reviewDto.setName(rs.getString("name"));
+//		reviewDto.setFileName(rs.getString("fileName"));
 		reviewDto.setPeriod(rs.getString("period"));
 		reviewDto.setRegion(rs.getString("region"));
 		reviewDto.setReviewContent(rs.getString("reviewContent"));

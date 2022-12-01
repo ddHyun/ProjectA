@@ -3,8 +3,6 @@ package org.tourGo.models.community.review;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 public interface ReviewEntityRepository extends JpaRepository<ReviewEntity, Integer>{
 
@@ -17,7 +15,5 @@ public interface ReviewEntityRepository extends JpaRepository<ReviewEntity, Inte
 	
 	//후기등록
 	ReviewEntity save(ReviewEntity reviewEntity);
-	
-	//검색어로 결과 조회 예
-	List<ReviewEntity> findByReviewTitleContaining(String reviewTitle);
+
 }

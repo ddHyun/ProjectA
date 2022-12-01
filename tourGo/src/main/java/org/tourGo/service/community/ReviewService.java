@@ -1,6 +1,5 @@
 package org.tourGo.service.community;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,69 +9,62 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tourGo.controller.community.review.ReviewRequest;
 import org.tourGo.controller.community.review.ReviewSearchRequest;
-import org.tourGo.models.community.review.ReviewDao;
+import org.tourGo.models.community.review.QReviewEntity;
 import org.tourGo.models.community.review.ReviewDto;
 import org.tourGo.models.community.review.ReviewEntity;
 import org.tourGo.models.community.review.ReviewEntityRepository;
 import org.tourGo.models.community.review.UserTestRepository;
 import org.tourGo.models.community.review.User_test;
 
-import lombok.RequiredArgsConstructor;
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Service
 public class ReviewService {
 
 	@Autowired
-	private ReviewDao reviewDao;
-	@Autowired
 	private ReviewEntityRepository rRepository;
 	@Autowired
 	private UserTestRepository uRepository;
+	@Autowired
+	private JPAQueryFactory jpaQueryFactory;
 	
-	//(공통) entity -> dto -> review커맨드로 이동
+	//(공통) entity -> 커맨드(List)
 	public List<ReviewRequest> entityToRequest(List<ReviewEntity> lists){
 		
 		//entity -> dto
 		List<ReviewDto> dtoLists = new ArrayList<>();
 		for(ReviewEntity entity : lists) {
-			ReviewDto dto = ReviewDto.toDto(entity);
+			ReviewDto dto = ReviewDto.entityToDto(entity);
 			dtoLists.add(dto);
 		}
 		
 		//dto -> review커맨드
 		List<ReviewRequest> requestLists = new ArrayList<>();
 		for(ReviewDto dto : dtoLists) {
-			ReviewRequest request = ReviewRequest.toRequest(dto);
+			ReviewRequest request = ReviewRequest.dtoToRequest(dto);
 			requestLists.add(request);
 		}
 		
 		return requestLists;
 	}
+	
+	//(공통) entity -> 커맨드(단일)
+	public ReviewRequest entityToRequest(ReviewEntity entity) {
+		ReviewDto reviewDto = ReviewDto.entityToDto(entity);
+		ReviewRequest reviewRequest = ReviewRequest.dtoToRequest(reviewDto);
+		
+		return reviewRequest;
+	}
 
 	// 여행후기 모든 목록 조회
 	public List<ReviewRequest> getAllReviewList() {		
-		
+			
 		User_test user1 = new User_test();
 		user1.setId("user02");
 		user1.setName("사용자02");
 		uRepository.save(user1);
 		
-		ReviewEntity entity = new ReviewEntity();
-		entity.setUser_test(user1);
-		entity.setPeriod("2박3일");
-		entity.setRegion("부산");
-		entity.setReviewContent("부산 최고");
-		entity.setReviewTitle("굿여행");
-		
-		ReviewEntity entity2 = new ReviewEntity();
-		entity2.setUser_test(user1);
-		entity2.setPeriod("5박6일");
-		entity2.setRegion("제주도");
-		entity2.setReviewContent("바닷물 색깔 실화임?");
-		entity2.setReviewTitle("제주도 최고!");
-		
-		rRepository.save(entity);
-		rRepository.save(entity2);
 		List<ReviewEntity> lists = rRepository.findAllByOrderByRegDtDesc();
 		
 		if(lists.size() > 0) {	//entity -> dto -> request
@@ -85,23 +77,48 @@ public class ReviewService {
 	
 	// 한 가지 목록 조회
 	public ReviewRequest getOneReviewList(int reviewNo) {
-		//entity -> dto -> request
+		
 		ReviewEntity entityList = rRepository.findByReviewNo(reviewNo);
-		ReviewDto dtoList = ReviewDto.toDto(entityList);
-		ReviewRequest requestList = ReviewRequest.toRequest(dtoList); 	
+		//entity -> dto -> request
+		ReviewRequest requestList = entityToRequest(entityList); 	
 
 		return requestList;
 	}
 	
 	// 검색어로 조회
 	public List<ReviewRequest> searchList(ReviewSearchRequest searchRequest){
-		List<ReviewEntity> lists = rRepository.findByReviewTitleContaining(searchRequest.getKeyword());
-		if(lists.size() > 0) {	//entity -> dto -> request
-			List<ReviewRequest> requestLists = entityToRequest(lists);
-			return requestLists;
+		String keyword = searchRequest.getKeyword();
+		/*Querydsl*/
+		QReviewEntity qReview = QReviewEntity.reviewEntity; //Querydsl로 쿼리생성 위해 QReviewEntity객체 사용
+		JPAQuery<ReviewEntity> query = jpaQueryFactory.selectFrom(qReview)
+													.where(qReview.reviewTitle.contains(keyword)
+													.or(qReview.region.like("%"+keyword+"%"))
+													.or(qReview.reviewContent.contains(keyword)))
+													.orderBy(qReview.regDt.desc());
+		List<ReviewEntity> searchLists = query.fetch(); //조회결과 리스트 반환
+		
+		List<ReviewRequest> requestLists = new ArrayList<>();
+		
+		if(searchLists.size() > 0) {	//entity -> dto -> request
+			requestLists = entityToRequest(searchLists);
 		}else {
-			return null;
+			throw new RuntimeException("조회결과가 없습니다");
 		}
+		return requestLists;
+	}
+	
+	//후기 등록하기
+	public ReviewRequest registerReview(ReviewRequest reviewRequest) {
+		//request -> dto -> entity
+		ReviewDto dto = ReviewRequest.requestToDto(reviewRequest);
+		ReviewEntity entity = ReviewDto.dtoToEntity(dto);
+	
+		entity = rRepository.save(entity);
+		
+		//entity -> dto -> request
+		ReviewRequest request = entityToRequest(entity); 
+		
+		return request;
 	}
 
 	// 페이징
