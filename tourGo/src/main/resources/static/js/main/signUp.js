@@ -42,14 +42,24 @@ const formValidator = {
 							throw new Error(msg);
 						}
 				}
-				
-				// const xhr = new XMLHttpRequest();
-
-				// xhr.open('POST', '', true);
-				// xhr.responseType='json';
-				// xhr.setRequestHeader('Content-Type', 'application/json');
-				// xhr.send(JSON.stringify(reqJson));
 			}
+			
+			let object = {};
+			console.log(signForm);
+			signForm.forEach((value, key) => object[key] = value);
+			console.log("test : "+object);
+			// const json = JSON.stringify(object);
+			// console.log(json);
+			
+			e.preventDefault();
+			
+			// const xhr = new XMLHttpRequest();
+
+			// xhr.open('POST', '', true);
+			// xhr.responseType='json';
+			// xhr.setRequestHeader('Content-Type', 'application/json');
+			// xhr.send(JSON.stringify(reqJson));
+			
 		} catch (err) {
 			e.preventDefault();
 			// alert(err.message);
@@ -60,5 +70,5 @@ const formValidator = {
 
 // 회원가입 submit 버튼
 window.addEventListener("DOMContentLoaded", function() {
-	signform.addEventListener("submit", formValidator);
+	signForm.addEventListener("submit", formValidator);
 });

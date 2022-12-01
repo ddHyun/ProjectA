@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.tourGo.models.user.UserRepository;
 import org.tourGo.service.main.user.SignService;
 
 @Controller
@@ -18,6 +19,8 @@ public class SignController {
 	
 	@Autowired
 	private SignService signService;
+	
+	// private final UserRepository userRepository;
 	
 	private String fixed_url = "main/";
 	
@@ -36,6 +39,7 @@ public class SignController {
 		return fixed_url + "signUp";
 	}
 	
+	/*
 	@PostMapping("/signUp")
 	public String signUpPs(Model model, @Valid SignRequest request, Errors errors) {
 		
@@ -53,5 +57,5 @@ public class SignController {
 		
 		return "redirect:/" + fixed_url + "login";
 	}
-	
+	*/
 }
