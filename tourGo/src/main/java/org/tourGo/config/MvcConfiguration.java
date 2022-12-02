@@ -19,7 +19,7 @@ public class MvcConfiguration implements WebMvcConfigurer{
 	        registry.addResourceHandler("/**")
 	                .addResourceLocations("classpath:/templates/", "classpath:/static/");
 
-	        registry.addResourceHandler("/uploads/**")
+	        registry.addResourceHandler("/uploads/**") //업로드 파일 경로 설정
 	        		.addResourceLocations("file:///"+fileUploadPath+"/");
 	    }	 
 	 
