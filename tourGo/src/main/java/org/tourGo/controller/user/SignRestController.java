@@ -1,34 +1,36 @@
-package org.tourGo.controller.main.user;
+package org.tourGo.controller.user;
+
+import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.tourGo.service.main.user.SignService;
-
-import lombok.extern.slf4j.Slf4j;
+import org.tourGo.common.ResponseDto;
+import org.tourGo.service.user.SignService;
 
 @RestController
-@RequestMapping("/signUp")
-@Slf4j
+@RequestMapping("/user/api/signUp")
 public class SignRestController {
 	
 	@Autowired
 	private SignService signService;
 	
 	@PostMapping
-	public void signUpPs(Model model, @Valid SignRequest request, Errors errors) {
-		log.info("signUpPs {}", request.toString());
+	public ResponseDto<?> signUpPs(@Valid @RequestBody SignRequest request, Errors errors) {
 		// 비밀번호 확인 검증
 		new SignValidator().validate(request, errors);
 		if(errors.hasErrors()) {
-			
+			Map<String, String> validatorResult = signService.validateHandling(errors);
+			return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), validatorResult);
 		}
 		
 		signService.process(request);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 }

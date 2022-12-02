@@ -1,6 +1,7 @@
 package org.tourGo.models.user;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -49,5 +50,30 @@ public class UserDao {
 																user.getIntro());
 		
 		return affectedRows > 0;
+	}
+	
+	public User get(String userId) {
+		try {
+			
+			String sql = "SELECT * FROM user WHERE userId = ?";
+			User _user = 
+					jdbcTemplate.queryForObject(sql, rowMapper, userId);
+			
+			if(_user == null) {
+				throw new RuntimeException("회원 없음!");
+			}
+			
+			return _user;
+		} catch (Exception e) {
+			if (e instanceof RuntimeException) {
+				throw e;
+			}
+			return null;
+		}
+	}
+	
+	public List<User> gets() {
+		List<User> users = jdbcTemplate.query("SELECT * FROM user", rowMapper);
+		return users;
 	}
 }
