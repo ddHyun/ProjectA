@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.tourGo.common.ResponseDto;
+import org.tourGo.models.entity.user.User;
+import org.tourGo.models.user.UserRepository;
 import org.tourGo.service.user.SignService;
 
 @RestController
@@ -20,6 +22,9 @@ public class SignRestController {
 	
 	@Autowired
 	private SignService signService;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	@PostMapping
 	public ResponseDto<?> signUpPs(@Valid @RequestBody SignRequest request, Errors errors) {
@@ -30,7 +35,10 @@ public class SignRestController {
 			return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), validatorResult);
 		}
 		
-		signService.process(request);
+		User user = signService.process(request); 
+		
+		userRepository.save(user);
+		
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 }
