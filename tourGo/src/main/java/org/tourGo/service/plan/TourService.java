@@ -23,8 +23,8 @@ public class TourService {
 		HttpURLConnection conn = null;
 		
 		try {
-		String apiURL = getURL(keyword);
-		URL url = new URL(apiURL);
+			String apiURL = getURL(keyword);
+			URL url = new URL(apiURL);
 		}catch(Exception e) {
 			
 		}

@@ -36,8 +36,4 @@ public class TourList {//관광지관련 dto
 	private String sigungucode;
 	private String tel;
 	private String title;
-    
-
-  
-    
 }

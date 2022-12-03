@@ -1,4 +1,4 @@
-package org.tourGo.controller.main.user;
+package org.tourGo.controller.user;
 
 public class SignConditionRequest {
 	private boolean check1;
