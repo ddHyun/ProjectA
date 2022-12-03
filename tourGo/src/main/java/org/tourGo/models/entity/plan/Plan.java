@@ -1,8 +1,10 @@
 package org.tourGo.models.entity.plan;
 
 import javax.persistence.*;
+
+import org.tourGo.common.BaseEntity;
+
 import java.util.List;
-import org.tourGo.models.entity.BaseEntity;
 
 import lombok.*;
 

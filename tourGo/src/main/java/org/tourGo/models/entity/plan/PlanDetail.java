@@ -3,13 +3,11 @@ package org.tourGo.models.entity.plan;
 import java.time.LocalTime;
 import javax.persistence.*;
 
-import org.tourGo.models.entity.BaseEntity;
-
 import lombok.*;
 
 @Entity
 @Getter @Setter
-public class PlanDetail extends BaseEntity {
+public class PlanDetail extends org.tourGo.common.BaseEntity {
 	@Id @GeneratedValue
 	private Long DetailNo;
 	
