@@ -80,21 +80,21 @@ public class ReviewController {
 	//제목 클릭시 후기읽기 페이지
 	@GetMapping("/review_read/reviewNo_{reviewNo}")
 	public String readReview(@PathVariable int reviewNo, String keyword, 
-							@CookieValue(value="visitPost", required=false) Cookie cookie , Model model) {
+							@CookieValue(value="visitReview", required=false) Cookie cookie , Model model) {
 		
 		//css, js, board 추가
 		addCssJs("review", new String[] {"community/community_common"}, 
 				new String[] {"community/community_common", "ckeditor/ckeditor"}, model);
 
 		/** 쿠키 처리 S */
-		if(cookie.getName()!=null) {
+		if(cookie!=null) {
 			if(!cookie.getValue().contains("["+reviewNo+"]")) {
 				cookie.setValue(cookie.getValue()+"_["+reviewNo+"]");
 				response.addCookie(cookie);
 				reviewService.updateReviewRead(reviewNo);
 			}
 		}else {
-			Cookie newCookie = new Cookie("visitPost", "["+reviewNo+"]");
+			Cookie newCookie = new Cookie("visitReview", "["+reviewNo+"]");
 			response.addCookie(newCookie);
 			reviewService.updateReviewRead(reviewNo);
 		}
