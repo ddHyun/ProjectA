@@ -2,6 +2,9 @@ package org.tourGo.controller.community.review;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -9,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +34,10 @@ public class ReviewController {
 	private FileRUDService fileService;
 	@Autowired
 	HttpSession session;
+	@Autowired
+	HttpServletRequest request;
+	@Autowired
+	HttpServletResponse response;
 
 
 	String[] regionLists = {"광주", "대구", "대전", "부산", "서울", "울산", "인천", 
@@ -38,7 +46,7 @@ public class ReviewController {
 	
 	private String baseUrl = "community/review/";
 	
-	//static 정보
+	//static & board명 추가
 	private void addCssJs(String boardName, String[] cssList, String[] jsList, Model model) {
 		model.addAttribute("board", boardName);
 		model.addAttribute("addCss", cssList);
@@ -71,14 +79,28 @@ public class ReviewController {
 	
 	//제목 클릭시 후기읽기 페이지
 	@GetMapping("/review_read/reviewNo_{reviewNo}")
-	public String readReview(@PathVariable int reviewNo, String keyword, Model model) {
+	public String readReview(@PathVariable int reviewNo, String keyword, 
+							@CookieValue(value="visitPost", required=false) Cookie cookie , Model model) {
 		
 		//css, js, board 추가
 		addCssJs("review", new String[] {"community/community_common"}, 
 				new String[] {"community/community_common", "ckeditor/ckeditor"}, model);
 
-		//조회수 증가 글번호에 맞는 후기 가져오기
-		reviewService.updateReviewRead(reviewNo);
+		/** 쿠키 처리 S */
+		if(cookie.getName()!=null) {
+			if(!cookie.getValue().contains("["+reviewNo+"]")) {
+				cookie.setValue(cookie.getValue()+"_["+reviewNo+"]");
+				response.addCookie(cookie);
+				reviewService.updateReviewRead(reviewNo);
+			}
+		}else {
+			Cookie newCookie = new Cookie("visitPost", "["+reviewNo+"]");
+			response.addCookie(newCookie);
+			reviewService.updateReviewRead(reviewNo);
+		}
+		/** 쿠키 처리 E */
+		
+		//게시글 가져오기
 		ReviewRequest reviewRequest = reviewService.getOneReviewList(reviewNo);
 		List<FileInfo> fileLists = fileService.getFileLists(reviewRequest.getGid());
 		System.out.println("===============fileLists : "+fileLists);
