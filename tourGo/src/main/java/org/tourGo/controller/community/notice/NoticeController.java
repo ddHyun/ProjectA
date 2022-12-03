@@ -1,15 +1,12 @@
 package org.tourGo.controller.community.notice;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,43 +25,37 @@ public class NoticeController {
 	@Autowired
 	HttpServletResponse response;
 	
-	@Value("${community.addCss}")
-	private String[] addCss;
-	@Value("${community.addScript}")
-	private String[] addScript;
+	private String baseUrl = "community/notice/";
 	
-	public Map<String, String[]> getFileLists(){
-		Map<String, String[]> pathMap = new HashMap<>();
-		pathMap.put("addCss", addCss);
-		pathMap.put("addScript", addScript);
-		
-		return pathMap;
+	//static 정보
+	private void addCssJs(String boardName, String[] cssList, String[] jsList, Model model) {
+		model.addAttribute("board", boardName);
+		model.addAttribute("addCss", cssList);
+		model.addAttribute("addScript", jsList);
 	}
+	
 
 	//공지사항 메인페이지
 	@GetMapping("/notice_main")
 	public String index(NoticeRequest noticeRequest, Model model) {
-		//css, js 추가
-		Map<String, String[]> pathMap = getFileLists();
-		model.addAttribute("board", "notice");
-		model.addAttribute("addCss", pathMap.get("addCss"));
-		model.addAttribute("addScript", pathMap.get("addScript"));
+		//css, js, board 추가
+		addCssJs("notice", new String[] {"community/community_common"},
+				new String[] {"community/community_common"}, model);
 		
 		//전체목록 조회
 		List<NoticeRequest> lists = noticeService.getAllLists();
 		model.addAttribute("lists", lists);		
 		
-		return "community/notice/notice_main";
+		return baseUrl+ "notice_main";
 	}
 	
 	//공지사항 내용보기
 	@GetMapping("/notice_read/noticeNo_{noticeNo}")
 	public String readNotice(@PathVariable int noticeNo, Model model) throws Exception{
 	//css, js 추가
-			Map<String, String[]> pathMap = getFileLists();
-			model.addAttribute("board", "notice");
-			model.addAttribute("addCss", pathMap.get("addCss"));
-			model.addAttribute("addScript", pathMap.get("addScript"));
+		//css, js, board 추가
+		addCssJs("notice", new String[] {"community/community_common"},
+				new String[] {"community/community_common"}, model);
 			
 			Cookie[] cookies1 = request.getCookies();
 			if(cookies1 != null) {
@@ -101,6 +92,6 @@ public class NoticeController {
 				noticeService.addReadCnt(noticeNo);
 			}
 			
-		return "community/notice/notice_read";
+		return baseUrl + "notice_read";
 	}
 }

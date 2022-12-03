@@ -3,38 +3,49 @@
 		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 		layout:decorate="~{layouts/main}">
 	
+	<!-- 메인시작 -->
 	<main layout:fragment="content" class="content">
-		<input type="hidden" id="board" value="${board}">
+		<input type="hidden" id="board" th:value="${board}">
 		<!-- 커뮤니티 공통 상단 네비바 -->
 		<th:block th:replace="outlines/community_top::community_top"></th:block>
 		
+		<div class="marginTop150"></div>
+		
 		<!-- 후기 내용 -->
-		<div>
-			<table th:object="${reviewRequest}">
+		<div class="wrap centerW">
+			<table class="communityT marginAuto" th:object="${reviewRequest}">
 				<tr>
-					<td th:text="*{reviewTitle}"></td>
+					<td class="width100 font2" colspan="4" align="left" th:text="*{reviewTitle}"></td>
 				</tr>
-				<tr>
+				<tr align="left">
 					<th th:text="#{common.region}"></th>
 					<td th:text="*{region}"></td>
 					<th th:text="#{review.period}"></th>
 					<td th:text="*{period}"></td>
 				</tr>
 				<tr>
-					<td th:text="*{name}"></td>
-					<td th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}"></td>
+					<td colspan="4" align="right">
+						<span th:text="*{name}"></span>&nbsp;&nbsp;
+						<span th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}"></span>
+					</td>
 				</tr>
 				<tr>
-					<td th:text="*{reviewContent}"></td>
+					<td colspan="4" align="left" class="enter" id="reviewContent" th:utext="*{reviewContent}">
+						<input type="hidden" id="test" th:value="${fileLists}">						
+					</td>
 				</tr>
 			</table>
-		</div>
-		<!-- 목록으로 돌아가기 -->
-		<div>
-			<button th:onclick="|location.href='@{/community/review_main?keyword={keyword}(keyword=${keyword})}'|" 
-					type="submit" th:text="#{community.list}"></button>
-			<button type="button" th:text="#{community.modify}">수정</button>
-			<button type="button" th:text="#{community.delete}">삭제</button>
+			<div class="marginTop30"></div>
+			
+			<!-- 목록으로 돌아가기 -->
+			<div>
+				<button class="btn1 width25" th:onclick="|location.href='@{/community/review_main?keyword={keyword}(keyword=${keyword})}'|" 
+						type="submit" th:text="#{community.list}"></button>
+				<th:block th:if="${sessionId}==${reviewRequest.id}">
+					<button class="btn1 width20" type="button" th:text="#{community.modify}">수정</button>
+					<button class="btn1 width20" type="button" th:text="#{community.delete}">삭제</button>
+				</th:block>
+			</div>
 		</div>
 	</main>
 </html>

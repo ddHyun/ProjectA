@@ -1,20 +1,17 @@
 package org.tourGo.common;
 
-/*
- * 회원가입 Json 데이터 처리
+import lombok.*;
+
+/**
+ * JSON 데이터 
+ * @author user
+ *
+ * @param <T>
  */
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@Getter @Setter @ToString
 public class JsonResult<T> {
 	private boolean success;
-	private T data;
 	private String message;
+	private T data;
 }

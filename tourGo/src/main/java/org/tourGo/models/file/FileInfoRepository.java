@@ -12,28 +12,29 @@ public interface FileInfoRepository extends JpaRepository<FileInfo, Long>{
 
 	//추가
 	@Modifying //insert, update, delete문에 사용
-	@Transactional //update, delete문에 사용
 	FileInfo save(@Param("fileInfo") FileInfo fileInfo);
 	
 	//조회(id)
-	FileInfo findById(long id);
+	@Query("select f from FileInfo f where f.id=:id and f.success=1")
+	FileInfo findById(@Param("id") long id);
 	
 	//조회(gid)
-	List<FileInfo> findByGid(String gid);
+	@Query("select f from FileInfo f where f.gid=:gid and f.success=1")
+	List<FileInfo> findByGid(@Param("gid") String gid);
 	
 	//삭제(id)
 	@Modifying
-	@Transactional
-	Boolean deleteById(long id);
+	@Transactional //update, delete문에 사용
+	int deleteById(long id);
 	
 	//삭제(gid)
 	@Modifying
 	@Transactional
-	Boolean deleteByGid(String gid);
+	int deleteByGid(String gid);
 	
 	//작업완료 치리
 	@Modifying
 	@Transactional
 	@Query("update FileInfo f set f.success=1 where f.gid=:gid")
-	void updateSuccess(@Param("gid") String gid);
+	int updateSuccess(@Param("gid") String gid);
 }
