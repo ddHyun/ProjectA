@@ -4,7 +4,7 @@
 		layout:decorate="~{layouts/main}">
 	<main layout:fragment="content">
 		<div>회원가입</div>
-		<form method="post" id="signForm" name="signform" th:action="@{/main/login}" th:object="${signRequest}">
+		<form method="post" id="signForm" name="signform" th:action="@{/user/login}" th:object="${signRequest}">
 				<label for="userId" class="req" th:text="#{user.userId}"></label>
 				<input type="text" name="userId" th:field="*{userId}" class="sign_input required" th:title="#{user.userId}">
 				<div id="err_userId" class="err"></div>

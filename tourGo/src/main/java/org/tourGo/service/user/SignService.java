@@ -3,21 +3,16 @@ package org.tourGo.service.user;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.tourGo.controller.user.SignRequest;
-import org.tourGo.models.user.User;
-import org.tourGo.models.user.UserDao;
+import org.tourGo.models.entity.user.User;
 
 @Service
 public class SignService {
-	@Autowired
-	private UserDao userDao;
 	
-	public void process(SignRequest request) {
+	public User process(SignRequest request) {
 		
 		User user = new User();
 		user.setUserId(request.getUserId());
@@ -28,10 +23,7 @@ public class SignService {
 		user.setMobile(request.getMobile());
 		user.setIntro(request.getIntro());
 		
-		boolean result = userDao.register(user);
-		if(!result) {
-			throw new RuntimeException("회원 가입 실패!");
-		}
+		return user;
 	}
 	
 	public Map<String, String> validateHandling(Errors errors) {
