@@ -215,6 +215,10 @@ input[type=text]:focus.sign_input, input[type=password]:focus.sign_input, select
 
 
 /* 회원가입 약관 */
+.sign_agree {
+	max-width: 600px; margin: 50px auto 0; padding: 70px 40px;
+	background: #fff; border: 1px solid #d8d9de; border-radius: 4px;
+}
 #register_agree {
 	max-width: 600px; margin: 50px auto 0; padding: 70px 40px;
 	background: #fff; border: 1px solid #d8d9de; border-radius: 4px;
