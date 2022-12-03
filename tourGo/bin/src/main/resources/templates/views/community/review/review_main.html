@@ -1,12 +1,66 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-	<head></head>
-	<body>
-		<h1 th:text="${welcome}"></h1>
-		<table>
-			<tr>
-				<th th:text="#{review.reviewTitle}"></th>
-			</tr>
-		</table>
-	</body>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layouts/main}">		
+		
+	<!-- 메인시작 -->
+	<main layout:fragment="content" class="content">
+		<input type="hidden" id="board" th:value="${board}">
+		<!-- 커뮤니티 공통 상단 네비바 -->
+		<th:block th:replace="outlines/community_top::community_top"></th:block>
+		<!-- 게시판명 -->
+		<div class="wrap font3 centerW marginTop60" th:text="#{community.review}"></div>
+		<div class="marginTop60"></div>
+		<!-- 여행지 검색 -->
+		<div class="search wrap">
+			<form method="get" th:action="@{/community/review_main}" th:object="${searchRequest}">
+				<input type="text" placeholder="여행지 검색" name="search" th:field="*{keyword}">
+				<button class="btn1 marginR3" type="submit" th:text="#{review.search}"></button>
+			</form>
+		</div>
+		
+		<!-- 여행후기(테이블) -->
+		<div class="wrap centerW">
+			<table class="communityT marginAuto">
+				<thead>				
+					<tr>
+						<th th:text="#{community.index}">글번호</th>
+						<th th:text="#{review.reviewTitle}">제목</th>
+						<th th:text="#{common.region}">여행지</th>
+						<th th:text="#{review.period}">기간</th>
+						<th th:text="#{common.userName}">작성자</th>
+						<th th:text="#{community.regDt}">작성일</th>
+						<th th:text="#{review.reviewRead}">조회수</th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block>
+						<tr th:each="list, status:${lists}" th:object="${list}">
+							<td th:text="${status.size-status.index}">글번호</td>
+ 							<td><a th:href="@{/community/review_read/reviewNo_{reviewNo}?keyword={keyword}(reviewNo=*{reviewNo}, keyword=${searchRequest.keyword})}" 
+								th:text="*{reviewTitle}">제목</a></td>
+							<td th:text="*{region}">여행지</td>
+							<td th:text="*{period}">기간</td>
+							<td th:text="*{name}">작성자</td>
+							<td th:text="*{#temporals.format(regDt,'yyyy-MM-dd HH:mm')}">작성일</td>
+							<td th:text="*{reviewRead}">조회수</td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+		</div>
+		<div class="marginTop30"></div>
+		<div class="wrap move">
+			<!-- <th:block th:each="page : ${#numbers.sequence(1, pageMap.endPage)}">
+				<a href="?page=${page}" th:text="${page}"></a>
+			</th:block> -->
+			
+			<th:block th:replace="outlines/pagination::pagination"></th:block>
+			
+				<button class="floatR btn1 width25 marginR3" type="submit" th:text="#{review.write}" th:onclick="|location.href='@{/community/review_form}'|"></button>
+		</div>
+	
+		
+	</main>
+	
 </html>

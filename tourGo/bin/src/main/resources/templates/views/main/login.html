@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+	<form action="">
+		<div>로그인</div>
+		<div>
+			아이디 <input type="text" name="uId">
+		</div>
+		<div>
+			비밀번호 <input type="password" name="uPw">
+		</div>
+		<div>
+			<button type="submit">로그인</button>
+		</div>
+		<div>
+			<button th:onclick="'location.href=\'' + @{/main/signCondition} + '\''"  type="button">회원가입</button>
+			<button type="button">아이디/비밀번호 찾기</button>
+		</div>
+	</form>
+		
+</html>
