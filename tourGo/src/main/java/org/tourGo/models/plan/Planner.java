@@ -21,6 +21,6 @@ public class Planner {//여행 일정짜기dto
 	 private String planType;
 	 private String memId;
 	 private String memo;
-	 
+	 private String image;
 	 
 }

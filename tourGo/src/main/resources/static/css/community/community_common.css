@@ -42,6 +42,13 @@ html{
 	margin-top: 150px;
 }
 
+/* 너비20% */
+.width20{
+	width: 20%;
+	padding: 1rem;
+	box-sizing: border-box;
+}
+
 /* 너비25% */
 .width25{
 	width: 25%;
@@ -70,12 +77,20 @@ a{
 	text-decoration: none;
 }
 
-/* 기본 버튼 */
+/* 하얀 버튼 */
 .btn0{
+	border: 1px solid #09c;
 	background-color: #fff;
-	color: #000;
+	color: #09c;
 	border-radius: 12px;
-	padding: 5px;
+	padding: 7px;
+	margin-bottom: 15px;
+	font-size: 1rem;
+	cursor: pointer;
+}
+
+.btn0:hover{
+	font-weight: bold;
 }
 
 /* 색상 버튼 */
@@ -166,7 +181,7 @@ main.content{
 .communityT textarea{
 	width: 100%;
 	height: auto;
-	font-size: 1.1rem;
+	font-size: 1rem;
 	resize: none;
 	padding: 1rem;
 	border: none;
@@ -206,5 +221,16 @@ td select{
 	border: none;
 	outline: none;
 	cursor: pointer;
+}
+
+.enter{
+	white-space: pre-wrap;
+	font-size: 1rem;
+	padding: 1rem;
+}
+
+/* 오류메시지*/
+.errMsg{
+	color: red;
 }
 

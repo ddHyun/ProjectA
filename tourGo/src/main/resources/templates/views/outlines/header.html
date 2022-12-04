@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<header th:fragment="header">
-		<h1>Header!</h1>
+		<th:block th:if="${session.user == null}">
+			<a th:href="@{/user/login}" th:text="#{user.login}"></a>
+			<a th:href="@{/user/signUp}" th:text="#{user.sign}"></a>
+		</th:block>
+		<th:block th:unless="${session.user == null}">
+			<a th:href="@{/user/logout}" th:text="#{user.logout}"></a>
+			<a th:href="@{/mypage}" th:text="#{user.mypage}"></a>
+		</th:block>
 	</header>
 </html>

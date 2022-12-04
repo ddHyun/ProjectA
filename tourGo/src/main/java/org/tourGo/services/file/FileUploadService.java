@@ -41,7 +41,7 @@ public class FileUploadService {
 			fileInfo.setGid(gid);
 			fileInfo.setFileName(file.getOriginalFilename());
 			fileInfo.setFileType(file.getContentType());
-			
+
 			fileInfo = repository.save(fileInfo);
 			
 			//id로 업로드파일경로 설정
@@ -56,7 +56,6 @@ public class FileUploadService {
 			//파일 업로드
 			try {//업로드 성공한 file정보만 담기
 				file.transferTo(new File(uploadFilePath));
-				repository.updateSuccess(fileInfo.getGid());
 				fileLists.add(fileInfo);
 			} catch (Exception e) {//실패시 실패파일 정보 삭제
 				e.printStackTrace();
@@ -67,4 +66,11 @@ public class FileUploadService {
 		return fileLists;
 	}
 	
+	//업로드 작업 완료 처리
+	public void updateSuccess(String gid) {
+		int affectedRows = repository.updateSuccess(gid);
+		boolean result = affectedRows > 0 ? true : false;
+		System.out.println("==============================");
+		System.out.println("UpdateSuccess : " + result);
+	}
 }
