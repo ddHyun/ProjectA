@@ -2,6 +2,7 @@ package org.tourGo.service.community;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -105,12 +106,12 @@ public class ReviewService {
 	@Transactional
 	public ReviewRequest registerReview(ReviewRequest reviewRequest, String userId) {
 		
-		User user = userRepository.findByUserId(userId);
+		Optional<User> user = userRepository.findByUserId(userId);
 		//request -> dto -> entity
 		ReviewDto dto = ReviewRequest.requestToDto(reviewRequest);
 		ReviewEntity entity = ReviewDto.dtoToEntity(dto);
 
-		entity.setUser(user);
+//		entity.setUser(user);
 	
 		entity = reviewRepository.save(entity);
 		
