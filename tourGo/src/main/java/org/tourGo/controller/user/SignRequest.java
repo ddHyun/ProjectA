@@ -6,13 +6,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.tourGo.models.user.User;
-
 import lombok.*;
 
-@Getter
-@Setter
-@ToString
+@Getter @Setter @ToString
 public class SignRequest {
 	
 	@NotBlank(message="{NotBlank.userId}")

@@ -28,7 +28,7 @@ const formValidator = {
 		
 		try {
 			const result = await this.getAjaxData( '/user/api/signUp', data);
-			console.log(result); // 회원 가입 후 확인하고 처리할 것이 더 있다면 여기에서 확인
+			// console.log(result); // 회원 가입 후 확인하고 처리할 것이 더 있다면 여기에서 확인
 			alert("회원가입이 완료되었습니다.");
 			// 아마 ajax로 다 처리되는 듯 하지만 우선 여기서 submit 하고 전화 드릴꼐요~!
 			signform.submit();

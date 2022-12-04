@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.tourGo.controller.user.LoginRequest;
-import org.tourGo.models.user.User;
-import org.tourGo.models.user.UserDao;
+import org.tourGo.models.entity.user.User;
+import org.tourGo.models.user.UserRepository;
 
 @Service
 public class LoginService {
@@ -16,7 +16,7 @@ public class LoginService {
 	private HttpSession session;
 	
 	@Autowired
-	private UserDao userDao;
+	private UserRepository userRepository;
 	
 	public void process(LoginRequest loginRequest, Errors errors) {
 		if(errors.hasErrors()) {
@@ -24,7 +24,7 @@ public class LoginService {
 		}
 		
 		String userId = loginRequest.getUserId();
-		User user = userDao.get(userId);
+		User user = userRepository.findByUserId(userId);
 		if(user == null) {
 			throw new RuntimeException("가입되지 않은 아이디 입니다.");
 		}
