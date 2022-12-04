@@ -3,7 +3,7 @@ package org.tourGo.models.entity.user;
 import javax.persistence.*;
 import lombok.*;
 
-import org.tourGo.models.entity.BaseEntity;
+import org.tourGo.common.BaseEntity;
 import org.tourGo.models.user.ActiveType;
 import org.tourGo.models.user.UserType;
 
