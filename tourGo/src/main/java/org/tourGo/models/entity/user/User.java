@@ -38,7 +38,7 @@ public class User extends BaseEntity {
 	private String intro; //  자기소개
 	
 	@Enumerated(EnumType.STRING) 
-	@Column(length=40, nullable=false)
+	@Column(nullable=false)
 	private UserType adminType = UserType.USER; // 관리자 권한
 	
 	@Transient
