@@ -1,13 +1,11 @@
 package org.tourGo.models.entity.plan;
 
 import java.time.LocalTime;
+
 import javax.persistence.*;
 
-<<<<<<< HEAD
-=======
 import org.tourGo.common.BaseEntity;
 
->>>>>>> 462b1199ec6ec4a5f8ae882a49ee5587cc0ee740
 import lombok.*;
 
 @Entity
