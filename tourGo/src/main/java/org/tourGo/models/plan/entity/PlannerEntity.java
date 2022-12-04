@@ -7,7 +7,6 @@ import org.tourGo.common.BaseEntity;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 import lombok.*;
 
 @Getter @Setter

@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.tourGo.service.user.LoginService;
 
 @Controller
-@RequestMapping("/main")
+@RequestMapping("/user")
 public class LoginController {
 	
 	@Autowired
 	private LoginService loginService;
 	
-	private String fixed_url = "main/";
+	private String fixed_url = "user/";
 	
 	@GetMapping("/login")
 	public String login(Model model) {
@@ -30,16 +30,7 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login")
-	public String loginPs(@Valid LoginRequest loginRequest, Errors errors) {
-		try {
-			loginService.process(loginRequest, errors);
-		} catch (RuntimeException e){
-			errors.reject("loginError", e.getMessage());
-		}
-		
-		if(errors.hasErrors()) {
-			return fixed_url + "login";
-		}
+	public String loginPs() {
 		return "redirect:/";
 	}
 }
