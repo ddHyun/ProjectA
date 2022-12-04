@@ -20,5 +20,6 @@ public abstract class BaseEntity {
 	private LocalDateTime regDt;
 	
 	@LastModifiedDate   //수정일
+	@Column(insertable=false)
 	private LocalDateTime modDt;
 }
