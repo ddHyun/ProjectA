@@ -10,11 +10,11 @@ import lombok.*;
 
 @Entity
 @Getter @Setter
-<<<<<<< HEAD:tourGo/src/main/java/org/tourGo/models/plan/entity/PlanDetailsEntity.java
+
 public class PlanDetailsEntity extends BaseEntity {
-=======
+
 public class PlanDetail extends org.tourGo.common.BaseEntity {
->>>>>>> merge:tourGo/src/main/java/org/tourGo/models/entity/plan/PlanDetail.java
+
 	@Id @GeneratedValue
 	private Long DetailNo;
 	
@@ -29,4 +29,5 @@ public class PlanDetail extends org.tourGo.common.BaseEntity {
 	private LocalTime sTime;
 	private LocalTime eTime;
 	
+}
 }
