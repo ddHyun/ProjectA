@@ -1,22 +1,26 @@
-package org.tourGo.models.entity.plan;
+package org.tourGo.models.plan.entity;
 
 import javax.persistence.*;
 
 import org.tourGo.common.BaseEntity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import lombok.*;
 
 @Getter @Setter
 @Entity
-public class Plan extends BaseEntity {
+public class PlannerEntity extends BaseEntity {
 	@Id @GeneratedValue
 	private Long plannerNo;
 	private String title;
 	private String planSize;
 	private String planType;
-	
+	 private LocalDateTime sdate;
+	 private LocalDateTime edate;
+	 private String memId;
+	 private String image;
 	/**
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn("memId")
@@ -24,6 +28,6 @@ public class Plan extends BaseEntity {
 	*/
 	
 	@OneToMany(mappedBy="plan", fetch=FetchType.LAZY)
-	private List<PlanDetail> plainDetails;
+	private List<PlanDetailsEntity> plainDetails;
 	
 }
