@@ -1,4 +1,4 @@
-package org.tourGo.models.entity.plan;
+package org.tourGo.models.plan.entity;
 
 import javax.persistence.*;
 
@@ -9,7 +9,7 @@ import lombok.*;
 @Getter @Setter @ToString
 @Entity
 @Table(indexes={@Index(name="mapXY", columnList="mapX,mapY")})
-public class TourInfo extends BaseEntity {
+public class TourlistEntity extends BaseEntity {
 	@Id @GeneratedValue
 	private Long id;
 	private String title;
