@@ -27,16 +27,19 @@
 					<tr>
 						<th th:text="#{common.region}"></th><!-- 여행지 -->
 						<td align="left">
-							<select class="width100 borderX clkBorderX" name="region" th:field="*{region}">
+							<!-- <select class="width100 borderX clkBorderX" name="region" th:field="*{region}"> -->
+							<select class="width100 borderX clkBorderX" name="region">
 								<option value="">선택[필수]</option>
-								<option th:each="region, status : ${regionLists}" th:value="${status.index}" th:text="${region}"></option>
+								<option th:each="region, status : ${regionLists}" th:value="${status.index}" 
+											th:text="${region}" th:selected="${status.index}==${selectedRegion}"></option>
 							</select>
 						</td>
 						<th th:text="#{review.period}"></th><!-- 여행기간 -->
 						<td align="left">
-							<select name="period" th:field="*{period}">
+							<select name="period">
 								<option value="">선택[필수]</option>
-								<option th:each="period, status : ${periodLists}" th:text="${period}" th:value="${status.index}"></option>
+								<option th:each="period, status : ${periodLists}" th:text="${period}" 
+											th:value="${status.index}" th:selected="${status.index}==${selectedPeriod}"></option>
 							</select>
 						</td>
 					</tr>
@@ -55,9 +58,15 @@
 						</td>
 					</tr>
 				</table>
+				<input type="hidden" th:value="${modifying}" id="test">
 				<div class="marginTop30"></div>
 				<button class="btn0 width25" id="cancel" type="button" th:text="#{community.cancel}">취소</button>
-				<button class="btn1 width25" type="submit" th:text="#{community.register}">등록</button>
+				<th:block th:if="${modifying}=='yes'">
+					<button class="btn1 width25" type="submit" th:text="#{community.modify}">수정</button>
+				</th:block>
+				<th:block th:unless="${modifying}=='yes'">
+					<button class="btn1 width25" type="submit" th:text="#{community.register}">등록</button>
+				</th:block>
 			</form>
 		</div>
 	</main>	

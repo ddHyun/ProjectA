@@ -1,6 +1,8 @@
 package org.tourGo.controller.community.review;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.tourGo.common.JsonResult;
 import org.tourGo.models.file.FileInfo;
 import org.tourGo.service.community.ReviewService;
 import org.tourGo.services.file.FileRUDService;
@@ -77,47 +82,14 @@ public class ReviewController {
 		return baseUrl+ "review_main";
 	}
 	
-	//제목 클릭시 후기읽기 페이지
-	@GetMapping("/review_read/reviewNo_{reviewNo}")
-	public String readReview(@PathVariable int reviewNo, String keyword, 
-							@CookieValue(value="visitReview", required=false) Cookie cookie , Model model) {
-		
-		//css, js, board 추가
-		addCssJs("review", new String[] {"community/community_common"}, 
-				new String[] {"community/community_common", "ckeditor/ckeditor"}, model);
-
-		/** 쿠키 처리 S */
-		if(cookie!=null) {
-			if(!cookie.getValue().contains("["+reviewNo+"]")) {
-				cookie.setValue(cookie.getValue()+"_["+reviewNo+"]");
-				response.addCookie(cookie);
-				reviewService.updateReviewRead(reviewNo);
-			}
-		}else {
-			Cookie newCookie = new Cookie("visitReview", "["+reviewNo+"]");
-			response.addCookie(newCookie);
-			reviewService.updateReviewRead(reviewNo);
-		}
-		/** 쿠키 처리 E */
-		
-		//게시글 가져오기
-		ReviewRequest reviewRequest = reviewService.getOneReviewList(reviewNo);
-		List<FileInfo> fileLists = fileService.getFileLists(reviewRequest.getGid());
-		System.out.println("===============fileLists : "+fileLists);
-		model.addAttribute("reviewRequest", reviewRequest);		
-		model.addAttribute("fileLists", fileLists);
-		
-		model.addAttribute("keyword", keyword);
-		
-		return baseUrl + "review_read";
-	}
 	
 	//작성페이지
-	@GetMapping("/review_form")
-	public String moveToFillForm(ReviewRequest reviewRequest, String gid, Model model) {
+	@GetMapping({"/review_form", "/review_modify"})
+	public String moveToFillForm(ReviewRequest reviewRequest, String gid, 
+									Integer reviewNo, Model model) {
 		
 //		미로그인 시 로그인 페이지로 이동
-//		if(!session.getAttribute("sessionId")) {
+//		if(!session.getAttribute("user")) {
 //			return "redirect:/login";
 //		}
 		
@@ -134,6 +106,31 @@ public class ReviewController {
 		gid = gid==null? ""+System.currentTimeMillis() : gid;
 		model.addAttribute("gid", gid);
 		
+		String modifying="no";
+		
+		//수정시 내용 가져오기
+		if(reviewNo!=null) {
+			reviewRequest = reviewService.getOneReviewList(reviewNo);
+			
+			int period = 0; 
+			int region = 0;
+			
+			for(int i=0; i<periodLists.length; i++) {
+				if(reviewRequest.getPeriod().equals(periodLists[i])) {
+					period = i;
+				}
+				if(reviewRequest.getRegion().equals(regionLists[i])) {
+					region = i;
+				}
+			}
+			modifying = "yes";
+			model.addAttribute("selectedPeriod", String.valueOf(period));
+			model.addAttribute("selectedRegion", String.valueOf(region));
+			model.addAttribute("reviewRequest", reviewRequest);
+		}
+		
+		model.addAttribute("modifying", modifying);
+		
 		return baseUrl + "review_form";
 	}
 	
@@ -149,16 +146,14 @@ public class ReviewController {
 			return baseUrl + "review_form";
 		}		
 		
-		String sessionId = "user02";//세션에 저장된 아이디로 바꾸기
-		reviewRequest.setId(sessionId);
-		
+		String sessionUser = "user01";//세션에 저장된 아이디로 바꾸기
 		//내용 등록		
 		try {
 			String period = periodLists[Integer.valueOf(reviewRequest.getPeriod())];
 			String region = regionLists[Integer.valueOf(reviewRequest.getRegion())];
 			reviewRequest.setPeriod(period);
 			reviewRequest.setRegion(region);
-			reviewService.registerReview(reviewRequest);
+			reviewService.registerReview(reviewRequest, sessionUser);
 			
 			// 파일 업로드 완료 처리 
 			uploadService.updateSuccess(reviewRequest.getGid());

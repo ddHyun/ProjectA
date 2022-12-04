@@ -5,14 +5,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.tourGo.controller.community.review.ReviewRequest;
 import org.tourGo.controller.community.review.ReviewSearchRequest;
 import org.tourGo.models.community.review.QReviewEntity;
 import org.tourGo.models.community.review.ReviewDto;
 import org.tourGo.models.community.review.ReviewEntity;
 import org.tourGo.models.community.review.ReviewEntityRepository;
-import org.tourGo.models.community.review.UserTestRepository;
-import org.tourGo.models.community.review.User_test;
+import org.tourGo.models.entity.user.User;
+import org.tourGo.models.user.UserRepository;
 
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -21,9 +22,9 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 public class ReviewService {
 
 	@Autowired
-	private ReviewEntityRepository rRepository;
+	private UserRepository userRepository;
 	@Autowired
-	private UserTestRepository uRepository;
+	private ReviewEntityRepository reviewRepository;
 	@Autowired
 	private JPAQueryFactory jpaQueryFactory;
 	
@@ -57,13 +58,8 @@ public class ReviewService {
 
 	// 여행후기 모든 목록 조회
 	public List<ReviewRequest> getAllReviewList() {		
-			
-		User_test user1 = new User_test();
-		user1.setId("user02");
-		user1.setName("사용자02");
-		uRepository.save(user1);
 		
-		List<ReviewEntity> lists = rRepository.findAllByOrderByRegDtDesc();
+		List<ReviewEntity> lists = reviewRepository.findAllByOrderByRegDtDesc();
 		
 		if(lists.size() > 0) {	//entity -> dto -> request
 			List<ReviewRequest> requestLists = entityToRequest(lists);
@@ -76,7 +72,7 @@ public class ReviewService {
 	// 한 가지 목록 조회
 	public ReviewRequest getOneReviewList(int reviewNo) {
 		
-		ReviewEntity entityList = rRepository.findByReviewNo(reviewNo);
+		ReviewEntity entityList = reviewRepository.findByReviewNo(reviewNo);
 		//entity -> dto -> request
 		ReviewRequest requestList = entityToRequest(entityList); 	
 
@@ -106,12 +102,17 @@ public class ReviewService {
 	}
 	
 	//후기 등록하기
-	public ReviewRequest registerReview(ReviewRequest reviewRequest) {
+	@Transactional
+	public ReviewRequest registerReview(ReviewRequest reviewRequest, String userId) {
+		
+		User user = userRepository.findByUserId(userId);
 		//request -> dto -> entity
 		ReviewDto dto = ReviewRequest.requestToDto(reviewRequest);
 		ReviewEntity entity = ReviewDto.dtoToEntity(dto);
+
+		entity.setUser(user);
 	
-		entity = rRepository.save(entity);
+		entity = reviewRepository.save(entity);
 		
 		//entity -> dto -> request
 		ReviewRequest request = entityToRequest(entity); 
@@ -121,7 +122,16 @@ public class ReviewService {
 	
 	//조회수 증가
 	public boolean updateReviewRead(int reviewNo) {
-		int affectedRow = rRepository.updateReviewRead(reviewNo);
+		int affectedRow = reviewRepository.updateReviewRead(reviewNo);
+		return affectedRow > 0;
+	}
+
+	//게시글 삭제
+	@Transactional
+	public boolean deleteReview(int reviewNo) {
+		int affectedRow = reviewRepository.deleteByReviewNo(reviewNo);
+		System.out.println("=================");
+		System.out.println("삭제 여부 : "+ affectedRow);
 		return affectedRow > 0;
 	}	 
 
