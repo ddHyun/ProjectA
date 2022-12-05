@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.tourGo.config.auth.CustomAuthenticationFailureHandler;
+import org.tourGo.config.auth.CustomAuthenticationSuccessHandler;
 import org.tourGo.config.auth.PrincipalDetailService;
 
 
@@ -20,6 +22,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private PrincipalDetailService principalDetailService;
+	
+	@Autowired
+	private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+	
+	@Autowired
+	private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
 	// 비밀번호 인코딩
 	@Bean
@@ -40,8 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.csrf().disable()
 			.authorizeHttpRequests()
-				.antMatchers("/**")
-				.permitAll()
+				.antMatchers("/admin/**").hasAnyRole("ADMIN", "SUPERADMIN")
+				.antMatchers("/user/mypage").hasRole("USER")
+				.antMatchers("/user/**").permitAll()
+				.antMatchers("/**").permitAll()
 				.anyRequest()
 				.authenticated()
 			.and()
@@ -50,7 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginProcessingUrl("/user/loginProc") // 스프링 시큐리티가 해당 주소로 오는 로그인 요청을 가로채서 대신 로그인 수행
 				.usernameParameter("userId") // 아이디 파라미터명 설정, default : username
 				.passwordParameter("userPw") // 비밀번호 파라미터명 설정, default : password
-				.defaultSuccessUrl("/");
+				.defaultSuccessUrl("/")
+				.failureHandler(customAuthenticationFailureHandler); // 로그인 실패시 핸들러 적용
 		
 		http.logout()
 			.logoutUrl("/logout")

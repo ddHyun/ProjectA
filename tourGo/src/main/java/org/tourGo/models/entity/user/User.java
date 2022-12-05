@@ -41,8 +41,7 @@ public class User extends BaseEntity {
 	@Column(nullable=false)
 	private UserType adminType = UserType.USER; // 관리자 권한
 	
-	@Transient
-	@Column(nullable=false, columnDefinition="char(1) default 'N'")
+	@Column(nullable=false, columnDefinition="char(1) default 'N'", insertable=false)
 	private String deleteYn; // 삭제 여부
 	
 	@Enumerated(EnumType.STRING) 
