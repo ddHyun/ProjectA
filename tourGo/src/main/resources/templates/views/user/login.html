@@ -4,8 +4,11 @@
 	layout:decorate="~{layouts/main}">
 	
 	<main layout:fragment="content">
+		<div>로그인</div>
+		<div th:if="${param.error}">
+			<span th:text="${exception}" style="background-color: red;">잘못된 아이디나 암호입니다.</span>
+		</div>
 		<form method="post" th:action="@{/user/loginProc}" autocomplete="off">
-			<div>로그인</div>
 			<div>
 				<div th:text="#{user.userId}"></div>
 				<input type="text" name="userId" id="userId">
