@@ -21,14 +21,13 @@ window.addEventListener("DOMContentLoaded", function() {
 	CKEDITOR.replace("reviewContent");
 	CKEDITOR.config.height=350;	
 	/** 에디터 로드 E */
-	
-	console.log("form.js 들어옴");
+
 	
 	/**취소 선택 이벤트 처리 S */
 	const cancelEl = document.getElementById("cancel");
 	if(cancelEl){
 		cancelEl.addEventListener("click", function(){
-			if(!confirm("작성중이던 글은 저장되지 않습니다. 취소하시겠습니까?")){
+			if(!confirm("취소하시겠습니까?")){
 				return;
 			}
 			location.href="review_main";

@@ -25,4 +25,7 @@ public interface ReviewEntityRepository extends JpaRepository<ReviewEntity, Inte
 	@Transactional
 	@Query("update ReviewEntity r set r.reviewRead=(r.reviewRead+1) where r.reviewNo=:reviewNo")
 	int updateReviewRead(int reviewNo);
+
+	//게시글 삭제
+	int deleteByReviewNo(int reviewNo);
 }

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import javax.validation.constraints.NotBlank;
 
 import org.tourGo.models.community.review.ReviewDto;
-import org.tourGo.models.community.review.User_test;
+import org.tourGo.models.entity.user.User;
 
 import lombok.*;
 
@@ -34,8 +34,8 @@ public class ReviewRequest {
 		ReviewRequest request = new ReviewRequest();
 		
 		request.setReviewNo(dto.getReviewNo());
-		request.setId(dto.getUser_test().getId());
-		request.setName(dto.getUser_test().getName());
+		request.setId(dto.getUser().getUserId());
+		request.setName(dto.getUser().getUserNm());
 		request.setReviewTitle(dto.getReviewTitle());
 		request.setRegion(dto.getRegion());
 		request.setPeriod(dto.getPeriod());
@@ -50,9 +50,9 @@ public class ReviewRequest {
 	//커맨드 -> dto로 바꾸기
 	public static ReviewDto requestToDto(ReviewRequest request) {
 		ReviewDto dto = new ReviewDto();
-		User_test user_test = new User_test(); 
-		user_test.setId(request.getId());
-		dto.setUser_test(user_test);
+		User user = new User(); 
+		user.setUserId(request.getId());
+		dto.setUser(user);
 		dto.setGid(request.getGid());
 		dto.setReviewTitle(request.getReviewTitle());
 		dto.setRegion(request.getRegion());

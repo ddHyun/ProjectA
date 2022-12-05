@@ -17,16 +17,12 @@ import org.tourGo.models.user.UserRepository;
 import org.tourGo.service.user.SignService;
 
 @RestController
-@RequestMapping("/user/api/signUp")
 public class SignRestController {
 	
 	@Autowired
 	private SignService signService;
 	
-	@Autowired
-	private UserRepository userRepository;
-	
-	@PostMapping
+	@PostMapping("/user/api/signUp")
 	public ResponseDto<?> signUpPs(@Valid @RequestBody SignRequest request, Errors errors) {
 		// 비밀번호 확인 검증
 		new SignValidator().validate(request, errors);
@@ -35,9 +31,7 @@ public class SignRestController {
 			return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), validatorResult);
 		}
 		
-		User user = signService.process(request); 
-		
-		userRepository.save(user);
+		signService.process(request); 
 		
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
