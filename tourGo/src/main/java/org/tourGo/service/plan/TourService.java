@@ -96,12 +96,15 @@ public class TourService {
 		sb.append(serviceKey);
 		sb.append("&MobileOS=ETC&MobileApp=tourGo");
 		try {
-		sb.append(URLEncoder.encode("관광", "UTF-8"));
+			sb.append(URLEncoder.encode("관광", "UTF-8"));
+			sb.append("&keyword=");
+			sb.append(URLEncoder.encode(keyword, "UTF-8"));
 		} catch (Exception e) {}
 	
 		sb.append("&_type=json");
-		sb.append("&keyword=");
-		sb.append(keyword);
+		
+		
+		
 		
 		return sb.toString();
 	}
