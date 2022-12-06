@@ -11,7 +11,7 @@ import lombok.*;
 @Getter @Setter @ToString
 public class FileInfo extends BaseEntity{
 	
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id @GeneratedValue
 	private long id;		//파일 증감번호
 	
 	@Column(length=45, nullable=false)

@@ -2,7 +2,6 @@ const btnFn = {
 	/**목록으로 돌아가기 S */
 	back(){
 		const keyword = document.getElementById("keyword").value;
-		console.log(keyword);
 		location.href = `../review_main?keyword=${keyword}`;
 	},
 	/**목록으로 돌아가기 E */

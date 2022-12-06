@@ -14,8 +14,8 @@
 		
 		<!-- 후기 내용 -->
 		<div class="wrap centerW">
+			<input type="hidden" id="reviewNo" th:value="*{reviewNo}">
 			<table class="communityT marginAuto" th:object="${reviewRequest}">
-				<input type="hidden" id="reviewNo" th:value="*{reviewNo}">
 				<tr>
 					<td class="width100 font2" colspan="4" align="left" th:text="*{reviewTitle}"></td>
 				</tr>
@@ -42,7 +42,7 @@
 			<!-- 목록으로 돌아가기 -->
 			<div>
 				<button class="btn0 width25" id="backBtn" type="button" th:text="#{community.list}">목록</button>
-				<th:block th:if="${session.user}==${reviewRequest.id}">
+				<th:block th:if="${session.user==reviewRequest.id}">
 					<button class="btn1 width20" id="modifyBtn" type="button" th:text="#{community.modify}">수정</button>
 					<button class="btn1 width20" id="deleteBtn" type="button" th:text="#{community.delete}">삭제</button>
 				</th:block>

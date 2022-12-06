@@ -51,7 +51,7 @@ public class ReviewReadController {
 	
 	//제목 클릭시 후기읽기 페이지
 	@GetMapping("/review_read/reviewNo_{reviewNo}")
-	public String readReview(@PathVariable int reviewNo, String keyword, 
+	public String readReview(@PathVariable Long reviewNo, String keyword, 
 							@CookieValue(value="visitReview", required=false) Cookie cookie , Model model) {
 		
 		//css, js, board 추가
@@ -75,10 +75,9 @@ public class ReviewReadController {
 		
 		//게시글 가져오기
 		ReviewRequest reviewRequest = reviewService.getOneReviewList(reviewNo);
-		List<FileInfo> fileLists = fileService.getFileLists(reviewRequest.getGid());
-		System.out.println("===============fileLists : "+fileLists);
+//		List<FileInfo> fileLists = fileService.getFileLists(reviewRequest.getGid());
 		model.addAttribute("reviewRequest", reviewRequest);		
-		model.addAttribute("fileLists", fileLists);
+//		model.addAttribute("fileLists", fileLists);
 		
 		model.addAttribute("keyword", keyword);
 		
@@ -90,7 +89,7 @@ public class ReviewReadController {
 	//게시글 삭제
 	@GetMapping("/review_delete")
 	@ResponseBody
-	public JsonResult<Boolean> deleteReview(int reviewNo) {
+	public JsonResult<Boolean> deleteReview(Long reviewNo) {
 		boolean isDelete = reviewService.deleteReview(reviewNo);
 		JsonResult<Boolean> result = new JsonResult<>(); 
 		

@@ -1,4 +1,4 @@
-package org.tourGo.models.community.review;
+package org.tourGo.models.entity.community.review;
 
 import javax.persistence.*;
 
@@ -12,11 +12,11 @@ import lombok.*;
 @Getter @Setter @ToString
 public class ReviewEntity extends BaseEntity {
 
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int reviewNo;
+	@Id @GeneratedValue
+	private Long reviewNo;
 	
-	@ManyToOne(fetch=FetchType.LAZY)		//외래키는 참조테이블 자체를 객체로 받아오게 하고 쿼리로 필요데이터 사용
-	@JoinColumn(name="user")				//(name="추가할컬럼명"), 실테이블에는 해당테이블의 기본키값이 들어감
+	@ManyToOne(fetch=FetchType.LAZY)		
+	@JoinColumn(name="userNo")				
 	private User user;
 	
 	@Column(nullable=false, length=100)
@@ -26,9 +26,11 @@ public class ReviewEntity extends BaseEntity {
 	@Column(nullable=false, length=20)
 	private String period;
 	@Lob
+	@Column(nullable=false)
 	private String reviewContent;
-	
+	@Column(nullable=false)
 	private String gid;	
+	@Column(columnDefinition = "int default '0'", insertable=false)
 	private int reviewRead;
 	
 }
