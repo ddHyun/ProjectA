@@ -1,0 +1,210 @@
+*{
+	margin: 0; padding: 0;
+}
+
+html{
+	font-size: 17px;
+	background-color: #f0f8ff;
+}
+
+/* 폰트크기 1.5배 */
+.font2{
+	font-size: 1.5rem;
+}
+
+/* 폰트크기 3배 */
+.font3{
+	font-size: 3rem;
+}
+
+/* 글씨 가로 가운데 정렬 */
+.centerW{
+	text-align: center;
+}
+
+/* 좌우 자동여백(가운데 위치) */
+.marginAuto{
+	margin: auto;
+}
+
+/* 위쪽 여백 30 */
+.marginTop30{
+	margin-top: 30px;
+}
+
+/* 위쪽 여백 60 */
+.marginTop60{
+	margin-top: 60px;
+}
+
+/* 위쪽 여백 150 */
+.marginTop150{
+	margin-top: 150px;
+}
+
+/* 너비25% */
+.width25{
+	width: 25%;
+	padding: 1rem;
+	box-sizing: border-box;
+}
+
+/* 너비100% */
+.width100{
+	width: 100%;
+	padding: 1rem;
+	box-sizing: border-box;
+}
+
+/* 테두리 없애기 */
+.borderX{
+	border: none;
+}
+
+/*클릭시 테두리 제거*/
+.clkBorderX{
+	outline: none;
+}
+
+a{
+	text-decoration: none;
+}
+
+/* 기본 버튼 */
+.btn0{
+	background-color: #fff;
+	color: #000;
+	border-radius: 12px;
+	padding: 5px;
+}
+
+/* 색상 버튼 */
+.btn1{
+	background-color: #09c;
+	color: #fff;
+	border-radius: 12px;
+	padding: 7px;
+	margin-bottom: 15px;
+	border: 0;
+	outline: 0;
+	font-size: 1rem;
+	cursor: pointer;
+}
+.btn1:hover{
+	background-color: #0c83ab;
+}
+
+/* main태그 */
+main.content{
+	width: 60%;
+	min-width: 650px;
+	background-color: #fff;
+	margin: auto;
+}
+
+/* 와이드 이미지 들어가는 곳 */
+.wide{
+	width: 2000px; 
+	height: 24rem;
+	overflow: hidden;
+	margin-left : -400px !important;
+}
+
+.wrap{
+	width: 100%;
+}
+
+.top_nav{
+	background-color: #09c;
+	height: 50px;
+	line-height: 50px;
+}
+
+.top_nav a{
+	display: inline-block;
+	width: 33.33333%;
+	box-sizing: border-size;
+	/* inline-block의 마진 없애기 */
+	margin-right: -8px;
+	color: #fff;
+}
+
+.top_nav a:hover{
+	font-weight: bold;
+	background-color: #0c83ab;
+}
+
+.active{
+	font-weight: bold;
+	background-color: #0c83ab;
+}
+
+/* 상단바 쪽 와이드이미지 */
+.wide .wideImg{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center 75%;
+}
+
+/* 테이블(조회화면) */
+.communityT{
+	border-collapse: collapse;
+	width: 80%;
+	/* 열너비 자동 */
+	table-layout: auto;
+	padding: 10px;
+}
+
+/* 테이블 각 행 */
+.communityT tr th,td{
+	height: 40px;
+	border-bottom : 1px solid rgba(0,153,204,0.3);
+}
+
+/* 테이블 내 textarea */
+.communityT textarea{
+	width: 100%;
+	height: auto;
+	font-size: 1.1rem;
+	resize: none;
+	padding: 1rem;
+	border: none;
+	outline: none;
+	box-sizing: border-box;
+}
+
+.search{
+	text-align: right;
+}
+
+.search input{
+	line-height: 30px;	
+	padding: 2px;
+	outline: none;
+}
+
+.marginR3{
+	margin-right: 6.5rem;	
+}
+
+.move::after{
+	clear:both;
+	display: block;
+	content: "";
+}
+
+/* 요소 오른쪽에 위치시키기 */
+.floatR{
+	float: right;
+}
+
+td select{
+	width: 100%;
+	font-size: 0.9rem;
+	box-sizing: border-box;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+
