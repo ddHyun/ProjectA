@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko" class="hihi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Modal</title>
+    <head>
+<style>
+   .hihi::-webkit-scrollbar {display: none;}
+
+.hihi{scrollbar-width: none; -ms-overflow-style:none;}
+
+textarea.autosize { min-height: 70px; width:400px; }
+
+textarea.autosize {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+textarea.autosize::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+ </style>   
+
+
+    </head>
+  </head>
+  <body style="margin:0;">
+
+
+    
+    <form>
+    <div>
+    
+      <div style="border: 1px solid red;  margin: 0;">  
+        <h4> 사용자가 정의한 제목 </h4>
+        </div>
+        <div style="border: 1px solid red;  margin: 0; text-align: center; display: flex;">  
+      
+          <div style="border: 1px solid blue; width:15%">
+              여행제목
+    
+          </div>
+          
+          <div style="border: 1px solid  green; margin: 0; overflow: hidden; width:85%">
+
+    
+              <input type="text" style="width:100%; margin: 0;padding: 0;height: 100%;">
+
+            
+          </div>
+          </div>
+      
+
+          <div style=" display:flex; border: 1px solid red; text-align: center; margin: 0;overflow: hidden;">  
+            <div style="border: 1px solid blue; width:15%">
+              여행기간
+                </div>
+            <div style="border: 1px solid blue;display: flex; width:85%">
+              <div class="form-group" style="line-height: 1.2px;">
+                <input type="date" name="check-in">
+            
+            </div>
+              <div class="form-group" style="line-height: 1.2px;">
+                <input type="date" name="check-out">
+      
+            </div>
+            </div>
+          </div>
+
+
+
+        <div style="border: 1px solid red;  margin: 0; display: flex;">  
+      
+          <div style="width:15%;border: 1px solid blue; text-align: center;">
+              여행타입
+    
+          </div>
+          
+          <div style="width:85%;border: 1px solid  green; margin: 0; overflow: hidden;">
+
+              <label><input type="radio" name="fruit" value="solo">나홀로 여행</label>
+              <label><input type="radio" name="fruit" value="Couple">연인/커플</label>
+              <label><input type="radio" name="fruit" value="friend">친구/지인</label>
+              <label><input type="radio" name="fruit" value="Parents">부모님</label>
+              <label><input type="radio" name="fruit" value="family">가족</label>
+
+          </div>
+          
+          
+          </div>
+
+
+
+          <div style="border: 1px solid red;  margin: 0; text-align: center; display: flex;">  
+      
+            <div style="width:15%;border: 1px solid blue;">
+                여행인원
+      
+            </div>
+            
+            <div style="width:85%;border: 1px solid  green; margin: 0; overflow: hidden;">
+
+            </div>
+            
+            
+            </div>
+            <div style="border: 1px solid red;  margin: 0; text-align: center; display: flex;">  
+      
+              <div style="width:15%;border: 1px solid blue;">
+                  사용자 정의 메모
+        
+              </div>
+              
+              <div style="width:85%;border: 1px solid  green; margin: 0; overflow: hidden;">
+     
+    
+                <textarea class="autosize" maxlength="250" onkeydown="resize(this)" onkeyup="resize(this)" placeholder="추가 바람" style="vertical-align: middle; width: 100%; "></textarea>
+
+              </div>
+              
+              
+              </div>
+            
+    </div>
+    
+
+
+
+<div style="position: absolute; right: 0px; bottom: 0px;">
+  <button style=" margin: 0 30px;">일정 만들기</button>
+  <button style=" margin: 0 30px;" data-dismiss="modal">창닫기</button></div>
+</form>
+
+
+    
+    <script>
+      function resize(obj) {
+        obj.style.height = "1px";
+        obj.style.height = 100%+(obj.scrollHeight)+"px";
+      }
+      </script>
+  </body>
+</html>

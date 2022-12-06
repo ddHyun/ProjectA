@@ -11,12 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.tourGo.models.file.FileInfo;
 import org.tourGo.models.file.FileInfoRepository;
 
-/**
- * 이 클래스는 너무 잘 구성되어 있어서 그대로 쓰겠습니다~!
- * 
- * @author user
- *
- */
 @Service
 public class FileUploadService {
 	
