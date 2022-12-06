@@ -11,6 +11,7 @@ import org.tourGo.models.entity.user.User;
 // 스프링 시큐리티의 고유한 세션 저장소에 저장을 해준다.
 public class PrincipalDetail implements UserDetails {
 	
+	private static final long serialVersionUID = 1L;
 	private User user; // 컴포지션
 	
 	public PrincipalDetail(User user) {

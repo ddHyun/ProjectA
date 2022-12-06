@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<header th:fragment="header">
 		<th:block sec:authorize="isAnonymous()">
 			<a th:href="@{/user/login}" th:text="#{user.login}"></a>
