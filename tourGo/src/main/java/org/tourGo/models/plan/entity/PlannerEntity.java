@@ -21,13 +21,14 @@ public class PlannerEntity extends BaseEntity {
 	 private LocalDateTime edate;
 	 private String memId;
 	 private String image;
+	 private String memo;
 	/**
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn("memId")
 	private Member member;
 	*/
 	
-	@OneToMany(mappedBy="plan", fetch=FetchType.LAZY)
-	private List<PlanDetailsEntity> plainDetails;
+/**	@OneToMany(mappedBy="plan", fetch=FetchType.LAZY)
+	private List<PlanDetailsEntity> plainDetails;*/
 	
 }

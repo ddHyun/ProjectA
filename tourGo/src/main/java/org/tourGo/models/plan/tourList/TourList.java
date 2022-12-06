@@ -1,18 +1,19 @@
 package org.tourGo.models.plan.tourList;
 
 import java.util.Date;
+import java.util.List;
 
 import org.tourGo.models.plan.Planner;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
+@Getter @Setter @ToString
 public class TourList {//관광지관련 dto
 	
 	private String addr1;
