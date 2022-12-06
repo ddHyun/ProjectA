@@ -1,13 +1,29 @@
 package org.tourGo.service.plan;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.List;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import org.springframework.stereotype.Service;
 import org.tourGo.models.plan.tourList.TourList;
+import org.tourGo.models.plan.tourList.TourListResponse;
+
+import com.fasterxml.jackson.core.json.JsonReadFeature;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @Service
@@ -25,11 +41,53 @@ public class TourService {
 		try {
 			String apiURL = getURL(keyword);
 			URL url = new URL(apiURL);
-		}catch(Exception e) {
+			ignoreSsl();
+			conn = (HttpURLConnection)url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.connect();
 			
+			in = conn.getInputStream();
+		}catch(Exception e) {
+			e.printStackTrace();
+			if (conn != null) {
+				in = conn.getErrorStream();
+			}
 		}
 		
-	return null;
+		if (in != null) {
+			StringBuffer sb = new StringBuffer(1000);
+			try (BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+				String line = null;
+				while((line = br.readLine()) != null) {
+					sb.append(line);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			String result = sb.toString();
+			System.out.println(result);
+			
+			ObjectMapper om = new ObjectMapper();
+			om.enable(JsonReadFeature.ALLOW_NON_NUMERIC_NUMBERS.mappedFeature());
+			om.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+			om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+			try {
+				TourListResponse apiResult = om.readValue(result, TourListResponse.class);
+				items = apiResult.getResponse().getBody().getItems().getItem();
+			} catch (Exception e) {
+					e.printStackTrace();
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+	return items;
 	}
 	
 	private String getURL(String keyword) {
@@ -47,6 +105,50 @@ public class TourService {
 		
 		return sb.toString();
 	}
+	
+	public static void ignoreSsl() throws Exception{
+        HostnameVerifier hv = new HostnameVerifier() {
+        public boolean verify(String urlHostName, SSLSession session) {
+                return true;
+            }
+        };
+        trustAllHttpsCertificates();
+        HttpsURLConnection.setDefaultHostnameVerifier(hv);
+    }
+
+	
+	private static void trustAllHttpsCertificates() throws Exception {
+        TrustManager[] trustAllCerts = new TrustManager[1];
+        TrustManager tm = new miTM();
+        trustAllCerts[0] = tm;
+        SSLContext sc = SSLContext.getInstance("SSL");
+        sc.init(null, trustAllCerts, null);
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+    }
+ 
+    static class miTM implements TrustManager,X509TrustManager {
+        public X509Certificate[] getAcceptedIssuers() {
+            return null;
+        }
+ 
+        public boolean isServerTrusted(X509Certificate[] certs) {
+            return true;
+        }
+ 
+        public boolean isClientTrusted(X509Certificate[] certs) {
+            return true;
+        }
+ 
+        public void checkServerTrusted(X509Certificate[] certs, String authType)
+                throws CertificateException {
+            return;
+        }
+ 
+        public void checkClientTrusted(X509Certificate[] certs, String authType)
+                throws CertificateException {
+            return;
+        }
+    }
 	
 	
 }

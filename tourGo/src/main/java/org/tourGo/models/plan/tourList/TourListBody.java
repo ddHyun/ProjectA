@@ -6,10 +6,7 @@ import java.util.List;
 
 import lombok.*;
 
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
+@Getter @Setter @ToString
 public class TourListBody {
 	
 	private TourListItems items;

@@ -6,14 +6,14 @@ function newPage()  {
 const tourGo = {
 	 
 	 search(){
-		var keyword = document.getElementById(`keyword`).value;
+		const keyword = document.getElementById(`keyword`).value;
 		if(!keyword){
 			throw new Error("키워드를 입력해주세요");
 			
 		}
-		
-		const url = `tourList?keyword=${keyword}`;
-		const xhr = new XMLHttpRequest();
+
+			const url = `tourList?keyword=${keyword}`;
+				const xhr = new XMLHttpRequest();
 		xhr.open("GET", url);
 				xhr.addEventListener("readystatechange", function() {
 			if (xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
@@ -42,6 +42,9 @@ const tourGo = {
 				
 			}
 		});
+	
+	
+	
 		
 		xhr.send(null);
 	}
