@@ -61,13 +61,11 @@ public class ReviewService {
 	public List<ReviewRequest> getAllReviewList() {		
 		
 		List<ReviewEntity> lists = reviewRepository.findAllByOrderByRegDtDesc();
-		
-		if(lists.size() > 0) {	//entity -> dto -> request
+		if(lists.size()==0) {
+			throw new RuntimeException("조회결과가 없습니다");
+		}
 			List<ReviewRequest> requestLists = entityToRequest(lists);
 			return requestLists;
-		}else {
-			return null;
-		}		
 	}
 	
 	// 한 가지 목록 조회
