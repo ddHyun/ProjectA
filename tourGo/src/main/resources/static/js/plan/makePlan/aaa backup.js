@@ -1,4 +1,3 @@
-
 const body = document.querySelector('body');
 const modal = document.querySelector('.modal');
     const boxes=document.querySelectorAll('.grid-container');
@@ -9,7 +8,7 @@ const modal = document.querySelector('.modal');
     body.style.overflow = 'hidden';
   }
    })
- });
+ })
 
 
 
