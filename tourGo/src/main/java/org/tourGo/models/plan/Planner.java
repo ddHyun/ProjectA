@@ -37,7 +37,7 @@ public class Planner {//여행 일정짜기dto
 		 planner.setEdate(entity.getEdate());
 		 planner.setTitle(entity.getTitle());
 		 planner.setImage(entity.getImage());
-		 planner.setMemId(entity.getMemId());
+		// planner.setMemId(entity.getMemId());
 		 planner.setMemo(entity.getMemo());
 		
 		 
@@ -56,7 +56,7 @@ public class Planner {//여행 일정짜기dto
 		 entity.setEdate(planner.getEdate());
 		 entity.setTitle(planner.getTitle());
 		 entity.setImage(planner.getImage());
-		 entity.setMemId(planner.getMemId());
+	//	 entity.setMemId(planner.getMemId());
 		 entity.setMemo(planner.getMemo());
 		 
 		 
