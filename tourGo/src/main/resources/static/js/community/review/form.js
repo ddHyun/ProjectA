@@ -6,9 +6,16 @@ function fileUploadCallback(files) {
 		return;
 	}
 	
+	
+	let uploadURL = "/uploads";
+	const pathname = location.pathname;
+	if (pathname.split("/").length >= 4) { // /가 3개 이상 포함되어 있다면 context path가 있는 경우로 판단
+		uploadURL = `../${uploadURL}`;
+	} 
 	for (const file of files) {
 		const id = file.id;
-		const url = `../uploads/${id % 10}/${id}`;
+		
+		const url = `${uploadURL}/${id % 10}/${id}`;
 		const img = `<img src='${url}'>`;
 		CKEDITOR.instances.reviewContent.insertHtml(img);
 	}	
@@ -19,7 +26,7 @@ function fileUploadCallback(files) {
 window.addEventListener("DOMContentLoaded", function() {
 	/** 에디터 로드 S */
 	CKEDITOR.replace("reviewContent");
-	CKEDITOR.config.height=350;	
+	CKEDITOR.config.height=500;
 	/** 에디터 로드 E */
 
 	

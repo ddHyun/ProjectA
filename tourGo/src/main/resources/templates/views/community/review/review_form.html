@@ -58,6 +58,7 @@
 						</td>
 					</tr>
 				</table>
+				<input th:if="*{reviewNo != null && reviewNo > 0}" type="hidden" name="reviewNo" th:value="*{reviewNo}">
 				<input type="hidden" th:value="${modifying}" id="test">
 				<div class="marginTop30"></div>
 				<button class="btn0 width25" id="cancel" type="button" th:text="#{community.cancel}">취소</button>
