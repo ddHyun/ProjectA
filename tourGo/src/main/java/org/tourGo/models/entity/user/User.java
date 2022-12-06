@@ -38,11 +38,10 @@ public class User extends BaseEntity {
 	private String intro; //  자기소개
 	
 	@Enumerated(EnumType.STRING) 
-	@Column(length=40, nullable=false)
+	@Column(nullable=false)
 	private UserType adminType = UserType.USER; // 관리자 권한
 	
-	@Transient
-	@Column(nullable=false, columnDefinition="char(1) default 'N'")
+	@Column(nullable=false, columnDefinition="char(1) default 'N'", insertable=false)
 	private String deleteYn; // 삭제 여부
 	
 	@Enumerated(EnumType.STRING) 

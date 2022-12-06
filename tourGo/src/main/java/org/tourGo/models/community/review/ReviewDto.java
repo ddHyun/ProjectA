@@ -1,9 +1,8 @@
 package org.tourGo.models.community.review;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-import org.tourGo.models.file.FileInfo;
+import org.tourGo.models.entity.user.User;
 
 import lombok.*;
 
@@ -11,7 +10,7 @@ import lombok.*;
 public class ReviewDto {
 
 	private int reviewNo;
-	private User_test user_test; //outer join으로 테이블 병합 결과 필요
+	private User user; //outer join으로 테이블 병합 결과 필요
 	private String reviewTitle;
 	private String region;
 	private String period;
@@ -26,7 +25,7 @@ public class ReviewDto {
 	public static ReviewDto entityToDto(ReviewEntity entity) {
 		ReviewDto dto = new ReviewDto();
 		dto.setReviewNo(entity.getReviewNo());
-		dto.setUser_test(entity.getUser_test());
+		dto.setUser(entity.getUser());
 		dto.setReviewTitle(entity.getReviewTitle());
 		dto.setRegion(entity.getRegion());
 		dto.setPeriod(entity.getPeriod());
@@ -41,7 +40,7 @@ public class ReviewDto {
 	//dto -> entity로 바꾸기
 	public static ReviewEntity dtoToEntity(ReviewDto dto) {
 		ReviewEntity entity = new ReviewEntity();
-		entity.setUser_test(dto.getUser_test());
+		entity.setUser(dto.getUser());
 		entity.setReviewTitle(dto.getReviewTitle());
 		entity.setRegion(dto.getRegion());
 		entity.setPeriod(dto.getPeriod());

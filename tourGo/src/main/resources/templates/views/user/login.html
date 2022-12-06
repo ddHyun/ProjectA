@@ -4,17 +4,18 @@
 	layout:decorate="~{layouts/main}">
 	
 	<main layout:fragment="content">
-		<form method="post" th:action="@{/main/login}" th:object="${loginRequest}" autocomplete="off">
-			<div>로그인</div>
+		<div>로그인</div>
+		<div th:if="${param.error}">
+			<span th:text="${exception}" style="background-color: red;">잘못된 아이디나 암호입니다.</span>
+		</div>
+		<form method="post" th:action="@{/user/loginProc}" autocomplete="off">
 			<div>
 				<div th:text="#{user.userId}"></div>
-				<input type="text" name="userId" th:field="*{userId}">
-				<div th:each="err : ${#fields.errors('userId')}" th:text="${err}"></div>
+				<input type="text" name="userId" id="userId">
 			</div>
 			<div>
 				<div th:text="#{user.userPw}"></div>
-				<input type="password" name="userPw" th:field="*{userPw}">
-				<div th:each="err : ${#fields.errors('userPw')}" th:text="${err}"></div>
+				<input type="password" name="userPw" id="userPw">
 			</div>
 			<div>
 				<button type="submit" th:text="#{user.login}"></button>

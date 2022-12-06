@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<header th:fragment="header">
-		<th:block th:if="${session.user == null}">
+		<th:block sec:authorize="isAnonymous()">
 			<a th:href="@{/user/login}" th:text="#{user.login}"></a>
 			<a th:href="@{/user/signUp}" th:text="#{user.sign}"></a>
 		</th:block>
-		<th:block th:unless="${session.user == null}">
-			<a th:href="@{/user/logout}" th:text="#{user.logout}"></a>
+		<th:block sec:authorize="isAuthenticated()">
+			<a th:href="@{/logout}" th:text="#{user.logout}"></a>
 			<a th:href="@{/mypage}" th:text="#{user.mypage}"></a>
 		</th:block>
 	</header>
