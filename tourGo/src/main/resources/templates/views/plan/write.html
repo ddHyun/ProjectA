@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html lang="ko" class="hihi">
+<html lang="ko" class="hihi2">
   <head>
     <meta charset="UTF-8" />
     <title>Modal</title>
     <head>
 <style>
-   .hihi::-webkit-scrollbar {display: none;}
+   .hihi2::-webkit-scrollbar {display: none;}
 
-.hihi{scrollbar-width: none; -ms-overflow-style:none;}
+.hihi2{scrollbar-width: none; -ms-overflow-style:none;}
+
+.autosize::-webkit-scrollbar {display: none;}
+.autosize{scrollbar-width: none; -ms-overflow-style:none;}
+
 
  </style>   
     </head>
@@ -20,11 +24,12 @@
       <div style="border: 1px solid green; width:60%;">
         사용자가 정의한 제목
       </div>
-      <div style="border: 1px solid blue; width:20%;">
-        <button style="border-radius: 50%;height: 50px; width: 50px;"> ddd</button>
+      <div class="update" style="border: 1px solid blue; width:20%;text-align:center;">
+        
+        <input type="button"value="취소" onclick = location.href="readdate" style="border-radius: 50%;height: 50px; width: 50px;cursor: pointer; "></input>
       </div>
-      <div style="border: 1px solid blue; width:20%;">
-        <button style="border-radius: 50%;height: 50px; width: 50px;"> ddd</button>
+      <div class="delete" style="border: 1px solid blue; width:20%;text-align:center;">
+       <input type="button"value="완료" onclick = location.href="readdate" style="border-radius: 50%;height: 50px; width: 50px;cursor: pointer; "></input>
       </div>
       </div>
 
@@ -35,8 +40,8 @@
       <div style="border: 1px solid green; width:50%; height: 50%;">
         여행 제목
       </div>
-      <div style="border: 1px solid blue; width:50%; height: 50%;">
-        즐거운 여행 리스트
+      <div style="border: 1px solid blue; width:50%; height: 50%; overflow:hidden; ">
+         <input type="text" style="width:99%;">
       </div>
 		</div>
     <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
@@ -44,15 +49,33 @@
         여행 기간
       </div>
       <div style="border: 1px solid blue; width:50%; height: 50%;">
-        ex) 2022 12 01~2022 12 03
+       <label><input type="date"></label>
+       <select name="day">
+    <option value="">2일</option>
+    <option value="1">1일</option>
+    <option value="2">2일</option>
+    <option value="3">3일</option>
+    <option value="4">4일</option>
+    <option value="5">5일</option>
+    <option value="6">6일</option>
+    <option value="7">7일</option>
+    <option value="8">8일</option>
+    <option value="9">9일</option>
+
+</select>
       </div>
 		</div>
     <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
-      <div style="border: 1px solid green; width:50%; height: 50%;">
-        여행타입
+      <div style="border: 1px solid green; width:50%;">
+        <label>여행타입</label>
       </div>
-      <div style="border: 1px solid blue; width:50%; height: 50%;">
-        Ex)가족여행
+      <div style="border: 1px solid blue; width:50%;">
+              <label><input type="radio" name="fruit" value="solo">나홀로 여행</label>
+              <label><input type="radio" name="fruit" value="Couple">연인/커플</label>
+              <br>
+              <label><input type="radio" name="fruit" value="friend">친구/지인</label>
+              <label><input type="radio" name="fruit" value="Parents">부모님</label>
+              <label><input type="radio" name="fruit" value="family">가족</label>
       </div>
 		</div>
     <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
@@ -60,15 +83,28 @@
         여행 인원수
       </div>
       <div style="border: 1px solid blue; width:50%; height: 50%;">
-        4인
+         <select name="person">
+    <option value="">2명</option>
+    <option value="1">1명</option>
+    <option value="2">2명</option>
+    <option value="3">3명</option>
+    <option value="4">4명</option>
+    <option value="5">5명</option>
+    <option value="6">6명</option>
+    <option value="7">7명</option>
+    <option value="8">8명</option>
+    <option value="9">9명</option>
+
+</select>
       </div>
 		</div>
     <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
-      <div style="border: 1px solid green; width:50%; height: 50%;">
+      <div style="border: 1px solid green; width:50%;">
         사용자 정의 메모
       </div>
-      <div style="border: 1px solid blue; width:50%; height: 50%;">
-        사용자 정의 메모
+      <div style="border: 1px solid blue; width:50%; overflow:hidden;">
+     <textarea class="autosize" maxlength="250"placeholder="추가 바람" style="resize: none;vertical-align: middle; width: 100%; "></textarea>
+
       </div>
 		</div>
   </div>
@@ -188,6 +224,6 @@
 
 
 
-<script type="text/javascript" th:src="@{js/plan/makePlan/aaa.js}"></script>
   </body>
+
 </html>
