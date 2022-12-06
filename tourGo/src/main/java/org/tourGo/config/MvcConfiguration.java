@@ -13,7 +13,7 @@ public class MvcConfiguration implements WebMvcConfigurer{
 
 	@Value("${file.uploadPath}")
 	private String fileUploadPath;
-	
+	//ㅇㅁㄴㅇㄴㅇ
 	@Override
 	    public void addResourceHandlers(final ResourceHandlerRegistry registry){
 	        registry.addResourceHandler("/**")
