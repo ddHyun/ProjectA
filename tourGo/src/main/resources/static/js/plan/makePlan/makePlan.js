@@ -18,13 +18,16 @@ const tourGo = {
 				xhr.addEventListener("readystatechange", function() {
 			if (xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
 				const items = JSON.parse(xhr.responseText);
+				console.log(items);
 				const parent = document.getElementById("api_list");
 				parent.innerHTML ="";
 				for (const item of items) {
 					const div = document.createElement("div");
 					div.innerHTML = `
-							
-     			   <img src='${item.firstimage}">
+					
+     			   <img th:if="${item.firstimage} != null" src='${item.firstimage}" >
+     				 <img th:if="${item.firstimage} == null" th:src='@{images/test.jpg}" >
+     			   
    				 </div>
  				<div>${item.title}</div>
  					<div>${item.addr1} ${item.addr2}</div>

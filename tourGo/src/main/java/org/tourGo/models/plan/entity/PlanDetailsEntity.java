@@ -9,17 +9,17 @@ import org.tourGo.common.BaseEntity;
 import lombok.*;
 
 @Entity
-@Getter @Setter
+@Data
 public class PlanDetailsEntity extends BaseEntity {
 
 
 	@Id @GeneratedValue
-	private Long DetailNo;
+	private Long DetailNo;//db테이블 증감번호
 	
-	/**@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="plannerNo")*/
-	private Long plannerNo;
-	
+/**	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="plannerNo")
+	private PlannerEntity plannerNo;//관계매핑
+	*/
 	/**@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="tourInfoId")
 	private TourlistEntity tourInfo;*/
@@ -31,6 +31,7 @@ public class PlanDetailsEntity extends BaseEntity {
 	  private String name;//관광지이름
 	    private Float x;//관광지좌표
 	    private Float y;
+	    private String add;//관광지 주소
 	
 }
 

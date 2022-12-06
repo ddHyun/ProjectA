@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+   
+   <style>
+.nav_all{
+    display: flex;
+    justify-content: space-between;
+}
+</style>
+   <header th:fragment="header">
+   <div class="nav_all" >
+        <th:block>
+           <div class="nav_home">
+            <a th:href="@{/main/index}">TourGO</a>        
+           </div>
+        </th:block>
+      <th:block >
+         <div class="nav_items">
+            <a th:href="@{/main/index}">국내여행지</a>
+            <a th:href="@{/plan/dateView}">여행만들기</a>
+            <a th:href="@{/notice/notice_main}">공지사항</a>
+            <a th:href="@{review/review_main}">이용후기</a>
+         </div>
+      </th:block>
+      <div class="nav_log">
+        <a th:href="@{/main/index}">로그인</a>
+        <a th:href="@{/plan/dateView}">회원가입</a>
+      </div>
+   </div>
+   </header>
+</html>

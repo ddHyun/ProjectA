@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/main}">
+	
+	<header th:fragment="header">
+		<!-- header -->
+        <div class="header">
+            <div class="header_nav">
+                <div class="nav_all">
+                    <div class="nav_first">
+                        <div class="nav_bar">
+                            <a class="logo" th:href="@{/admin/admin_main}">Administrator Mode</a>
+                        </div>
+                    </div>
+                    <div class="nav_text_all">
+                        <div class="nav_link">
+                            <a class="a_hover" id="click" th:href="@{/admin/admin_main}">메인 페이지</a>
+                        </div>
+                        <div class="nav_link">
+                            <a class="a_hover" id="click" th:href="@{/admin/admin_info}">관리자 정보</a>
+                        </div>
+                        <div class="nav_link">
+                            <a class="a_hover" id="click" th:href="@{/admin/admin_user">회원 관리</a>
+                        </div>
+                        <div class="nav_link">
+                            <a class="a_hover" id="click" th:href="@{/admin/admin_bulletin}">게시글 관리</a>
+                        </div>
+                        <div class="nav_link">
+                            <a class="a_hover" id="click" th:href="@{/admin/admin_inquiry}">문의 관리</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</header>
+</html>

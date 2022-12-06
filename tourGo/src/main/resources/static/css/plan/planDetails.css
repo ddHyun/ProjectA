@@ -27,16 +27,9 @@ section {
 
 
 .grid-container {
-    display: grid;
-   grid-template-columns: repeat(3,400px);
-   grid-template-rows: repeat(2,200px);
-   gap: 100px 100px;
-   align-items: center; /* 수직 가운데 정렬 */
-   justify-content: center; /* 수평 가운데 정렬 */
-   margin-top: 50px;
-   margin-left: 220px;
-	margin-bottom: 50px;   
-	border: 1px solid black;;
+display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   
 }
 

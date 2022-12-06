@@ -36,7 +36,7 @@ public class PlanDetails {//여행 세부일정을 담당하는 dto
 	    	
 	    	PlanDetails planDetails = new PlanDetails();
 	    	planDetails.setDetailsNo(entity.getDetailNo());
-	    	planDetails.setPlannerNo(entity.getPlannerNo());
+	    //	planDetails.setPlannerNo(entity.getPlannerNo().getPlannerNo());
 	    	planDetails.setDay(entity.getDay());
 	    	planDetails.setStime(entity.getSTime());
 	    	planDetails.setEtime(entity.getETime());
@@ -53,7 +53,7 @@ public class PlanDetails {//여행 세부일정을 담당하는 dto
 	    	PlanDetailsEntity entity = new PlanDetailsEntity();
 	    	
 	    	entity.setDetailNo(planDetails.getDetailsNo());
-	    	entity.setPlannerNo(planDetails.getPlannerNo());
+	    	//entity.setPlannerNo(planDetails.getPlannerNo());
 	    	entity.setDay(planDetails.getDay());
 	    	entity.setSTime(planDetails.getStime());
 	    	entity.setETime(planDetails.getEtime());
