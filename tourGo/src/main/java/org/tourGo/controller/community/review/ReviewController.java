@@ -19,7 +19,7 @@ import org.tourGo.services.file.FileUploadService;
 
 @Controller
 @RequestMapping("/community")
-public class ReviewController {
+public class ReviewController{
 	
 	@Autowired
 	private ReviewService reviewService;
@@ -49,7 +49,7 @@ public class ReviewController {
 	
 	//여행후기 메인페이지
 	@GetMapping("/review_main")
-	public String index(ReviewSearchRequest searchRequest, Model model) {		
+	public String index(ReviewSearchRequest searchRequest, Model model) throws Exception{		
 		//css, js, board 추가
 		addCssJs("review", new String[] {"community/community_common"}, 
 				new String[] {"community/community_common"}, model);
@@ -74,7 +74,7 @@ public class ReviewController {
 	//작성&수정페이지
 	@GetMapping({"/review_form", "/review_modify"})
 	public String moveToFillForm(ReviewRequest reviewRequest, String gid, 
-									Long reviewNo, Model model) {
+									Long reviewNo, Model model) throws Exception{
 		
 //		미로그인 시 로그인 페이지로 이동
 //		if(!session.getAttribute("user")) {
@@ -130,7 +130,7 @@ public class ReviewController {
 			return baseUrl + "review_form";
 		}		
 		
-		String sessionUser = "user01";//세션에 저장된 아이디로 바꾸기
+		String sessionUser = "user02";//세션에 저장된 아이디로 바꾸기
 		//내용 등록		
 		try {			
 			String period = periodLists[Integer.valueOf(reviewRequest.getPeriod())];
@@ -144,7 +144,6 @@ public class ReviewController {
 			}else {
 				reviewService.registerReview(reviewRequest);
 			}
-			
 			// 파일 업로드 완료 처리 
 			uploadService.updateSuccess(reviewRequest.getGid());
 			

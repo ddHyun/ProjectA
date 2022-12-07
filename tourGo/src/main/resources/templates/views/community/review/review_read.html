@@ -37,9 +37,8 @@
 					</td>
 				</tr>
 			</table>
-			<div class="marginTop30"></div>
+			<div class="marginTop30"></div>			
 			
-			<!-- 목록으로 돌아가기 -->
 			<div>
 				<button class="btn0 width25" id="backBtn" type="button" th:text="#{community.list}">목록</button>
 				<th:block th:if="${session.user==reviewRequest.id}">
@@ -47,6 +46,21 @@
 					<button class="btn1 width20" id="deleteBtn" type="button" th:text="#{community.delete}">삭제</button>
 				</th:block>
 			</div>
+			<div class="marginTop30"></div>		
+			
+			<!-- 댓글 -->
+			<div>
+					<form class="rpl" name="rplForm" method="POST" th:action="@{/community/review_reply}">
+						<div th:text="#{community.reply}">댓글</div>
+						<ul>
+							<li>
+								<textarea rows="6" id="reply" placeholder="댓글을 남겨보세요"></textarea>
+								<button type="button" id="replyBtn" 	th:text="#{community.register}"></button>
+							</li>
+						</ul>
+					</form>
+			</div>
+			
 		</div>
 	</main>
 </html>
