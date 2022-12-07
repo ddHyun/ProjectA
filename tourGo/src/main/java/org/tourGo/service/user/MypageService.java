@@ -1,15 +1,16 @@
 package org.tourGo.service.user;
 
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.tourGo.controller.user.SignRequest;
+import org.tourGo.controller.user.MypageRequest;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.user.UserRepository;
 
 @Service
-public class SignService {
+public class MypageService {
 	
 	@Autowired
 	private BCryptPasswordEncoder encoder;
@@ -17,14 +18,17 @@ public class SignService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	public void process(SignRequest request) {
+	@Transactional
+	public void process(MypageRequest request) {
 		
-		String encryptPw = encoder.encode(request.getUserPw());
+		User user = userRepository.findById(request.getUserNo()).orElseThrow(() -> {
+			return new IllegalArgumentException("회원이 존재하지 않습니다.");
+		});
 		
-		User user = new User();
-		user.setUserId(request.getUserId());
-		user.setUserPw(encryptPw);
-		user.setUserNm(request.getUserNm());
+		String rawPassword = request.getUserPwNew();
+		String encPassword = encoder.encode(rawPassword);
+		
+		user.setUserPw(encPassword);
 		user.setBirth(request.getBirth());
 		user.setEmail(request.getEmail());
 		user.setMobile(request.getMobile());

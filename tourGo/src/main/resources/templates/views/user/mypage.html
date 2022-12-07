@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	layout:decorate="~{layouts/main}">
+	
+	<main layout:fragment="content">
+		<div>마이페이지</div>
+		<form id="mypageForm" name="mypageForm" th:object="${#authentication.principal.user}">
+				<input type="hidden" name="userNo" th:value="*{userNo}" class="required">
+				<input type="hidden" name="userId" th:value="*{userId}" class="required">
+				<div>
+					<p th:text="*{userNm}">(<p th:text="*{userId}">)
+				</div>
+				
+				<!--  
+				<label for="userPw" class="req" th:text="#{user.userPw}"></label>
+				<input type="password" name="userPw" th:field="*{userPw}" class="sign_input required" th:title="#{user.userPw}">
+				<div id="err_userPw" class="err"></div>
+				-->
+				<label for="userPwNew" class="req" th:text="#{user.userPwNew}"></label>
+				<input type="password" name="userPwNew" id="userPwNew" class="sign_input required" th:title="#{user.userPwNew}">
+				<div id="err_userPwNew" class="err"></div>
+				
+				<label for="birth" class="req" th:text="#{user.birth}"></label>
+				<input type="text" name="birth" id="birth" th:value="*{birth}" class="sign_input required" th:title="#{user.birth}">
+				<div id="err_birth" class="err"></div>
+
+				<label for="email" class="req" th:text="#{user.email}"></label>
+				<input type="text" name="email" id="email" th:value="*{email}" class="sign_input required" th:title="#{user.email}">
+				<div id="err_email" class="err"></div>
+			
+				<label for="mobile" class="req" th:text="#{user.mobile}"></label>
+				<input type="text" name="mobile" id="mobile" th:value="*{mobile}" class="sign_input required" th:title="#{user.mobile}">
+				<div id="err_mobile" class="err"></div>
+				
+				<label for="intro" th:text="#{user.intro}"></label>
+				<textarea rows="5" cols="8" name="intro" id="intro" th:text="*{intro}" class="sign_textarea">
+				</textarea>
+				
+				<div class="btn_confirm">
+					<button th:onclick="'location.href=\'' + @{/user/login} + '\''" type="button">취소</button>
+					<button id="btn_update" type="button">확인</button>
+				</div>
+		</form>
+	</main>
+	
+</html>
