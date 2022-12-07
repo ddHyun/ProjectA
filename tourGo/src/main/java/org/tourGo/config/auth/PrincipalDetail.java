@@ -17,7 +17,12 @@ public class PrincipalDetail implements UserDetails {
 	public PrincipalDetail(User user) {
 		this.user = user;
 	}
-
+	
+	// 사용자 정보
+	public User getUser() {
+		return user;
+	}
+	
 	@Override
 	public String getPassword() {
 		return user.getUserPw();

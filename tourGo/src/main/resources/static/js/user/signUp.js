@@ -11,7 +11,7 @@ const formValidator = {
 		for(const el of requiredEls) {
 			const type = el.type;
 
-			console.log(el);
+			// console.log(el);
 			switch (type) {
 				case "checkbox": // 체크박스 
 					data[el.name] = el.checked;

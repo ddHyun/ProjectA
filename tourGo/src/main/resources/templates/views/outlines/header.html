@@ -8,7 +8,7 @@
 		</th:block>
 		<th:block sec:authorize="isAuthenticated()">
 			<a th:href="@{/logout}" th:text="#{user.logout}"></a>
-			<a th:href="@{/mypage}" th:text="#{user.mypage}"></a>
+			<a th:href="@{/user/mypage}" th:text="#{user.mypage}"></a>
 		</th:block>
 	</header>
 </html>
