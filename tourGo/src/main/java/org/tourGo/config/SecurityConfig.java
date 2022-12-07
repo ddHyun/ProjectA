@@ -3,6 +3,7 @@ package org.tourGo.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.tourGo.config.auth.CustomAccessDeniedHandler;
 import org.tourGo.config.auth.CustomAuthenticationFailureHandler;
 import org.tourGo.config.auth.CustomAuthenticationSuccessHandler;
 import org.tourGo.config.auth.PrincipalDetailService;
@@ -20,6 +22,7 @@ import org.tourGo.config.auth.PrincipalDetailService;
 @EnableGlobalMethodSecurity(prePostEnabled=true) // 특정 주소로 접근 시 권한 및 인증을 미리 체크
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	
 	@Autowired
 	private PrincipalDetailService principalDetailService;
 	
@@ -28,13 +31,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
-
+	
+	private final CustomAccessDeniedHandler customAccessDeniedHandler;
+	
+	@Autowired
+	public SecurityConfig(CustomAccessDeniedHandler customAccessDeniedHandler) {
+		this.customAccessDeniedHandler = customAccessDeniedHandler;
+	}
+	
 	// 비밀번호 인코딩
 	@Bean
 	public BCryptPasswordEncoder encodePwd() {
 		return new BCryptPasswordEncoder();
 	}
 	
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+
 	// 시큐리티가 대신 로그인 해주는데 password를 가로채기를 하는데
 	// 해당 password가 뭘로 해쉬가 되어 회원가입이 되었는지 알아야
 	// 같은 해쉬로 암호화해서 DB에 있는 해쉬랑 비교할 수 있음
@@ -51,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/admin/**").hasAnyRole("ADMIN", "SUPERADMIN")
 				.antMatchers("/user/mypage").hasRole("USER")
 				.antMatchers("/user/**").permitAll()
+				.antMatchers("/css/**", "/js/**", "/images/**").permitAll()
 				.antMatchers("/**").permitAll()
 				.anyRequest()
 				.authenticated()
@@ -60,13 +77,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginProcessingUrl("/user/loginProc") // 스프링 시큐리티가 해당 주소로 오는 로그인 요청을 가로채서 대신 로그인 수행
 				.usernameParameter("userId") // 아이디 파라미터명 설정, default : username
 				.passwordParameter("userPw") // 비밀번호 파라미터명 설정, default : password
-				.defaultSuccessUrl("/")
+				.defaultSuccessUrl("/user/loginRedirect")
 				.failureHandler(customAuthenticationFailureHandler); // 로그인 실패시 핸들러 적용
 		
 		http.logout()
 			.logoutUrl("/logout")
 			.logoutSuccessUrl("/user/login")
 			.deleteCookies("JSESSIONID", "remember-me");
+		
+		http
+			.exceptionHandling().accessDeniedHandler(customAccessDeniedHandler);
 		
 		http.headers().frameOptions().disable();
 	}
