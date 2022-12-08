@@ -31,7 +31,7 @@ textarea.autosize::-webkit-scrollbar {
     <div>
     
       <div style="border: 1px solid red;  margin: 0;">  
-        <h4> 사용자가 정의한 제목 </h4>
+        <h4> 새 일정 만들기 </h4>
         </div>
         <div style="border: 1px solid red;  margin: 0; text-align: center; display: flex;">  
       
@@ -55,14 +55,20 @@ textarea.autosize::-webkit-scrollbar {
               여행기간
                 </div>
             <div style="border: 1px solid blue;display: flex; width:85%">
-              <div class="form-group" style="line-height: 1.2px;">
-                <input type="date" name="check-in">
-            
-            </div>
-              <div class="form-group" style="line-height: 1.2px;">
-                <input type="date" name="check-out">
-      
-            </div>
+     <label><input type="date"></label>
+       <select name="day">
+    <option value="">2일</option>
+    <option value="1">1일</option>
+    <option value="2">2일</option>
+    <option value="3">3일</option>
+    <option value="4">4일</option>
+    <option value="5">5일</option>
+    <option value="6">6일</option>
+    <option value="7">7일</option>
+    <option value="8">8일</option>
+    <option value="9">9일</option>
+
+</select>
             </div>
           </div>
 
@@ -90,20 +96,35 @@ textarea.autosize::-webkit-scrollbar {
 
 
 
-          <div style="border: 1px solid red;  margin: 0; text-align: center; display: flex;">  
+          <div style="border: 1px solid red;  margin: 0;  display: flex;">  
       
-            <div style="width:15%;border: 1px solid blue;">
+            <div style="width:15%;border: 1px solid blue;text-align: center;">
                 여행인원
       
             </div>
             
             <div style="width:85%;border: 1px solid  green; margin: 0; overflow: hidden;">
 
+	<select name="person">
+    	<option value="">2명</option>
+    	<option value="1">1명</option>
+    	<option value="2">2명</option>
+    	<option value="3">3명</option>
+    	<option value="4">4명</option>
+   	 	<option value="5">5명</option>
+   	 	<option value="6">6명</option>
+    	<option value="7">7명</option>
+    	<option value="8">8명</option>
+    	<option value="9">9명</option>
+
+</select>
+
+
             </div>
             
             
             </div>
-            <div style="border: 1px solid red;  margin: 0; text-align: center; display: flex;">  
+            <div style="border: 1px solid red;  margin: 0 auto; text-align: center; display: flex;">  
       
               <div style="width:15%;border: 1px solid blue;">
                   사용자 정의 메모

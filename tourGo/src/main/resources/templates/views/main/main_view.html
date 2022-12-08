@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{main/main_layout}">
+<main layout:fragment="content">
+	<div class="main_content">
+		<div class="main_search">
+			<div>
+				<div class="banner">
+					<input type="text" class="input_txt">
+					<input type="button" class="input_btn" value="검색">
+				</div>
+				<img src="images/main_test/main_ct_img.jpg" alt="">
+			</div>
+		</div>
+	</div>
+	<div class="relative">
+		<div class="bg-gray-100 py-10">
+			<div class="main_menuAll">
+				<div class="menu_content1">
+					<!-- <div class="w-40 h-40 border border-black mb-3 rounded-full overflow-hidden"></div> -->
+					<div class="context_1">
+						<a th:href="@{main_view}">
+							<img src="images/main_test/sub1.jpg" alt="">
+							<div class="text-center">
+								<h3 class="text-xl">국내여행지</h3>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="menu_content1">
+					<!-- <div class="w-40 h-40 border border-black mb-3 rounded-full overflow-hidden"></div> -->
+					<div class="context_1">
+						<a th:href="@{date}">
+							<img src="images/main_test/sub4.jpg" alt="">
+							<div class="text-center">
+								<h3 class="text-xl">여행만들기</h3>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="menu_content1">
+					<!-- <div class="w-40 h-40 border border-black mb-3 rounded-full overflow-hidden"></div> -->
+					<div class="context_1">
+						<a th:href="@{/community/review_main}">
+							<img src="images/main_test/sub6.jpg" alt="">
+							<div class="text-center">
+								<h3 class="text-xl">커뮤니티</h3>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+</html>

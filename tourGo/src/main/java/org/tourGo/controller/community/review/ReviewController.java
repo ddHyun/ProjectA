@@ -1,10 +1,8 @@
 package org.tourGo.controller.community.review;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -14,29 +12,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.tourGo.common.JsonResult;
-import org.tourGo.models.file.FileInfo;
 import org.tourGo.service.community.ReviewService;
-import org.tourGo.services.file.FileRUDService;
 import org.tourGo.services.file.FileUploadService;
 
 @Controller
 @RequestMapping("/community")
-public class ReviewController {
+public class ReviewController{
 	
 	@Autowired
 	private ReviewService reviewService;
 	@Autowired
 	private FileUploadService uploadService;
-	@Autowired
-	private FileRUDService fileService;
 	@Autowired
 	HttpSession session;
 	@Autowired
@@ -58,10 +50,42 @@ public class ReviewController {
 		model.addAttribute("addScript", jsList);
 	}
 	
+	//ajax 
+	@PostMapping("/review_update")
+	@ResponseBody
+	private JsonResult<Object> sendSuccessResult(@Valid ReviewRequest reviewRequest, Errors errors){
+		JsonResult<Object> result = new JsonResult<>();
+		
+
+		if (errors.hasErrors()) {
+			String msg = errors.getAllErrors().stream().map(o -> o.getDefaultMessage()).collect(Collectors.joining(","));
+			throw new RuntimeException(msg);
+		}
+		
+		Long reviewNo = reviewRequest.getReviewNo();
+		boolean isSuccess = reviewService.updateReview(reviewNo, reviewRequest);
+		result.setSuccess(isSuccess);
+		
+		
+		System.out.println("====================");
+		System.out.printf("json.success : %s, json.data : %s", result.isSuccess(), result.getData());
+		return result;
+	}
+	
+	@ResponseBody
+	@ExceptionHandler(Exception.class)
+	private JsonResult<Object> sendFailResult(String message){
+		JsonResult<Object> result = new JsonResult<>();
+		result.setSuccess(false);
+		result.setMessage(message);
+		
+		return result;
+	}
+	
 	
 	//여행후기 메인페이지
 	@GetMapping("/review_main")
-	public String index(ReviewSearchRequest searchRequest, Model model) {		
+	public String index(ReviewSearchRequest searchRequest, Model model) throws Exception{		
 		//css, js, board 추가
 		addCssJs("review", new String[] {"community/community_common"}, 
 				new String[] {"community/community_common"}, model);
@@ -83,10 +107,10 @@ public class ReviewController {
 	}
 	
 	
-	//작성페이지
+	//작성&수정페이지
 	@GetMapping({"/review_form", "/review_modify"})
 	public String moveToFillForm(ReviewRequest reviewRequest, String gid, 
-									Integer reviewNo, Model model) {
+									Long reviewNo, Model model) throws Exception{
 		
 //		미로그인 시 로그인 페이지로 이동
 //		if(!session.getAttribute("user")) {
@@ -106,8 +130,6 @@ public class ReviewController {
 		gid = gid==null? ""+System.currentTimeMillis() : gid;
 		model.addAttribute("gid", gid);
 		
-		String modifying="no";
-		
 		//수정시 내용 가져오기
 		if(reviewNo!=null) {
 			reviewRequest = reviewService.getOneReviewList(reviewNo);
@@ -123,20 +145,18 @@ public class ReviewController {
 					region = i;
 				}
 			}
-			modifying = "yes";
 			model.addAttribute("selectedPeriod", String.valueOf(period));
 			model.addAttribute("selectedRegion", String.valueOf(region));
 			model.addAttribute("reviewRequest", reviewRequest);
 		}
 		
-		model.addAttribute("modifying", modifying);
-		
 		return baseUrl + "review_form";
 	}
 	
-	//후기 등록하기
+	//후기 등록&수정
 	@PostMapping("/review_register")
-	public String registerReview(@Valid ReviewRequest reviewRequest, Errors errors, Model model) {		
+	public String registerReview(@Valid ReviewRequest reviewRequest, Errors errors,
+											Long reviewNo, Model model) {		
 		
 		if (errors.hasErrors()) {
 			//css, js, board 추가
@@ -146,15 +166,20 @@ public class ReviewController {
 			return baseUrl + "review_form";
 		}		
 		
-		String sessionUser = "user01";//세션에 저장된 아이디로 바꾸기
+		String sessionUser = "user02";//세션에 저장된 아이디로 바꾸기
 		//내용 등록		
-		try {
+		try {			
 			String period = periodLists[Integer.valueOf(reviewRequest.getPeriod())];
 			String region = regionLists[Integer.valueOf(reviewRequest.getRegion())];
 			reviewRequest.setPeriod(period);
 			reviewRequest.setRegion(region);
-			reviewService.registerReview(reviewRequest, sessionUser);
+			reviewRequest.setId(sessionUser);
 			
+			//if(reviewNo != null) {//글 수정시
+				
+			//}else {//글 등록시
+				reviewService.registerReview(reviewRequest);
+			//}
 			// 파일 업로드 완료 처리 
 			uploadService.updateSuccess(reviewRequest.getGid());
 			
