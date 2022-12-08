@@ -11,6 +11,7 @@ public class CommonController {
 	@ExceptionHandler(Exception.class)
 	public String handleError(Exception e, Model model) {
 		
+		System.out.println("에러 Controller");
 		model.addAttribute("message", e.getMessage());
 		e.printStackTrace();
 		

@@ -35,11 +35,15 @@ function updatePost2(e) {
 	
 	const xhr = new XMLHttpRequest();
 	xhr.open("POST", "review_update");
+	
+	console.log(formData);
+	
 	xhr.onreadystatechange = function() {
 		if (xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
 				const result = JSON.parse(xhr.responseText);
 				if(result.success){
-					// 성공시 처리 
+					alert("게시글이 수정되었습니다!");
+					location.href="review_main";
 				}else{
 					// 비동기 실행 상황에서는 throw가 정확하게 동작하지 않습니다^^ 이 부분은 자바스크립트 고급과정이라 나중에 취업하시고 조금더 심화해서 공부해 보세요^^
 					alert(result.message);

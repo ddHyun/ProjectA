@@ -53,7 +53,8 @@ public class ReviewController{
 	//ajax 
 	@PostMapping("/review_update")
 	@ResponseBody
-	private JsonResult<Object> sendSuccessResult(@Valid ReviewRequest reviewRequest, Errors errors){
+	private JsonResult<Object> sendSuccessResult(@Valid ReviewRequest reviewRequest, Errors errors)
+																				throws Exception{
 		JsonResult<Object> result = new JsonResult<>();
 		
 
@@ -62,16 +63,20 @@ public class ReviewController{
 			throw new RuntimeException(msg);
 		}
 		
-		Long reviewNo = reviewRequest.getReviewNo();
-		boolean isSuccess = reviewService.updateReview(reviewNo, reviewRequest);
-		result.setSuccess(isSuccess);
-		
-		
-		System.out.println("====================");
-		System.out.printf("json.success : %s, json.data : %s", result.isSuccess(), result.getData());
-		return result;
+			Long reviewNo = reviewRequest.getReviewNo();
+			String period = periodLists[Integer.valueOf(reviewRequest.getPeriod())];
+			String region = regionLists[Integer.valueOf(reviewRequest.getRegion())];
+			reviewRequest.setPeriod(period);
+			reviewRequest.setRegion(region);
+			System.out.printf(" ajax 지역 : %s, 기간 : %s", reviewRequest.getRegion(), reviewRequest.getPeriod());
+			boolean isSuccess = reviewService.updateReview(reviewNo, reviewRequest);
+			result.setSuccess(isSuccess);
+			
+			return result;
+			
 	}
 	
+	/*
 	@ResponseBody
 	@ExceptionHandler(Exception.class)
 	private JsonResult<Object> sendFailResult(String message){
@@ -81,6 +86,7 @@ public class ReviewController{
 		
 		return result;
 	}
+	*/
 	
 	
 	//여행후기 메인페이지
@@ -90,20 +96,20 @@ public class ReviewController{
 		addCssJs("review", new String[] {"community/community_common"}, 
 				new String[] {"community/community_common"}, model);
 
-		
-		if(searchRequest.getKeyword() == null) {
-			//전체목록 조회
-			List<ReviewRequest> allLists = reviewService.getAllReviewList();	
-			model.addAttribute("lists", allLists);
-		}else {
-			//검색어 조회			
-			List<ReviewRequest> searchLists = reviewService.searchList(searchRequest);
-			model.addAttribute("lists", searchLists);
-		}
-		
-		model.addAttribute("searchRequest", searchRequest);
-
-		return baseUrl+ "review_main";
+			if(searchRequest.getKeyword() == null) {
+				//전체목록 조회
+				List<ReviewRequest> allLists = reviewService.getAllReviewList();	
+				model.addAttribute("lists", allLists);
+			}else {
+				//검색어 조회			
+				List<ReviewRequest> searchLists = reviewService.searchList(searchRequest);
+				model.addAttribute("lists", searchLists);
+			}
+			
+			model.addAttribute("searchRequest", searchRequest);
+			
+			return baseUrl+ "review_main";
+			
 	}
 	
 	
@@ -141,10 +147,13 @@ public class ReviewController{
 				if(reviewRequest.getPeriod().equals(periodLists[i])) {
 					period = i;
 				}
+			}
+			for(int i=0; i<regionLists.length; i++) {
 				if(reviewRequest.getRegion().equals(regionLists[i])) {
 					region = i;
 				}
 			}
+
 			model.addAttribute("selectedPeriod", String.valueOf(period));
 			model.addAttribute("selectedRegion", String.valueOf(region));
 			model.addAttribute("reviewRequest", reviewRequest);
@@ -171,6 +180,7 @@ public class ReviewController{
 		try {			
 			String period = periodLists[Integer.valueOf(reviewRequest.getPeriod())];
 			String region = regionLists[Integer.valueOf(reviewRequest.getRegion())];
+			System.out.printf("period : %s, region; %s", period, region);
 			reviewRequest.setPeriod(period);
 			reviewRequest.setRegion(region);
 			reviewRequest.setId(sessionUser);

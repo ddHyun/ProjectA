@@ -2,7 +2,7 @@ const btnFn = {
 	/**목록으로 돌아가기 S */
 	back(){
 		const keyword = document.getElementById("keyword").value;
-		location.href = "../review_main?keyword="+reviewNo;
+		location.href = "../review_main?keyword="+keyword;
 	},
 	/**목록으로 돌아가기 E */
 	
@@ -38,7 +38,7 @@ const btnFn = {
 					location.href="../review_main";
 				}
 			}else{
-				alert(err.message);
+				
 			}
 		});
 		xhr.send();		

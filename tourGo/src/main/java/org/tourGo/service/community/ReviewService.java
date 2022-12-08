@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -14,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.tourGo.controller.community.review.ReviewRequest;
 import org.tourGo.controller.community.review.ReviewSearchRequest;
 import org.tourGo.models.entity.community.review.QReviewEntity;
-//import org.tourGo.models.community.review.ReviewDto;
 import org.tourGo.models.community.review.ReviewEntityRepository;
 import org.tourGo.models.entity.community.review.ReviewEntity;
 import org.tourGo.models.entity.user.User;
@@ -41,6 +38,7 @@ public class ReviewService {
 		// 후기 수정일 때는 게시글 번호(reviewNo)로 기존 영속성 조회
 		if (request.getReviewNo() != null) {
 			entity = reviewRepository.findById(request.getReviewNo()).orElse(null);
+			System.out.printf(" 엔티티 DB호출/ 지역 : %s, 기간 : %s", request.getRegion(), request.getPeriod());
 		}
 		
 		if (entity == null) { // 후기 추가인 경우 새로운 entity 객체 생성 및 사용자 계정 생성, gid는 최초 추가시에만 생성 및 DB  처리
@@ -50,15 +48,17 @@ public class ReviewService {
 			entity.setUser(user);
 			entity.setGid(request.getGid());
 			entity.setHash(newHash);
+			System.out.printf(" 엔티티 생성/ 지역 : %s, 기간 : %s", request.getRegion(), request.getPeriod());
 		} else { // 수정 
-			int hash = entity.getHash();
-			request.setSame(hash == newHash);
+				int hash = entity.getHash();
+				request.setSame(hash == newHash);			
 		}
 		
 		entity.setReviewTitle(request.getReviewTitle());
 		entity.setRegion(request.getRegion());
 		entity.setPeriod(request.getPeriod());
 		entity.setReviewContent(request.getReviewContent());
+		System.out.printf(" 커맨드->엔티티/ 지역 : %s, 기간 : %s", request.getRegion(), request.getPeriod());
 		
 		return entity;
 	}
@@ -169,25 +169,37 @@ public class ReviewService {
 	}
 
 	//게시글 삭제
-	public boolean deleteReview(Long reviewNo) throws Exception{
-		int affectedRow = reviewRepository.deleteByReviewNo(reviewNo);
-		if(affectedRow==0) {
-			throw new RuntimeException("처리 도중 오류가 발생했습니다. 삭제 실패");
+	public boolean deleteReview(Long reviewNo){
+		boolean isDelete = false;
+		try {
+			reviewRepository.deleteById(reviewNo);
+			isDelete = true;
+		}catch(Exception e) {
+			System.out.println("=========================");
+			System.out.println(e.getMessage());
+			System.out.println("=========================");
 		}
-		return affectedRow > 0;
+//		if(affectedRow==0) {
+//			throw new RuntimeException("처리 도중 오류가 발생했습니다. 삭제 실패");
+//		}
+//		return affectedRow > 0;
+		
+		return isDelete;
 	}
 
 	//게시글 수정
 	@Transactional
-	public boolean updateReview(Long reviewNo, ReviewRequest reviewRequest) {
+	public boolean updateReview(Long reviewNo, ReviewRequest reviewRequest) throws Exception{
 			//review 기존목록 가져오기			
 			ReviewEntity revewEntity = reviewRepository.findById(reviewNo).orElse(null);
+			
 			if(revewEntity==null) {
 				throw new RuntimeException("게시글이 존재하지 않습니다.");
 			}				
 						
 			//새로운 내용 덮어쓰기
 			revewEntity = requestToEntity(reviewRequest);
+				
 			if (!reviewRequest.isSame()) {
 				//review로 가져온 값과 다르면 업데이트
 				reviewRepository.save(revewEntity);
