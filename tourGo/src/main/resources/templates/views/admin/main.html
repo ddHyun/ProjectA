@@ -8,13 +8,13 @@
 		
 		<link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
 		<link rel="stylesheet" type="text/css" th:each="css:${addCss}" th:href="@{/css/{css}.css(css=${css})}">
-		
-		<script th:src="@{/js/common.js}"></script>
-		<script th:each="script : ${addScript}" th:src="@{/js/{js}.js(js=${script})}"></script>
 	</head>
 	
 	<body>
 		<header th:replace="admin/outlines/header::header"></header>
 		<main layout:fragment="content"></main>
 	</body>
+	<script th:src="@{/js/common.js}"></script>
+	<script src="https://kit.fontawesome.com/8bb7604283.js" crossorigin="anonymous"></script>
+	<script th:each="script : ${addScript}" th:src="@{/js/{js}.js(js=${script})}"></script>
 </html>
