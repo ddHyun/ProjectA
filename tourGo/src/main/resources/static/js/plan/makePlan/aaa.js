@@ -6,7 +6,8 @@ const modal = document.querySelector('.modal');
    griditem.addEventListener('click', () => {
   modal.classList.toggle('show');
     if (modal.classList.contains('show')) {
-    body.style.overflow = 'hidden';
+    body.style.overflow='hidden';
+    
   }
    })
  });
@@ -19,7 +20,7 @@ modal.addEventListener('click', (event) => {
     modal.classList.toggle('show');
 
     if (!modal.classList.contains('show')) {
-      body.style.overflow = 'auto';
+		    body.style.overflow='auto';
     }
   }
 });
