@@ -1,3 +1,47 @@
+main {
+	margin: 0px 20px;
+}
+
 .main_menuAll {
 	display:flex;
+}
+
+.banner {
+	position: absolute;
+    left: 35%;
+    top: 40%;
+}
+
+.input_txt {
+	width: 600px;
+	height: 40px;
+	font-size: large;
+}
+
+.input_btn {
+	width: 60px;
+	height: 45px;
+}
+
+.main_menuAll {
+	margin: 100px auto;
+	justify-content: center;
+}
+
+.context_1 {
+	margin: 0px 50px;
+	align-items: center;
+}
+
+.context_1 a {
+	text-decoration: none;
+	color:skyblue;
+}
+
+.context_1 a:hover {
+	color:royalblue;
+}
+
+.text-xl {
+	text-align: center;
 }
