@@ -1,6 +1,68 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<footer th:fragment="footer">
-		<h1>Footer!</h1>
-	</footer>
+<footer th:fragment="footer">
+	<div class="footer_about">
+		<div class="about_content">
+			<div class="content_style1">
+				<div class="">
+					<h2 style="font-weight: bold;">About</h2>
+					<p class="" style="font-weight: lighter;">
+						여행일정을 짜기 위한 WebSite입니다.
+					</p>
+				</div>
+			</div>
+			<div class="about_content">
+				<div class="content_style2">
+					<div class="">
+						<h2 style="font-weight: bold;">Location</h2>
+						<p class="" style="font-weight: lighter;">
+							Inchen, Korea
+						</p>
+					</div>
+					<div class="">
+						<h2 style="font-weight: bold;">Customer Service</h2>
+						<p class="" style="font-weight: lighter;">
+							Tel 032-123-4567
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="about_content">
+				<div class="content_style3">
+					<ul>
+						<li><a th:href="@{/main_view}" class="a_link">국내여행지</a></li>
+						<li><a th:href="@{date}" class="a_link">여행만들기</a></li>
+						<li><a th:href="@{/community/notice_main}" class="a_link">공지사항</a></li>
+						<li><a th:href="@{/community/review_main}" class="a_link">문의사항</a></li>
+						<li><a th:href="@{/community/review_main}" class="a_link">이용후기</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer_all">
+		<div class="max-w-3xl px-3 mx-auto items-center justify-center">
+			<div class="w-90 ">
+				<div class="out_link">
+					<a href="https://ko-kr.facebook.com/" class="">
+						<img src="images/main_test/facebook.png" alt="" style="height: 1.5rem; width: 1.5rem;">
+					</a>
+					<a href="https://www.instagram.com/">
+						<img src="images/main_test/instargram.png" alt="" style="height: 1.5rem; width: 1.5rem;">
+					</a>
+					<a href="https://twitter.com/?lang=ko">
+						<img src="images/main_test/twitter.png" alt=" " style="height: 1.5rem; width: 1.5rem;">
+					</a>
+				</div>
+			</div>
+			<div class="text-center">
+				<p>Company Name Inchen, Korea</p>
+				<p>Business Lincense 123-45-67890 Tel 123-4567-8901 Fax 01-234-5678</p>
+				<p>Hosting by KoreaIT_TeamA</p>
+				<h3 class="text-sm py-2">Footer</h3>
+			</div>
+		</div>
+	</div>
+</footer>
+
 </html>

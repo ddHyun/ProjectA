@@ -13,9 +13,12 @@ public class AdminMainController {
 		return "index";
 	}
 	
-	@GetMapping("/admin/main")
+	@GetMapping("/admin/index")
 	public String admin_main(Model model) {
-		model.addAttribute("addCss", new String[] {"admin/header"});
-		return  "admin/main";
+		model.addAttribute("addCss", new String[] {"vendor/fontawesome-free/css/all.min"});
+		model.addAttribute("addCss", new String[] {"admin/sb-admin-2.min"});
+		model.addAttribute("addScript", new String[] {"admin/sb-admin-2.min"});
+		// model.addAttribute("addScript", new String[] {"admin/sb-admin-2.min"});
+		return  "admin/index";
 	}
 }

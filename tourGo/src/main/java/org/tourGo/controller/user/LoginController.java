@@ -36,7 +36,7 @@ public class LoginController {
 		
 		// 관리자 또는 전체 관리자인 경우 admin 인덱스 페이지로 이동
 		if(request.isUserInRole("ROLE_ADMIN") || request.isUserInRole("ROLE_SUPERADMIN")) {
-			return "redirect:/admin/main";
+			return "redirect:/admin/index";
 		}
 		
 		return "redirect:/index";
