@@ -3,27 +3,9 @@ body {
      
 }
 
-header, footer,section {
-    border: 1px solid black;
-}
-header {
-   
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 4rem;
-    background: lightgray;
-    line-height: 4rem;
-    text-align: center;
-    
-}
 
-section {
-   height: auto;
-   width: auto;
-    
 
-}
+
 
 
 .grid-container {
@@ -51,17 +33,5 @@ display: flex;
 .details{
   
    
-}
-footer {
-     position: absolute;  
-    bottom: 0;
-    left: 0;
-    height: 60px;
-    width: 100%;
-    padding: 0 25px;
-    line-height: 60px;
-    color: #8a8c8f;
-    border-top: 1px solid #dee5e7;
-    background-color: #f2f2f2;
 }
 
