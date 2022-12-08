@@ -2,35 +2,48 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{main/main_layout}">
 <main layout:fragment="content">
-
+	<div class="main_content">
+		<div class="main_search">
+			<div>
+				<img src="images/main_test/search_img.jpeg" alt="">
+				<input type="text">
+				<input type="button" value="검색">
+			</div>
+		</div>
+	</div>
 	<div class="relative">
 		<div class="bg-gray-100 py-10">
-			<div class="flex flex-col md:flex-row gap-8 max-w-7xl mx-auto">
-				<div class="flex flex-col items-center">
+			<div class="main_menuAll">
+				<div class="menu_content1 flex flex-col items-center">
 					<!-- <div class="w-40 h-40 border border-black mb-3 rounded-full overflow-hidden"></div> -->
-					<img src="./img/Standard.jpg" alt="">
-					<div class="text-center">
-						<h3 class="text-xl">국내여행지</h3>
+					<div class="context_1">
+						<img src="images/main_test/sub1.jpg" alt="">
+						<div class="text-center">
+							<h3 class="text-xl">국내여행지</h3>
+						</div>
 					</div>
 				</div>
-				<div class="flex flex-col items-center">
+				<div class="menu_content2 flex flex-col items-center">
 					<!-- <div class="w-40 h-40 border border-black mb-3 rounded-full overflow-hidden"></div> -->
-					<img src="./img/Deluxe.jpg" alt="">
-					<div class="text-center">
-						<h3 class="text-xl">여행만들기</h3>
+					<div class="context_1">
+						<img src="images/main_test/sub4.jpg" alt="">
+						<div class="text-center">
+							<h3 class="text-xl">여행만들기</h3>
+						</div>
 					</div>
 				</div>
-				<div class="flex flex-col items-center">
+				<div class="menu_content3 flex flex-col items-center">
 					<!-- <div class="w-40 h-40 border border-black mb-3 rounded-full overflow-hidden"></div> -->
-					<img src="./img/Premire-Deluxe.jpg" alt="">
-					<div class="text-center">
-						<h3 class="text-xl">커뮤니티</h3>
+					<div class="context_1">
+						<img src="images/main_test/sub6.jpg" alt="">
+						<div class="text-center">
+							<h3 class="text-xl">커뮤니티</h3>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 </main>
 
 </html>
