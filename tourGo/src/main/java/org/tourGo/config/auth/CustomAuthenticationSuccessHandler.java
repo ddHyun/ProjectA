@@ -21,11 +21,11 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	
 	// 로그인 성공시, Redirect하는 URL 설정
+	/*
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		setDefaultTargetUrl("/");
-		
 		
 	}
+	*/
 }

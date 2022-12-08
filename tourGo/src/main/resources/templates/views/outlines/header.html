@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	
 	<header th:fragment="header">
 	<div class="nav_all">
@@ -17,6 +17,18 @@
 				<a th:href="@{/community/review_main}">이용후기</a>
 			</div>
 		</th:block>
+	</div>
+<!-- 
+	Spring Security 잠시 주석처리 (문경민) 
+	<header th:fragment="header">
+		<th:block sec:authorize="isAnonymous()">
+			<a th:href="@{/user/login}" th:text="#{user.login}"></a>
+			<a th:href="@{/user/signUp}" th:text="#{user.sign}"></a>
+		</th:block>
+		<th:block sec:authorize="isAuthenticated()">
+			<a th:href="@{/logout}" th:text="#{user.logout}"></a>
+			<a th:href="@{/user/mypage}" th:text="#{user.mypage}"></a>
+		</th:block>
 		<div class="nav_log">
 			<th:block sec:authorize="isAnonymous()">
 				<a th:href="@{/user/login}" th:text="#{user.login}"></a>
@@ -28,5 +40,6 @@
 			</th:block>
 		</div>
 	</div>
+	 -->
 	</header>
 </html>

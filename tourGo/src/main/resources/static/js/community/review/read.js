@@ -2,7 +2,6 @@ const btnFn = {
 	/**목록으로 돌아가기 S */
 	back(){
 		const keyword = document.getElementById("keyword").value;
-		console.log(keyword);
 		location.href = `../review_main?keyword=${keyword}`;
 	},
 	/**목록으로 돌아가기 E */
@@ -41,20 +40,20 @@ const btnFn = {
 
 window.addEventListener("DOMContentLoaded", function(){
 	
-	/**목록이동 이벤트 선택 처리 S */
+	/**목록이동 선택 이벤트 처리 S */
 	const backBtnEl = document.getElementById("backBtn");
 	if(backBtnEl){
 		backBtnEl.addEventListener("click", function(){
 			btnFn.back();
 		});
 	}
-	/**목록이동 이벤트 선택 처리 E */
+	/**목록이동 선택 이벤트 처리 E */
 	
 	const reviewNoEl = document.getElementById("reviewNo");
 	if(reviewNoEl){
 		const reviewNo = reviewNoEl.value;
 	
-		/**수정 이벤트 선택 처리 S */
+		/**수정 선택 이벤트 처리 S */
 		const modifyBtnEl = document.getElementById("modifyBtn");
 		if(modifyBtnEl){
 			modifyBtnEl.addEventListener("click", function(){
@@ -62,9 +61,9 @@ window.addEventListener("DOMContentLoaded", function(){
 				btnFn.modify(reviewNo);
 			});
 		}
-		/**수정 이벤트 선택 처리 E */
+		/**수정 선택 이벤트 처리 E */
 		
-		/**삭제 이벤트 선택 처리 S */
+		/**삭제 선택 이벤트 처리 S */
 		const deleteBtnEl = document.getElementById("deleteBtn");
 		if(deleteBtnEl){
 			deleteBtnEl.addEventListener("click", function(){
@@ -72,6 +71,6 @@ window.addEventListener("DOMContentLoaded", function(){
 				btnFn.delete(reviewNo);		
 			})
 		}
-		/**삭제 이벤트 선택 처리 E */
+		/**삭제 선택 이벤트 처리 E */	
 	} 
 });

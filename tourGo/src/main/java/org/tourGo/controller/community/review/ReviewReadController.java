@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.tourGo.common.JsonResult;
+import org.tourGo.controller.CommonRestController;
 import org.tourGo.models.file.FileInfo;
 import org.tourGo.service.community.ReviewService;
 import org.tourGo.services.file.FileRUDService;
@@ -51,12 +52,13 @@ public class ReviewReadController {
 	
 	//제목 클릭시 후기읽기 페이지
 	@GetMapping("/review_read/reviewNo_{reviewNo}")
-	public String readReview(@PathVariable int reviewNo, String keyword, 
-							@CookieValue(value="visitReview", required=false) Cookie cookie , Model model) {
+	public String readReview(@PathVariable Long reviewNo, String keyword, 
+							@CookieValue(value="visitReview", required=false) Cookie cookie , Model model) throws Exception{
 		
 		//css, js, board 추가
 		addCssJs("review", new String[] {"community/community_common"}, 
-				new String[] {"community/community_common", "ckeditor/ckeditor", "community/review/read"}, model);
+				new String[] {"community/community_common", "ckeditor/ckeditor",
+								"community/review/read", "community/review/reply"}, model);
 		
 
 		/** 쿠키 처리 S */
@@ -75,28 +77,32 @@ public class ReviewReadController {
 		
 		//게시글 가져오기
 		ReviewRequest reviewRequest = reviewService.getOneReviewList(reviewNo);
-		List<FileInfo> fileLists = fileService.getFileLists(reviewRequest.getGid());
-		System.out.println("===============fileLists : "+fileLists);
+//		List<FileInfo> fileLists = fileService.getFileLists(reviewRequest.getGid());
 		model.addAttribute("reviewRequest", reviewRequest);		
-		model.addAttribute("fileLists", fileLists);
+//		model.addAttribute("fileLists", fileLists);
 		
 		model.addAttribute("keyword", keyword);
 		
 		//나중에 지우기!!!
-		session.setAttribute("user", "user01");
+		session.setAttribute("user", "user02");
 		return baseUrl + "review_read";
 	}
 	
 	//게시글 삭제
 	@GetMapping("/review_delete")
 	@ResponseBody
-	public JsonResult<Boolean> deleteReview(int reviewNo) {
-		boolean isDelete = reviewService.deleteReview(reviewNo);
-		JsonResult<Boolean> result = new JsonResult<>(); 
-		
+	public JsonResult<Boolean> deleteReview(Long reviewNo) throws Exception{
+		try {
+			boolean isDelete = reviewService.deleteReview(reviewNo);
+			JsonResult<Boolean> result = new JsonResult<>(); 
+			
 			result.setSuccess(true);
 			result.setData(isDelete);
+			
 			return result;
+		}catch(Exception e) {
+			throw new RuntimeException("처리 도중 오류가 발생했습니다. 다시 시도해 주세요");
+		}
 		
 	}	
 		
