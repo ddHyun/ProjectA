@@ -13,10 +13,10 @@
 		
 		<!-- 후기 작성 -->
 		<div class="wrap centerW">
-			<form name="regForm" method="post" id="regForm" th:action="@{/community/review_register}">
-			
+			<form name="regForm" method="post" id="regForm" th:action="@{/community/review_register}"  th:object="${reviewRequest}">
 				<input type="hidden" name="gid" id="gid" th:value="${gid}">
-				<table class="communityT marginAuto" th:object="${reviewRequest}">					
+				<table class="communityT marginAuto">
+					
 					<tr>						
 						<td colspan="4" align="left"><!-- 제목 -->
 							<span class="errMsg" th:each="err : ${#fields.errors('reviewTitle')}" th:text="${err}"></span>

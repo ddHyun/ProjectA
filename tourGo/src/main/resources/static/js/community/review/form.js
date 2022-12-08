@@ -15,10 +15,9 @@ function updatePost(reviewNo){
 			if(xhr.status==200&&xhr.readyState==XMLHttpRequest.DONE){
 				const result = JSON.parse(xhr.responseText);
 				if(result.success){
-					alert("게시글을 수정했습니다!");
+					alert(result.data);
 				}else{
-					alert("수정할 내용이 없습니다.");
-					return;
+					throw new Error(result.message);
 				}
 			};
 		});
@@ -27,6 +26,31 @@ function updatePost(reviewNo){
 		alert(err.message);
 	}
 }
+
+
+/** 게시글 수정 처리 */
+function updatePost2(e) {
+	e.preventDefault();
+	const formData = new FormData(regForm);
+	
+	const xhr = new XMLHttpRequest();
+	xhr.open("POST", "review_update");
+	xhr.onreadystatechange = function() {
+		if (xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
+				const result = JSON.parse(xhr.responseText);
+				if(result.success){
+					// 성공시 처리 
+				}else{
+					// 비동기 실행 상황에서는 throw가 정확하게 동작하지 않습니다^^ 이 부분은 자바스크립트 고급과정이라 나중에 취업하시고 조금더 심화해서 공부해 보세요^^
+					alert(result.message);
+					return;
+				}
+		}
+	};
+	xhr.send(formData);
+	
+}
+
 /** 수정 유효성 검사 & 콜백 처리 E */
 
 /** 파일 업로드 콜백 처리 S */
@@ -95,6 +119,8 @@ window.addEventListener("DOMContentLoaded", function() {
 	/** 수정 선택 이벤트 처리 S */
 	const updateEl = document.getElementById("update");
 	if(updateEl){
+		updateEl.addEventListener("click", updatePost2);
+		/** 
 		updateEl.addEventListener("click", function(){
 			const reviewNoEl = document.getElementById("reviewNo");
 			if(reviewNoEl){
@@ -104,6 +130,7 @@ window.addEventListener("DOMContentLoaded", function() {
 			};
 			
 		})
+		*/
 	}
 	/** 수정 선택 이벤트 처리 E */
 	

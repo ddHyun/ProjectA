@@ -1,7 +1,6 @@
 package org.tourGo.models.entity.community.review;
 
 import java.util.List;
-
 import javax.persistence.*;
 
 import org.tourGo.common.BaseEntity;
@@ -11,7 +10,7 @@ import lombok.*;
 
 @Entity
 @Table(name="review")
-@Getter @Setter @ToString
+@Getter @Setter
 public class ReviewEntity extends BaseEntity {
 
 	@Id @GeneratedValue
@@ -30,13 +29,22 @@ public class ReviewEntity extends BaseEntity {
 	@Lob
 	@Column(nullable=false)
 	private String reviewContent;			//내용
-	@Column(nullable=false)
+	@Column(nullable=false, updatable=false)
 	private String gid;								//file 그룹id
 	@Column(columnDefinition = "int default '0'", insertable=false, updatable=false)
 	private int reviewRead;						//조회수
 	
+	@Column(length=65) // 이전 게시글과 현재 제시글 동일성 요부 체크용 해시
+	private Integer hash;
+	
 	@OrderBy("replyNo desc")
 	@OneToMany(mappedBy = "review")
-	private List<ReplyEntity> reply;			//댓글
-	
+	private List<ReplyEntity> reply;			//댓글	
+
+	@Override
+	public String toString() {
+		return "ReviewEntity [reviewNo=" + reviewNo + ", user=" + user + ", reviewTitle=" + reviewTitle + ", region="
+				+ region + ", period=" + period + ", reviewContent=" + reviewContent + ", gid=" + gid + ", reviewRead="
+				+ reviewRead + ", hash=" + hash + "]";
+	}
 }

@@ -9,10 +9,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import org.tourGo.models.entity.community.review.ReviewEntity;
 
-public interface ReviewEntityRepository extends JpaRepository<ReviewEntity, Integer>{
+public interface ReviewEntityRepository extends JpaRepository<ReviewEntity, Long>{
 
-	//글번호로 내용조회
-	Optional<ReviewEntity> findByReviewNo(Long reviewNo);
+//	//글번호로 내용조회
+//	Optional<ReviewEntity> findByReviewNo(Long reviewNo);
 
 	//조회수 증가
 	@Modifying

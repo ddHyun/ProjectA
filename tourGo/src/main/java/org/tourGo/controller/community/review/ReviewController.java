@@ -1,6 +1,7 @@
 package org.tourGo.controller.community.review;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,9 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.tourGo.common.JsonResult;
 import org.tourGo.service.community.ReviewService;
 import org.tourGo.services.file.FileUploadService;
 
@@ -44,6 +48,38 @@ public class ReviewController{
 		model.addAttribute("board", boardName);
 		model.addAttribute("addCss", cssList);
 		model.addAttribute("addScript", jsList);
+	}
+	
+	//ajax 
+	@PostMapping("/review_update")
+	@ResponseBody
+	private JsonResult<Object> sendSuccessResult(@Valid ReviewRequest reviewRequest, Errors errors){
+		JsonResult<Object> result = new JsonResult<>();
+		
+
+		if (errors.hasErrors()) {
+			String msg = errors.getAllErrors().stream().map(o -> o.getDefaultMessage()).collect(Collectors.joining(","));
+			throw new RuntimeException(msg);
+		}
+		
+		Long reviewNo = reviewRequest.getReviewNo();
+		boolean isSuccess = reviewService.updateReview(reviewNo, reviewRequest);
+		result.setSuccess(isSuccess);
+		
+		
+		System.out.println("====================");
+		System.out.printf("json.success : %s, json.data : %s", result.isSuccess(), result.getData());
+		return result;
+	}
+	
+	@ResponseBody
+	@ExceptionHandler(Exception.class)
+	private JsonResult<Object> sendFailResult(String message){
+		JsonResult<Object> result = new JsonResult<>();
+		result.setSuccess(false);
+		result.setMessage(message);
+		
+		return result;
 	}
 	
 	
@@ -118,7 +154,7 @@ public class ReviewController{
 	}
 	
 	//후기 등록&수정
-	@PostMapping({"/review_register", "/review_update"})
+	@PostMapping("/review_register")
 	public String registerReview(@Valid ReviewRequest reviewRequest, Errors errors,
 											Long reviewNo, Model model) {		
 		
@@ -139,11 +175,11 @@ public class ReviewController{
 			reviewRequest.setRegion(region);
 			reviewRequest.setId(sessionUser);
 			
-			if(reviewNo != null) {
-				reviewService.updateReview(reviewNo, reviewRequest);
-			}else {
+			//if(reviewNo != null) {//글 수정시
+				
+			//}else {//글 등록시
 				reviewService.registerReview(reviewRequest);
-			}
+			//}
 			// 파일 업로드 완료 처리 
 			uploadService.updateSuccess(reviewRequest.getGid());
 			

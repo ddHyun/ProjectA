@@ -2,13 +2,21 @@ const btnFn = {
 	/**목록으로 돌아가기 S */
 	back(){
 		const keyword = document.getElementById("keyword").value;
-		location.href = `../review_main?keyword=${keyword}`;
+		location.href = "../review_main?keyword="+reviewNo;
 	},
 	/**목록으로 돌아가기 E */
 	
 	/**게시글 수정하기 S */
 	modify(reviewNo){
-		location.href = "../review_modify?reviewNo="+reviewNo;
+		try{
+			if(!reviewNo){
+				throw new Error("수정할 글이 존재하지 않습니다.");
+			}
+			location.href = `../review_modify?reviewNo=${reviewNo}`;
+		}catch(err){
+			alert(err.message);
+		}
+
 	},
 	/**게시글 수정하기 E */
 	

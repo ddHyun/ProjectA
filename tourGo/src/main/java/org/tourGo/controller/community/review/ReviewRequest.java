@@ -24,5 +24,6 @@ public class ReviewRequest {
 	private LocalDateTime regDt;	//작성일
 	private LocalDateTime modDt;	//수정일
 	private int reviewRead;			//조회수
+	private boolean isSame; // 수정시에 지난 게시글과 동일성 여부
 	
 }

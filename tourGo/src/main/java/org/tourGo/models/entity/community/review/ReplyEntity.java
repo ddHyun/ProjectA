@@ -26,4 +26,9 @@ public class ReplyEntity extends BaseEntity{
 	@Lob
 	@Column(nullable=false)
 	private String replyContent;	//댓글내용
+
+	@Override
+	public String toString() {
+		return "ReplyEntity [replyNo=" + replyNo + ", user=" + user + ", replyContent=" + replyContent + "]";
+	}
 }
