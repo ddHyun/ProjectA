@@ -54,23 +54,9 @@ public class NoticeService {
 	}
 
 	//조회수 증가
-	public NoticeRequest addReadCnt(int noticeNo) {
-		List<NoticeRequest> lists = getAllLists();
-		NoticeRequest list = new NoticeRequest();
-		for (int i = 0; i < lists.size(); i++) {
-			if(i==noticeNo) {
-				list.setId(lists.get(i).getId());
-				list.setNoticeContent(lists.get(i).getNoticeContent());
-				int cnt = lists.get(i).getNoticeRead();
-				list.setNoticeNo(cnt);
-				list.setNoticeRead(lists.get(i).getNoticeRead());
-				list.setRegDt(lists.get(i).getRegDt());
-				list.setTitle(lists.get(i).getTitle());
-				break;
-			}
-		}
-		System.out.println("========service단 조회수 : "+list.getNoticeRead());
-		return list;
+	public boolean updateNoticeRead(int noticeNo) {
+//		noticeRepository.updateNoticeRead(noticeNo);
+		return false;
 	}
 
 }

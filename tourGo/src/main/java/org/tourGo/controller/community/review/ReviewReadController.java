@@ -91,19 +91,13 @@ public class ReviewReadController {
 	//게시글 삭제
 	@GetMapping("/review_delete")
 	@ResponseBody
-	public JsonResult<Boolean> deleteReview(Long reviewNo) throws Exception{
-		try {
+	public JsonResult<Boolean> deleteReview(Long reviewNo){
 			boolean isDelete = reviewService.deleteReview(reviewNo);
 			JsonResult<Boolean> result = new JsonResult<>(); 
 			
-			result.setSuccess(true);
-			result.setData(isDelete);
+			result.setSuccess(isDelete);
 			
 			return result;
-		}catch(Exception e) {
-			throw new RuntimeException("처리 도중 오류가 발생했습니다. 다시 시도해 주세요");
-		}
-		
 	}	
 		
 }
