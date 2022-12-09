@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,11 +35,6 @@ public class ReviewController{
 	@Autowired
 	HttpServletResponse response;
 
-
-	String[] regionLists = {"광주", "대구", "대전", "부산", "서울", "울산", "인천", 
-							"강원도", "경기도", "경상도", "전라도", "제주도", "충청도"};
-	String[] periodLists = {"당일치기", "1박2일", "2박3일", "3박4일", "4박5일", "5박6일 이상"};
-	
 	private String baseUrl = "community/review/";
 	
 	//static & board명 추가
@@ -50,7 +44,7 @@ public class ReviewController{
 		model.addAttribute("addScript", jsList);
 	}
 	
-	//ajax 
+	//게시글 수정 
 	@PostMapping("/review_update")
 	@ResponseBody
 	private JsonResult<Object> sendSuccessResult(@Valid ReviewRequest reviewRequest, Errors errors)
@@ -64,11 +58,6 @@ public class ReviewController{
 		}
 		
 			Long reviewNo = reviewRequest.getReviewNo();
-			String period = periodLists[Integer.valueOf(reviewRequest.getPeriod())];
-			String region = regionLists[Integer.valueOf(reviewRequest.getRegion())];
-			reviewRequest.setPeriod(period);
-			reviewRequest.setRegion(region);
-			System.out.printf(" ajax 지역 : %s, 기간 : %s", reviewRequest.getRegion(), reviewRequest.getPeriod());
 			boolean isSuccess = reviewService.updateReview(reviewNo, reviewRequest);
 			result.setSuccess(isSuccess);
 			
@@ -129,6 +118,10 @@ public class ReviewController{
 						"community/review/form", "fileupload"}, model);
 
 		//지역, 기간 목록
+		String[] regionLists = {"광주", "대구", "대전", "부산", "서울", "울산", "인천", 
+				"강원도", "경기도", "경상도", "전라도", "제주도", "충청도"};
+		String[] periodLists = {"당일치기", "1박2일", "2박3일", "3박4일", "4박5일", "5박6일 이상"};
+		
 		model.addAttribute("regionLists", regionLists);
 		model.addAttribute("periodLists", periodLists);
 
@@ -138,31 +131,14 @@ public class ReviewController{
 		
 		//수정시 내용 가져오기
 		if(reviewNo!=null) {
-			reviewRequest = reviewService.getOneReviewList(reviewNo);
-			
-			int period = 0; 
-			int region = 0;
-			
-			for(int i=0; i<periodLists.length; i++) {
-				if(reviewRequest.getPeriod().equals(periodLists[i])) {
-					period = i;
-				}
-			}
-			for(int i=0; i<regionLists.length; i++) {
-				if(reviewRequest.getRegion().equals(regionLists[i])) {
-					region = i;
-				}
-			}
-
-			model.addAttribute("selectedPeriod", String.valueOf(period));
-			model.addAttribute("selectedRegion", String.valueOf(region));
+			reviewRequest = reviewService.getOneReviewList(reviewNo);			
 			model.addAttribute("reviewRequest", reviewRequest);
 		}
 		
 		return baseUrl + "review_form";
 	}
 	
-	//후기 등록&수정
+	//후기 등록
 	@PostMapping("/review_register")
 	public String registerReview(@Valid ReviewRequest reviewRequest, Errors errors,
 											Long reviewNo, Model model) {		
@@ -177,19 +153,9 @@ public class ReviewController{
 		
 		String sessionUser = "user02";//세션에 저장된 아이디로 바꾸기
 		//내용 등록		
-		try {			
-			String period = periodLists[Integer.valueOf(reviewRequest.getPeriod())];
-			String region = regionLists[Integer.valueOf(reviewRequest.getRegion())];
-			System.out.printf("period : %s, region; %s", period, region);
-			reviewRequest.setPeriod(period);
-			reviewRequest.setRegion(region);
+		try {						
 			reviewRequest.setId(sessionUser);
-			
-			//if(reviewNo != null) {//글 수정시
-				
-			//}else {//글 등록시
-				reviewService.registerReview(reviewRequest);
-			//}
+			reviewService.registerReview(reviewRequest);
 			// 파일 업로드 완료 처리 
 			uploadService.updateSuccess(reviewRequest.getGid());
 			

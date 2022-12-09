@@ -1,5 +1,6 @@
 package org.tourGo.models.entity.community.review;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -39,7 +40,7 @@ public class ReviewEntity extends BaseEntity {
 	
 	@OrderBy("replyNo desc")
 	@OneToMany(mappedBy = "review")
-	private List<ReplyEntity> reply;			//댓글	
+	private List<ReplyEntity> reply = new ArrayList<>();			//댓글	
 
 	@Override
 	public String toString() {

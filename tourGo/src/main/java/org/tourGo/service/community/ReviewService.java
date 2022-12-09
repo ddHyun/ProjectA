@@ -1,8 +1,12 @@
 package org.tourGo.service.community;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.function.BiPredicate;
+import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -30,15 +34,17 @@ public class ReviewService {
 	@Autowired
 	private JPAQueryFactory jpaQueryFactory;
 	
+	
 	//(공통) 커맨드 -> entity
 	private ReviewEntity requestToEntity(ReviewRequest request) {
 		ReviewEntity entity = null;
+		
 		int newHash = Objects.hash(request.getReviewTitle(), request.getReviewContent(), request.getRegion(), request.getPeriod());
 		
 		// 후기 수정일 때는 게시글 번호(reviewNo)로 기존 영속성 조회
 		if (request.getReviewNo() != null) {
 			entity = reviewRepository.findById(request.getReviewNo()).orElse(null);
-			System.out.printf(" 엔티티 DB호출/ 지역 : %s, 기간 : %s", request.getRegion(), request.getPeriod());
+			System.out.println("커맨드-> 엔티티 / 기존 목록 가져옴");
 		}
 		
 		if (entity == null) { // 후기 추가인 경우 새로운 entity 객체 생성 및 사용자 계정 생성, gid는 최초 추가시에만 생성 및 DB  처리
@@ -48,19 +54,17 @@ public class ReviewService {
 			entity.setUser(user);
 			entity.setGid(request.getGid());
 			entity.setHash(newHash);
-			System.out.printf(" 엔티티 생성/ 지역 : %s, 기간 : %s", request.getRegion(), request.getPeriod());
+			entity.setReviewTitle(request.getReviewTitle());
+			entity.setRegion(request.getRegion());
+			entity.setPeriod(request.getPeriod());
+			entity.setReviewContent(request.getReviewContent());
+			System.out.println("커맨드-> 엔티티 / 새거 생성함");
 		} else { // 수정 
 				int hash = entity.getHash();
 				request.setSame(hash == newHash);			
 		}
 		
-		entity.setReviewTitle(request.getReviewTitle());
-		entity.setRegion(request.getRegion());
-		entity.setPeriod(request.getPeriod());
-		entity.setReviewContent(request.getReviewContent());
-		System.out.printf(" 커맨드->엔티티/ 지역 : %s, 기간 : %s", request.getRegion(), request.getPeriod());
-		
-		return entity;
+		return entity;		
 	}
 	
 	
@@ -189,25 +193,40 @@ public class ReviewService {
 
 	//게시글 수정
 	@Transactional
-	public boolean updateReview(Long reviewNo, ReviewRequest reviewRequest) throws Exception{
-			//review 기존목록 가져오기			
-			ReviewEntity revewEntity = reviewRepository.findById(reviewNo).orElse(null);
-			
-			if(revewEntity==null) {
-				throw new RuntimeException("게시글이 존재하지 않습니다.");
-			}				
-						
-			//새로운 내용 덮어쓰기
-			revewEntity = requestToEntity(reviewRequest);
-				
-			if (!reviewRequest.isSame()) {
-				//review로 가져온 값과 다르면 업데이트
-				reviewRepository.save(revewEntity);
-				System.out.println("변경된 내용이 있음");
-				
-				return true;
+	public boolean updateReview(Long reviewNo, ReviewRequest reviewRequest){
+
+		//기존 내용이라 DB조회 후 영속성 안으로 가져옴
+		ReviewEntity reviewEntity = requestToEntity(reviewRequest);			
+		
+		//변경사항 체크
+		BiPredicate<String, String> checkUpdate = (s1, s2) -> s1.equals(s2);
+		
+		String[] oldData = {reviewEntity.getReviewTitle(), reviewEntity.getReviewContent(),
+				reviewEntity.getPeriod(), reviewEntity.getRegion()};
+		String[] newData = {reviewRequest.getReviewTitle(), reviewRequest.getReviewContent(),
+										reviewRequest.getPeriod(), reviewRequest.getRegion()};
+		boolean isCheck = true;		
+		for(int i=0; i<oldData.length; i++) {
+			boolean compare = checkUpdate.test(oldData[i], newData[i]);
+			System.out.println(i+"의 compare :"+compare);
+			if(!compare) {
+				isCheck = compare;
+				break;
 			}
-						
-			return false;
+		}
+		
+		
+		if(!isCheck) {
+			System.out.println("변경할 내용 있음");
+			//checkUpdate 결과 false인 것들만 entity로 넣어주기
+			reviewEntity.setReviewTitle(reviewRequest.getReviewTitle());
+			reviewEntity.setReviewContent(reviewRequest.getReviewContent());
+			reviewEntity.setRegion(reviewRequest.getRegion());
+			reviewEntity.setPeriod(reviewRequest.getPeriod());
+			reviewRepository.save(reviewEntity);
+			return true;
+		}
+		
+		return false;
 	}
 }

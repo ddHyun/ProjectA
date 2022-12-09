@@ -30,8 +30,8 @@
 							<!-- <select class="width100 borderX clkBorderX" name="region" th:field="*{region}"> -->
 							<select class="width100 borderX clkBorderX" name="region">
 								<option value="">선택[필수]</option>
-								<option th:each="region, status : ${regionLists}" th:value="${status.index}" 
-											th:text="${region}" th:selected="${status.index}==${selectedRegion}"></option>
+								<option th:each="region, status : ${regionLists}" th:value="${region}" 
+											th:text="${region}" th:selected="${region}==*{region}"></option>
 							</select>
 						</td>
 						<th th:text="#{review.period}"></th><!-- 여행기간 -->
@@ -39,7 +39,7 @@
 							<select name="period">
 								<option value="">선택[필수]</option>
 								<option th:each="period, status : ${periodLists}" th:text="${period}" 
-											th:value="${status.index}" th:selected="${status.index}==${selectedPeriod}"></option>
+											th:value="${period}" th:selected="${period}==*{period}"></option>
 							</select>
 						</td>
 					</tr>
