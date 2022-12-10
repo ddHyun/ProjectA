@@ -12,5 +12,5 @@ import org.tourGo.models.plan.entity.PlannerEntity;
 public interface PlanDetailsRepository extends JpaRepository<PlanDetailsEntity, Long>{
 
 	List<PlanDetailsEntity> findAll();
-	List<PlanDetailsEntity> findAllByplannerNo(Long plannerNo,Sort sort);
+	List<PlanDetailsEntity> findAllByPlanner(Long plannerNo,Sort sort);
 }

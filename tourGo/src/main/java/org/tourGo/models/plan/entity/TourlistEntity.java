@@ -5,7 +5,7 @@ import javax.persistence.*;
 import org.tourGo.common.BaseEntity;
 
 import lombok.*;
-
+/**
 @Getter @Setter @ToString
 @Entity
 @Table(indexes={@Index(name="mapXY", columnList="mapX,mapY")})
@@ -20,3 +20,4 @@ public class TourlistEntity extends BaseEntity {
 	private String zipcode;
 	private String address;
 }
+*/

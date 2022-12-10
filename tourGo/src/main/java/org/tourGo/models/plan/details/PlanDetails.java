@@ -28,8 +28,7 @@ public class PlanDetails {//여행 세부일정을 담당하는 dto
 	
 	    private LocalTime etime;
 	    private String name;//관광지이름
-	    private Double x;//관광지좌표
-	    private Double y;
+	 
 	    private int day;
 	    private String image;//관광지 이미지
 	    
@@ -46,8 +45,7 @@ public class PlanDetails {//여행 세부일정을 담당하는 dto
 	    			.etime(entity.getETime())
 	    			.image(entity.getImage())
 	    			.name(entity.getName())
-	    			.x(entity.getX())
-	    			.y(entity.getY()).build();
+	    			.build();
 	    
 	    }
 	    
@@ -60,8 +58,7 @@ public class PlanDetails {//여행 세부일정을 담당하는 dto
 	    			.eTime(planDetails.getEtime())
 	    			.image(planDetails.getImage())
 	    			.name(planDetails.getName())
-	    			.x(planDetails.getX())
-	    			.y(planDetails.getY()).build();
+	    			.build();
 	    }
 	    
 }

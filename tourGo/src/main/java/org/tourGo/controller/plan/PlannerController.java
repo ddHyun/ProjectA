@@ -14,23 +14,10 @@ import lombok.Value;
 
 @Controller
 public class PlannerController {
-	@Autowired
-	PlanDetailsRepository repository;
-		
+
 	@GetMapping("/plan")
 	public String plannerDetails() {
-		PlanDetails plan = new PlanDetails();
-		plan.setName("test");
-		plan.setDay(4);
-		PlanDetailsEntity entity = PlanDetails.entityToPlanDeatils(plan);
-	/**	entity.setName("테스트");
-		entity.setAdd("서울특별시");
-		entity.setSTime(LocalTime.now());
-		entity.setETime(LocalTime.now().plusHours(10L));
-		entity.setDay(7);
-		entity.setImage("C:\\juj\\ProjectA\\tourGo\\src\\main\\resources\\static\\images\\test.jpg");
-	*/
-		repository.save(entity);
+		
 		
 		return "plan/planDetails";
 	}

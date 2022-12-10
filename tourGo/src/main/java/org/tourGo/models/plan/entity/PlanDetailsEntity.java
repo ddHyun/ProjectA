@@ -21,7 +21,7 @@ public class PlanDetailsEntity extends BaseEntity {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="plannerNo")
-	private PlannerEntity plannerNo;//관계매핑
+	private PlannerEntity planner;//관계매핑
 	
 	private LocalTime sTime;
 	private LocalTime eTime;
@@ -29,8 +29,6 @@ public class PlanDetailsEntity extends BaseEntity {
 	private int day;
 	 private String image;//관광지 이미지
 	  private String name;//관광지이름
-	  private Double x;//관광지좌표
-	  private Double y;
 	  private String address;//관광지 주소
 	
 }
