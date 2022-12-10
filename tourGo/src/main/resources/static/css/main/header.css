@@ -20,7 +20,11 @@
 }
 
 .nav_items {
-	font-size: 150%;	
+	font-size: 150%;
+}
+
+.nav_items a {
+	margin: 0px 20px;
 }
 
 .nav_log {
