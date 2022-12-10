@@ -19,28 +19,32 @@ const tourGo = {
 			if (xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
 				const items = JSON.parse(xhr.responseText);
 				console.log(items);
-				const parent = document.getElementById("api_list");
-				parent.innerHTML ="";
+				const parentEl = document.querySelector(".api_list");
+				console.log(parentEl);
+				if (!parentEl) {
+					return;
+				}
+				parentEl.innerHTML ="";	
 				for (const item of items) {
 					const div = document.createElement("div");
-					div.innerHTML = `
-					
-     			   <img th:if="${item.firstimage} != null" src='${item.firstimage}" >
-     				 <img th:if="${item.firstimage} == null" th:src='@{images/test.jpg}" >
-     			   
-   				 </div>
- 				<div>${item.title}</div>
- 					<div>${item.addr1} ${item.addr2}</div>
-    			<div >
-     			   <div>
-       
-            <label for="">시간</label>
-            <input type="time" name="check-in-time">        
-      		  </div>
-   
-   
+					let html = "";
+					if (item.firstImage) {
+						html += `<div><img src='${item.firstimage}' ></div>`;
+					}
+					html += `
+						<div>${item.title}</div>
+		 					<div>${item.addr1} ${item.addr2}</div>
+		    			<div >
+		     			<div>
+		       
+		           		 	<label for="">시간</label>
+		            		<input type="time" name="check-in-time">        
+		      		  	</div>
 					`;
-					parent.appendChild(div);
+						
+					div.innerHTML = html;
+					console.log(div);
+					parentEl.appendChild(div);
 				}
 				
 			}
