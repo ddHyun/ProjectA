@@ -10,11 +10,12 @@ import org.tourGo.models.user.UserType;
 
 @Entity
 @Getter @Setter
+@Table(name="member2")
 public class User extends BaseEntity {
 	
 	@Id @GeneratedValue
 	private Long userNo;
-	
+
 	@Column(unique=true, length=40, nullable=false)
 	private String userId;
 	
@@ -47,4 +48,5 @@ public class User extends BaseEntity {
 	@Enumerated(EnumType.STRING) 
 	@Column(length=40, nullable=false)
 	private ActiveType activeType = ActiveType.ACTIVE; // 활동 여부
+
 }

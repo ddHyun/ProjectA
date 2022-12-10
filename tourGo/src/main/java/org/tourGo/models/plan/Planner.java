@@ -28,8 +28,18 @@ public class Planner {//여행 일정짜기dto
 	 private String image;//대표이미지
 	
 	 
-	 public Planner entityToPlanner(PlannerEntity entity) {
-		 Planner planner = new Planner();
+	 public static Planner entityToPlanner(PlannerEntity entity) {
+		 
+		return Planner.builder().plannerNo(entity.getPlannerNo())
+		 .planSize(entity.getPlanSize())
+		 .planType(entity.getPlanType())
+		 .sdate(entity.getSdate())
+		 .edate(entity.getEdate())
+		 .title(entity.getTitle())
+		 .image(entity.getImage())
+		 .memo(entity.getMemo()).build();
+ 
+		/** Planner planner = new Planner();
 		 planner.setPlannerNo(entity.getPlannerNo());
 		 planner.setPlanSize(entity.getPlanSize());
 		 planner.setPlanType(entity.getPlanType());
@@ -38,18 +48,22 @@ public class Planner {//여행 일정짜기dto
 		 planner.setTitle(entity.getTitle());
 		 planner.setImage(entity.getImage());
 		// planner.setMemId(entity.getMemId());
-		 planner.setMemo(entity.getMemo());
+		 planner.setMemo(entity.getMemo());*/
 		
-		 
-		 
-		 
-		 return planner;
+
 	 }
 	 
-	 public PlannerEntity plannerToEntity(Planner planner) {
-		 PlannerEntity entity = new PlannerEntity();
-		 
-		 entity.setPlannerNo(planner.getPlannerNo());
+	 public static PlannerEntity plannerToEntity(Planner planner) {
+
+		 return PlannerEntity.builder().plannerNo(planner.getPlannerNo())
+				 .planSize(planner.getPlanSize())
+				 .planType(planner.getPlanType())
+				 .sdate(planner.getSdate())
+				 .edate(planner.getEdate())
+				 .title(planner.getTitle())
+				 .image(planner.getImage())
+				 .memo(planner.getMemo()).build();
+	/**	 entity.setPlannerNo(planner.getPlannerNo());
 		 entity.setPlanSize(planner.getPlanSize());
 		 entity.setPlanType(planner.getPlanType());
 		 entity.setSdate(planner.getSdate());
@@ -58,9 +72,9 @@ public class Planner {//여행 일정짜기dto
 		 entity.setImage(planner.getImage());
 	//	 entity.setMemId(planner.getMemId());
 		 entity.setMemo(planner.getMemo());
+		 */
 		 
-		 
-		 return entity;
+	
 	 }
 	 
 	 
