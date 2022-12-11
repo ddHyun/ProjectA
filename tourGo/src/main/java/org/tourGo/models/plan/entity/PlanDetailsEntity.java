@@ -5,33 +5,31 @@ import java.time.LocalTime;
 import javax.persistence.*;
 
 import org.tourGo.common.BaseEntity;
+import org.tourGo.models.plan.details.PlanDetails;
 
 import lombok.*;
 
+@Builder
 @Entity
-@Data
+@Table(name="planDetails")
+@Getter @Setter
 public class PlanDetailsEntity extends BaseEntity {
 
 
 	@Id @GeneratedValue
 	private Long DetailNo;//db테이블 증감번호
 	
-/**	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="plannerNo")
-	private PlannerEntity plannerNo;//관계매핑
-	*/
-	/**@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="tourInfoId")
-	private TourlistEntity tourInfo;*/
+	private PlannerEntity planner;//관계매핑
 	
 	private LocalTime sTime;
 	private LocalTime eTime;
+	@Column(nullable=true)
 	private int day;
 	 private String image;//관광지 이미지
 	  private String name;//관광지이름
-	    private Float x;//관광지좌표
-	    private Float y;
-	    private String add;//관광지 주소
+	  private String address;//관광지 주소
 	
 }
 

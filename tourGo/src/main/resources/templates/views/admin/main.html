@@ -8,10 +8,11 @@
 		<title></title>
 		
 		<link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
-		<link rel="stylesheet" type="text/css" th:each="css:${addCss}" th:href="@{/css/{css}.css(css=${css})}">
 		<link rel="stylesheet" type="text/css" th:each="boot:${addBootstrapCss}" th:href="@{/vendor/{css}.css(css=${boot})}">
+		<link rel="stylesheet" type="text/css" th:each="css:${addCss}" th:href="@{/css/{css}.css(css=${css})}">
 	</head>
 	
+	<th:block th:object="${#authentication.principal.user}">
 	<body id="page-top">
 		<div id="wrapper">
 			<th:block th:replace="admin/outlines/sidebar::sidebar"></th:block>
@@ -26,8 +27,9 @@
 		</div>
 		<th:block th:replace="admin/outlines/logout::logout"></th:block>
 	</body>
+	</th:block>
 	<script th:src="@{/js/common.js}"></script>
 	<script src="https://kit.fontawesome.com/8bb7604283.js" crossorigin="anonymous"></script>
-	<script th:each="script : ${addScript}" th:src="@{/js/{js}.js(js=${script})}"></script>
 	<script th:each="boot : ${addBootstrapJs}" th:src="@{/vendor/{js}.js(js=${boot})}"></script>
+	<script th:each="script : ${addScript}" th:src="@{/js/{js}.js(js=${script})}"></script>
 </html>

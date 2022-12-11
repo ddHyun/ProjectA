@@ -10,6 +10,8 @@ import lombok.*;
  */
 
 @Getter @Setter @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class JsonResult<T> {
 	private boolean success;
 	private String message;

@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<header th:fragment="header">
 		<!-- Topbar -->
-		<th:block th:object="${#authentication.principal.user}">
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
         	<!-- Nav Item - User Information -->
        		<ul class="navbar-nav ml-auto">
@@ -37,7 +36,6 @@
               </li>
           </ul>
         </nav>
-        </th:block>
         <!-- End of Topbar -->
 	</header>
 </html>

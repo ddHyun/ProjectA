@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+		layout:decorate="~{admin/main}">
+		
+		<main layout:fragment="content">
+			<div class="container-fluid">
+				<div class="row">
+	        		<div class="col-12">
+			            <div class="card shadow mb-4">
+			                <div class="question card-header py-3">
+			                    <h6 class="m-0 font-weight-bold text-primary">회원 목록</h6>
+			                </div>
+			                <div class="card-body">
+			                	<div class="row">
+				                	<table class="col">
+				                		<thead>
+					                		<tr class="text-center">
+					                			<th>번호</th>
+					                			<th>아이디</th>
+					                			<th>이름</th>
+					                			<th>생년월일</th>
+					                			<th>이메일</th>
+					                			<th>휴대전화번호</th>
+					                			<th>생성일</th>
+					                			<th>수정일</th>
+					                			<th>활동여부</th>
+					                		</tr>
+					                	</thead>
+					                	<tbody>
+					                		<th:object th:with="total=${list.totalElements}, size=${list.size}, pageNum=${pageNum}">
+					                		<tr th:each="list, index : ${list.content}" class="text-center"> <!-- th:each 사용 -->
+					                			<td th:text="${total - (pageNum * size + index.index) }"></td>
+					                			<td th:text="${list.userId}"></td>
+					                			<td th:text="${list.userNm}"></td>
+					                			<td th:text="${list.birth}"></td>
+					                			<td th:text="${list.email}"></td>
+					                			<td th:text="${list.mobile}"></td>
+					                			<td th:text="${#temporals.format(list.regDt,'yyyy-MM-dd HH:mm')}"></td>
+					                			<td th:text="${#temporals.format(list.modDt,'yyyy-MM-dd HH:mm')}"></td>
+					                			<td th:text="${list.activeType}"></td>
+					                		</tr>
+					                		</th:object>
+					                	</tbody>
+				                	</table>
+			                	</div>
+			                	<th:block th:replace="admin/outlines/pagination::pagination"></th:block>
+			                </div>
+			            </div>
+	        		</div>
+	        	</div>
+	        	
+			</div>
+		</main>
+</html>

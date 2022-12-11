@@ -4754,6 +4754,7 @@ input[type="button"].btn-block {
   padding-left: 0;
   list-style: none;
   border-radius: 0.35rem;
+  justify-content: center;
 }
 
 .page-link {
@@ -11278,4 +11279,8 @@ footer.sticky-footer .copyright {
 
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
+}
+
+.question {
+	display: flex;
 }
