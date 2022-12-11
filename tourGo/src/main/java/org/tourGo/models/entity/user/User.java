@@ -10,7 +10,6 @@ import org.tourGo.models.user.UserType;
 
 @Entity
 @Getter @Setter
-@Table(name="member2")
 public class User extends BaseEntity {
 	
 	@Id @GeneratedValue

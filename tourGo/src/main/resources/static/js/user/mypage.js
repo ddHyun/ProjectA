@@ -52,7 +52,7 @@ const formValidator = {
 				xhr.send(JSON.stringify(data));
 				xhr.onload = () => {
 					const data = xhr.response;
-					if(data.status === 400) {
+					if(data.success === false) {
 						reject(data.data);
 					} else {
 						resolve(data.data);
