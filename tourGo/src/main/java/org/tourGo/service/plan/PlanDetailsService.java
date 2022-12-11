@@ -18,22 +18,17 @@ public class PlanDetailsService {
 	@Autowired
 	private PlanDetailsRepository repository;
 		
-	public List<PlanDetails> userDetails(){
+	public List<PlanDetailsEntity> userDetails(Long plannerNo){
 		
 		
-		List<PlanDetails> list = new ArrayList<>();
+		
 		
 		List<Order> orders = new ArrayList<>();
 		orders.add(Order.asc("day"));
 		orders.add(Order.desc("sdate"));
 	
-		List<PlanDetailsEntity> entity = repository.findAll(Sort.by(orders));
+		List<PlanDetailsEntity> list = repository.findAllByPlanner(plannerNo,Sort.by(orders));
 		
-		for(PlanDetailsEntity _entity : entity) {
-			PlanDetails details = PlanDetails.planDetailsToPlanDetailsEntity(_entity);
-			list.add(details);
-			
-		}
 		
 		return list;
 	}
