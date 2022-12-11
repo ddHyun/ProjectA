@@ -20,6 +20,7 @@ public class SignService {
 	public void process(SignRequest request) {
 		
 		String encryptPw = encoder.encode(request.getUserPw());
+		String expMobile = request.getMobile().replaceAll("\\D", ""); // 숫자가 아닌 문자를 제거 -> 숫자
 		
 		User user = new User();
 		user.setUserId(request.getUserId());
@@ -27,7 +28,7 @@ public class SignService {
 		user.setUserNm(request.getUserNm());
 		user.setBirth(request.getBirth());
 		user.setEmail(request.getEmail());
-		user.setMobile(request.getMobile());
+		user.setMobile(expMobile);
 		user.setIntro(request.getIntro());
 		
 		userRepository.save(user);

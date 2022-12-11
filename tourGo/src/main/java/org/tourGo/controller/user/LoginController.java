@@ -28,6 +28,11 @@ public class LoginController {
 		return fixed_url + "login";
 	}
 	
+	@PostMapping("/user/login")
+	public String loginPs(Model model) {
+		return fixed_url + "login";
+	}
+	
 	@RequestMapping("/user/loginRedirect")
 	public String loginPs(HttpServletRequest request
 									, @AuthenticationPrincipal PrincipalDetail principal) {

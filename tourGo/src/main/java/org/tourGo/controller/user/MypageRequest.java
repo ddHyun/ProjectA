@@ -27,7 +27,6 @@ public class MypageRequest {
 	private String email;
 	
 	@NotBlank(message="{NotBlank.mobile}")
-	// @Pattern(regexp = "[0-9] {10, 11}")
 	private String mobile;
 	
 	private String intro;
