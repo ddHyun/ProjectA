@@ -11,16 +11,17 @@ import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.tourGo.controller.community.review.ReviewRequest;
-import org.tourGo.controller.community.review.ReviewSearchRequest;
 import org.tourGo.models.entity.community.review.QReviewEntity;
 import org.tourGo.models.community.review.ReviewEntityRepository;
 import org.tourGo.models.entity.community.review.ReviewEntity;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.user.UserRepository;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -31,9 +32,7 @@ public class ReviewService {
 	private UserRepository userRepository;
 	@Autowired
 	private ReviewEntityRepository reviewRepository;
-	@Autowired
-	private JPAQueryFactory jpaQueryFactory;
-	
+
 	
 	//(공통) 커맨드 -> entity
 	private ReviewEntity requestToEntity(ReviewRequest request) {
@@ -100,14 +99,22 @@ public class ReviewService {
 	
 	
 	// 여행후기 모든 목록 조회
-	public List<ReviewRequest> getAllReviewList() {		
+	public List<ReviewRequest> getAllReviewList(String order) {		
 		
-		List<ReviewEntity> lists = reviewRepository.findAll(Sort.by(Direction.DESC, "reviewNo"));
+		List<ReviewEntity> lists = new ArrayList<>();
+		
+		if(order.equals("read")) {
+			lists = reviewRepository.findAll(Sort.by(Direction.DESC, "reviewRead"));
+		}else {
+			lists = reviewRepository.findAll(Sort.by(Direction.DESC, "reviewNo"));
+		}
+		
 		if(lists.size()==0) {
 			return null;
 		}
-			List<ReviewRequest> requestLists = entityToRequest(lists);
-			return requestLists;
+		
+		List<ReviewRequest> requestLists = entityToRequest(lists);
+		return requestLists;
 	}
 	
 	// 한 가지 목록 조회
@@ -123,16 +130,22 @@ public class ReviewService {
 	}
 	
 	// 검색어로 조회
-	public List<ReviewRequest> searchList(ReviewSearchRequest searchRequest) throws Exception{
-		String keyword = searchRequest.getKeyword();
-		/*Querydsl*/
-		QReviewEntity qReview = QReviewEntity.reviewEntity; //Querydsl로 쿼리생성 위해 QReviewEntity객체 사용
-		JPAQuery<ReviewEntity> query = jpaQueryFactory.selectFrom(qReview)
-													.where(qReview.reviewTitle.contains(keyword)
-													.or(qReview.region.like("%"+keyword+"%"))
-													.or(qReview.reviewContent.contains(keyword)))
-													.orderBy(qReview.reviewNo.desc());
-		List<ReviewEntity> searchLists = query.fetch(); //조회결과 리스트 반환
+	public List<ReviewRequest> searchList(String keyword, String order){
+		QReviewEntity qReview = QReviewEntity.reviewEntity;
+
+		BooleanBuilder builder = new BooleanBuilder();
+		builder.and(qReview.reviewTitle.contains(keyword))
+					.or(qReview.reviewContent.contains(keyword))
+					.or(qReview.region.contains(keyword));
+		
+		List<ReviewEntity> searchLists = new ArrayList<>();
+		
+		if(order.equals("date")) {
+			searchLists = (List<ReviewEntity>)reviewRepository.findAll(builder, Sort.by(Direction.DESC, "reviewNo"));
+		}
+		if(order.equals("read")) {
+			searchLists = (List<ReviewEntity>)reviewRepository.findAll(builder, Sort.by(Direction.DESC, "reviewRead"));
+		}
 		
 		if(searchLists.size()==0) {
 			throw new RuntimeException("조회결과가 없습니다.");
@@ -145,9 +158,8 @@ public class ReviewService {
 	
 	//후기 등록하기
 	@Transactional
-	public ReviewRequest registerReview(ReviewRequest reviewRequest) throws Exception{
+	public ReviewRequest registerReview(ReviewRequest reviewRequest){
 
-		try {
 			User user = userRepository.findByUserId(reviewRequest.getId()).orElse(null);
 			if(user==null) {
 				throw new RuntimeException("아이디가 존재하지 않습니다.");
@@ -160,35 +172,6 @@ public class ReviewService {
 			ReviewRequest request = entityToRequest(entity); 
 			
 			return request;
-			
-		}catch(Exception e) {
-			throw new RuntimeException("처리 도중 오류가 발생했습니다. 저장 실패");
-		}		
-	}
-	
-	//조회수 증가
-	public boolean updateReviewRead(Long reviewNo) {
-		int affectedRow = reviewRepository.updateReviewRead(reviewNo);
-		return affectedRow > 0;
-	}
-
-	//게시글 삭제
-	public boolean deleteReview(Long reviewNo){
-		boolean isDelete = false;
-		try {
-			reviewRepository.deleteById(reviewNo);
-			isDelete = true;
-		}catch(Exception e) {
-			System.out.println("=========================");
-			System.out.println(e.getMessage());
-			System.out.println("=========================");
-		}
-//		if(affectedRow==0) {
-//			throw new RuntimeException("처리 도중 오류가 발생했습니다. 삭제 실패");
-//		}
-//		return affectedRow > 0;
-		
-		return isDelete;
 	}
 
 	//게시글 수정
@@ -208,7 +191,6 @@ public class ReviewService {
 		boolean isCheck = true;		
 		for(int i=0; i<oldData.length; i++) {
 			boolean compare = checkUpdate.test(oldData[i], newData[i]);
-			System.out.println(i+"의 compare :"+compare);
 			if(!compare) {
 				isCheck = compare;
 				break;
@@ -217,7 +199,6 @@ public class ReviewService {
 		
 		
 		if(!isCheck) {
-			System.out.println("변경할 내용 있음");
 			//checkUpdate 결과 false인 것들만 entity로 넣어주기
 			reviewEntity.setReviewTitle(reviewRequest.getReviewTitle());
 			reviewEntity.setReviewContent(reviewRequest.getReviewContent());

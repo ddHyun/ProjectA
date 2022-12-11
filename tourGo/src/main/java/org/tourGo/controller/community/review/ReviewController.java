@@ -1,11 +1,8 @@
 package org.tourGo.controller.community.review;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +12,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.tourGo.common.JsonResult;
 import org.tourGo.service.community.ReviewService;
 import org.tourGo.services.file.FileUploadService;
 
@@ -29,11 +24,7 @@ public class ReviewController{
 	@Autowired
 	private FileUploadService uploadService;
 	@Autowired
-	HttpSession session;
-	@Autowired
-	HttpServletRequest request;
-	@Autowired
-	HttpServletResponse response;
+	private HttpServletRequest request;
 
 	private String baseUrl = "community/review/";
 	
@@ -44,60 +35,33 @@ public class ReviewController{
 		model.addAttribute("addScript", jsList);
 	}
 	
-	//게시글 수정 
-	@PostMapping("/review_update")
-	@ResponseBody
-	private JsonResult<Object> sendSuccessResult(@Valid ReviewRequest reviewRequest, Errors errors)
-																				throws Exception{
-		JsonResult<Object> result = new JsonResult<>();
 		
-
-		if (errors.hasErrors()) {
-			String msg = errors.getAllErrors().stream().map(o -> o.getDefaultMessage()).collect(Collectors.joining(","));
-			throw new RuntimeException(msg);
-		}
-		
-			Long reviewNo = reviewRequest.getReviewNo();
-			boolean isSuccess = reviewService.updateReview(reviewNo, reviewRequest);
-			result.setSuccess(isSuccess);
-			
-			return result;
-			
-	}
-	
-	/*
-	@ResponseBody
-	@ExceptionHandler(Exception.class)
-	private JsonResult<Object> sendFailResult(String message){
-		JsonResult<Object> result = new JsonResult<>();
-		result.setSuccess(false);
-		result.setMessage(message);
-		
-		return result;
-	}
-	*/
-	
-	
 	//여행후기 메인페이지
 	@GetMapping("/review_main")
-	public String index(ReviewSearchRequest searchRequest, Model model) throws Exception{		
+	public String index(String keyword, String order, Model model){		
 		//css, js, board 추가
 		addCssJs("review", new String[] {"community/community_common"}, 
-				new String[] {"community/community_common"}, model);
-
-			if(searchRequest.getKeyword() == null) {
-				//전체목록 조회
-				List<ReviewRequest> allLists = reviewService.getAllReviewList();	
-				model.addAttribute("lists", allLists);
-			}else {
-				//검색어 조회			
-				List<ReviewRequest> searchLists = reviewService.searchList(searchRequest);
-				model.addAttribute("lists", searchLists);
-			}
-			
-			model.addAttribute("searchRequest", searchRequest);
-			
-			return baseUrl+ "review_main";
+				new String[] {"community/community_common", "community/review/index"}, model);
+	
+		if(order==null) {//조회 정렬 기준 미선택시
+			order = "date";
+		}
+		
+		if(keyword == null) {
+			//전체목록 조회
+			List<ReviewRequest> allLists = reviewService.getAllReviewList(order);	
+			model.addAttribute("lists", allLists);
+		}else {
+			//검색어 조회			
+			System.out.printf("검색어: %s, 정렬순 : %s%n", keyword, order);
+			List<ReviewRequest> searchLists = reviewService.searchList(keyword, order);
+			model.addAttribute("lists", searchLists);
+		}
+		
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("order", order);
+		
+		return baseUrl+ "review_main";
 			
 	}
 	

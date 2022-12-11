@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice("controller")
-public class CommonController {
+public class ExceptionController {
 
 	//예외 처리하기
 	@ExceptionHandler(Exception.class)

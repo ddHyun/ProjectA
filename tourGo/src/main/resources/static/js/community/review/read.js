@@ -2,7 +2,8 @@ const btnFn = {
 	/**목록으로 돌아가기 S */
 	back(){
 		const keyword = document.getElementById("keyword").value;
-		location.href = "../review_main?keyword="+keyword;
+		const order = document.getElementById("order").value;
+		location.href = `../review_main?keyword=${keyword}&order=${order}`;
 	},
 	/**목록으로 돌아가기 E */
 	
@@ -37,8 +38,6 @@ const btnFn = {
 					alert("게시글을 삭제했습니다.");
 					location.href="../review_main";
 				}
-			}else{
-				
 			}
 		});
 		xhr.send();		

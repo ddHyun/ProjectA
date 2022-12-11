@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thylemleaf.org">
+	
+	<!-- 댓글 -->
+	<th:block th:fragment="reply">
+		<div th:object="${replyRequest}">
+			<div class="rpl">
+				<form method="POST" th:action="@{/reply/register}" name="replyForm">
+					<input th:if="${session.user}" type="hidden" name="user" th:value="${session.user}">
+					<input type="hidden" th:value="${reviewRequest.reviewNo}">
+					<div>
+						<textarea rows="3" placeholder="댓글을 남겨보세요" name="content" th:field="*{replyContent}"></textarea>
+					</div>
+					<div>
+						<button type="submit" id="registerReply" th:text="#{community.register}">등록</button>
+					</div>
+				</form>
+			</div>
+			<br>
+			<div class="rpl">
+				<div class="innerRpl">
+					<span th:text="#{common.userName}">&nbsp;</span>
+					<small>2022.03.24 11:33</small>
+					<ul>
+						<li class="flex">
+							<div class="item">댓글내용</div>
+							<button class="item" type="button" th:text="#{community.delete}"
+											id="deleteReply">삭제</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<br>
+		</div>
+	</th:block>
+</html>
