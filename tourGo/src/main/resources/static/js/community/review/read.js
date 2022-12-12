@@ -64,7 +64,6 @@ window.addEventListener("DOMContentLoaded", function(){
 		const modifyBtnEl = document.getElementById("modifyBtn");
 		if(modifyBtnEl){
 			modifyBtnEl.addEventListener("click", function(){
-				console.log("modify : ", reviewNo);
 				btnFn.modify(reviewNo);
 			});
 		}
@@ -74,7 +73,6 @@ window.addEventListener("DOMContentLoaded", function(){
 		const deleteBtnEl = document.getElementById("deleteBtn");
 		if(deleteBtnEl){
 			deleteBtnEl.addEventListener("click", function(){
-				console.log("delete : ", reviewNo);
 				btnFn.delete(reviewNo);		
 			})
 		}

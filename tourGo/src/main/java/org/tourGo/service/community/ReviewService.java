@@ -2,8 +2,6 @@ package org.tourGo.service.community;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.function.BiPredicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,9 +9,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.tourGo.controller.community.review.ReplyRequest;
 import org.tourGo.controller.community.review.ReviewRequest;
 import org.tourGo.models.community.review.ReviewEntityRepository;
 import org.tourGo.models.entity.community.review.QReviewEntity;
@@ -36,12 +34,9 @@ public class ReviewService {
 	private ReviewEntity requestToEntity(ReviewRequest request) {
 		ReviewEntity entity = null;
 		
-		int newHash = Objects.hash(request.getReviewTitle(), request.getReviewContent(), request.getRegion(), request.getPeriod());
-		
 		// 후기 수정일 때는 게시글 번호(reviewNo)로 기존 영속성 조회
 		if (request.getReviewNo() != null) {
 			entity = reviewRepository.findById(request.getReviewNo()).orElse(null);
-			System.out.println("커맨드-> 엔티티 / 기존 목록 가져옴");
 		}
 		
 		if (entity == null) { // 후기 추가인 경우 새로운 entity 객체 생성 및 사용자 계정 생성, gid는 최초 추가시에만 생성 및 DB  처리
@@ -50,16 +45,12 @@ public class ReviewService {
 			user.setUserId(request.getId());
 			entity.setUser(user);
 			entity.setGid(request.getGid());
-			entity.setHash(newHash);
 			entity.setReviewTitle(request.getReviewTitle());
 			entity.setRegion(request.getRegion());
 			entity.setPeriod(request.getPeriod());
 			entity.setReviewContent(request.getReviewContent());
-			System.out.println("커맨드-> 엔티티 / 새거 생성함");
-		} else { // 수정 
-				int hash = entity.getHash();
-				request.setSame(hash == newHash);			
-		}
+			
+		} 
 		
 		return entity;		
 	}
@@ -78,7 +69,8 @@ public class ReviewService {
 		reviewRequest.setGid(entity.getGid());
 		reviewRequest.setReviewRead(entity.getReviewRead());
 		reviewRequest.setRegDt(entity.getRegDt());
-		reviewRequest.setModDt(entity.getModDt());
+		reviewRequest.setModDt(entity.getModDt());		
+		reviewRequest.setReplies(entity.getReply());
 		
 		return reviewRequest;
 	}
@@ -233,33 +225,41 @@ public class ReviewService {
 		//기존 내용이라 DB조회 후 영속성 안으로 가져옴
 		ReviewEntity reviewEntity = requestToEntity(reviewRequest);			
 		
-		//변경사항 체크
-		BiPredicate<String, String> checkUpdate = (s1, s2) -> s1.equals(s2);
-		
-		String[] oldData = {reviewEntity.getReviewTitle(), reviewEntity.getReviewContent(),
-				reviewEntity.getPeriod(), reviewEntity.getRegion()};
-		String[] newData = {reviewRequest.getReviewTitle(), reviewRequest.getReviewContent(),
-										reviewRequest.getPeriod(), reviewRequest.getRegion()};
-		boolean isCheck = true;		
-		for(int i=0; i<oldData.length; i++) {
-			boolean compare = checkUpdate.test(oldData[i], newData[i]);
-			if(!compare) {
-				isCheck = compare;
-				break;
-			}
-		}
-		
-		
-		if(!isCheck) {
-			//checkUpdate 결과 false인 것들만 entity로 넣어주기
+//		//변경사항 체크
+//		BiPredicate<String, String> checkUpdate = (s1, s2) -> s1.equals(s2);
+//		
+//		String[] oldData = {reviewEntity.getReviewTitle(), reviewEntity.getReviewContent(),
+//				reviewEntity.getPeriod(), reviewEntity.getRegion()};
+//		String[] newData = {reviewRequest.getReviewTitle(), reviewRequest.getReviewContent(),
+//										reviewRequest.getPeriod(), reviewRequest.getRegion()};
+//		boolean isCheck = true;		
+//		for(int i=0; i<oldData.length; i++) {
+//			boolean compare = checkUpdate.test(oldData[i], newData[i]);
+//			if(!compare) {
+//				isCheck = compare;
+//				break;
+//			}
+//		}
+//		
+//		
+//		if(!isCheck) {
+//			//checkUpdate 결과 false인 것들만 entity로 넣어주기
+//			reviewEntity.setReviewTitle(reviewRequest.getReviewTitle());
+//			reviewEntity.setReviewContent(reviewRequest.getReviewContent());
+//			reviewEntity.setRegion(reviewRequest.getRegion());
+//			reviewEntity.setPeriod(reviewRequest.getPeriod());
+		try {
 			reviewEntity.setReviewTitle(reviewRequest.getReviewTitle());
 			reviewEntity.setReviewContent(reviewRequest.getReviewContent());
 			reviewEntity.setRegion(reviewRequest.getRegion());
 			reviewEntity.setPeriod(reviewRequest.getPeriod());
 			reviewRepository.save(reviewEntity);
 			return true;
+		}catch(Exception e){
+			return false;
+			
 		}
+//		}
 		
-		return false;
 	}	
 }

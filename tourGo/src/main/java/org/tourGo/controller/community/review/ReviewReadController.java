@@ -1,5 +1,7 @@
 package org.tourGo.controller.community.review;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.tourGo.models.community.review.ReviewEntityRepository;
+import org.tourGo.service.community.ReplyService;
 import org.tourGo.service.community.ReviewService;
 
 @Controller
@@ -20,6 +23,8 @@ public class ReviewReadController {
 
 	@Autowired
 	private ReviewService reviewService;
+	@Autowired
+	private ReplyService replyService;
 	@Autowired
 	private ReviewEntityRepository repository;
 	@Autowired
@@ -39,7 +44,7 @@ public class ReviewReadController {
 	
 	//제목 클릭시 후기읽기 페이지
 	@GetMapping("/review_read/reviewNo_{reviewNo}")
-	public String readReview(@PathVariable Long reviewNo, String keyword, String order,
+	public String readReview(@PathVariable Long reviewNo, String keyword, String order, 
 							@CookieValue(value="visitReview", required=false) Cookie cookie , Model model) throws Exception{
 		
 		//css, js, board 추가
@@ -64,7 +69,12 @@ public class ReviewReadController {
 		
 		//게시글 가져오기
 		ReviewRequest reviewRequest = reviewService.getOneReviewList(reviewNo);
-		model.addAttribute("reviewRequest", reviewRequest);		
+		List<ReplyRequest> replies = reviewRequest.getReplies().stream().map(replyService::entityToRequest).toList();
+		if(replies.size() != 0) {
+			model.addAttribute("replies", replies);
+		}
+		model.addAttribute("reviewRequest", reviewRequest);	
+		
 		
 		//댓글
 		ReplyRequest replyRequest = new ReplyRequest();

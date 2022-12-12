@@ -35,17 +35,14 @@ public class ReviewEntity extends BaseEntity {
 	@Column(columnDefinition = "int default '0'", insertable=false, updatable=false)
 	private int reviewRead;						//조회수
 	
-	@Column(length=65) // 이전 게시글과 현재 제시글 동일성 요부 체크용 해시
-	private Integer hash;
-	
-	@OrderBy("replyNo desc")
-	@OneToMany(mappedBy = "review")
-	private List<ReplyEntity> reply = new ArrayList<>();			//댓글	
+	@OrderBy("regDt desc")
+	@OneToMany(mappedBy = "review", cascade = CascadeType.REMOVE)
+	private List<ReplyEntity> reply;			//댓글	
 
 	@Override
 	public String toString() {
 		return "ReviewEntity [reviewNo=" + reviewNo + ", user=" + user + ", reviewTitle=" + reviewTitle + ", region="
 				+ region + ", period=" + period + ", reviewContent=" + reviewContent + ", gid=" + gid + ", reviewRead="
-				+ reviewRead + ", hash=" + hash + "]";
+				+ reviewRead + ", hash=" + "]";
 	}
 }
