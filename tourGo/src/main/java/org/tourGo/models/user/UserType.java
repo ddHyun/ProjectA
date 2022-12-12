@@ -8,11 +8,11 @@ public enum UserType {
 	ADMIN("관리자", 2), // 관리자
 	SUPERADMIN("전체 관리자", 3); // 전체 관리자
 	
-	private String job;
+	private String type;
 	private int seq;
 	
-	UserType(String job, int seq) {
-		this.job = job;
+	UserType(String type, int seq) {
+		this.type = type;
 		this.seq = seq;
 	}
 }

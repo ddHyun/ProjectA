@@ -10,7 +10,7 @@
 	        		<div class="col-12">
 			            <div class="card shadow mb-4">
 			                <div class="question card-header py-3">
-			                    <h6 class="m-0 font-weight-bold text-primary">회원 목록</h6>
+			                    <h6 class="m-0 font-weight-bold text-primary">등급 변경 여부 회원 목록</h6>
 			                </div>
 			                <div class="card-body">
 			                	<div class="row">
@@ -20,12 +20,9 @@
 					                			<th>번호</th>
 					                			<th>아이디</th>
 					                			<th>이름</th>
-					                			<th>생년월일</th>
-					                			<th>이메일</th>
-					                			<th>휴대전화번호</th>
 					                			<th>생성일</th>
 					                			<th>수정일</th>
-					                			<th>활동여부</th>
+					                			<th>관리등급</th>
 					                		</tr>
 					                	</thead>
 					                	<tbody>
@@ -34,12 +31,11 @@
 					                			<td th:text="${total - (pageNum * size + index.index) }"></td>
 					                			<td th:text="${list.userId}"></td>
 					                			<td th:text="${list.userNm}"></td>
-					                			<td th:text="${list.birth}"></td>
-					                			<td th:text="${list.email}"></td>
-					                			<td th:text="${list.mobile}"></td>
 					                			<td th:text="${#temporals.format(list.regDt,'yyyy-MM-dd HH:mm')}"></td>
 					                			<td th:text="${#temporals.format(list.modDt,'yyyy-MM-dd HH:mm')}"></td>
-					                			<td th:text="${list.activeType == 'ACTIVE'}"></td>
+			                					<td th:if="${#strings.equals(list.adminType, 'USER')}" th:text="#{userType.user}"></td>
+			                					<td th:if="${#strings.equals(list.adminType, 'ADMIN')}" th:text="#{userType.admin}"></td>
+			                					<td th:if="${#strings.equals(list.adminType, 'SUPERADMIN')}" th:text="#{userType.superadmin}"></td>
 					                		</tr>
 					                		</th:object>
 					                	</tbody>

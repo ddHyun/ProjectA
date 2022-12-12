@@ -34,9 +34,6 @@
 					                			<td th:text="${total - (pageNum * size + index.index) }"></td>
 					                			<td th:text="${list.userId}"></td>
 					                			<td th:text="${list.userNm}"></td>
-					                			<td th:text="${list.birth}"></td>
-					                			<td th:text="${list.email}"></td>
-					                			<td th:text="${list.mobile}"></td>
 					                			<td th:text="${#temporals.format(list.regDt,'yyyy-MM-dd HH:mm')}"></td>
 					                			<td th:text="${#temporals.format(list.modDt,'yyyy-MM-dd HH:mm')}"></td>
 					                			<td th:text="${list.activeType == 'ACTIVE'}"></td>
