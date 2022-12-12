@@ -1,29 +1,27 @@
 package org.tourGo.service.community;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiPredicate;
-import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.tourGo.controller.community.review.ReviewRequest;
-import org.tourGo.models.entity.community.review.QReviewEntity;
 import org.tourGo.models.community.review.ReviewEntityRepository;
+import org.tourGo.models.entity.community.review.QReviewEntity;
 import org.tourGo.models.entity.community.review.ReviewEntity;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.user.UserRepository;
 
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.jpa.impl.JPAQuery;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Service
 public class ReviewService {
@@ -68,7 +66,7 @@ public class ReviewService {
 	
 	
 	//(공통) entity -> 커맨드(단일)
-	private ReviewRequest entityToRequest(ReviewEntity entity) {
+	public ReviewRequest entityToRequest(ReviewEntity entity) {
 		ReviewRequest reviewRequest = new ReviewRequest();
 		reviewRequest.setReviewNo(entity.getReviewNo());
 		reviewRequest.setName(entity.getUser().getUserNm());
@@ -99,24 +97,78 @@ public class ReviewService {
 	
 	
 	// 여행후기 모든 목록 조회
-	public List<ReviewRequest> getAllReviewList(String order) {		
-		
-		List<ReviewEntity> lists = new ArrayList<>();
-		
-		if(order.equals("read")) {
-			lists = reviewRepository.findAll(Sort.by(Direction.DESC, "reviewRead"));
-		}else {
-			lists = reviewRepository.findAll(Sort.by(Direction.DESC, "reviewNo"));
-		}
-		
-		if(lists.size()==0) {
-			return null;
-		}
-		
-		List<ReviewRequest> requestLists = entityToRequest(lists);
-		return requestLists;
+//	public Page<ReviewEntity> getAllReviewList() {		
+//		
+//		return getAllReviewList(1, 20, "read", null);
+//	}
+//
+//	public Page<ReviewEntity> getAllReviewList(int page) {		
+//		
+//		return getAllReviewList(page, 20, "read", null);
+//	}
+//
+//	public Page<ReviewEntity> getAllReviewList(int page, String order) {		
+//		
+//		return getAllReviewList(page, 20, order, null);
+//	}
+	
+	
+	public Page<ReviewEntity> getAllReviewList(){
+		return getAllReviewList(1);
 	}
 	
+	public Page<ReviewEntity> getAllReviewList(int page){
+		return getAllReviewList(page, 20, "date", null);
+	}
+	
+	public Page<ReviewEntity> getAllReviewList(int page, String order){
+		return getAllReviewList(page, 20, order, null);
+	}
+	
+	public Page<ReviewEntity> getAllReviewList(int page, int limit, String order, String keyword) {
+		limit = limit <= 0 ? 20 : limit;
+		BooleanBuilder builder = new BooleanBuilder();
+		
+		if(keyword!=null) {//검색어 조회 조건
+			QReviewEntity reviewEntity = QReviewEntity.reviewEntity;
+			builder.or(reviewEntity.reviewTitle.contains(keyword))
+					.or(reviewEntity.reviewContent.contains(keyword))
+					.or(reviewEntity.region.contains(keyword));
+		}
+		
+		String field = (order==null || !order.equals("read")) ? "regDt" : "reviewRead";
+		Pageable pageable = PageRequest.of(page-1, limit, Sort.by(Direction.DESC, field));
+		
+		Page<ReviewEntity> lists = reviewRepository.findAll(builder, pageable);
+
+		return lists;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	public Page<ReviewEntity> getAllReviewList(int page, int limit, String order, String keyword) {
+//		limit = limit <= 0 ? 20 : limit;
+//		BooleanBuilder builder = new BooleanBuilder();
+//		if (keyword != null) {
+//			QReviewEntity reviewEntity = QReviewEntity.reviewEntity;
+//			builder.or(reviewEntity.reviewTitle.contains(keyword))
+//					.or(reviewEntity.reviewContent.contains(keyword));
+//		}
+//		
+//		String field = (order == null || !order.equals("read"))?"reviewNo":"reviewRead";
+//		Pageable pageable = PageRequest.of(page - 1, limit, Sort.by(Order.desc(field)));
+//		
+//		Page<ReviewEntity> lists = reviewRepository.findAll(builder, pageable);
+//		
+//		return lists;
+//	}
+//	
 	// 한 가지 목록 조회
 	public ReviewRequest getOneReviewList(Long reviewNo) throws Exception{
 		
@@ -129,32 +181,32 @@ public class ReviewService {
 		return requestList;
 	}
 	
-	// 검색어로 조회
-	public List<ReviewRequest> searchList(String keyword, String order){
-		QReviewEntity qReview = QReviewEntity.reviewEntity;
-
-		BooleanBuilder builder = new BooleanBuilder();
-		builder.and(qReview.reviewTitle.contains(keyword))
-					.or(qReview.reviewContent.contains(keyword))
-					.or(qReview.region.contains(keyword));
-		
-		List<ReviewEntity> searchLists = new ArrayList<>();
-		
-		if(order.equals("date")) {
-			searchLists = (List<ReviewEntity>)reviewRepository.findAll(builder, Sort.by(Direction.DESC, "reviewNo"));
-		}
-		if(order.equals("read")) {
-			searchLists = (List<ReviewEntity>)reviewRepository.findAll(builder, Sort.by(Direction.DESC, "reviewRead"));
-		}
-		
-		if(searchLists.size()==0) {
-			throw new RuntimeException("조회결과가 없습니다.");
-		}
-		
-		List<ReviewRequest> requestLists = entityToRequest(searchLists);
-
-		return requestLists;
-	}
+//	// 검색어로 조회
+//	public List<ReviewRequest> searchList(String keyword, String order){
+//		QReviewEntity qReview = QReviewEntity.reviewEntity;
+//
+//		BooleanBuilder builder = new BooleanBuilder();
+//		builder.and(qReview.reviewTitle.contains(keyword))
+//					.or(qReview.reviewContent.contains(keyword))
+//					.or(qReview.region.contains(keyword));
+//		
+//		List<ReviewEntity> searchLists = new ArrayList<>();
+//		
+//		if(order.equals("date")) {
+//			searchLists = (List<ReviewEntity>)reviewRepository.findAll(builder, Sort.by(Direction.DESC, "reviewNo"));
+//		}
+//		if(order.equals("read")) {
+//			searchLists = (List<ReviewEntity>)reviewRepository.findAll(builder, Sort.by(Direction.DESC, "reviewRead"));
+//		}
+//		
+//		if(searchLists.size()==0) {
+//			throw new RuntimeException("조회결과가 없습니다.");
+//		}
+//		
+//		List<ReviewRequest> requestLists = entityToRequest(searchLists);
+//
+//		return requestLists;
+//	}
 	
 	//후기 등록하기
 	@Transactional
@@ -209,5 +261,5 @@ public class ReviewService {
 		}
 		
 		return false;
-	}
+	}	
 }

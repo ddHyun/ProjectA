@@ -64,14 +64,13 @@
 		</div>
 		<div class="marginTop30"></div>
 		<div class="wrap move">
-			<!-- <th:block th:each="page : ${#numbers.sequence(1, pageMap.endPage)}">
-				<a href="?page=${page}" th:text="${page}"></a>
-			</th:block> -->
-			
-			<th:block th:replace="outlines/pagination::pagination"></th:block>
-			
-				<button class="floatR btn1 width25 marginR3" type="submit" th:text="#{review.write}" 
-						th:onclick="|location.href='@{/community/review_form}'|"></button>
+		
+		<!-- 페이지 -->			
+		<th:block th:replace="outlines/pagination::pagination"></th:block>
+		
+		<!-- 등록 -->
+		<button class="floatR btn1 width25 marginR3" type="submit" th:text="#{review.write}" 
+				th:onclick="|location.href='@{/community/review_form}'|"></button>
 		</div>
 	
 		

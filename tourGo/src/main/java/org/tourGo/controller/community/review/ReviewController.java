@@ -3,15 +3,21 @@ package org.tourGo.controller.community.review;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.tourGo.common.Pagination;
+import org.tourGo.models.entity.community.review.ReviewEntity;
 import org.tourGo.service.community.ReviewService;
 import org.tourGo.services.file.FileUploadService;
 
@@ -24,7 +30,7 @@ public class ReviewController{
 	@Autowired
 	private FileUploadService uploadService;
 	@Autowired
-	private HttpServletRequest request;
+	private HttpSession session;
 
 	private String baseUrl = "community/review/";
 	
@@ -38,28 +44,28 @@ public class ReviewController{
 		
 	//여행후기 메인페이지
 	@GetMapping("/review_main")
-	public String index(String keyword, String order, Model model){		
+	public String index(@RequestParam(name="page", required=false) Integer page, String keyword, String order, Model model){		
 		//css, js, board 추가
-		addCssJs("review", new String[] {"community/community_common"}, 
-				new String[] {"community/community_common", "community/review/index"}, model);
-	
-		if(order==null) {//조회 정렬 기준 미선택시
-			order = "date";
-		}
+		addCssJs("review", new String[] {"community/community_common", "community/pagination"}, 
+				new String[] {"community/community_common", "community/review/index"}, model);	
 		
-		if(keyword == null) {
-			//전체목록 조회
-			List<ReviewRequest> allLists = reviewService.getAllReviewList(order);	
-			model.addAttribute("lists", allLists);
-		}else {
-			//검색어 조회			
-			System.out.printf("검색어: %s, 정렬순 : %s%n", keyword, order);
-			List<ReviewRequest> searchLists = reviewService.searchList(keyword, order);
-			model.addAttribute("lists", searchLists);
-		}
+		page = page == null? 1 : page;
+		
+		Page<ReviewEntity> results = reviewService.getAllReviewList(page, 10, order, keyword);
+		//Page<엔티티>->List<엔티티>->Stream<엔티티>->Stream<커맨드>->List<커맨드>
+		List<ReviewRequest> lists = results.getContent().stream().map(reviewService::entityToRequest).toList();
+		
+		String url = "/community/review_main";
+		Pagination<ReviewEntity> pagination = new Pagination<>(results, url);
+		
+		model.addAttribute("lists", lists);
+		model.addAttribute("pagination", pagination);
 		
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("order", order);
+		
+		//나중에 지우기
+		session.setAttribute("user", "user01");
 		
 		return baseUrl+ "review_main";
 			
@@ -115,10 +121,11 @@ public class ReviewController{
 			return baseUrl + "review_form";
 		}		
 		
-		String sessionUser = "user02";//세션에 저장된 아이디로 바꾸기
+		String user = (String)session.getAttribute("user");
+
 		//내용 등록		
 		try {						
-			reviewRequest.setId(sessionUser);
+			reviewRequest.setId(user);
 			reviewService.registerReview(reviewRequest);
 			// 파일 업로드 완료 처리 
 			uploadService.updateSuccess(reviewRequest.getGid());

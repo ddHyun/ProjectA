@@ -57,28 +57,5 @@ public class ReviewRestController {
 		result.setSuccess(isSuccess);
 		
 		return result;			
-	}	
-	
-	//조회 정렬 선택
-	@GetMapping("/by_order")
-	public JsonResult<List<ReviewRequest>> orderBy(String order, String keyword){
-		
-		if(order==null) {//기본정렬 : 최신순
-			order="date";
-		}
-		
-		List<ReviewRequest> lists = new ArrayList<>();
-		
-		if(keyword==null) {
-			lists = reviewService.getAllReviewList(order);
-		}else {
-			lists = reviewService.searchList(keyword, order);
-		}
-		
-		JsonResult<List<ReviewRequest>> result = new JsonResult<>();
-		result.setSuccess(true);
-		result.setData(lists);
-		
-		return result;
-	}
+	}		
 }
