@@ -8,6 +8,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.tourGo.common.JsonResult;
 import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.service.admin.AdminService;
@@ -43,8 +47,6 @@ public class AdminMainController {
 	public String userManage(@PageableDefault Pageable pageable,
 											Model model) {
 		
-		System.out.println("페이지 체크 : " + pageable.getPageNumber());
-		
 		// 부트스트랩 관련 CSS 추가
 		model.addAttribute("addCss", new String[] {"admin/sb-admin-2"});
 		model.addAttribute("addBootstrapCss", new String[] {"fontawesome-free/css/all", "datatables/dataTables.bootstrap4"});
@@ -56,8 +58,41 @@ public class AdminMainController {
 		Page<User> list = adminService.userManage(pageable);
 		
 		model.addAttribute("list", list);
-		model.addAttribute("pageNum", pageable.getPageNumber() - 1);
 		
 		return "admin/user/userManage";
+	}
+	
+	@GetMapping("/admin/user/userActiveManage")
+	public String userActiveManage(@PageableDefault Pageable pageable,
+											Model model) {
+		
+		return "admin/user/userActiveManage";
+	}
+	
+	@GetMapping("/admin/user/adminTypeManage")
+	public String adminTypeManage(@PageableDefault Pageable pageable,
+			Model model) {
+		
+		// 부트스트랩 관련 CSS 추가
+		model.addAttribute("addCss", new String[] {"admin/sb-admin-2"});
+		model.addAttribute("addBootstrapCss", new String[] {"fontawesome-free/css/all", "datatables/dataTables.bootstrap4"});
+		
+		// 부트스트랩 관련 JS 추가
+		model.addAttribute("addScript", new String[] {"admin/adminManage"});
+		model.addAttribute("addBootstrapJs", new String[] {"jquery/jquery.min", "bootstrap/js/bootstrap.bundle.min", "jquery-easing/jquery.easing.min"});
+		
+		Page<User> list = adminService.adminTypeManage(pageable);
+		
+		model.addAttribute("list", list);
+		
+		return "admin/user/adminTypeManage";
+	}
+	
+	@ResponseBody
+	@GetMapping("/admin/user/userModalView/{id}")
+	public JsonResult<?> userModalView(@PathVariable("id") Long id) {
+		adminService.adminTypeChange(id);
+		
+		return new JsonResult<>(true, "처리가 완료되었습니다.", null);
 	}
 }
