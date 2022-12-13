@@ -26,7 +26,7 @@ public class PlannerRq {//여행 일정짜기dto
 	 private String memId;//수정예정
 	 private String memo;
 	 private String image;//대표이미지
-	
+	 private int day;
 	 
 	 public static PlannerRq entityToPlanner(Planner entity) {
 		 

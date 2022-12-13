@@ -1,5 +1,7 @@
 package org.tourGo.controller.plan;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,15 +31,16 @@ public class DateController {
 	}
 
 	@GetMapping("/makedate") // 여행 상세 일정 만드는 화면
-	public String makeDate(Model model) {
-	PlannerRq plannerRq= new PlannerRq();
-	model.addAttribute("planner",plannerRq);
+	public String makeDate() {
+	
 		return "plan/makeDateView";
 	}
 	@PostMapping("/makePlanTest")
 	public String makePlanTest(Model model) {
 		PlannerRq plannerRq=  (PlannerRq)model.getAttribute("planner");
-		
+		LocalDateTime sdate = plannerRq.getSdate();
+		int day = plannerRq.getDay();
+		LocalDateTime edate = sdate.plusDays(day);
 		Planner planner = Planner.builder().title(plannerRq.getTitle()).build();
 		
 		plannerRepo.save(planner);
@@ -56,7 +59,9 @@ public class DateController {
 	
 	
 	@GetMapping("/makedate2")
-	public String makeDate2() {
+	public String makeDate2(Model model) {
+		PlannerRq plannerRq= new PlannerRq();
+		model.addAttribute("planner",plannerRq);
 		return "plan/makeDate";
 	}
 		@GetMapping("/readdate")
