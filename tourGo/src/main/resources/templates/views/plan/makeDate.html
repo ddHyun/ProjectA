@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html class="hihi" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" class="hihi" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <title>Modal</title>
+    <link th:href="@{css/plan/makeDate.css}" rel="stylesheet" type="text/css">
     <head>
-    <link th:href="@{css\plan\makeDate.css" rel="stylesheet" type="text/css">
 <style>
    .hihi::-webkit-scrollbar {display: none;}
 
@@ -28,30 +28,34 @@ textarea.autosize::-webkit-scrollbar {
 
 
     
-    <form method="post" th:action="@{/makePlanTest}" th:object="${planner}">
-    <div>
+    <form method="post" th:action="@{/makePlan}" th:object="${planner}">
+    <div class="border">
     
-      <div>  
+      <div class="mainview">  
         <h4> 새 일정 만들기 </h4>
         </div>
-        <div class="mainview">  
+        <div class="flex">  
       
-          <div class="title"">
-              여행제목
+          <div class="title">
+              <lable>여행제목</lable>
     
           </div>
           
-          <div class="hidden">
+          <div class="input_view">
 
     
-              <input type="text" style="width:100%; margin: 0;padding: 0;height: 100%;" th:text="*{title}" name="title" th:value="*{title}">
+              <input class="title_input" type="text">
 
             
-          </div>dr: 1px solid red; text-align: center; margin: 0;overflow: hidden;">  
-            <div style="border: 1px solid blue; width:15%">
-              여행기간
+          </div>
+          </div>
+      
+
+          <div class="flex">  
+            <div class="title">
+            <label>  여행기간 </label>
                 </div>
-            <div style="border: 1px solid blue;display: flex; width:85%">
+            <div class="dateview">
      <label><input type="date"></label>
        <select name="day">
     <option value="">2일</option>
@@ -71,14 +75,14 @@ textarea.autosize::-webkit-scrollbar {
 
 
 
-        <div style="border: 1px solid red;  margin: 0; display: flex;">  
+        <div class="flex">  
       
-          <div style="width:15%;border: 1px solid blue; text-align: center;">
-              여행타입
+          <div class="title">
+              <label>여행타입</label>
     
           </div>
           
-          <div style="width:85%;border: 1px solid  green; margin: 0; overflow: hidden;">
+          <div class="input_view">
 
               <label><input type="radio" name="fruit" value="solo">나홀로 여행</label>
               <label><input type="radio" name="fruit" value="Couple">연인/커플</label>
@@ -93,17 +97,17 @@ textarea.autosize::-webkit-scrollbar {
 
 
 
-          <div style="border: 1px solid red;  margin: 0;  display: flex;">  
+          <div class="flex">  
       
-            <div style="width:15%;border: 1px solid blue;text-align: center;">
-                여행인원
+            <div class="title">
+                <label>여행인원</label>
       
             </div>
             
-            <div style="width:85%;border: 1px solid  green; margin: 0; overflow: hidden;">
+            <div class="input_view">
 
 	<select name="person">
-    	<option value="2">2명</option>
+    	<option value="">2명</option>
     	<option value="1">1명</option>
     	<option value="2">2명</option>
     	<option value="3">3명</option>
@@ -121,14 +125,15 @@ textarea.autosize::-webkit-scrollbar {
             
             
             </div>
-            <div style="border: 1px solid red;  margin: 0 auto; text-align: center; display: flex;">  
+            <div class="flex">  
       
-              <div style="width:15%;border: 1px solid blue;">
-                  사용자 정의 메모
+              <div class="title">
+              <label>사용자 정의 메모</label>
+                  
         
               </div>
               
-              <div style="width:85%;border: 1px solid  green; margin: 0; overflow: hidden;">
+              <div class="dateview">
      
     
                 <textarea class="autosize" maxlength="250" onkeydown="resize(this)" onkeyup="resize(this)" placeholder="추가 바람" style="vertical-align: middle; width: 100%; "></textarea>
@@ -144,7 +149,7 @@ textarea.autosize::-webkit-scrollbar {
 
 
 <div style="position: absolute; right: 0px; bottom: 0px;">
-  <button style=" margin: 0 30px;" type="submit">일정 만들기</button>
+  <button style=" margin: 0 30px;">일정 만들기</button>
   <button style=" margin: 0 30px;" data-dismiss="modal">창닫기</button></div>
 </form>
 
