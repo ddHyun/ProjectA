@@ -87,7 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http
 			.exceptionHandling().accessDeniedHandler(customAccessDeniedHandler);
-		
-		// http.headers().frameOptions().disable(); // Spring Security 비활성화
+		//모달 팜업창 관련
+		http.headers().frameOptions().disable(); // Spring Security 비활성화
 	}
 }
