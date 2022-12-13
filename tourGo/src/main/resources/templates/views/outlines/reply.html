@@ -1,3 +1,12 @@
+	<!-- 
+	탬플릿 사용시 
+
+	no : 수정할 글번호,
+	replies : 댓글 목록
+	
+	model에 담아 보내기 
+	 -->
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thylemleaf.org">
 	
@@ -6,10 +15,10 @@
 		<th:block th:object="${replyRequest}">
 			<div class="rpl">
 				<form method="POST" th:action="@{/reply/register}" name="replyForm">
-					<input th:if="${session.user}" type="hidden" name="id" th:value="${session.user}">
-					<input type="hidden" name="reviewNo" th:value="${reviewRequest.reviewNo}">
+					<input th:if="${session.user}" type="hidden" name="id" id="id" th:value="${session.user}">
+					<input type="hidden" name="reviewNo" th:value="${no}">
 					<div>
-						<textarea rows="2" placeholder="댓글을 남겨보세요" name="content" th:field="*{replyContent}"></textarea>
+						<textarea rows="2" placeholder="댓글을 남겨보세요" name="content" id="content" th:field="*{replyContent}"></textarea>
 						<div th:each="err : ${#fields.errors('replyContent')}" th:text="${err}"></div>
 					</div>
 					<div>
@@ -20,6 +29,7 @@
 		</th:block>
 		<br>
 			<th:block th:if="${replies}" th:each="reply : ${replies}" th:object="${reply}">
+				<input type="hidden" id="replyNo" th:value="*{replyNo}">
 				<div class="rpl">
 					<div class="innerRpl">
 						<small th:text="*{name}">작성자</small>

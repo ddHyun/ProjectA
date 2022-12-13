@@ -13,7 +13,7 @@ const btnFn = {
 			if(!reviewNo){
 				throw new Error("수정할 글이 존재하지 않습니다.");
 			}
-			location.href = `../review_modify?reviewNo=${reviewNo}`;
+			location.href = `../review_register?reviewNo=${reviewNo}`;
 		}catch(err){
 			alert(err.message);
 		}

@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotBlank;
 
+import org.tourGo.models.entity.community.review.ReplyEntity;
+
 import lombok.*;
 /*
  * 댓글
@@ -19,4 +21,18 @@ public class ReplyRequest {
 	private String replyContent;	//내용
 	private LocalDateTime regDt;	//작성일
 	private LocalDateTime modDt;//수정일
+	
+	public ReplyRequest() {	}
+
+	public ReplyRequest(ReplyEntity entity) {
+		replyNo = entity.getReplyNo();
+		reviewNo = entity.getReview().getReviewNo();
+		id = entity.getUser().getUserId();
+		name = entity.getUser().getUserNm();
+		replyContent = entity.getReplyContent();
+		regDt = entity.getRegDt();
+		modDt = entity.getModDt();
+	}
+	
+	
 }

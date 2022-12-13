@@ -14,17 +14,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.tourGo.models.community.review.ReviewEntityRepository;
-import org.tourGo.service.community.ReplyService;
-import org.tourGo.service.community.ReviewService;
+import org.tourGo.models.entity.community.review.ReviewEntity;
 
 @Controller
 @RequestMapping("/community")
 public class ReviewReadController {
 
-	@Autowired
-	private ReviewService reviewService;
-	@Autowired
-	private ReplyService replyService;
 	@Autowired
 	private ReviewEntityRepository repository;
 	@Autowired
@@ -68,8 +63,9 @@ public class ReviewReadController {
 		/** 쿠키 처리 E */
 		
 		//게시글 가져오기
-		ReviewRequest reviewRequest = reviewService.getOneReviewList(reviewNo);
-		List<ReplyRequest> replies = reviewRequest.getReplies().stream().map(replyService::entityToRequest).toList();
+		ReviewEntity entity = repository.findById(reviewNo).orElse(null);
+		ReviewRequest reviewRequest = new ReviewRequest(entity);
+		List<ReplyRequest> replies = reviewRequest.getReplies().stream().map(ReplyRequest::new).toList();
 		if(replies.size() != 0) {
 			model.addAttribute("replies", replies);
 		}
@@ -79,6 +75,9 @@ public class ReviewReadController {
 		//댓글
 		ReplyRequest replyRequest = new ReplyRequest();
 		model.addAttribute("replyRequest", replyRequest);
+
+		//댓글탬플릿에 보낼 정보
+		model.addAttribute("no", reviewNo);
 		
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("order", order);
