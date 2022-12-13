@@ -11,6 +11,9 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import org.tourGo.models.plan.details.PlanDetailsRq;
 import org.tourGo.models.plan.entity.PlanDetails;
+import org.tourGo.models.plan.entity.QPlanDetails;
+
+import com.querydsl.core.BooleanBuilder;
 
 @Service
 public class PlanDetailsService {
@@ -20,8 +23,7 @@ public class PlanDetailsService {
 		
 	public List<PlanDetails> userDetails(Long plannerNo){
 		
-		
-		
+		//QPlanDetails qPlan = QPlanDetails.planDetails;
 		
 		List<Order> orders = new ArrayList<>();
 		orders.add(Order.asc("day"));

@@ -17,18 +17,11 @@ public class PlannerService {
 	@Autowired
 	private PlannerRepository repository;
 	
-	public List<PlannerRq> userPlanner(String userId){ //db로부터 플래너 번호를 내림차순하여 planner List형태로 변환하는 메서드
-		//List<PlannerEntity> entity = repository.findAllByOrderByPlannerNoDESC();
-		List<PlannerRq> list = new ArrayList<>();
+	public List<Planner> userPlanner(String userId){ //db로부터 플래너 번호를 내림차순하여 planner List형태로 변환하는 메서드
+
+
 		
-		List<Planner> entity = repository.findAllByUser(userId,Sort.by(Sort.Direction.DESC,"plannerNo"));
-		
-		for(Planner _entity : entity) {
-			
-			PlannerRq planner = PlannerRq.entityToPlanner(_entity);
-			list.add(planner);
-		}
-	
+		List<Planner> list = repository.findAllByUser(userId,Sort.by(Sort.Direction.DESC,"plannerNo"));
 
 		return list;
 	}

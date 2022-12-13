@@ -3,10 +3,12 @@
 import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.plan.details.PlanDetailsRq;
 import org.tourGo.models.plan.entity.PlanDetails;
 import org.tourGo.models.plan.entity.PlanDetails.PlanDetailsBuilder;
@@ -27,7 +29,7 @@ public class PlannerController {
 		return "plan/planDetails";
 	}
 	@GetMapping("/makeplan")
-	public String makePlan(Model model) {
+	public String makePlan(@AuthenticationPrincipal PrincipalDetail pd,Model model) {
 		PlanDetailsRq rq = new PlanDetailsRq();
 		model.addAttribute("planDetails",rq);
 		return "plan/makePlan";
