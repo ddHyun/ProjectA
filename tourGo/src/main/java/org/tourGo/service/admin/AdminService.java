@@ -50,9 +50,25 @@ public class AdminService {
 		BooleanBuilder booleanBuilder = new BooleanBuilder();
 		QUser user = QUser.user;
 		
-		booleanBuilder.and(user.activeType.eq(ActiveType.ACTIVE));
+		booleanBuilder.and(user.activeType.eq(ActiveType.ACTIVE))
+								.and(user.adminType.ne(UserType.SUPERADMIN));
 		pageable = PageRequest.of(page, 10, Sort.by(Order.desc("userNo")));
 		
 		return userRepository.findAll(booleanBuilder, pageable);
+	}
+	
+	// 관리자 등급 변경
+	public void adminTypeChange(Long id) {
+		User user = userRepository.findById(id).orElseThrow(() -> {
+			throw new IllegalArgumentException("회원이 존재하지 않습니다.");
+		});
+		
+		if(user.getAdminType() == UserType.USER) {
+			user.setAdminType(UserType.ADMIN);
+		} else {
+			user.setAdminType(UserType.USER);
+		}
+		
+		userRepository.save(user);
 	}
 }

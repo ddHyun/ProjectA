@@ -27,15 +27,19 @@
 					                	</thead>
 					                	<tbody>
 					                		<th:object th:with="total=${list.totalElements}, size=${list.size}, pageNum=${list.pageable.pageNumber}">
-					                		<tr th:each="list, index : ${list.content}" class="text-center"> <!-- th:each 사용 -->
+					                		<tr th:each="list, index : ${list.content}" class="text-center">
 					                			<td th:text="${total - (pageNum * size + index.index) }"></td>
-					                			<td th:text="${list.userId}"></td>
+					                			<td>
+					                				<a href="#" th:name="${list.userId}" th:text="${list.userId}"
+					                				data-toggle="modal" data-target="#modal" 
+					                				th:userNo="${list.userNo}" th:type="${list.adminType}" th:userNm="${list.userNm}"
+					                				th:onclick="modalOpen(this.getAttribute('userNo'), this.getAttribute('userNm'), this.getAttribute('type'))"></a>
+					                			</td>
 					                			<td th:text="${list.userNm}"></td>
 					                			<td th:text="${#temporals.format(list.regDt,'yyyy-MM-dd HH:mm')}"></td>
 					                			<td th:text="${#temporals.format(list.modDt,'yyyy-MM-dd HH:mm')}"></td>
 			                					<td th:if="${#strings.equals(list.adminType, 'USER')}" th:text="#{userType.user}"></td>
 			                					<td th:if="${#strings.equals(list.adminType, 'ADMIN')}" th:text="#{userType.admin}"></td>
-			                					<td th:if="${#strings.equals(list.adminType, 'SUPERADMIN')}" th:text="#{userType.superadmin}"></td>
 					                		</tr>
 					                		</th:object>
 					                	</tbody>
@@ -47,6 +51,28 @@
 	        		</div>
 	        	</div>
 	        	
+	        	<div class="modal fade" id="modal">
+				  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+				    <div class="modal-content">
+				
+				      <!-- Modal Header -->
+				      <div class="modal-header">
+				        <h4 class="modal-title" id="modalTitle">사용자 등급 변경</h4>
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				      </div>
+				
+				      <!-- Modal body -->
+				      <div class="modal-body" id="modalBody">
+				      </div>
+				
+				      <!-- Modal footer -->
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-danger" data-dismiss="modal" th:onclick="modalClose()">아니오</button>
+				        <button id="btn_change" type="button" class="btn btn-primary" th:onclick="changeAdmin()">예</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
 			</div>
 		</main>
 </html>
