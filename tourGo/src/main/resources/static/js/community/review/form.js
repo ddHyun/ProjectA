@@ -1,5 +1,5 @@
 /** 게시글 수정 처리 */
-function updatePost2(e) {
+function updatePost(e) {
 	e.preventDefault();
 	const formData = new FormData(regForm);
 	
@@ -88,7 +88,7 @@ window.addEventListener("DOMContentLoaded", function() {
 	/** 수정 선택 이벤트 처리 S */
 	const updateEl = document.getElementById("update");
 	if(updateEl){
-		updateEl.addEventListener("click", updatePost2);
+		updateEl.addEventListener("click", updatePost);
 	}
 	/** 수정 선택 이벤트 처리 E */
 	

@@ -6,10 +6,10 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 
 import org.tourGo.models.entity.community.review.ReplyEntity;
+import org.tourGo.models.entity.community.review.ReviewEntity;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter @Setter
 public class ReviewRequest {
@@ -31,4 +31,20 @@ public class ReviewRequest {
 	private int reviewRead;			//조회수
 	private List<ReplyEntity> replies;	//댓글
 	
+	public ReviewRequest() {}
+	
+	public ReviewRequest(ReviewEntity entity) {
+		reviewNo = entity.getReviewNo();
+		id = entity.getUser().getUserId();
+		name = entity.getUser().getUserNm();
+		reviewTitle = entity.getReviewTitle();
+		region = entity.getRegion();
+		period = entity.getPeriod();
+		reviewContent = entity.getReviewContent();
+		gid = entity.getGid();
+		regDt = entity.getRegDt();
+		modDt = entity.getModDt();
+		reviewRead = entity.getReviewRead();	
+		replies = entity.getReplies();
+	}	
 }

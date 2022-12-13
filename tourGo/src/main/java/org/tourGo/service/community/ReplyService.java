@@ -41,22 +41,7 @@ public class ReplyService {
 		
 		return entity;
 	}
-	
-	//엔티티 -> 커맨드
-	public ReplyRequest entityToRequest(ReplyEntity entity) {
-		
-		ReplyRequest request = new ReplyRequest();
-		
-		request.setId(entity.getUser().getUserId());
-		request.setName(entity.getUser().getUserNm());
-		request.setReplyNo(entity.getReplyNo());
-		request.setReviewNo(entity.getReview().getReviewNo());
-		request.setReplyContent(entity.getReplyContent());
-		request.setRegDt(entity.getRegDt());
-		request.setModDt(entity.getModDt());
-		
-		return request;
-	}
+
 	
 	//댓글 등록하기
 	public ReplyRequest register(ReplyRequest request) {
@@ -69,8 +54,21 @@ public class ReplyService {
 		entity.setUser(user);
 		entity.setReview(review);
 		entity = replyRepository.save(entity);
-		ReplyRequest replyRequest = entityToRequest(entity);
+		ReplyRequest replyRequest = new ReplyRequest(entity);
 		
 		return replyRequest;
+	}
+	
+	//댓글 삭제하기
+	public void remove(Long replyNo) {
+		//영속성 불러오기
+		ReplyEntity reply = replyRepository.findById(replyNo).orElse(null);
+		String id = reply.getUser().getUserId();
+		User user = userRepository.findByUserId(id).orElse(null);
+		Long reviewNo = reply.getReview().getReviewNo();
+		ReviewEntity review = reviewRepository.findById(reviewNo).orElse(null);
+		reply.setUser(user);
+		reply.setReview(review);
+		replyRepository.deleteById(reviewNo);
 	}
 }

@@ -36,9 +36,13 @@ public class ReviewEntity extends BaseEntity {
 	private int reviewRead;						//조회수
 	
 	@OrderBy("regDt desc")
-	@OneToMany(mappedBy = "review", cascade = CascadeType.REMOVE)
-	private List<ReplyEntity> reply;			//댓글	
-
+	@OneToMany(mappedBy = "review")
+	private List<ReplyEntity> replies = new ArrayList<>();			//댓글	
+	
+	public void addReply(ReplyEntity reply) {//연관관계 편의메서드
+		replies.add(reply);
+		reply.setReview(this);
+	}
 	@Override
 	public String toString() {
 		return "ReviewEntity [reviewNo=" + reviewNo + ", user=" + user + ", reviewTitle=" + reviewTitle + ", region="

@@ -242,17 +242,14 @@ td select{
 /*댓글창*/
 .rpl{
 	width: 80%;
-	margin: auto;
+	margin: 5px auto;
 	background-color:#f0f8ff;
 	border: 1px solid rgba(0,153,204,0.3);
 }
 
 .innerRpl{
-	background-color: #fff;
-	border: 1px solid rgba(0,153,204,0.3);
 	width: 92%;
-	padding: 8px;
-	margin: 20px auto;
+	margin: auto;
 }
 
 .flex{
@@ -288,7 +285,7 @@ td select{
 	resize: none;
 	width: 92%;
 	padding: 8px;
-	margin: 20px 0;
+	margin: 5px 0;
 	outline: none;
 }
 
