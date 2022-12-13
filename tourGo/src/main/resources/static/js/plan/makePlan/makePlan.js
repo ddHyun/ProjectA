@@ -31,7 +31,7 @@ const tourGo = {
 					const label = document.createElement("label");
 					label.dataset.xpos = item.mapx;
 					label.dataset.ypos = item.mapy;
-					let html = `<input type="checkbox" id="tourItem" value="${item}"> <button type="button">선택</button> `;
+					let html = `<input type="checkbox" id="tourItem" value="${item}">  `;
 
 					if (item.firstimage) {
 						html += `<div><img src='${item.firstimage}' ></div>`;
@@ -40,15 +40,12 @@ const tourGo = {
 						<div>${item.title}</div>
 		 					<div>${item.addr1} ${item.addr2}</div>
 		    			<div >
-		     			<div>
-		       
-		           		 	<label for="check">시간</label>
-		            		<input type="time" name="check-in-time id="check">        
-		      		  	</div>
+		     	
 					`;
 						
 					label.innerHTML = html;
 					parentEl.appendChild(label);
+					const checkBoxEl = document.getElementById(`tourItem`);
 					label.addEventListener("click", function() {
 						const targetId = "contentId_" + item.contentid;
 						// 이미 선택 아이템이 있다면 추가 X
@@ -73,12 +70,24 @@ const tourGo = {
 						
 						let html = tpl;
 						const address = item.addr1 + " " + item.addr2;
-						html = html.replace(/<%=title%>/g, item.title)
+						
+						html = html.replace(/<%=firstimage>/g,item.firstimage)
+									.replace(/<%=title%>/g, item.title)
 									.replace(/<%=address%>/g, address)
-									.replace(/<%=id%>/g, item.contentid);
+									.replace(/<%=id%>/g, item.contentid)
+									;
+						html += `
+						<div>
+		       
+		           		 	<label for="check">시간</label>
+		            		<input type="time" name="checkTime id="check">        
+		      		  	</div>
+		      		  	
+		      		  	`;		
 									
 						const dom = domParser.parseFromString(html, "text/html");
-						const liEl = dom.querySelector("li");
+						const liEl = dom.querySelector("li");		
+						
 						selectedItemsEl.appendChild(liEl);
 					
 						const removeEl = liEl.querySelector(".remove");

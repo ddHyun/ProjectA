@@ -61,12 +61,13 @@ close
 <div class="list">
 
 <div class="selected_items">
-<a href="#">
+<!--<a href="#">
  <div class="x_button"> <span class="material-symbols-outlined">
 close
-</span></div></a>
+</span></div></a>-->
+<div>
     <ul></ul>
-  
+</div>
 </div>
 
 
@@ -75,28 +76,7 @@ close
 
 
 <div class="api_list">
-<!--
-<div class="selected_items">
- 
-    <div >
-        <img src="exImage\명동교자.jpg">
-    </div>
-    <div>
-        관광공사api리스트 
-    </div>
-    <div >
-        <div>
-       
-            <label for="">시간</label>
-            <input type="time" name="check-in-time">        
-        </div>
-   
-    </div>
-  
-</div>
 
-
--->
 </div>
 <div class="map_container"><div id="map"></div></div>
 
@@ -112,22 +92,24 @@ close
 
 
 
-
-
-
-
-
-
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5cf0f012351259a60d2d7388a32df3af"></script>
 <!--<script type="text/javascript" th:src="@{js/plan/makePlan/kakaoMap.js}"></script>-->
 <script type="text/javascript" th:src="@{js/plan/makePlan/makePlan.js}"></script>
 
 <script type="text/html" id='tpl_selectedItems'>
 	<li id='contentId_<%=id%>'>
+		
+		<img src="<%=firstimage>"></img>
 		<div><%=title%></div>
 		<div><%=address%></div>
+		
 		<button type="button" class="remove">[삭제]</button>
+			
+		          
+		      	
+		      		  	
 	</li>
+	
 </script>
 
 </body>

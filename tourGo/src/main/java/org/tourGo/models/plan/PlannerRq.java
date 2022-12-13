@@ -3,8 +3,8 @@ package org.tourGo.models.plan;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.tourGo.models.plan.details.PlanDetails;
-import org.tourGo.models.plan.entity.PlannerEntity;
+import org.tourGo.models.plan.details.PlanDetailsRq;
+import org.tourGo.models.plan.entity.Planner;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Planner {//여행 일정짜기dto
+public class PlannerRq {//여행 일정짜기dto
 
 	 private Long plannerNo;
 	 private String title;
@@ -28,9 +28,9 @@ public class Planner {//여행 일정짜기dto
 	 private String image;//대표이미지
 	
 	 
-	 public static Planner entityToPlanner(PlannerEntity entity) {
+	 public static PlannerRq entityToPlanner(Planner entity) {
 		 
-		return Planner.builder().plannerNo(entity.getPlannerNo())
+		return PlannerRq.builder().plannerNo(entity.getPlannerNo())
 		 .planSize(entity.getPlanSize())
 		 .planType(entity.getPlanType())
 		 .sdate(entity.getSdate())
@@ -53,9 +53,9 @@ public class Planner {//여행 일정짜기dto
 
 	 }
 	 
-	 public static PlannerEntity plannerToEntity(Planner planner) {
+	 public static Planner plannerToEntity(PlannerRq planner) {
 
-		 return PlannerEntity.builder().plannerNo(planner.getPlannerNo())
+		 return Planner.builder().plannerNo(planner.getPlannerNo())
 				 .planSize(planner.getPlanSize())
 				 .planType(planner.getPlanType())
 				 .sdate(planner.getSdate())

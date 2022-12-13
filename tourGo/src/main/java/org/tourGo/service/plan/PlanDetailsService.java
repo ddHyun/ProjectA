@@ -9,8 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
-import org.tourGo.models.plan.details.PlanDetails;
-import org.tourGo.models.plan.entity.PlanDetailsEntity;
+import org.tourGo.models.plan.details.PlanDetailsRq;
+import org.tourGo.models.plan.entity.PlanDetails;
 
 @Service
 public class PlanDetailsService {
@@ -18,7 +18,7 @@ public class PlanDetailsService {
 	@Autowired
 	private PlanDetailsRepository repository;
 		
-	public List<PlanDetailsEntity> userDetails(Long plannerNo){
+	public List<PlanDetails> userDetails(Long plannerNo){
 		
 		
 		
@@ -27,7 +27,7 @@ public class PlanDetailsService {
 		orders.add(Order.asc("day"));
 		orders.add(Order.desc("sdate"));
 	
-		List<PlanDetailsEntity> list = repository.findAllByPlanner(plannerNo,Sort.by(orders));
+		List<PlanDetails> list = repository.findAllByPlanner(plannerNo,Sort.by(orders));
 		
 		
 		return list;

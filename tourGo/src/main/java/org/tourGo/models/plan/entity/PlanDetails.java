@@ -5,15 +5,18 @@ import java.time.LocalTime;
 import javax.persistence.*;
 
 import org.tourGo.common.BaseEntity;
-import org.tourGo.models.plan.details.PlanDetails;
+import org.tourGo.models.plan.details.PlanDetailsRq;
 
 import lombok.*;
 
-@Builder
+
 @Entity
 @Table(name="planDetails")
-@Getter @Setter
-public class PlanDetailsEntity extends BaseEntity {
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class PlanDetails extends BaseEntity {
 
 
 	@Id @GeneratedValue
@@ -21,7 +24,7 @@ public class PlanDetailsEntity extends BaseEntity {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="plannerNo")
-	private PlannerEntity planner;//관계매핑
+	private Planner planner;//관계매핑
 	
 	private LocalTime sTime;
 	private LocalTime eTime;

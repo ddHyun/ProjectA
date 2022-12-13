@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 import org.tourGo.common.BaseEntity;
 import org.tourGo.models.entity.user.User;
-import org.tourGo.models.plan.details.PlanDetails;
+import org.tourGo.models.plan.details.PlanDetailsRq;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -12,11 +12,14 @@ import java.util.List;
 
 import lombok.*;
 
-@Builder
+
 @Entity
 @Table(name="planner")
-@Getter @Setter
-public class PlannerEntity extends BaseEntity {
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class Planner extends BaseEntity {
 	@Id @GeneratedValue
 	private Long plannerNo;
 	private String title;
