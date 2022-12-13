@@ -6,6 +6,20 @@
       
     <link th:href="@{css/plan/makePlan.css}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<style>
+.test{
+	text-align:center;
+}
+.testimg{
+	width:465px;
+	max-height:400px;
+}
+.api_list{
+overflow-y:auto;
+}
+</style>
+
 </head>
 <body>
 
@@ -96,7 +110,7 @@ close
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5cf0f012351259a60d2d7388a32df3af"></script>
 <!--<script type="text/javascript" th:src="@{js/plan/makePlan/kakaoMap.js}"></script>-->
-<script type="text/javascript" th:src="@{js/plan/makePlan/makePlan.js}"></script>
+<script type="text/javascript" th:src="@{js/plan/makePlan/makePlan backup.js}"></script>
 
 <script type="text/html" id='tpl_selectedItems'>
 	<li id='contentId_<%=id%>'>

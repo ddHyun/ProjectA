@@ -33,12 +33,12 @@ public class PlannerController {
 		return "plan/makePlan";
 	}
 		
-	@PostMapping("/makePlan")
+	
+	@GetMapping("/makeplan2")
 	public String makePlan2(Model model) {
 		PlanDetailsRq rq = new PlanDetailsRq();
-		rq.setAddress((String)model.getAttribute("address"));
-		PlanDetails entity = PlanDetails.builder().address(rq.getAddress()).build();
-		rp.save(entity);
-		return "plan/makePlan";
+		model.addAttribute("planDetails",rq);
+		return "plan/makePlanTest";
 	}
+		
 }
