@@ -3,7 +3,7 @@ package org.tourGo.models.plan.tourList;
 import java.util.Date;
 import java.util.List;
 
-import org.tourGo.models.plan.Planner;
+import org.tourGo.models.plan.PlannerRq;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
