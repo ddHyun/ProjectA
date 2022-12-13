@@ -32,6 +32,7 @@ public class PlannerController {
 		model.addAttribute("planDetails",rq);
 		return "plan/makePlan";
 	}
+<<<<<<< HEAD
 			
 	@PostMapping("/makePlan")
 	public String makePlan2(Model model) {
@@ -40,5 +41,15 @@ public class PlannerController {
 		PlanDetails entity = PlanDetails.builder().address(rq.getAddress()).build();
 		rp.save(entity);
 		return "plan/makePlan";
+=======
+		
+	
+	@GetMapping("/makeplan2")
+	public String makePlan2(Model model) {
+		PlanDetailsRq rq = new PlanDetailsRq();
+		model.addAttribute("planDetails",rq);
+		return "plan/makePlanTest";
+>>>>>>> 이다빈
 	}
+		
 }
