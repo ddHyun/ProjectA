@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <title>Modal</title>
     <head>
+    <link th:href="@{css\plan\makeDate.css" rel="stylesheet" type="text/css">
 <style>
    .hihi::-webkit-scrollbar {display: none;}
 
@@ -23,34 +24,30 @@ textarea.autosize::-webkit-scrollbar {
 
     </head>
   </head>
-  <body style="margin:0;">
+  <body>
 
 
     
     <form method="post" th:action="@{/makePlanTest}" th:object="${planner}">
     <div>
     
-      <div style="border: 1px solid red;  margin: 0;">  
+      <div>  
         <h4> 새 일정 만들기 </h4>
         </div>
-        <div style="border: 1px solid red;  margin: 0; text-align: center; display: flex;">  
+        <div class="mainview">  
       
-          <div style="border: 1px solid blue; width:15%">
+          <div class="title"">
               여행제목
     
           </div>
           
-          <div style="border: 1px solid  green; margin: 0; overflow: hidden; width:85%">
+          <div class="hidden">
 
     
               <input type="text" style="width:100%; margin: 0;padding: 0;height: 100%;" th:text="*{title}" name="title" th:value="*{title}">
 
             
-          </div>
-          </div>
-      
-
-          <div style=" display:flex; border: 1px solid red; text-align: center; margin: 0;overflow: hidden;">  
+          </div>dr: 1px solid red; text-align: center; margin: 0;overflow: hidden;">  
             <div style="border: 1px solid blue; width:15%">
               여행기간
                 </div>

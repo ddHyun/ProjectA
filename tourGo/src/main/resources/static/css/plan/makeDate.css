@@ -1,0 +1,23 @@
+body {
+
+     margin:0;
+     padding:0;
+}
+
+
+.mainview{
+	margin: 0; 
+	text-align: center; 
+	display: flex;
+	  
+  
+
+}
+.title{
+  
+   width:15%;
+   width:85%;
+}
+.hidden{
+	overflow:hidden;
+}
