@@ -3,13 +3,13 @@
 	
 	<!-- 댓글 -->
 	<th:block th:fragment="reply">
-		<div th:object="${replyRequest}">
+		<th:block th:object="${replyRequest}">
 			<div class="rpl">
 				<form method="POST" th:action="@{/reply/register}" name="replyForm">
 					<input th:if="${session.user}" type="hidden" name="id" th:value="${session.user}">
 					<input type="hidden" name="reviewNo" th:value="${reviewRequest.reviewNo}">
 					<div>
-						<textarea rows="3" placeholder="댓글을 남겨보세요" name="content" th:field="*{replyContent}"></textarea>
+						<textarea rows="2" placeholder="댓글을 남겨보세요" name="content" th:field="*{replyContent}"></textarea>
 						<div th:each="err : ${#fields.errors('replyContent')}" th:text="${err}"></div>
 					</div>
 					<div>
@@ -17,21 +17,23 @@
 					</div>
 				</form>
 			</div>
-			<br>
-			<div th:if="${replies}" class="rpl" th:each="reply : ${replies}" th:object="${reply}">
-				<div class="innerRpl">
-					<small th:text="*{name}">&nbsp;</small>
-					<small th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</small>
-					<ul>
-						<li class="flex">
-							<div class="item" th:utext="*{replyContent}">댓글내용</div>
-							<button class="item" type="button" th:text="#{community.delete}"
-											id="deleteReply">삭제</button>
-						</li>
-					</ul>
+		</th:block>
+		<br>
+			<th:block th:if="${replies}" th:each="reply : ${replies}" th:object="${reply}">
+				<div class="rpl">
+					<div class="innerRpl">
+						<small th:text="*{name}">작성자</small>
+						<small style="color:#888;" th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</small>
+						<ul>
+							<li class="flex">
+								<div class="item" th:utext="*{replyContent}">댓글내용</div>
+								<button class="item" type="button" th:text="#{community.delete}"
+												id="deleteReply">삭제</button>
+							</li>
+						</ul>
+					</div>
 				</div>
-			</div>
+			</th:block>
 			<br>
-		</div>
 	</th:block>
 </html>

@@ -70,7 +70,7 @@ public class ReviewService {
 		reviewRequest.setReviewRead(entity.getReviewRead());
 		reviewRequest.setRegDt(entity.getRegDt());
 		reviewRequest.setModDt(entity.getModDt());		
-		reviewRequest.setReplies(entity.getReply());
+		reviewRequest.setReplies(entity.getReplies());
 		
 		return reviewRequest;
 	}
