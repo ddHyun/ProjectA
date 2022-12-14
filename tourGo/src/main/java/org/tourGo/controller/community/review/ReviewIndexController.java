@@ -23,21 +23,15 @@ public class ReviewIndexController{
 	private HttpSession session;
 
 	private String baseUrl = "community/review/";
+
 	
-	//static & board명 추가
-	private void addCssJs(String boardName, String[] cssList, String[] jsList, Model model) {
-		model.addAttribute("board", boardName);
-		model.addAttribute("addCss", cssList);
-		model.addAttribute("addScript", jsList);
-	}
-	
-		
 	//여행후기 메인페이지
 	@GetMapping("/community/review_main")
 	public String index(@RequestParam(name="page", required=false) Integer page, String keyword, String order, Model model){		
 		//css, js, board 추가
-		addCssJs("review", new String[] {"community/community_common", "community/pagination"}, 
-				new String[] {"community/community_common", "community/review/index"}, model);	
+		model.addAttribute("board", "review");
+		model.addAttribute("addCss", new String[] {"community/community_common", "community/pagination"});
+		model.addAttribute("addScript", new String[] {"community/community_common", "community/review/index"});
 		
 		page = page == null? 1 : page;
 		
@@ -55,7 +49,7 @@ public class ReviewIndexController{
 		model.addAttribute("order", order);
 		
 		//나중에 지우기
-		session.setAttribute("user", "user01");
+		session.setAttribute("user", "user02");
 		
 		return baseUrl+ "review_main";
 			

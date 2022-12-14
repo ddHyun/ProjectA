@@ -17,7 +17,7 @@ public class ReplyRequest {
 	private Long reviewNo;			//게시글번호
 	private String id;					//작성자id
 	private String name;				//작성자명
-	@NotBlank
+	@NotBlank(message="내용을 입력해주세요")
 	private String replyContent;	//내용
 	private LocalDateTime regDt;	//작성일
 	private LocalDateTime modDt;//수정일

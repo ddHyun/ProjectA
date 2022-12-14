@@ -228,10 +228,15 @@ td select{
 	cursor: pointer;
 }
 
+/*게시글 내용 출력*/
 .enter{
 	white-space: pre-wrap;
 	font-size: 1rem;
 	padding: 1rem;
+}
+
+.enter img{
+	width: 100%;
 }
 
 /* 오류메시지*/

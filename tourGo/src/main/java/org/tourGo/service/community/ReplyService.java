@@ -58,17 +58,5 @@ public class ReplyService {
 		
 		return replyRequest;
 	}
-	
-	//댓글 삭제하기
-	public void remove(Long replyNo) {
-		//영속성 불러오기
-		ReplyEntity reply = replyRepository.findById(replyNo).orElse(null);
-		String id = reply.getUser().getUserId();
-		User user = userRepository.findByUserId(id).orElse(null);
-		Long reviewNo = reply.getReview().getReviewNo();
-		ReviewEntity review = reviewRepository.findById(reviewNo).orElse(null);
-		reply.setUser(user);
-		reply.setReview(review);
-		replyRepository.deleteById(reviewNo);
-	}
+
 }

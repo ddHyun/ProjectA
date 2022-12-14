@@ -4,7 +4,9 @@
 	<!-- 커뮤니티 공통 상단 네비바 -->
 	<th:block th:fragment="community_top">
 		<div class="wide">
-			<img class="wideImg" th:src="@{/images/img.jpg}" alt="세계 자연유산 제주도">
+			<img class="wideImg" th:if="${board=='review'}" th:src="@{/images/img.jpg}" alt="세계 자연유산 제주도">
+			<img class="wideImg" th:if="${board=='query'}" th:src="@{/images/img1.jpg}" alt="한국 기와의 겨울">
+			<img class="wideImg" th:if="${board=='notice'}" th:src="@{/images/img2.jpg}" alt="한국 기와의 겨울">
 		</div>
 		<div class="wrap">
 			<nav class="top_nav font2 centerW">
