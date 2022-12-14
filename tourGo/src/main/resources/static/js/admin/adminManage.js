@@ -1,4 +1,5 @@
 
+/* adminTypeManage(관리자 등급 변경) S */
 function modalOpen(id, name, adminType) {
 	let item = '<form method="post" id="changeForm" name="changeForm">' + 
 				'<h5 class="text-danger">주의! 등급 변경은 신중히 해주세요.</h5><br/>';
@@ -43,3 +44,20 @@ function changeAdmin() {
 			}
 		}
 };
+/* adminTypeManage(관리자 등급 변경) E */
+
+/* userManage(회원 관리) S */
+window.addEventListener("DOMContentLoaded", function() {
+	const selectBox = document.getElementById("selectBox");
+	const searchType = document.getElementById("searchType");
+	
+	if(searchType.value.length == 0 || searchType.value == 0) {
+		searchType.value = selectBox.options[selectBox.selectedIndex].value;
+	}
+	
+	selectBox.addEventListener("change", () => {
+		searchType.value = selectBox.options[selectBox.selectedIndex].value;
+	});
+});
+
+/* userManage(회원 관리) S */

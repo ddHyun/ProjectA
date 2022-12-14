@@ -21,7 +21,7 @@ public class AdminService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	// 회원 관리
+	// 회원 관리(전체)
 	public Page<User> userManage(Pageable pageable) {
 		int page = (pageable.getPageNumber() == 0) ? 0 : pageable.getPageNumber() - 1;
 		
@@ -29,6 +29,27 @@ public class AdminService {
 		BooleanBuilder booleanBuilder = new BooleanBuilder();
 		QUser user = QUser.user;
 		
+		booleanBuilder.and(user.adminType.eq(UserType.USER));
+		pageable = PageRequest.of(page, 10, Sort.by(Order.desc("userNo")));
+		
+		return userRepository.findAll(booleanBuilder, pageable);
+	}
+	
+	public Page<User> userManageSearch(Pageable pageable, String searchType, String searchKeyword) {
+		int page = (pageable.getPageNumber() == 0) ? 0 : pageable.getPageNumber() - 1;
+		
+		// USERTYPE이 USER 존재만 갖고오기
+		BooleanBuilder booleanBuilder = new BooleanBuilder();
+		QUser user = QUser.user;
+		
+		// 1. 사용자 아이디 검색
+		if("userId".equals(searchType)) {
+			booleanBuilder.and(user.userId.contains(searchKeyword));
+		} 
+		// 2. 사용자 이름 검색
+		else if("userNm".equals(searchType)){
+			booleanBuilder.and(user.userNm.contains(searchKeyword));
+		}
 		booleanBuilder.and(user.adminType.eq(UserType.USER));
 		pageable = PageRequest.of(page, 10, Sort.by(Order.desc("userNo")));
 		
@@ -46,7 +67,7 @@ public class AdminService {
 	public Page<User> adminTypeManage(Pageable pageable) {
 		int page = (pageable.getPageNumber() == 0) ? 0 : pageable.getPageNumber() - 1;
 		
-		// 활동하는 User만 가져오기
+		// 활동하는 User에서 전체관리자만 빼고 가져오기
 		BooleanBuilder booleanBuilder = new BooleanBuilder();
 		QUser user = QUser.user;
 		

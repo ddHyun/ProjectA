@@ -42,7 +42,7 @@
                         	<i class="fa-solid fa-user-slash"></i>
                         	정지/삭제 회원 관리
                         </a>
-                        <a class="collapse-item" th:href="@{/admin/user/adminTypeManage}">
+                        <a sec:authorize="hasRole('SUPERADMIN')" class="collapse-item" th:href="@{/admin/user/adminTypeManage}">
                         	<i class="fa-solid fa-hammer"></i>
                         	관리자 등급 변경
                         </a>
