@@ -30,13 +30,23 @@ public class ReviewRegisterController {
 
 	private String baseUrl = "community/review/";
 	
-	//static & board명 추가
-	private void addCssJs(String boardName, String[] cssList, String[] jsList, Model model) {
-		model.addAttribute("board", boardName);
-		model.addAttribute("addCss", cssList);
-		model.addAttribute("addScript", jsList);
+	private void addCommons(Model model) {
+		//static & board명 추가
+		model.addAttribute("board", "review");
+		model.addAttribute("addCss", new String[] {"community/community_common"});
+		model.addAttribute("addScript", new String[] {"community/community_common", "ckeditor/ckeditor",
+				"community/review/form", "fileupload"});
+		
+		//지역, 기간 목록
+		String[] regionLists = {"광주", "대구", "대전", "부산", "서울", "울산", "인천", 
+				"강원도", "경기도", "경상도", "전라도", "제주도", "충청도"};
+		String[] periodLists = {"당일치기", "1박2일", "2박3일", "3박4일", "4박5일", "5박6일 이상"};
+		
+		model.addAttribute("regionLists", regionLists);
+		model.addAttribute("periodLists", periodLists);
 	}
 
+	
 	//작성&수정페이지
 	@GetMapping()
 	public String form(ReviewRequest reviewRequest, String gid, 
@@ -47,18 +57,8 @@ public class ReviewRegisterController {
 //				return "redirect:/login";
 //			}
 		
-		//css, js, board 추가
-		addCssJs("review", new String[] {"community/community_common"}, 
-				new String[] {"community/community_common", "ckeditor/ckeditor",
-						"community/review/form", "fileupload"}, model);
-
-		//지역, 기간 목록
-		String[] regionLists = {"광주", "대구", "대전", "부산", "서울", "울산", "인천", 
-				"강원도", "경기도", "경상도", "전라도", "제주도", "충청도"};
-		String[] periodLists = {"당일치기", "1박2일", "2박3일", "3박4일", "4박5일", "5박6일 이상"};
-		
-		model.addAttribute("regionLists", regionLists);
-		model.addAttribute("periodLists", periodLists);
+		//공통데이터 model에 담기
+		addCommons(model);
 
 		//그룹아이디 설정
 		gid = gid==null? ""+System.currentTimeMillis() : gid;
@@ -83,10 +83,8 @@ public class ReviewRegisterController {
 											Long reviewNo, Model model) {		
 		
 		if (errors.hasErrors()) {
-			//css, js, board 추가
-			addCssJs("review", new String[] {"community/community_common"}, 
-					new String[] {"community/community_common", "ckeditor/ckeditor",
-							"community/review/form", "fileupload"}, model);
+			//공통데이터 model에 담기
+			addCommons(model);	
 			
 			return baseUrl + "review_form";
 		}		
@@ -101,11 +99,10 @@ public class ReviewRegisterController {
 			uploadService.updateSuccess(reviewRequest.getGid());
 			
 		} catch (Exception e) {
-			errors.reject(e.getMessage(), "review_write_error");
-			//css, js, board 추가
-			addCssJs("review", new String[] {"community/community_common"}, 
-					new String[] {"community/community_common", "ckeditor/ckeditor",
-							"community/review/form", "fileupload"}, model);
+			errors.reject("review_write_error", e.getMessage());
+			//공통데이터 model에 담기
+			addCommons(model);			
+			
 			return baseUrl + "review_form";
 		}
 				

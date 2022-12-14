@@ -30,23 +30,17 @@ public class ReviewReadController {
 
 	private String baseUrl = "community/review/";
 	
-	//static & board명 추가
-	private void addCssJs(String boardName, String[] cssList, String[] jsList, Model model) {
-		model.addAttribute("board", boardName);
-		model.addAttribute("addCss", cssList);
-		model.addAttribute("addScript", jsList);
-	}
-	
+		
 	//제목 클릭시 후기읽기 페이지
 	@GetMapping("/review_read/reviewNo_{reviewNo}")
 	public String readReview(@PathVariable Long reviewNo, String keyword, String order, 
 							@CookieValue(value="visitReview", required=false) Cookie cookie , Model model) throws Exception{
 		
 		//css, js, board 추가
-		addCssJs("review", new String[] {"community/community_common"}, 
-				new String[] {"community/community_common", "ckeditor/ckeditor",
-								"community/review/read", "community/reply"}, model);
-		
+		model.addAttribute("board", "review");
+		model.addAttribute("addCss", new String[] {"community/community_common"});
+		model.addAttribute("addScript", new String[] {"community/community_common", "ckeditor/ckeditor",
+				"community/review/read", "community/reply"});
 
 		/** 쿠키 처리 S */
 		if(cookie!=null) {
