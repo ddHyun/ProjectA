@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.tourGo.common.JsonResult;
 import org.tourGo.config.auth.PrincipalDetail;
@@ -52,12 +53,35 @@ public class AdminMainController {
 		model.addAttribute("addBootstrapCss", new String[] {"fontawesome-free/css/all", "datatables/dataTables.bootstrap4"});
 		
 		// 부트스트랩 관련 JS 추가
-		model.addAttribute("addScript", new String[] {});
+		model.addAttribute("addScript", new String[] {"admin/adminManage"});
 		model.addAttribute("addBootstrapJs", new String[] {"jquery/jquery.min", "bootstrap/js/bootstrap.bundle.min", "jquery-easing/jquery.easing.min"});
 		
 		Page<User> list = adminService.userManage(pageable);
 		
 		model.addAttribute("list", list);
+		
+		return "admin/user/userManage";
+	}
+	
+	@PostMapping("/admin/user/userManage")
+	public String userManagePs (@PageableDefault Pageable pageable,
+											@RequestParam(name="searchType", required=false) String searchType,
+											@RequestParam(name="searchKeyword", required=false) String searchKeyword,
+											Model model) {
+		
+		// 부트스트랩 관련 CSS 추가
+		model.addAttribute("addCss", new String[] {"admin/sb-admin-2"});
+		model.addAttribute("addBootstrapCss", new String[] {"fontawesome-free/css/all", "datatables/dataTables.bootstrap4"});
+		
+		// 부트스트랩 관련 JS 추가
+		model.addAttribute("addScript", new String[] {"admin/adminManage"});
+		model.addAttribute("addBootstrapJs", new String[] {"jquery/jquery.min", "bootstrap/js/bootstrap.bundle.min", "jquery-easing/jquery.easing.min"});
+		
+		Page<User> list = adminService.userManageSearch(pageable, searchType, searchKeyword);
+				
+		model.addAttribute("list", list);
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchKeyword", searchKeyword);
 		
 		return "admin/user/userManage";
 	}

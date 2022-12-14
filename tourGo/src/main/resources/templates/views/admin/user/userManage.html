@@ -6,11 +6,23 @@
 		
 		<main layout:fragment="content">
 			<div class="container-fluid">
+				<div class="board-title">회원 관리</div>
 				<div class="row">
 	        		<div class="col-12">
 			            <div class="card shadow mb-4">
-			                <div class="question card-header py-3">
+			                <div class="question card-header py-3 justify-content-between">
 			                    <h6 class="m-0 font-weight-bold text-primary">회원 목록</h6>
+			                	<form method="POST" id="searchForm" name="searchForm" th:href="@{/admin/user/userManage}" class="d-flex">
+									<select id="selectBox" class="form-control">
+										<option value="userId" th:selected="${searchType} == 'userId'">아이디</option>
+										<option value="userNm" th:selected="${searchType} == 'userNm'">이름</option>
+									</select>
+									<input type="hidden" name="searchType" id="searchType" th:value="${searchType}">
+									<input type="text" name="searchKeyword" id="searchKeyword" class="form-control" placeholder="입력" th:value="${searchKeyword}">
+									<button type="submit" class="btn btn-outline-success">
+										<i class="fa-solid fa-magnifying-glass"></i>검색
+									</button>
+								</form>
 			                </div>
 			                <div class="card-body">
 			                	<div class="row">
