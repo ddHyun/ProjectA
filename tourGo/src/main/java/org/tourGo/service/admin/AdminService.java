@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
+import org.tourGo.controller.admin.SearchRequest;
 import org.tourGo.models.entity.user.QUser;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.user.ActiveType;
@@ -22,12 +23,26 @@ public class AdminService {
 	private UserRepository userRepository;
 	
 	// 회원 관리(전체)
-	public Page<User> userManage(Pageable pageable) {
+	public Page<User> userManage(Pageable pageable, SearchRequest request) {
 		int page = (pageable.getPageNumber() == 0) ? 0 : pageable.getPageNumber() - 1;
 		
 		// USERTYPE이 USER 존재만 갖고오기
 		BooleanBuilder booleanBuilder = new BooleanBuilder();
 		QUser user = QUser.user;
+		
+		String searchType = request.getSearchType();
+		String searchKeyword = request.getSearchKeyword();
+		
+		if(searchType != null) {
+			// 1. 사용자 아이디 검색
+			if("userId".equals(searchType)) {
+				booleanBuilder.and(user.userId.contains(searchKeyword));
+			} 
+			// 2. 사용자 이름 검색
+			else if("userNm".equals(searchType)){
+				booleanBuilder.and(user.userNm.contains(searchKeyword));
+			}
+		}
 		
 		booleanBuilder.and(user.adminType.eq(UserType.USER));
 		pageable = PageRequest.of(page, 10, Sort.by(Order.desc("userNo")));
@@ -35,26 +50,6 @@ public class AdminService {
 		return userRepository.findAll(booleanBuilder, pageable);
 	}
 	
-	public Page<User> userManageSearch(Pageable pageable, String searchType, String searchKeyword) {
-		int page = (pageable.getPageNumber() == 0) ? 0 : pageable.getPageNumber() - 1;
-		
-		// USERTYPE이 USER 존재만 갖고오기
-		BooleanBuilder booleanBuilder = new BooleanBuilder();
-		QUser user = QUser.user;
-		
-		// 1. 사용자 아이디 검색
-		if("userId".equals(searchType)) {
-			booleanBuilder.and(user.userId.contains(searchKeyword));
-		} 
-		// 2. 사용자 이름 검색
-		else if("userNm".equals(searchType)){
-			booleanBuilder.and(user.userNm.contains(searchKeyword));
-		}
-		booleanBuilder.and(user.adminType.eq(UserType.USER));
-		pageable = PageRequest.of(page, 10, Sort.by(Order.desc("userNo")));
-		
-		return userRepository.findAll(booleanBuilder, pageable);
-	}
 	
 	// 정지/삭제 회원 관리
 	public Page<User> userActiveManage(Pageable pageable) {

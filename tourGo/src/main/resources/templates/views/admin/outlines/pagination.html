@@ -3,23 +3,25 @@
 	
 	<th:block th:fragment="pagination">
 				<div>
-           			<ul class="pagination" th:with="start=${(list.number/list.size)*list.size + 1}, end=(${(list.totalPages == 0) ? 1 : (start + (list.size - 1) < list.totalPages ? start + (list.size - 1) : list.totalPages)})">
-           				<li class="page-item"  th:if="${start > 1}">
-				            <a class="page-link" th:href="@{${#httpServletRequest.requestURI}(page=0)}" th:text="'<<'"></a>
+           			<ul class="pagination" th:if="${pagination != null}" th:object="${pagination}">
+				        <li class="page-item" th:if="*{page > pageCnt}">
+				            <a class="page-link" th:href="@{{url}(url=*{baseUrl}, searchType=${searchRequest.searchType}, searchKeyword=${searchRequest.searchKeyword}, page=1)}" th:text="'<<'"></a>
 				        </li>
-				        <li class="page-item" th:if="${start > 1}">
-				            <a class="page-link" th:href="@{${#httpServletRequest.requestURI}(page=${start - maxPage})}" th:text="'<'"></a>
-				        </li>
-				
-				        <li class="page-item" th:classappend="${page == list.pageable.pageNumber + 1} ? 'active'" th:each="page: ${#numbers.sequence(start, end)}">
-				            <a class="page-link" th:text="${page}" th:href="@{${#httpServletRequest.requestURI}(page=${page})}"></a>
+				        
+				        <li class="page-item" th:if="*{page > pageCnt}">
+				            <a class="page-link" th:href="@{{url}(url=*{baseUrl}, searchType=${searchRequest.searchType}, searchKeyword=${searchRequest.searchKeyword}, page=*{prev})}" th:text="'<'"></a>
 				        </li>
 				
-				        <li class="page-item" th:if="${end < list.totalPages}">
-				            <a class="page-link" th:href="@{${#httpServletRequest.requestURI}(page=${start + maxPage})}" th:text="'>'"></a>
+				        <li class="page-item" th:classappend="${page == pagination.page} ? 'active'" th:each="page: *{pages}">
+				            <a class="page-link" th:href="@{{url}(url=*{baseUrl}, searchType=${searchRequest.searchType}, searchKeyword=${searchRequest.searchKeyword}, page=${page})}" th:text="${page}"></a>
 				        </li>
-				        <li class="page-item" th:if="${end < list.totalPages}">
-				            <a class="page-link" th:href="@{${#httpServletRequest.requestURI}(page=${list.totalPages - 1})}" th:text="'>>'"></a>
+				
+				        <li class="page-item" th:if="*{next > 0}">
+				            <a class="page-link" th:href="@{{url}(url=*{baseUrl}, searchType=${searchRequest.searchType}, searchKeyword=${searchRequest.searchKeyword}, page=*{next})}" th:text="'>'"></a>
+				        </li>
+				        
+				        <li class="page-item" th:if="*{page < lastPage}">
+				            <a class="page-link" th:href="@{{url}(url=*{baseUrl}, searchType=${searchRequest.searchType}, searchKeyword=${searchRequest.searchKeyword}, page=*{lastPage})}" th:text="'>>'"></a>
 				        </li>
            			</ul>
            		</div>
