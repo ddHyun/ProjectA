@@ -3,7 +3,7 @@
 	
 	<th:block th:fragment="pagination">
 				<div>
-           			<ul class="pagination" th:if="${pagination != null}" th:object="${pagination}">
+           			<ul class="pagination" th:if="${!#lists.isEmpty(pagination)}" th:object="${pagination}">
 				        <li class="page-item" th:if="*{page > pageCnt}">
 				            <a class="page-link" th:href="@{{url}(url=*{baseUrl}, searchType=${searchRequest.searchType}, searchKeyword=${searchRequest.searchKeyword}, page=1)}" th:text="'<<'"></a>
 				        </li>

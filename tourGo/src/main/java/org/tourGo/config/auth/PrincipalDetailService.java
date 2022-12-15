@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.user.UserRepository;
 
+import com.querydsl.core.BooleanBuilder;
+
 @Service
 public class PrincipalDetailService implements UserDetailsService {
 	
@@ -22,6 +24,10 @@ public class PrincipalDetailService implements UserDetailsService {
 				.orElseThrow(() -> {
 					return new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다 : " + userId);
 				});
+		
+		// 삭제된 사용자라면
+		if(principal.getDeleteYn().equals("Y")) throw new UsernameNotFoundException("해당 사용자의 아이디는 삭제 되었습니다 : " + userId);
+		
 		return new PrincipalDetail(principal); // 스프링 시큐리티 세션에 유저 정보가 저장
 	}
 }

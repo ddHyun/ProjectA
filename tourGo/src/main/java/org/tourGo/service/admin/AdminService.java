@@ -44,18 +44,42 @@ public class AdminService {
 			}
 		}
 		
-		booleanBuilder.and(user.adminType.eq(UserType.USER));
-		pageable = PageRequest.of(page, 10, Sort.by(Order.desc("userNo")));
+		booleanBuilder.and(user.adminType.eq(UserType.USER))
+								.and(user.deleteYn.eq("N"));
+		pageable = PageRequest.of(page, 10, Sort.by(Order.desc("userNo"), Order.desc("regDt")));
 		
 		return userRepository.findAll(booleanBuilder, pageable);
 	}
 	
 	
 	// 정지/삭제 회원 관리
-	public Page<User> userActiveManage(Pageable pageable) {
+	public Page<User> userActiveManage(Pageable pageable, SearchRequest request) {
 		int page = (pageable.getPageNumber() == 0) ? 0 : pageable.getPageNumber() - 1;
 		
-		return null;
+		// USERTYPE이 USER 존재만 갖고오기
+		BooleanBuilder booleanBuilder = new BooleanBuilder();
+		QUser user = QUser.user;
+		
+		String searchType = request.getSearchType();
+		String searchKeyword = request.getSearchKeyword();
+		
+		if(searchType != null) {
+			// 1. 사용자 아이디 검색
+			if("userId".equals(searchType)) {
+				booleanBuilder.and(user.userId.contains(searchKeyword));
+			} 
+			// 2. 사용자 이름 검색
+			else if("userNm".equals(searchType)){
+				booleanBuilder.and(user.userNm.contains(searchKeyword));
+			}
+		}
+		
+		booleanBuilder.or(user.activeType.eq(ActiveType.STOP))
+								.or(user.activeType.eq(ActiveType.DORMENT))
+								.or(user.deleteYn.eq("Y"));
+		pageable = PageRequest.of(page, 10, Sort.by(Order.desc("userNo"), Order.desc("regDt")));
+		
+		return userRepository.findAll(booleanBuilder, pageable);
 	}
 	
 	// 관리자 등급 변경(목록)
@@ -67,8 +91,9 @@ public class AdminService {
 		QUser user = QUser.user;
 		
 		booleanBuilder.and(user.activeType.eq(ActiveType.ACTIVE))
-								.and(user.adminType.ne(UserType.SUPERADMIN));
-		pageable = PageRequest.of(page, 10, Sort.by(Order.desc("userNo")));
+								.and(user.adminType.ne(UserType.SUPERADMIN))
+								.and(user.deleteYn.eq("N"));;
+		pageable = PageRequest.of(page, 10, Sort.by(Order.desc("userNo"), Order.desc("regDt")));
 		
 		return userRepository.findAll(booleanBuilder, pageable);
 	}

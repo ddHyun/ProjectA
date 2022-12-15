@@ -63,7 +63,7 @@ public class AdminMainController {
 		Page<User> list = adminService.userManage(pageable, searchRequest);
 		Pagination<User> pagination = new Pagination<>(list, base_url + "/user/userManage");
 		
-		model.addAttribute("list", list);
+		model.addAttribute("list", list.getContent());
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("searchRequest", searchRequest);
 		
@@ -72,7 +72,22 @@ public class AdminMainController {
 	
 	@GetMapping("/admin/user/userActiveManage")
 	public String userActiveManage(@PageableDefault Pageable pageable,
-											Model model) {
+													SearchRequest searchRequest,
+													Model model) {
+		// 부트스트랩 관련 CSS 추가
+		model.addAttribute("addCss", new String[] {"admin/sb-admin-2"});
+		model.addAttribute("addBootstrapCss", new String[] {"fontawesome-free/css/all", "datatables/dataTables.bootstrap4"});
+		
+		// 부트스트랩 관련 JS 추가
+		model.addAttribute("addScript", new String[] {"admin/adminManage"});
+		model.addAttribute("addBootstrapJs", new String[] {"jquery/jquery.min", "bootstrap/js/bootstrap.bundle.min", "jquery-easing/jquery.easing.min"});
+		
+		Page<User> list = adminService.userActiveManage(pageable, searchRequest);
+		Pagination<User> pagination = new Pagination<>(list, base_url + "/user/userActiveManage");
+		
+		model.addAttribute("list", list.getContent());
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("searchRequest", searchRequest);
 		
 		return "admin/user/userActiveManage";
 	}
@@ -93,7 +108,7 @@ public class AdminMainController {
 		Page<User> list = adminService.adminTypeManage(pageable);
 		Pagination<User> pagination = new Pagination<>(list, base_url + "/user/adminTypeManage");
 		
-		model.addAttribute("list", list);
+		model.addAttribute("list", list.getContent());
 		model.addAttribute("pagination", pagination);
 		
 		return "admin/user/adminTypeManage";

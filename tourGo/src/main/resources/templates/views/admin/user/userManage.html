@@ -41,8 +41,8 @@
 					                		</tr>
 					                	</thead>
 					                	<tbody>
-					                		<th:object th:with="total=${list.totalElements}, size=${list.size}, pageNum=${list.pageable.pageNumber}">
-					                		<tr th:each="list, index : ${list.content}" class="text-center"> <!-- th:each 사용 -->
+					                		<th:block th:if="${!#lists.isEmpty(list)}" th:with="total=${pagination.total}, size=${pagination.pageCnt}, pageNum=${pagination.page - 1}">
+					                		<tr th:each="list, index : ${list}" class="text-center"> <!-- th:each 사용 -->
 					                			<td th:text="${total - (pageNum * size + index.index) }"></td>
 					                			<td th:text="${list.userId}"></td>
 					                			<td th:text="${list.userNm}"></td>
@@ -52,7 +52,12 @@
 					                			<td th:text="${#temporals.format(list.regDt,'yyyy-MM-dd HH:mm')}"></td>
 					                			<td th:text="${#temporals.format(list.modDt,'yyyy-MM-dd HH:mm')}"></td>
 					                		</tr>
-					                		</th:object>
+					                		</th:block>
+					                		<th:block th:unless="${!#lists.isEmpty(list)}">
+					                		<tr>
+					                			<td colspan="9">데이터가 없습니다.</td>
+					                		</tr>
+					                		</th:block>
 					                	</tbody>
 				                	</table>
 			                	</div>
