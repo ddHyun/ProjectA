@@ -27,6 +27,7 @@ import org.tourGo.service.plan.PlannerRepository;
 import lombok.Value;
 
 @Controller
+@RequestMapping("/plan")
 public class PlannerController {
 
 	@Autowired
@@ -35,7 +36,7 @@ public class PlannerController {
 	@Autowired
 	private PlannerRepository plannerRepo;
 	
-	@GetMapping("/plan") // 여행 상세 일정 보는 화면
+	@GetMapping() // 여행 상세 일정 보는 화면
 	public String plannerdate(Model model) {
 		
 		PlannerRq plannerRq= new PlannerRq();
@@ -43,7 +44,7 @@ public class PlannerController {
 		return "plan/plannerView";
 	}
 
-	@GetMapping("/makeplan") // 여행 상세 일정 만드는 화면
+	@GetMapping("/makePlan") // 여행 상세 일정 만드는 화면
 	public String makeDate() {
 	
 		return "plan/makeDateView";
@@ -72,11 +73,10 @@ public class PlannerController {
 		}
 		
 		LocalDate sdate = plannerRq.getSdate();
-		Integer _day = plannerRq.getDay();
-		int day = _day == null ? 0 : _day;
+		Integer day = plannerRq.getDay();
 		LocalDate edate = sdate.plusDays(day);
 		Planner planner = Planner.builder().title(plannerRq.getTitle()).day(day).sdate(sdate).edate(edate).memo(plannerRq.getMemo())
-		.planSize(plannerRq.getPlanSize()).planType(plannerRq.getPlanType()).build();
+		.planSize(plannerRq.getPlanSize()).planType(plannerRq.getPlanType()).user(null).build();
 		
 		plannerRepo.save(planner);
 		//'../plan/makePlan'

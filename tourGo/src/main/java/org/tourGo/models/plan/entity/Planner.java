@@ -32,9 +32,9 @@ public class Planner extends BaseEntity {
 	 private LocalDate edate;
 	 private String image;
 	 private String memo;
-	private int day;
-	 
-	@ManyToOne(fetch=FetchType.LAZY)
+	private Integer day;
+	 //(fetch=FetchType.LAZY) 임시로지움
+	@ManyToOne
 	@JoinColumn(name="userId")
 	private User user;
 

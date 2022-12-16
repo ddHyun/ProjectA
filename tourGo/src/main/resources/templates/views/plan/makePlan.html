@@ -28,7 +28,7 @@ textarea.autosize::-webkit-scrollbar {
 
 
     
-    <form method="post" th:action="@{/makeDetails}" th:object="${plannerRq}">
+    <form method="post" th:action="@{/plan/makeDetails}" th:object="${plannerRq}">
     <div class="border">
     	
       <div class="mainview">  
@@ -58,7 +58,7 @@ textarea.autosize::-webkit-scrollbar {
             <div class="dateview">
      <label><input type="date" name="sdate"></label>
        <select name="day">
-    <option value="2">2일</option>
+
     <option value="1">1일</option>
     <option value="2">2일</option>
     <option value="3">3일</option>	
@@ -95,8 +95,8 @@ textarea.autosize::-webkit-scrollbar {
                 <label>여행인원</label>
             </div> 
             <div class="input_view">
-	<select name="person">
-    	<option value="">2명</option>
+	<select name="planSize">
+
     	<option value="1">1명</option>
     	<option value="2">2명</option>
     	<option value="3">3명</option>
