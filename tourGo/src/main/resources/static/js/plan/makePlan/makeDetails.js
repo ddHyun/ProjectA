@@ -34,10 +34,7 @@ const tourGo = {
 					let html = `<input type="checkbox" id="tourItem" value="${item}">  `;
 
 					if (item.firstimage) {
-						html += `<div class="test"><img class="testimg" src='${item.firstimage}' ></div>`;
-					}
-				else{
-						html += `<div class="test"><img class="testimg" src="../../../static/images/test.jpg"></div>`; 
+						html += `<div><img src='${item.firstimage}' ></div>`;
 					}
 					html += `
 						<div>${item.title}</div>
