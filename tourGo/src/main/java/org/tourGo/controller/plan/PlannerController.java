@@ -27,7 +27,6 @@ import org.tourGo.service.plan.PlannerRepository;
 import lombok.Value;
 
 @Controller
-@RequestMapping("/plan")
 public class PlannerController {
 
 	@Autowired
@@ -36,7 +35,7 @@ public class PlannerController {
 	@Autowired
 	private PlannerRepository plannerRepo;
 	
-	@GetMapping() // 여행 상세 일정 보는 화면
+	@GetMapping("/plan") // 여행 상세 일정 보는 화면
 	public String plannerdate(Model model) {
 		
 		PlannerRq plannerRq= new PlannerRq();
@@ -44,7 +43,7 @@ public class PlannerController {
 		return "plan/plannerView";
 	}
 
-	@GetMapping("/makePlan") // 여행 상세 일정 만드는 화면
+	@GetMapping("/makeplan") // 여행 상세 일정 만드는 화면
 	public String makeDate() {
 	
 		return "plan/makeDateView";
