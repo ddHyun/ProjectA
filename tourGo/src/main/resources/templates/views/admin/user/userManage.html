@@ -12,13 +12,14 @@
 			            <div class="card shadow mb-4">
 			                <div class="question card-header py-3 justify-content-between">
 			                    <h6 class="m-0 font-weight-bold text-primary">회원 목록</h6>
-			                	<form method="POST" id="searchForm" name="searchForm" th:href="@{/admin/user/userManage}" class="d-flex">
+			                	<form method="GET" id="searchForm" name="searchForm" th:href="@{/admin/user/userManage}" th:object="${searchRequest}" class="d-flex">
 									<select id="selectBox" class="form-control">
-										<option value="userId" th:selected="${searchType} == 'userId'">아이디</option>
-										<option value="userNm" th:selected="${searchType} == 'userNm'">이름</option>
+										<option value="all" th:selected="*{searchType} == 'all'">전체</option>
+										<option value="userId" th:selected="*{searchType} == 'userId'">아이디</option>
+										<option value="userNm" th:selected="*{searchType} == 'userNm'">이름</option>
 									</select>
-									<input type="hidden" name="searchType" id="searchType" th:value="${searchType}">
-									<input type="text" name="searchKeyword" id="searchKeyword" class="form-control" placeholder="입력" th:value="${searchKeyword}">
+									<input type="hidden" name="searchType" id="searchType" th:value="*{searchType}">
+									<input type="text" name="searchKeyword" id="searchKeyword" class="form-control" placeholder="입력" th:value="*{searchKeyword}">
 									<button type="submit" class="btn btn-outline-success">
 										<i class="fa-solid fa-magnifying-glass"></i>검색
 									</button>
@@ -35,25 +36,30 @@
 					                			<th>생년월일</th>
 					                			<th>이메일</th>
 					                			<th>휴대전화번호</th>
-					                			<th>생성일</th>
-					                			<th>수정일</th>
-					                			<th>활동여부</th>
+					                			<th style="width: 13%;">생성일</th>
+					                			<th style="width: 13%;">수정일</th>
 					                		</tr>
 					                	</thead>
 					                	<tbody>
-					                		<th:object th:with="total=${list.totalElements}, size=${list.size}, pageNum=${list.pageable.pageNumber}">
-					                		<tr th:each="list, index : ${list.content}" class="text-center"> <!-- th:each 사용 -->
+					                		<th:block th:if="${!#lists.isEmpty(list)}" th:with="total=${pagination.total}, size=${pagination.pageCnt}, pageNum=${pagination.page - 1}">
+					                		<tr th:each="list, index : ${list}" class="text-center"> <!-- th:each 사용 -->
 					                			<td th:text="${total - (pageNum * size + index.index) }"></td>
-					                			<td th:text="${list.userId}"></td>
+					                			<td>
+					                				<a th:href="@{/admin/user/userManageView/{id}(id=${list.userId})}" th:name="${list.userId}" th:text="${list.userId}"></a>
+					                			</td>
 					                			<td th:text="${list.userNm}"></td>
 					                			<td th:text="${list.birth}"></td>
 					                			<td th:text="${list.email}"></td>
 					                			<td th:text="${list.mobile}"></td>
 					                			<td th:text="${#temporals.format(list.regDt,'yyyy-MM-dd HH:mm')}"></td>
 					                			<td th:text="${#temporals.format(list.modDt,'yyyy-MM-dd HH:mm')}"></td>
-					                			<td th:text="${list.activeType == 'ACTIVE'}"></td>
 					                		</tr>
-					                		</th:object>
+					                		</th:block>
+					                		<th:block th:unless="${!#lists.isEmpty(list)}">
+					                		<tr>
+					                			<td colspan="9">데이터가 없습니다.</td>
+					                		</tr>
+					                		</th:block>
 					                	</tbody>
 				                	</table>
 			                	</div>
@@ -62,7 +68,6 @@
 			            </div>
 	        		</div>
 	        	</div>
-	        	
 			</div>
 		</main>
 </html>
