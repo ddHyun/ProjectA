@@ -13,7 +13,8 @@
 		
 		<!-- 후기 작성 -->
 		<div class="wrap centerW">
-			<form name="regForm" method="post" id="regForm" th:action="@{/community/review_register}"  th:object="${reviewRequest}">
+			<form name="regForm" method="post" id="regForm" th:action="@{/community/review_register}" 
+				 th:object="${reviewRequest}" autocomplete="off">
 				<input type="hidden" name="gid" id="gid" th:value="${gid}">
 				<table class="communityT marginAuto">
 					
@@ -27,7 +28,6 @@
 					<tr>
 						<th th:text="#{common.region}"></th><!-- 여행지 -->
 						<td align="left">
-							<!-- <select class="width100 borderX clkBorderX" name="region" th:field="*{region}"> -->
 							<select class="width100 borderX clkBorderX" name="region">
 								<option value="">선택[필수]</option>
 								<option th:each="region, status : ${regionLists}" th:value="${region}" 

@@ -9,8 +9,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
-import org.tourGo.models.plan.details.PlanDetails;
-import org.tourGo.models.plan.entity.PlanDetailsEntity;
+import org.tourGo.models.plan.details.PlanDetailsRq;
+import org.tourGo.models.plan.entity.PlanDetails;
+import org.tourGo.models.plan.entity.QPlanDetails;
+
+import com.querydsl.core.BooleanBuilder;
 
 @Service
 public class PlanDetailsService {
@@ -18,22 +21,16 @@ public class PlanDetailsService {
 	@Autowired
 	private PlanDetailsRepository repository;
 		
-	public List<PlanDetails> userDetails(){
+	public List<PlanDetails> userDetails(Long plannerNo){
 		
-		
-		List<PlanDetails> list = new ArrayList<>();
+		//QPlanDetails qPlan = QPlanDetails.planDetails;
 		
 		List<Order> orders = new ArrayList<>();
 		orders.add(Order.asc("day"));
 		orders.add(Order.desc("sdate"));
 	
-		List<PlanDetailsEntity> entity = repository.findAll(Sort.by(orders));
+		List<PlanDetails> list = repository.findAllByPlanner(plannerNo,Sort.by(orders));
 		
-		for(PlanDetailsEntity _entity : entity) {
-			PlanDetails details = PlanDetails.planDetailsToPlanDetailsEntity(_entity);
-			list.add(details);
-			
-		}
 		
 		return list;
 	}

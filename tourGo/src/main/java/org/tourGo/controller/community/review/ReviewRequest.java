@@ -1,12 +1,17 @@
 package org.tourGo.controller.community.review;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
-import lombok.*;
+import org.tourGo.models.entity.community.review.ReplyEntity;
+import org.tourGo.models.entity.community.review.ReviewEntity;
 
-@Getter @Setter @ToString
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class ReviewRequest {
 
 	private Long reviewNo; 		//글번호
@@ -24,6 +29,22 @@ public class ReviewRequest {
 	private LocalDateTime regDt;	//작성일
 	private LocalDateTime modDt;	//수정일
 	private int reviewRead;			//조회수
-	private boolean isSame; // 수정시에 지난 게시글과 동일성 여부
+	private List<ReplyEntity> replies;	//댓글
 	
+	public ReviewRequest() {}
+	
+	public ReviewRequest(ReviewEntity entity) {
+		reviewNo = entity.getReviewNo();
+		id = entity.getUser().getUserId();
+		name = entity.getUser().getUserNm();
+		reviewTitle = entity.getReviewTitle();
+		region = entity.getRegion();
+		period = entity.getPeriod();
+		reviewContent = entity.getReviewContent();
+		gid = entity.getGid();
+		regDt = entity.getRegDt();
+		modDt = entity.getModDt();
+		reviewRead = entity.getReviewRead();	
+		replies = entity.getReplies();
+	}	
 }

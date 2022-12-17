@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotBlank;
 
+import org.tourGo.models.entity.community.review.ReplyEntity;
+
 import lombok.*;
 /*
  * 댓글
@@ -12,14 +14,25 @@ import lombok.*;
 public class ReplyRequest {
 
 	private Long replyNo;			//식별자
-	@NotBlank
 	private Long reviewNo;			//게시글번호
-	@NotBlank
 	private String id;					//작성자id
-	@NotBlank
 	private String name;				//작성자명
-	@NotBlank
+	@NotBlank(message="내용을 입력해주세요")
 	private String replyContent;	//내용
 	private LocalDateTime regDt;	//작성일
 	private LocalDateTime modDt;//수정일
+	
+	public ReplyRequest() {	}
+
+	public ReplyRequest(ReplyEntity entity) {
+		replyNo = entity.getReplyNo();
+		reviewNo = entity.getReview().getReviewNo();
+		id = entity.getUser().getUserId();
+		name = entity.getUser().getUserNm();
+		replyContent = entity.getReplyContent();
+		regDt = entity.getRegDt();
+		modDt = entity.getModDt();
+	}
+	
+	
 }

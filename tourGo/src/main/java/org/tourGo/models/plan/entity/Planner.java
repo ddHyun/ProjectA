@@ -4,30 +4,37 @@ import javax.persistence.*;
 
 import org.tourGo.common.BaseEntity;
 import org.tourGo.models.entity.user.User;
-import org.tourGo.models.plan.details.PlanDetails;
+import org.tourGo.models.plan.TourType;
+import org.tourGo.models.plan.details.PlanDetailsRq;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
 import lombok.*;
 
-@Builder
+
 @Entity
 @Table(name="planner")
-@Getter @Setter
-public class PlannerEntity extends BaseEntity {
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class Planner extends BaseEntity {
 	@Id @GeneratedValue
 	private Long plannerNo;
 	private String title;
-	private String planSize;
-	private String planType;
-	 private LocalDateTime sdate;
-	 private LocalDateTime edate;
+	private String planSize;	 
+	@Enumerated(EnumType.STRING) 
+	private TourType planType;
+	 private LocalDate sdate;
+	 private LocalDate edate;
 	 private String image;
 	 private String memo;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
+	private Integer day;
+	 //(fetch=FetchType.LAZY) 임시로지움
+	@ManyToOne
 	@JoinColumn(name="userId")
 	private User user;
 

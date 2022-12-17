@@ -56,6 +56,11 @@ html{
 	box-sizing: border-box;
 }
 
+/* 너비80% */
+.width80{
+	width: 80%;
+}
+
 /* 너비100% */
 .width100{
 	width: 100%;
@@ -223,10 +228,15 @@ td select{
 	cursor: pointer;
 }
 
+/*게시글 내용 출력*/
 .enter{
 	white-space: pre-wrap;
 	font-size: 1rem;
 	padding: 1rem;
+}
+
+.enter img{
+	width: 100%;
 }
 
 /* 오류메시지*/
@@ -235,8 +245,40 @@ td select{
 }
 
 /*댓글창*/
-.rpl div{
-	margin-bottom: 10px;
+.rpl{
+	width: 80%;
+	margin: 5px auto;
+	background-color:#f0f8ff;
+	border: 1px solid rgba(0,153,204,0.3);
+}
+
+.innerRpl{
+	width: 92%;
+	margin: auto;
+}
+
+.flex{
+	display: flex;
+}
+
+.item{
+	word-wrap: break-word;
+}
+
+.item:nth-child(1){
+	flex-grow: 5;
+	text-align: left;
+}
+
+.m_item:nth-child(1) select{
+	width: 8rem;
+	padding: .8em .5em;
+	margin-top: .3em;
+	outline: none;
+}
+
+.m_item:nth-child(2){
+	flex-grow:3;
 }
 
 .rpl ul{
@@ -246,13 +288,14 @@ td select{
 .rpl textarea{
 	border: 1px solid rgba(0,153,204,0.3);
 	resize: none;
-	width: 70%;
+	width: 92%;
 	padding: 8px;
+	margin: 5px 0;
 	outline: none;
 }
 
 .rpl button{
-	margin-bottom: 2rem;
+	margin-bottom: 0.7rem;
 	background-color: #09c;
 	color: #fff;
 	border-radius: 8px;

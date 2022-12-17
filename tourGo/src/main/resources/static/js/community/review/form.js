@@ -1,35 +1,5 @@
-/** 수정 유효성 검사 & 콜백 처리 S */
-function updatePost(reviewNo){
-	const regForm = document.getElementById("regForm");
-	try{
-		if(regForm.region.value.trim()==""){
-			throw new Error("여행지를 선택해 주세요");
-		}
-		if(regForm.period.value.trim()==""){
-			throw new Error("기간을 선택해 주세요");
-		}
-		
-		const xhr = new XMLHttpRequest();
-		xhr.open("POST", "../review_update");
-		xhr.addEventListener("readystatechange", function(){
-			if(xhr.status==200&&xhr.readyState==XMLHttpRequest.DONE){
-				const result = JSON.parse(xhr.responseText);
-				if(result.success){
-					alert(result.data);
-				}else{
-					throw new Error(result.message);
-				}
-			};
-		});
-		xhr.send(reviewNo);
-	}catch(err){
-		alert(err.message);
-	}
-}
-
-
 /** 게시글 수정 처리 */
-function updatePost2(e) {
+function updatePost(e) {
 	e.preventDefault();
 	const formData = new FormData(regForm);
 	
@@ -49,10 +19,8 @@ function updatePost2(e) {
 		}
 	};
 	xhr.send(formData);
-	
 }
 
-/** 수정 유효성 검사 & 콜백 처리 E */
 
 /** 파일 업로드 콜백 처리 S */
 // 파일업로드가 성공하면 업로드된 정보를 콜백 함수의 매개변수로 넘겨주는데 이 값을 가지고 에디터에 넣어준다.
@@ -120,18 +88,7 @@ window.addEventListener("DOMContentLoaded", function() {
 	/** 수정 선택 이벤트 처리 S */
 	const updateEl = document.getElementById("update");
 	if(updateEl){
-		updateEl.addEventListener("click", updatePost2);
-		/** 
-		updateEl.addEventListener("click", function(){
-			const reviewNoEl = document.getElementById("reviewNo");
-			if(reviewNoEl){
-				const reviewNo = reviewNoEl.value;
-				console.log('수정하기 글번호 : ', reviewNo);
-				updatePost(reviewNo);
-			};
-			
-		})
-		*/
+		updateEl.addEventListener("click", updatePost);
 	}
 	/** 수정 선택 이벤트 처리 E */
 	

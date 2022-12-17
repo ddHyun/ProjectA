@@ -6,13 +6,13 @@ import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.tourGo.models.entity.user.User;
-import org.tourGo.models.plan.entity.PlanDetailsEntity;
-import org.tourGo.models.plan.entity.PlannerEntity;
+import org.tourGo.models.plan.entity.PlanDetails;
+import org.tourGo.models.plan.entity.Planner;
 
-public interface PlannerRepository extends JpaRepository<PlannerEntity, Long>{
+public interface PlannerRepository extends JpaRepository<Planner, Long>{
 
 	
 	//List<PlannerEntity> findAllByOrderByPlannerNoDESC();
-	List<PlannerEntity> findAllByUser(String userId,Sort sort);
+	List<Planner> findAllByUser(String userId,Sort sort);
 
 }

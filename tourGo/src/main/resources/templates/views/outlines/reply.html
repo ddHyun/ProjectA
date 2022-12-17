@@ -1,0 +1,54 @@
+	<!-- 
+	탬플릿 사용시
+	 
+	@get 쪽에서
+	no : 수정할 글번호,
+	replies : 댓글 목록
+	model에 담아 보내기 
+	
+	@post 쪽에서
+	no : 필요한 글번호 필드명으로 변경필요
+	 -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thylemleaf.org">
+	
+	<!-- 댓글 -->
+	<th:block th:fragment="reply">
+		<th:block th:object="${replyRequest}">
+			<div class="rpl">
+				<form method="POST" th:action="@{/reply/register}" name="replyForm" target="ifrmProcess" autocomplete="off">
+					<input th:if="${session.user}" type="hidden" name="id" id="id" th:value="${session.user}">
+					<input type="hidden" name="no" th:value="${no}">
+					<div>
+						<textarea rows="2" placeholder="댓글을 남겨보세요" name="content" id="content" th:field="*{replyContent}"></textarea>
+						<div th:each="err : ${#fields.errors('replyContent')}" th:text="${err}"></div>
+					</div>
+					<div>
+						<button type="submit" id="registerReply" th:text="#{community.register}">등록</button>
+					</div>
+				</form>
+			</div>
+		</th:block>
+		<br>
+			<th:block th:if="${replies}" th:each="reply : ${replies}" th:object="${reply}">
+				<input type="hidden" id="replyNo" th:value="*{replyNo}">
+				<div class="rpl" th:id="*{'comment_' + replyNo}">
+					<div class="innerRpl">
+						<small th:text="*{name}">작성자</small>
+						<small style="color:#888;" th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</small>
+						<ul>
+							<li class="flex">
+								<div class="item" th:utext="*{replyContent}">댓글내용</div>
+								<th:block th:if="${session.user}==*{id}">
+									<button class="item" type="button" th:text="#{community.delete}"
+													id="deleteReply">삭제</button>
+								</th:block>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</th:block>
+			<br>
+	</th:block>
+</html>

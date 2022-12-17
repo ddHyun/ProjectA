@@ -11,14 +11,26 @@
 		<!-- 게시판명 -->
 		<div class="wrap font3 centerW marginTop60" th:text="#{community.review}"></div>
 		<div class="marginTop60"></div>
-		<!-- 여행지 검색 -->
-		<div class="search wrap">
-			<form method="get" th:action="@{/community/review_main}" th:object="${searchRequest}">
-				<input type="text" placeholder="여행지 검색" name="search" th:field="*{keyword}">
-				<button class="btn1 marginR3" type="submit" th:text="#{review.search}"></button>
+		
+		<div class="width80 marginAuto">
+			<input th:if="${keyword}" type="hidden" th:value="${keyword}" id="keyword">
+			<!-- 조회 정렬-->
+			<form class="flex" method="get" th:action="@{/community/review_main}" autocomplete="off">
+				<div class="m_item">
+					<select name="order" id="order">
+						<option th:value="date" th:selected="date==${order}">최신순</option>
+						<option th:value="read" th:selected="read==${order}">조회순</option>
+					</select>
+				</div>
+				<div class="m_item"></div>
+				<!-- 여행지 검색 -->
+				<div class="m_item search">
+						<input type="text" placeholder="여행지 검색" name="keyword" id="search">
+						<button class="btn1" type="submit" th:text="#{review.search}"></button>
+				</div>
 			</form>
 		</div>
-		
+		<br>
 		<!-- 여행후기(테이블) -->
 		<div class="wrap centerW">
 			<table class="communityT marginAuto">
@@ -37,7 +49,8 @@
 					<th:block>
 						<tr th:each="list, status:${lists}" th:object="${list}">
 							<td th:text="${status.size-status.index}">글번호</td>
- 							<td><a th:href="@{/community/review_read/reviewNo_{reviewNo}?keyword={keyword}(reviewNo=*{reviewNo}, keyword=${searchRequest.keyword})}" 
+							<td><a th:href="@{/community/review_read/reviewNo_{reviewNo}
+ 										(reviewNo=*{reviewNo}, keyword=${keyword}, order=${order})}" 
 								th:text="*{reviewTitle}">제목</a></td>
 							<td th:text="*{region}">여행지</td>
 							<td th:text="*{period}">기간</td>
@@ -51,13 +64,13 @@
 		</div>
 		<div class="marginTop30"></div>
 		<div class="wrap move">
-			<!-- <th:block th:each="page : ${#numbers.sequence(1, pageMap.endPage)}">
-				<a href="?page=${page}" th:text="${page}"></a>
-			</th:block> -->
-			
-			<th:block th:replace="outlines/pagination::pagination"></th:block>
-			
-				<button class="floatR btn1 width25 marginR3" type="submit" th:text="#{review.write}" th:onclick="|location.href='@{/community/review_form}'|"></button>
+		
+		<!-- 페이지 -->			
+		<th:block th:replace="outlines/pagination::pagination"></th:block>
+		
+		<!-- 등록 -->
+		<button class="floatR btn1 width25 marginR3" type="submit" th:text="#{review.write}" 
+				th:onclick="|location.href='@{/community/review_register}'|"></button>
 		</div>
 	
 		

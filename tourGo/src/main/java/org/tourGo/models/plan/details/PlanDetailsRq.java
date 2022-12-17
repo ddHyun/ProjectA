@@ -7,8 +7,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 
-import org.tourGo.models.plan.Planner;
-import org.tourGo.models.plan.entity.PlanDetailsEntity;
+import org.tourGo.models.plan.PlannerRq;
+import org.tourGo.models.plan.entity.PlanDetails;
 import org.tourGo.models.plan.tourList.TourList;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class PlanDetails {//여행 세부일정을 담당하는 dto
+public class PlanDetailsRq {//여행 세부일정을 담당하는 dto
 		
 		private Long DetailsNo;
 	    private Long plannerNo;
@@ -28,16 +28,16 @@ public class PlanDetails {//여행 세부일정을 담당하는 dto
 	
 	    private LocalTime etime;
 	    private String name;//관광지이름
-	 
+	    private String address;
 	    private int day;
 	    private String image;//관광지 이미지
 	    
 
 	    
 	    
-	    public static PlanDetails planDetailsToPlanDetailsEntity(PlanDetailsEntity entity) {
+	    public static PlanDetailsRq planDetailsToPlanDetailsEntity(PlanDetails entity) {
 
-	    	return PlanDetails.builder()
+	    	return PlanDetailsRq.builder()
 	    			.DetailsNo(entity.getDetailNo())
 	    			//.plannerNo(entity.getPlannerNo().getPlannerNo())
 	    			.day(entity.getDay())
@@ -49,9 +49,9 @@ public class PlanDetails {//여행 세부일정을 담당하는 dto
 	    
 	    }
 	    
-	    public static PlanDetailsEntity entityToPlanDeatils(PlanDetails planDetails) {
+	    public static PlanDetails entityToPlanDeatils(PlanDetailsRq planDetails) {
 
-	    	return PlanDetailsEntity.builder()
+	    	return PlanDetails.builder()
 	    			.DetailNo(planDetails.getDetailsNo())
 	    			.day(planDetails.getDay())
 	    			.sTime(planDetails.getStime())

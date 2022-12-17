@@ -6,6 +6,7 @@
 	<!-- 메인시작 -->
 	<main layout:fragment="content" class="content">
 		<input type="hidden" id="board" th:value="${board}">
+		<input type="hidden" id="order" th:value="${order}">
 		<input type="hidden" id="keyword" th:value="${keyword}">
 		<!-- 커뮤니티 공통 상단 네비바 -->
 		<th:block th:replace="outlines/community_top::community_top"></th:block>
@@ -49,18 +50,8 @@
 			<div class="marginTop30"></div>		
 			
 			<!-- 댓글 -->
-			<div>
-					<form class="rpl" name="rplForm" method="POST" th:action="@{/community/review_reply}">
-						<div th:text="#{community.reply}">댓글</div>
-						<ul>
-							<li>
-								<textarea rows="6" id="reply" placeholder="댓글을 남겨보세요"></textarea>
-								<button type="button" id="replyBtn" 	th:text="#{community.register}"></button>
-							</li>
-						</ul>
-					</form>
-			</div>
+			<th:block th:replace="outlines/reply::reply"></th:block>
 			
 		</div>
-	</main>
+	</main>					
 </html>

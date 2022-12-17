@@ -1,0 +1,40 @@
+body {
+
+     margin:0;
+     padding:0;
+}
+
+
+.mainview{
+
+  margin:20px;
+  padding:0;
+}
+.title{
+   width:15%;
+  text-align: center;
+  margin:0;
+
+}
+.flex{
+  display: flex;
+
+}
+.input_view{
+	overflow: hidden; width:85%;
+}
+.title_input{
+	width:100%; margin: 0;padding: 0;height: 100%;
+}
+
+
+.dateview{
+	display:flex;
+	width:85%;
+}
+
+
+
+.border{
+	border:1px solid black;
+}

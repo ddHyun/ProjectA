@@ -4,10 +4,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.tourGo.common.JsonResult;
 
-@RestControllerAdvice("controller")
-public class CommonRestController {
+@RestControllerAdvice("restcontroller")
+public class RestExceptionController {
 
-	@ExceptionHandler(Exception.class)
+	@ExceptionHandler(RuntimeException.class)
 	public JsonResult<Object> handleException(Exception e){
 		
 		System.out.println("에러 RestController");
@@ -15,7 +15,6 @@ public class CommonRestController {
 		result.setSuccess(false);
 		result.setMessage(e.getMessage());
 		e.printStackTrace();
-		System.out.println(result);
 		
 		return result;
 	}

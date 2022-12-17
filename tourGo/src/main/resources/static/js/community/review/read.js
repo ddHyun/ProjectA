@@ -2,7 +2,8 @@ const btnFn = {
 	/**목록으로 돌아가기 S */
 	back(){
 		const keyword = document.getElementById("keyword").value;
-		location.href = "../review_main?keyword="+keyword;
+		const order = document.getElementById("order").value;
+		location.href = `../review_main?keyword=${keyword}&order=${order}`;
 	},
 	/**목록으로 돌아가기 E */
 	
@@ -12,7 +13,7 @@ const btnFn = {
 			if(!reviewNo){
 				throw new Error("수정할 글이 존재하지 않습니다.");
 			}
-			location.href = `../review_modify?reviewNo=${reviewNo}`;
+			location.href = `../review_register?reviewNo=${reviewNo}`;
 		}catch(err){
 			alert(err.message);
 		}
@@ -37,8 +38,6 @@ const btnFn = {
 					alert("게시글을 삭제했습니다.");
 					location.href="../review_main";
 				}
-			}else{
-				
 			}
 		});
 		xhr.send();		
@@ -65,7 +64,6 @@ window.addEventListener("DOMContentLoaded", function(){
 		const modifyBtnEl = document.getElementById("modifyBtn");
 		if(modifyBtnEl){
 			modifyBtnEl.addEventListener("click", function(){
-				console.log("modify : ", reviewNo);
 				btnFn.modify(reviewNo);
 			});
 		}
@@ -75,7 +73,6 @@ window.addEventListener("DOMContentLoaded", function(){
 		const deleteBtnEl = document.getElementById("deleteBtn");
 		if(deleteBtnEl){
 			deleteBtnEl.addEventListener("click", function(){
-				console.log("delete : ", reviewNo);
 				btnFn.delete(reviewNo);		
 			})
 		}
