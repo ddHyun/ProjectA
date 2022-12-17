@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Modal</title>
-    <link th:href="@{css/plan/makeDate.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/plan/makeDate.css}" rel="stylesheet" type="text/css">
     <head>
 <style>
    .hihi::-webkit-scrollbar {display: none;}
@@ -28,7 +28,7 @@ textarea.autosize::-webkit-scrollbar {
 
 
     
-    <form method="post" th:action="@{/makeDetails}" th:object="${plannerRq}">
+    <form method="post" th:action="@{plan/makeDetails}" th:object="${plannerRq}">
     <div class="border">
     	
       <div class="mainview">  

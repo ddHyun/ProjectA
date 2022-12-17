@@ -1,10 +1,12 @@
 	package org.tourGo.controller.plan;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javax.validation.Valid;
 
+import org.hibernate.engine.spi.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -27,23 +29,33 @@ import org.tourGo.service.plan.PlannerRepository;
 import lombok.Value;
 
 @Controller
+@RequestMapping("/plan")
 public class PlannerController {
 
 	@Autowired
 	private PlanDetailsRepository detailsRepp;
+	@Autowired
+	private PersistenceContext px;
 	
 	@Autowired
 	private PlannerRepository plannerRepo;
 	
-	@GetMapping("/plan") // 여행 상세 일정 보는 화면
+	@GetMapping() // 여행 상세 일정 보는 화면
 	public String plannerdate(Model model) {
 		
 		PlannerRq plannerRq= new PlannerRq();
 		model.addAttribute("plannerRq",plannerRq);
 		return "plan/plannerView";
 	}
+	
+	@PostMapping()
+	public String planPs(PlannerRq plannerRq, PlanDetailsRq planDetailsRq,Model model) {
+		
+		return null;
+	}
 
-	@GetMapping("/makeplan") // 여행 상세 일정 만드는 화면
+
+	@GetMapping("/makePlan") // 여행 상세 일정 만드는 화면
 	public String makeDate() {
 	
 		return "plan/makeDateView";
@@ -66,7 +78,8 @@ public class PlannerController {
 	
 	@PostMapping("/makeDetails")
 	public String makePlanTest(@Valid PlannerRq plannerRq, Errors errors, Model model) {
-		
+		//String userId = principal.getName();
+		//@AuthenticationPrincipal PrincipalDetail principal 에러뜸
 		if (errors.hasErrors()) {
 			return "plan/makePlan";
 		}
@@ -79,12 +92,13 @@ public class PlannerController {
 		
 		plannerRepo.save(planner);
 		//'../plan/makePlan'
-		model.addAttribute("scripts", "parent.location.replace('/makeDetails');");
+		model.addAttribute("scripts", "parent.location.replace('plan/makeDetails');");
+		model.addAttribute("plannerRq", plannerRq);
+		model.addAttribute("planDetails", new PlanDetailsRq());
 		return "common/excution";
 				
 	}
 	
-		
 	
 	@GetMapping("/readplan")
 	public String reddate() {

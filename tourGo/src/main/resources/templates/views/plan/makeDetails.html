@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>지도 생성하기</title>
       
-    <link th:href="@{css/plan/makePlan.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/plan/makePlan.css}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
@@ -39,7 +39,7 @@
 </button>
 </div>
 <div class="saveNclose"> 
-<form action="http://www.naver.com" method="get">
+<form th:action="@{plan}" method="get" th:object="planDetails">
 <button type="submit" class="save_btn">save</button>
 <a href="http://www.naver.com">
 <span class="material-symbols-outlined" style="font-size : 100px; float:right;">
