@@ -27,6 +27,10 @@ ul li {
 	margin: 30px 20px;
 }
 
+.footer_about {
+	margin: 30px 20px;
+}
+
 .out_link {
 	display: flex;
     justify-content: center;

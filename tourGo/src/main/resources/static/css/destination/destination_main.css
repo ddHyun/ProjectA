@@ -1,0 +1,34 @@
+.destination_search {
+	margin: 50px auto;
+	text-align: center;
+}
+
+.input_txt {
+	width: 800px;
+	height: 40px;
+	font-size: large;
+}
+
+.input_btn {
+	width: 60px;
+	height: 45px;
+}
+
+.destination_area {
+	margin: 50px auto;
+}
+
+.dest_area_flex {
+	display: flex;
+	justify-content: center;
+}
+
+.area {
+	padding: 20px 40px;
+	font-size: 2rem;
+}
+
+.dest_area_flex a {
+	text-decoration: none;
+	text-align: center;
+}
