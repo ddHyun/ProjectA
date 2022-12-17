@@ -23,22 +23,38 @@
 					                			<th>생년월일</th>
 					                			<th>이메일</th>
 					                			<th>휴대전화번호</th>
-					                			<th>생성일</th>
-					                			<th>수정일</th>
+					                			<th style="width: 10%;">생성일</th>
+					                			<th style="width: 10%;">수정일</th>
 					                			<th>활동여부</th>
+					                			<th>삭제여부</th>
 					                		</tr>
 					                	</thead>
 					                	<tbody>
-					                		<th:object th:with="total=${list.totalElements}, size=${list.size}, pageNum=${list.pageable.pageNumber}">
-					                		<tr th:each="list, index : ${list.content}" class="text-center"> <!-- th:each 사용 -->
+					                		<th:block th:if="${!#lists.isEmpty(list)}" th:with="total=${pagination.total}, size=${pagination.pageCnt}, pageNum=${pagination.page - 1}">
+					                		<tr th:each="list, index : ${list}" class="text-center"> <!-- th:each 사용 -->
 					                			<td th:text="${total - (pageNum * size + index.index) }"></td>
-					                			<td th:text="${list.userId}"></td>
+					                			<td>
+					                				<a href="#" th:name="${list.userId}" th:text="${list.userId}"
+					                				data-toggle="modal" data-target="#activeModal" 
+					                				th:userNo="${list.userNo}" th:userNm="${list.userNm}" th:delete="${list.deleteYn}"
+					                				th:onclick="changeModal2(this.getAttribute('userNo'), this.getAttribute('userNm'), this.getAttribute('delete'))"></a>
+					                			</td>
 					                			<td th:text="${list.userNm}"></td>
+					                			<td th:text="${list.birth}"></td>
+					                			<td th:text="${list.email}"></td>
+					                			<td th:text="${list.mobile}"></td>
 					                			<td th:text="${#temporals.format(list.regDt,'yyyy-MM-dd HH:mm')}"></td>
 					                			<td th:text="${#temporals.format(list.modDt,'yyyy-MM-dd HH:mm')}"></td>
-					                			<td th:text="${list.activeType == 'ACTIVE'}"></td>
+					                			<td th:text="${list.activeType.active}"></td>
+					                			<td th:if="${list. deleteYn == 'Y'}">삭제</td>
+					                			<td th:unless="${list. deleteYn == 'Y'}"></td>
 					                		</tr>
-					                		</th:object>
+					                		</th:block>
+					                		<th:block th:unless="${!#lists.isEmpty(list)}">
+					                		<tr>
+					                			<td colspan="9">데이터가 없습니다.</td>
+					                		</tr>
+					                		</th:block>
 					                	</tbody>
 				                	</table>
 			                	</div>
@@ -48,6 +64,28 @@
 	        		</div>
 	        	</div>
 	        	
+	        	<div class="modal fade" id="activeModal" tabindex="-1" role="dialog" aria-labelledby="activeModalLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+				    <div class="modal-content">
+				
+				      <!-- Modal Header -->
+				      <div class="modal-header">
+				        <h4 class="modal-title" id="modalTitle">사용자 활동 활성화</h4>
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				      </div>
+				
+				      <!-- Modal body -->
+				      <div class="modal-body" id="modalBody">
+				      </div>
+				
+				      <!-- Modal footer -->
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-danger" data-dismiss="modal" th:onclick="modalClose()">아니오</button>
+				        <button id="btn_change" type="button" class="btn btn-primary" th:onclick="changeActive()">예</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
 			</div>
 		</main>
 </html>

@@ -1,116 +1,152 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <title>지도 생성하기</title>
+<html lang="ko" class="hihi" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Modal</title>
+    <link th:href="@{/css/plan/makeDate.css}" rel="stylesheet" type="text/css">
+    <head>
+<style>
+   .hihi::-webkit-scrollbar {display: none;}
+
+.hihi{scrollbar-width: none; -ms-overflow-style:none;}
+
+textarea.autosize { min-height: 70px; width:400px; }
+
+textarea.autosize {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+textarea.autosize::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+ </style>   
+
+
+    </head>
+  </head>
+  <body>
+
+
+    
+    <form method="post" th:action="@{plan/makeDetails}" th:object="${plannerRq}">
+    <div class="border">
+    	
+      <div class="mainview">  
+        <h4> 새 일정 만들기 </h4>
+        </div>
+        <div class="flex">  
       
-    <link th:href="@{css/plan/makePlan.css}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-</head>
-<body>
+          <div class="title">
+              <lable>여행제목</lable>
+    
+          </div>
+          
+          <div class="input_view">
+
+    
+              <input class="title_input" type="text" name="title">
+			<div class='error' th:each="err : ${#fields.errors('title')}" th:text="${err}"></div>	
+            
+          </div>
+          </div>
+      
+
+          <div class="flex">  
+            <div class="title">
+            <label>  여행기간 </label>
+                </div>
+            <div class="dateview">
+     <label><input type="date" name="sdate"></label>
+       <select name="day">
+
+    <option value="1">1일</option>
+    <option value="2">2일</option>
+    <option value="3">3일</option>	
+    <option value="4">4일</option>
+    <option value="5">5일</option>
+    <option value="6">6일</option>
+    <option value="7">7일</option>
+    <option value="8">8일</option>
+    <option value="9">9일</option>
+
+</select>
+			<div class='error' th:each="err : ${#fields.errors('sdate')}" th:text="${err}"></div>
+            </div>
+          </div>
+
+        <div class="flex">  
+      
+          <div class="title">
+              <label>여행타입</label>
+    
+          </div>
+          
+          <div class="input_view">
+              <label><input type="radio" name="planType" value="SOLO">나홀로 여행</label>
+              <label><input type="radio" name="planType" value="COUPLE">연인/커플</label>
+              <label><input type="radio" name="planType" value="FRIENDS">친구/지인</label>
+              <label><input type="radio" name="planType" value="PARENTS">부모님</label>
+              <label><input type="radio" name="planType" value="FAMILY">가족</label>
+          </div>
+          <div class='error' th:each="err : ${#fields.errors('planType')}" th:text="${err}"></div>	
+          </div>
+          <div class="flex">  
+            <div class="title">
+                <label>여행인원</label>
+            </div> 
+            <div class="input_view">
+	<select name="planSize">
+
+    	<option value="1">1명</option>
+    	<option value="2">2명</option>
+    	<option value="3">3명</option>
+    	<option value="4">4명</option>
+   	 	<option value="5">5명</option>
+   	 	<option value="6">6명</option>
+    	<option value="7">7명</option>
+    	<option value="8">8명</option>
+    	<option value="9">9명</option>
+
+</select>
+
+            </div>
+
+            </div>
+            <div class="flex">  
+      
+              <div class="title">
+              <label>사용자 정의 메모</label>
+                  
+        
+              </div>
+              
+              <div class="dateview">
+     
+    
+                <textarea name="memo" class="autosize" maxlength="250" onkeydown="resize(this)" onkeyup="resize(this)" placeholder="추가 바람" style="vertical-align: middle; width: 100%; "></textarea>
+
+              </div>
+              
+              
+              </div>
+            
+    </div>
+    
 
 
 
-<div class="container_top">
-<div class="whether">
-<div style="width: 100% ; height: 100%; text-align : center">
-<span>
-날씨배너
-</span>
-</div>
-</div>
-
-<div class="search">
-
-
-<div class="search_input">
-<input id="keyword" type="text" placeholder="입력하세요" style="width:100%; height:100%; font-size : 20px; padding : 0;">
-</div>
-</div>
-<div class="search_button">
-<button type="button" onclick="tourGo.search()" style="width:100%; height: 100%;">
-<span class="material-symbols-outlined" style="font-size: 50px;">search</span>
-</button>
-</div>
-
-<div class="bookmark">
-<button type="submit" style="width:100%; height: 100%;">
-<span class="material-symbols-outlined" style="font-size: 50px;">star</span>
-</button>
-</div>
-<div class="saveNclose"> 
-<form action="http://www.naver.com" method="get">
-<button type="submit" class="save_btn">save</button>
-<a href="http://www.naver.com">
-<span class="material-symbols-outlined" style="font-size : 100px; float:right;">
-close	
-</span>
-</div>
-</a>
-</div>
-
-<div class="container_bottom">
-
-<div class="day">
-<div class="selected_day">
-<button type="button" onclick="newPage()" style="width:100%; height : 100px;">day1</button>
-<button type="button" onclick="" style="width:100%; height : 100px;">day2</button>
-<button type="button" onclick="" style="width:100%; height : 100px;">day3</button>
-</div>
-</div>
-<div class="list">
-
-<div class="selected_items">
-<!--<a href="#">
- <div class="x_button"> <span class="material-symbols-outlined">
-close
-</span></div></a>-->
-<div>
-    <ul></ul>
-</div>
-</div>
-
-
-  
-</div>
-
-
-<div class="api_list">
-
-</div>
-<div class="map_container"><div id="map"></div></div>
-
+<div style="position: absolute; right: 0px; bottom: 0px;">
+  <button style=" margin: 0 30px;" type="submit">일정 만들기</button>
+  <button style=" margin: 0 30px;" data-dismiss="modal">창닫기</button></div>
 </form>
-</div>
 
 
-<!-- 지도를 표시할 div 입니다 -->
-</div>
-
-
-
-
-
-
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5cf0f012351259a60d2d7388a32df3af"></script>
-<!--<script type="text/javascript" th:src="@{js/plan/makePlan/kakaoMap.js}"></script>-->
-<script type="text/javascript" th:src="@{js/plan/makePlan/makePlan.js}"></script>
-
-<script type="text/html" id='tpl_selectedItems'>
-	<li id='contentId_<%=id%>'>
-		
-		<img src="<%=firstimage>"></img>
-		<div><%=title%></div>
-		<div><%=address%></div>
-		
-		<button type="button" class="remove">[삭제]</button>
-			
-		          
-		      	
-		      		  	
-	</li>
-	
-</script>
-
-</body>
+    
+    <script>
+      function resize(obj) {
+        obj.style.height = "1px";
+        obj.style.height = 100%+(obj.scrollHeight)+"px";
+      }
+      </script>
+  </body>
 </html>

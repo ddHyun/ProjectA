@@ -5,8 +5,8 @@
 	
 	<main layout:fragment="content">
 		<div>로그인</div>
-		<div th:if="${param.error}">
-			<span th:text="${exception}" style="background-color: red;"></span>
+		<div class="alert alert-error" th:if="${param.error}">
+			<span th:text="${exception}"></span>
 		</div>
 		<form method="post" th:action="@{/user/loginProc}" autocomplete="off">
 			<div>
