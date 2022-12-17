@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 import lombok.*;
 
-@Getter @Setter @ToString
+@Getter @Setter
 public class SignRequest {
 	
 	@NotBlank(message="{NotBlank.userId}")
