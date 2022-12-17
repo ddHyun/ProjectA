@@ -48,7 +48,7 @@ public class AdminMainController {
 	
 	@GetMapping("/admin/user/userManage")
 	public String userManage(@PageableDefault Pageable pageable,
-											SearchRequest searchRequest,
+											AdminSearchRequest searchRequest,
 											Model model) {
 		
 		// 부트스트랩 관련 CSS 추가
@@ -99,7 +99,7 @@ public class AdminMainController {
 	
 	@GetMapping("/admin/user/userActiveManage")
 	public String userActiveManage(@PageableDefault Pageable pageable,
-													SearchRequest searchRequest,
+													AdminSearchRequest searchRequest,
 													Model model) {
 		// 부트스트랩 관련 CSS 추가
 		model.addAttribute("addCss", new String[] {"admin/sb-admin-2"});
@@ -121,7 +121,7 @@ public class AdminMainController {
 	
 	@GetMapping("/admin/user/adminTypeManage")
 	public String adminTypeManage(@PageableDefault Pageable pageable,
-														SearchRequest searchRequest,
+														AdminSearchRequest searchRequest,
 														Model model) {
 		
 		// 부트스트랩 관련 CSS 추가

@@ -7,7 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.*;
 
 @Getter @Setter
-public class SearchRequest {
+public class AdminSearchRequest {
 	
 	private String searchType;
 	

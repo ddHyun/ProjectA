@@ -13,12 +13,11 @@
 			                <div class="question card-header py-3 justify-content-between">
 			                    <h6 class="m-0 font-weight-bold text-primary">회원 목록</h6>
 			                	<form method="GET" id="searchForm" name="searchForm" th:href="@{/admin/user/userManage}" th:object="${searchRequest}" class="d-flex">
-									<select id="selectBox" class="form-control">
-										<option value="all" th:selected="*{searchType} == 'all'">전체</option>
-										<option value="userId" th:selected="*{searchType} == 'userId'">아이디</option>
-										<option value="userNm" th:selected="*{searchType} == 'userNm'">이름</option>
+									<select id="selectBox" class="form-control" th:field="*{searchType}" >
+										<option value="">전체</option>
+										<option value="userId">아이디</option>
+										<option value="userNm">이름</option>
 									</select>
-									<input type="hidden" name="searchType" id="searchType" th:value="*{searchType}">
 									<input type="text" name="searchKeyword" id="searchKeyword" class="form-control" placeholder="입력" th:value="*{searchKeyword}">
 									<button type="submit" class="btn btn-outline-success">
 										<i class="fa-solid fa-magnifying-glass"></i>검색

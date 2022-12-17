@@ -22,6 +22,7 @@ public class LoginController {
 								, Model model) {
 		
 		// 로그인 실패 시 error 표기 model로 보내줌
+		model.addAttribute("addScript", new String[] {"user/login"});
 		model.addAttribute("error", error);
 		model.addAttribute("exception", exception);
 		
