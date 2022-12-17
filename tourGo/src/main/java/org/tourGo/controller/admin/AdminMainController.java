@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.tourGo.common.JsonResult;
+import org.tourGo.common.Pagination;
 import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.service.admin.AdminService;
@@ -23,6 +24,8 @@ public class AdminMainController {
 	
 	@Autowired
 	private AdminService adminService;
+	
+	private String base_url = "/admin";
 	
 	@GetMapping("/index")
 	public String main_index() {
@@ -46,6 +49,7 @@ public class AdminMainController {
 	
 	@GetMapping("/admin/user/userManage")
 	public String userManage(@PageableDefault Pageable pageable,
+											SearchRequest searchRequest,
 											Model model) {
 		
 		// 부트스트랩 관련 CSS 추가
@@ -56,46 +60,42 @@ public class AdminMainController {
 		model.addAttribute("addScript", new String[] {"admin/adminManage"});
 		model.addAttribute("addBootstrapJs", new String[] {"jquery/jquery.min", "bootstrap/js/bootstrap.bundle.min", "jquery-easing/jquery.easing.min"});
 		
-		Page<User> list = adminService.userManage(pageable);
+		Page<User> list = adminService.userManage(pageable, searchRequest);
+		Pagination<User> pagination = new Pagination<>(list, base_url + "/user/userManage");
 		
-		model.addAttribute("list", list);
-		
-		return "admin/user/userManage";
-	}
-	
-	@PostMapping("/admin/user/userManage")
-	public String userManagePs (@PageableDefault Pageable pageable,
-											@RequestParam(name="searchType", required=false) String searchType,
-											@RequestParam(name="searchKeyword", required=false) String searchKeyword,
-											Model model) {
-		
-		// 부트스트랩 관련 CSS 추가
-		model.addAttribute("addCss", new String[] {"admin/sb-admin-2"});
-		model.addAttribute("addBootstrapCss", new String[] {"fontawesome-free/css/all", "datatables/dataTables.bootstrap4"});
-		
-		// 부트스트랩 관련 JS 추가
-		model.addAttribute("addScript", new String[] {"admin/adminManage"});
-		model.addAttribute("addBootstrapJs", new String[] {"jquery/jquery.min", "bootstrap/js/bootstrap.bundle.min", "jquery-easing/jquery.easing.min"});
-		
-		Page<User> list = adminService.userManageSearch(pageable, searchType, searchKeyword);
-				
-		model.addAttribute("list", list);
-		model.addAttribute("searchType", searchType);
-		model.addAttribute("searchKeyword", searchKeyword);
+		model.addAttribute("list", list.getContent());
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("searchRequest", searchRequest);
 		
 		return "admin/user/userManage";
 	}
 	
 	@GetMapping("/admin/user/userActiveManage")
 	public String userActiveManage(@PageableDefault Pageable pageable,
-											Model model) {
+													SearchRequest searchRequest,
+													Model model) {
+		// 부트스트랩 관련 CSS 추가
+		model.addAttribute("addCss", new String[] {"admin/sb-admin-2"});
+		model.addAttribute("addBootstrapCss", new String[] {"fontawesome-free/css/all", "datatables/dataTables.bootstrap4"});
+		
+		// 부트스트랩 관련 JS 추가
+		model.addAttribute("addScript", new String[] {"admin/adminManage"});
+		model.addAttribute("addBootstrapJs", new String[] {"jquery/jquery.min", "bootstrap/js/bootstrap.bundle.min", "jquery-easing/jquery.easing.min"});
+		
+		Page<User> list = adminService.userActiveManage(pageable, searchRequest);
+		Pagination<User> pagination = new Pagination<>(list, base_url + "/user/userActiveManage");
+		
+		model.addAttribute("list", list.getContent());
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("searchRequest", searchRequest);
 		
 		return "admin/user/userActiveManage";
 	}
 	
 	@GetMapping("/admin/user/adminTypeManage")
 	public String adminTypeManage(@PageableDefault Pageable pageable,
-			Model model) {
+														SearchRequest searchRequest,
+														Model model) {
 		
 		// 부트스트랩 관련 CSS 추가
 		model.addAttribute("addCss", new String[] {"admin/sb-admin-2"});
@@ -106,8 +106,10 @@ public class AdminMainController {
 		model.addAttribute("addBootstrapJs", new String[] {"jquery/jquery.min", "bootstrap/js/bootstrap.bundle.min", "jquery-easing/jquery.easing.min"});
 		
 		Page<User> list = adminService.adminTypeManage(pageable);
+		Pagination<User> pagination = new Pagination<>(list, base_url + "/user/adminTypeManage");
 		
-		model.addAttribute("list", list);
+		model.addAttribute("list", list.getContent());
+		model.addAttribute("pagination", pagination);
 		
 		return "admin/user/adminTypeManage";
 	}

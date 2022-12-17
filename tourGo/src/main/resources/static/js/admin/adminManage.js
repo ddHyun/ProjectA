@@ -51,13 +51,16 @@ window.addEventListener("DOMContentLoaded", function() {
 	const selectBox = document.getElementById("selectBox");
 	const searchType = document.getElementById("searchType");
 	
-	if(searchType.value.length == 0 || searchType.value == 0) {
-		searchType.value = selectBox.options[selectBox.selectedIndex].value;
+	if(selectBox) {
+		if(searchType.value.length == 0 || searchType.value == 0) {
+			searchType.value = selectBox.options[selectBox.selectedIndex].value;
+		}
+		
+		selectBox.addEventListener("change", () => {
+			searchType.value = selectBox.options[selectBox.selectedIndex].value;
+		});
 	}
 	
-	selectBox.addEventListener("change", () => {
-		searchType.value = selectBox.options[selectBox.selectedIndex].value;
-	});
 });
 
 /* userManage(회원 관리) S */
