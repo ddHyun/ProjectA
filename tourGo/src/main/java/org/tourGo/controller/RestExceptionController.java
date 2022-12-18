@@ -1,21 +1,18 @@
 package org.tourGo.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.tourGo.common.JsonResult;
+import org.tourGo.common.JsonErrorResponse;
+import org.tourGo.common.JsonException;
 
 @RestControllerAdvice("restcontroller")
 public class RestExceptionController {
 
-	@ExceptionHandler(RuntimeException.class)
-	public JsonResult<Object> handleException(Exception e){
+	@ExceptionHandler(JsonException.class)
+	public ResponseEntity<JsonErrorResponse> jsonErrorHandler(JsonException e) {
+		JsonErrorResponse jer = e.getResponse();
 		
-		System.out.println("에러 RestController");
-		JsonResult<Object> result = new JsonResult<>();
-		result.setSuccess(false);
-		result.setMessage(e.getMessage());
-		e.printStackTrace();
-		
-		return result;
+		return ResponseEntity.status(jer.getStatus()).body(jer);
 	}
 }

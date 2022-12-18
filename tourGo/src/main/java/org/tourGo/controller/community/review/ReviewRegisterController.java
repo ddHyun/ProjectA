@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.community.review.ReviewEntityRepository;
 import org.tourGo.models.entity.community.review.ReviewEntity;
-import org.tourGo.service.community.ReviewService;
+import org.tourGo.service.community.review.ReviewService;
 import org.tourGo.services.file.FileUploadService;
 
 @Controller
