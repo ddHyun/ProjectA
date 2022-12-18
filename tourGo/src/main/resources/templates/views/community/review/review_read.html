@@ -42,7 +42,7 @@
 			
 			<div>
 				<button class="btn0 width25" id="backBtn" type="button" th:text="#{community.list}">목록</button>
-				<th:block th:if="${session.user==reviewRequest.id}">
+				<th:block th:if="${user==reviewRequest.id}">
 					<button class="btn1 width20" id="modifyBtn" type="button" th:text="#{community.modify}">수정</button>
 					<button class="btn1 width20" id="deleteBtn" type="button" th:text="#{community.delete}">삭제</button>
 				</th:block>
@@ -50,7 +50,7 @@
 			<div class="marginTop30"></div>		
 			
 			<!-- 댓글 -->
-			<th:block th:replace="outlines/reply::reply"></th:block>
+			<th:block th:replace="community/reply::reply"></th:block>
 			
 		</div>
 	</main>					

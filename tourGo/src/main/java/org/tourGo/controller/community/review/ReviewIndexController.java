@@ -1,5 +1,6 @@
 package org.tourGo.controller.community.review;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -8,12 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tourGo.common.Pagination;
-import org.tourGo.common.exception.NoSuchDataException;
 import org.tourGo.models.entity.community.review.ReviewEntity;
 import org.tourGo.service.community.ReviewService;
 
@@ -30,13 +28,14 @@ public class ReviewIndexController{
 	
 	//여행후기 메인페이지
 	@GetMapping("/community/review_main")
-	public String index(@RequestParam(name="page", required=false) Integer page, String keyword, String order, Model model){		
+	public String index(@RequestParam(name="page", required=false) Integer page, 
+						String keyword, String order, Model model){		
 		//css, js, board 추가
 		model.addAttribute("board", "review");
 		model.addAttribute("addCss", new String[] {"community/community_common", "community/pagination"});
 		model.addAttribute("addScript", new String[] {"community/community_common", "community/review/index"});
 		
-		throw new NoSuchDataException("게시글이 존재하지 않습니다");
+		throw new RuntimeException("에러났음!!!!!!!!!!!!!!!!!!!!!");
 //		page = page == null? 1 : page;
 //		
 //		Page<ReviewEntity> results = reviewService.getAllReviewList(page, 10, order, keyword);
@@ -50,11 +49,8 @@ public class ReviewIndexController{
 //		model.addAttribute("pagination", pagination);
 //		
 //		model.addAttribute("keyword", keyword);
-//		model.addAttribute("order", order);
+//		model.addAttribute("order", order);		
 //		
-//		//나중에 지우기
-//		session.setAttribute("user", "user02");
-		
 //		return baseUrl+ "review_main";
 			
 	}	

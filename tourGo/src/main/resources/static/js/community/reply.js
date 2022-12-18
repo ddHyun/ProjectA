@@ -1,5 +1,13 @@
 
-window.addEventListener("DOMContentLoaded", function(){		
+window.addEventListener("DOMContentLoaded", function(){	
+	
+	const idEl = document.getElementById("id");
+	if(!idEl){
+		console.log("비로그인");
+		const registerReply = document.getElementById("registerReply");
+		console.log(registerReply);
+		registerReply.disabled = true;
+	}	
 	
 	/**댓글 삭제 이벤트 처리  S*/
 	const deleteReplyEl = document.getElementById("deleteReply");

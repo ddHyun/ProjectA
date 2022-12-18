@@ -6,28 +6,32 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.tourGo.common.JsonResult;
 import org.tourGo.common.exception.ErrorCode;
 import org.tourGo.common.exception.ErrorResponse;
-import org.tourGo.common.exception.NoSuchDataException;
 
 import lombok.extern.slf4j.Slf4j;
 
 @ControllerAdvice("org.tourGo.controller")
 public class ExceptionController {
 	
-	@ExceptionHandler(NoSuchDataException.class)
-	public String handleNoSuchDataException(NoSuchDataException e, Model model) {
-		ErrorResponse response = new ErrorResponse(ErrorCode.DATA_NOT_FOUND);
-		System.out.println("=======================");
-		System.out.printf("response.code : %s%n", response.getCode());
-		System.out.printf("response.status : %s%n", response.getStatus());
-		System.out.printf("response.message : %s%n", response.getMessage());
-		ResponseEntity<ErrorResponse> result = new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+	@ExceptionHandler(RuntimeException.class)
+	public String handleRuntimeException(RuntimeException e, Model model) {
 		
-		model.addAttribute("result", result);
+		JsonResult<String> result = new JsonResult<>();
+		result.setSuccess(false);
+		result.setMessage(e.getMessage());
 		
-		return "common/errors";
-		//return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+		//alert창 띄운 후 이동할 경로 적기
+		String script = "alert('"+e.getMessage()+"');";
+
+		model.addAttribute("script", script);
+		
+		return "common/execution_script";
+		
+//		model.addAttribute("result", result);
+		
+//		return "common/errors";
 	}	
 	
 	

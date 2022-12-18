@@ -1,15 +1,16 @@
 package org.tourGo.controller.community.review;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.community.review.ReviewEntityRepository;
 import org.tourGo.models.entity.community.review.ReviewEntity;
 import org.tourGo.service.community.ReviewService;
@@ -25,8 +26,7 @@ public class ReviewRegisterController {
 	private ReviewEntityRepository repository;
 	@Autowired
 	private FileUploadService uploadService;
-	@Autowired
-	private HttpSession session;
+
 
 	private String baseUrl = "community/review/";
 	
@@ -49,7 +49,7 @@ public class ReviewRegisterController {
 	
 	//작성&수정페이지
 	@GetMapping()
-	public String form(ReviewRequest reviewRequest, String gid, 
+	public String form(ReviewRequest reviewRequest, String gid, @AuthenticationPrincipal PrincipalDetail principal,
 									Long reviewNo, Model model) throws Exception{
 		
 //			미로그인 시 로그인 페이지로 이동
@@ -71,7 +71,10 @@ public class ReviewRegisterController {
 		}else {
 			reviewRequest = new ReviewRequest();
 		}
-
+		
+		if(principal != null) {
+			model.addAttribute("user", principal.getUsername());
+		}
 		model.addAttribute("reviewRequest", reviewRequest);
 		
 		return baseUrl + "review_form";
@@ -79,7 +82,7 @@ public class ReviewRegisterController {
 	
 	//후기 등록
 	@PostMapping()
-	public String process(@Valid ReviewRequest reviewRequest, Errors errors,
+	public String process(@Valid ReviewRequest reviewRequest, Errors errors, @AuthenticationPrincipal PrincipalDetail principal,
 											Long reviewNo, Model model) {		
 		
 		if (errors.hasErrors()) {
@@ -89,7 +92,7 @@ public class ReviewRegisterController {
 			return baseUrl + "review_form";
 		}		
 		
-		String user = (String)session.getAttribute("user");
+		String user = principal.getUsername();
 
 		//내용 등록		
 		try {						

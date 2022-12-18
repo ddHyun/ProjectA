@@ -4,15 +4,16 @@ import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.community.review.ReviewEntityRepository;
 import org.tourGo.models.entity.community.review.ReviewEntity;
 
@@ -23,8 +24,6 @@ public class ReviewReadController {
 	@Autowired
 	private ReviewEntityRepository repository;
 	@Autowired
-	private HttpSession session;
-	@Autowired
 	private HttpServletResponse response;
 
 
@@ -33,7 +32,7 @@ public class ReviewReadController {
 		
 	//제목 클릭시 후기읽기 페이지
 	@GetMapping("/review_read/reviewNo_{reviewNo}")
-	public String readReview(@PathVariable Long reviewNo, String keyword, String order, 
+	public String readReview(@PathVariable Long reviewNo, String keyword, String order, @AuthenticationPrincipal PrincipalDetail principal,
 							@CookieValue(value="visitReview", required=false) Cookie cookie , Model model) throws Exception{
 		
 		//css, js, board 추가
@@ -65,6 +64,8 @@ public class ReviewReadController {
 		}
 		model.addAttribute("reviewRequest", reviewRequest);	
 		
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("order", order);		
 		
 		//댓글
 		ReplyRequest replyRequest = new ReplyRequest();
@@ -72,9 +73,13 @@ public class ReviewReadController {
 
 		//댓글탬플릿에 보낼 정보
 		model.addAttribute("no", reviewNo);
-		
-		model.addAttribute("keyword", keyword);
-		model.addAttribute("order", order);
+
+		if(principal != null) {
+			model.addAttribute("user", principal.getUsername());
+			System.out.println("================loginID : "+principal.getUsername());
+		}else {
+			System.out.println("==================null");
+		}
 		
 		return baseUrl + "review_read";
 	}		

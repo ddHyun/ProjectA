@@ -46,6 +46,8 @@ public class ReplyService {
 	//댓글 등록하기
 	public ReplyRequest register(ReplyRequest request) {
 		
+		System.out.println("===============replyService entered");
+		
 		//영속성에 불러오기
 		User user = userRepository.findByUserId(request.getId()).orElse(null);
 		ReviewEntity review = reviewRepository.findById(request.getReviewNo()).orElse(null);

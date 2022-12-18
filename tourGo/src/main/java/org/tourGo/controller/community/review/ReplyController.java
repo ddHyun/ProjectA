@@ -3,6 +3,7 @@ package org.tourGo.controller.community.review;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.tourGo.common.JsonResult;
+import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.community.review.ReplyEntityRepository;
 import org.tourGo.service.community.ReplyService;
 
@@ -27,7 +29,8 @@ public class ReplyController {
 	
 	//댓글 등록
 	@PostMapping("/register")
-	public String register(@RequestParam("no") Long reviewNo, @Valid ReplyRequest request, Errors errors, Model model) {
+	public String register(@RequestParam("no") Long reviewNo, @Valid ReplyRequest request, Errors errors,
+							@AuthenticationPrincipal PrincipalDetail principal, Model model) {
 		
 		String script = null;
 		try {
@@ -39,6 +42,8 @@ public class ReplyController {
 				}				
 			}		
 			request.setReviewNo(reviewNo);
+			System.out.println("==============reply principalID : "+principal.getUsername());
+			request.setId(principal.getUsername());
 			request = replyService.register(request);
 			
 			script = "parent.location.replace('/community/review_read/reviewNo_" 
