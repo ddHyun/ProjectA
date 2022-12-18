@@ -1,4 +1,4 @@
-package org.tourGo.service.community;
+package org.tourGo.service.community.review;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

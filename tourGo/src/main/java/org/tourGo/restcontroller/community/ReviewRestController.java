@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.tourGo.common.JsonResult;
 import org.tourGo.controller.community.review.ReviewRequest;
 import org.tourGo.models.community.review.ReviewEntityRepository;
-import org.tourGo.service.community.ReviewService;
+import org.tourGo.service.community.review.ReviewService;
 
 @RestController
 @RequestMapping("/community")

@@ -58,8 +58,8 @@
 						</td>
 					</tr>
 				</table>
-				<input th:if="${reviewRequest.reviewNo != null && reviewRequest.reviewNo > 0}" type="hidden" 
-						id="reviewNo" name="reviewNo" th:value="${reviewRequest.reviewNo}">
+				<input th:if="*{reviewNo != null && reviewNo > 0}" type="hidden" 
+						id="reviewNo" name="reviewNo" th:value="*{reviewNo}">
 				<div class="marginTop30"></div>
 				<button class="btn0 width25" id="cancel" type="button" th:text="#{community.cancel}">취소</button>
 				<th:block th:if="${user==reviewRequest.id && reviewRequest.reviewNo != null}">

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.tourGo.service.community.NoticeService;
+import org.tourGo.service.community.notice.NoticeService;
 
 @Controller
 @RequestMapping("/community")

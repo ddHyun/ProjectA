@@ -39,10 +39,6 @@ public class ReviewEntity extends BaseEntity {
 	@OneToMany(mappedBy = "review")
 	private List<ReplyEntity> replies = new ArrayList<>();			//댓글	
 	
-	public void addReply(ReplyEntity reply) {//연관관계 편의메서드
-		replies.add(reply);
-		reply.setReview(this);
-	}
 	@Override
 	public String toString() {
 		return "ReviewEntity [reviewNo=" + reviewNo + ", user=" + user + ", reviewTitle=" + reviewTitle + ", region="

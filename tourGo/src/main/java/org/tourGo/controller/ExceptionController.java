@@ -1,45 +1,52 @@
 package org.tourGo.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.tourGo.common.JsonResult;
-import org.tourGo.common.exception.ErrorCode;
-import org.tourGo.common.exception.ErrorResponse;
+import org.tourGo.common.AlertException;
 
-import lombok.extern.slf4j.Slf4j;
-
-@ControllerAdvice("org.tourGo.controller")
+@ControllerAdvice("controller")
 public class ExceptionController {
+//	
+//	@ResponseBody
+//	@ExceptionHandler(JsonException.class)
+//	public ResponseEntity<JsonErrorResponse> jsonErrorHandler(JsonException e) {
+//		JsonErrorResponse jer = e.getResponse();
+//		
+//		return ResponseEntity.status(jer.getStatus()).body(jer);
+//	}
 	
-	@ExceptionHandler(RuntimeException.class)
-	public String handleRuntimeException(RuntimeException e, Model model) {
+	/*
+	 * 해당 오류메시지를 alert창에 띄울 때 사용하는 예외
+	 */
+	@ExceptionHandler(AlertException.class)
+	public String handleAlertException(AlertException e, Model model) {
 		
-		JsonResult<String> result = new JsonResult<>();
-		result.setSuccess(false);
-		result.setMessage(e.getMessage());
-		
-		//alert창 띄운 후 이동할 경로 적기
-		String script = "alert('"+e.getMessage()+"');";
+		String action = e.getAction();
+		//부모창에 추가동작을 줄 땐 target을 'parent'로
+		String target = e.getTarget() == null ? "self":e.getTarget();
 
+		String script = "alert('"+e.getMessage()+"');";
+		if (action != null) {
+			if (action.equals("reload")) { // reload라면 새로고침
+				script += target + ".location.reload();"; 
+			} else { // 그외는 페이지 이동
+				script += target + ".location.replace('" + action + "');";
+			}
+		}
 		model.addAttribute("script", script);
 		
 		return "common/execution_script";
-		
-//		model.addAttribute("result", result);
-		
-//		return "common/errors";
+	
 	}	
 	
-	
+	/*
+	 * 미지정 RuntimeException 처리 
+	 */
 	//예외 처리하기
-	@ExceptionHandler(Exception.class)
-	public String handleError(Exception e, Model model) {
+	@ExceptionHandler(RuntimeException.class)
+	public String handleRuntimeException(RuntimeException e, Model model) {
 		
-		System.out.println("에러 Controller");
 		model.addAttribute("message", e.getMessage());
 		e.printStackTrace();
 		
