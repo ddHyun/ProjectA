@@ -39,7 +39,7 @@
 </button>
 </div>
 <div class="saveNclose"> 
-<form th:action="@{plan}" method="get" th:object="planDetails">
+<form th:action="@{/}" method="post" th:object="${planDetails}">
 <button type="submit" class="save_btn">save</button>
 <a href="http://www.naver.com">
 <span class="material-symbols-outlined" style="font-size : 100px; float:right;">
@@ -94,7 +94,7 @@ close
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5cf0f012351259a60d2d7388a32df3af"></script>
 <!--<script type="text/javascript" th:src="@{js/plan/makePlan/kakaoMap.js}"></script>-->
-<script type="text/javascript" th:src="@{js/plan/makePlan/makeDetails.js}"></script>
+<script type="text/javascript" th:src="@{/js/plan/makePlan/makeDetails.js}"></script>
 
 <script type="text/html" id='tpl_selectedItems'>
 	<li id='contentId_<%=id%>'>
