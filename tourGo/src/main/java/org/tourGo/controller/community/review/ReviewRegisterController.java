@@ -52,11 +52,6 @@ public class ReviewRegisterController {
 	public String form(ReviewRequest reviewRequest, String gid, @AuthenticationPrincipal PrincipalDetail principal,
 									Long reviewNo, Model model) throws Exception{
 		
-//			미로그인 시 로그인 페이지로 이동
-//			if(!session.getAttribute("user")) {
-//				return "redirect:/login";
-//			}
-		
 		//공통데이터 model에 담기
 		addCommons(model);
 
