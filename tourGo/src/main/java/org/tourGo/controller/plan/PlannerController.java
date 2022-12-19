@@ -47,13 +47,14 @@ public class PlannerController {
 	private PlannerService plannerService;
 	
 	@GetMapping() // 여행 상세 일정 보는 화면
-	public String plannerdate(Model model) {
+	public String plannerdate(Model model,@AuthenticationPrincipal PrincipalDetail principal) {
 		//,@AuthenticationPrincipal PrincipalDetail principal
-	/**try {
+	try {
 		Optional<User> _user = userRepository.findByUserId(principal.getUser().getUserId());
 		User user = _user.orElse(null);
 	
 		List<Planner> list = plannerService.userPlanner(user.getUserNo());
+			System.out.println(list);
 		if(list != null || !list.isEmpty()) {
 			model.addAttribute("list",list);	
 		}
@@ -61,7 +62,7 @@ public class PlannerController {
 		return "plan/plannerView";
 	}
 		
-		*/
+		
 		
 		/**System.out.println("테스트용!!~~~~~~~~~");
 		System.out.println(principal.getUser());
