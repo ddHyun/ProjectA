@@ -76,7 +76,7 @@
 		<div class="modal_body" style="overflow: hidden;">
 
 
-			<iframe class="hi" th:src="@{readplan}" style="width:100%;height: 100%; border:none;"></iframe>
+			<iframe class="hi" th:src="@{plan/readplan}" style="width:100%;height: 100%; border:none;"></iframe>
 
 		</div>
 
@@ -85,94 +85,23 @@
 	<div style="border: 1px solid blue;"> 
 	
 <button class="btn-open-popup">Modal 띄우기</button>
-	
+		</div>
 	
 	<div class="grid-container" style="border:1px solid red; ">
-		<div class="griditem item1 a" style="border:1px solid red;">
-			<img src="exImage\명동교자.jpg" alt="">
-			<div class="tour-title">사용자 정의 제목</div>
-
-		</div>
-		<div class="griditem item2 a" style="border:1px solid red;">
-
-
-			<img src="exImage\명동교자.jpg" alt="">
-			<div class="tour-title">사용자 정의 제목</div>
-
-
-		</div>
-		<div class="griditem item3 a" style="border:1px solid red;">
-
-
-			<img src="exImage\명동교자.jpg" alt="">
-			<div class="tour-title">사용자 정의 제목</div>
-
-		</div>
-		<div class="griditem item4 a" style="border:1px solid red;">
-
-			<img src="exImage\명동교자.jpg" alt="">
-			<div class="tour-title">사용자 정의 제목</div>
-
-
-		</div>
-		<div class="griditem item5 a" style="border:1px solid red;">
-
-			<img src="exImage\명동교자.jpg" alt="">
-			<div class="tour-title">사용자 정의 제목</div>
-
-
-		</div>
-		<div class="griditem item6 a" style="border:1px solid red;">
-
-			<img src="exImage\명동교자.jpg" alt="">
-			<div class="tour-title">사용자 정의 제목</div>
-
-		</div>
-				<div class="griditem item7 a" style="border:1px solid red;">
-
-			<img src="exImage\명동교자.jpg" alt="">
-			<div class="tour-title">사용자 정의 제목</div>
-
-		</div>
-				<div class="griditem item8 a" style="border:1px solid red;">
-
-			<img src="exImage\명동교자.jpg" alt="">
-			<div class="tour-title">사용자 정의 제목</div>
-
-		</div>
-				<div class="griditem item9 a" style="border:1px solid red;">
-
-			<img src="exImage\명동교자.jpg" alt="">
-			<div class="tour-title">사용자 정의 제목</div>
-
-		</div>
+		123
+		<table>
 		
-						<div class="griditem item10 a" style="border:1px solid red;">
-
-			<img src="exImage\명동교자.jpg" alt="">
-			<div class="tour-title">사용자 정의 제목</div>
-
-		</div>
 		
-						<div class="griditem item11 a" style="border:1px solid red;">
-
-			<img src="exImage\명동교자.jpg" alt="">
-			<div class="tour-title">사용자 정의 제목</div>
-
-		</div>
-		
-						<div class="griditem item12 a" style="border:1px solid red;">
-
-			<img src="exImage\명동교자.jpg" alt="">
-			<div class="tour-title">사용자 정의 제목</div>
-
+		<tr th:each="list : ${list}">
+			<td><span th:text="${list.image}"></span></td>
+			<td><span th:text="${list.title}"></span></td>
+		</tr>
+		</table>
 		</div>
 		
 
-	</div>
-	<div>
 
-	</div>
+
 	
 	<!--풋터-->
 		

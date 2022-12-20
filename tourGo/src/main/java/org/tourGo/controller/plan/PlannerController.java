@@ -4,6 +4,7 @@
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -30,6 +31,7 @@ import org.tourGo.models.user.UserRepository;
 import org.tourGo.service.plan.PlanDetailsRepository;
 import org.tourGo.service.plan.PlanDetailsService;
 import org.tourGo.service.plan.PlannerRepository;
+import org.tourGo.service.plan.PlannerService;
 
 import lombok.Value;
 
@@ -42,20 +44,35 @@ public class PlannerController {
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
-	private PlannerRepository plannerRepo;
+	private PlannerService plannerService;
 	
 	@GetMapping() // 여행 상세 일정 보는 화면
-	public String plannerdate(Model model) {
+	public String plannerdate(Model model,@AuthenticationPrincipal PrincipalDetail principal) {
+		//,@AuthenticationPrincipal PrincipalDetail principal
+	try {
+		Optional<User> _user = userRepository.findByUserId(principal.getUser().getUserId());
+		User user = _user.orElse(null);
 	
+		List<Planner> list = plannerService.userPlanner(user.getUserNo());
+			System.out.println(list);
+		if(list != null || !list.isEmpty()) {
+			model.addAttribute("list",list);	
+		}
+	}catch(Exception e) {
+		return "plan/plannerView";
+	}
+		
+		
+		
 		/**System.out.println("테스트용!!~~~~~~~~~");
 		System.out.println(principal.getUser());
 		System.out.println(principal.getUser().getUserId());*/
-		PlannerRq plannerRq= new PlannerRq();
+
 		
 		/**Optional<User> _user = userRepository.findByUserId(principal.getUser().getUserId());
 		User user = _user.get();*/
 		
-		model.addAttribute("plannerRq",plannerRq);
+	
 		//model.addAttribute("user", user);
 		return "plan/plannerView";
 	}
@@ -83,7 +100,13 @@ public class PlannerController {
 	@GetMapping("/makeDetails/{no}")
 	public String makePlan(Model model, @PathVariable Long no) {
 		
-		Planner planner = plannerRepo.findById(no).orElse(null);
+		Planner planner = plannerService.getPlanner(no);
+		PlanDetailsRq planDetailsRq = new PlanDetailsRq();
+		planDetailsRq.setDay(planner.getDay());
+		
+		model.addAttribute("planDetails", planDetailsRq);
+		
+		
 		System.out.println(planner);
 		
 		return "plan/makeDetails";
@@ -92,26 +115,20 @@ public class PlannerController {
 	
 	
 	@PostMapping("/makeDetails")
-	public String makePlanTest(@Valid PlannerRq plannerRq, Errors errors,Model model,@AuthenticationPrincipal PrincipalDetail principal ) {
+	public String makePlanPs(@Valid PlannerRq plannerRq, Errors errors,Model model,@AuthenticationPrincipal PrincipalDetail principal ) {
 
 		if (errors.hasErrors()) {
 			return "plan/makePlan";
 		}
-		//@AuthenticationPrincipal PrincipalDetail principal 
+	//history.back();
 		Optional<User> _user = userRepository.findByUserId(principal.getUser().getUserId());
 		User user = _user.orElse(null);
-		System.out.println(user.getUserId());
-		LocalDate sdate = plannerRq.getSdate();
-		Integer day = plannerRq.getDay();
-		LocalDate edate = sdate.plusDays(day);
-		Planner planner = Planner.builder().title(plannerRq.getTitle()).day(day).sdate(sdate).edate(edate).memo(plannerRq.getMemo())
-		.planSize(plannerRq.getPlanSize()).planType(plannerRq.getPlanType()).user(user).build();
-	
-		planner = plannerRepo.save(planner);
-		//'../plan/makePlan'
+		
+		Planner planner = plannerService.process(plannerRq, user);
+
 		model.addAttribute("scripts", "parent.location.replace('../plan/makeDetails/" + planner.getPlannerNo() + "');");
 		model.addAttribute("plannerRq", plannerRq);
-		model.addAttribute("planDetails", new PlanDetailsRq());
+
 		return "common/excution";
 				
 	}

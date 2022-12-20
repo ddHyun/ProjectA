@@ -9,7 +9,8 @@ import lombok.*;
 
 @Entity
 @Table(name="query")
-@Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class QueryEntity extends BaseEntity{
 
 	@Id @GeneratedValue
@@ -28,4 +29,16 @@ public class QueryEntity extends BaseEntity{
 	
 	@Column(columnDefinition="int default '0'", insertable=false, updatable=false)
 	private int queryRead;
+	
+	@Column(columnDefinition="boolean default false", updatable=false)
+	private boolean isSolved; 	//답변완료 유무 확인
+	
+	@Builder
+	public QueryEntity(String queryTitle, String queryContent, User user, int queryRead, boolean isSolved) {
+		this.queryTitle = queryTitle;
+		this.queryContent = queryContent;
+		this.user = user;
+		this.queryRead = queryRead;
+		this.isSolved = isSolved;
+	}
 }

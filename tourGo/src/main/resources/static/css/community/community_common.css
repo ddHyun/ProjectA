@@ -194,6 +194,11 @@ main.content{
 	box-sizing: border-box;
 }
 
+.borderND{
+	border-bottom: none;
+	padding-left: 1rem;
+}
+
 .search{
 	text-align: right;
 }
@@ -242,6 +247,8 @@ td select{
 /* 오류메시지*/
 .errMsg{
 	color: red;
+	text-align: left;
+	padding-left: 1rem;
 }
 
 /*댓글창*/
