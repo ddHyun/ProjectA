@@ -102,3 +102,20 @@ main {
 .dest_detail_txt {
 	margin: 0px 530px;
 }
+
+.dest_detail_txt2 {
+	margin: 0px 530px;
+	display: flex;
+}
+
+.detail_txt a {
+	text-decoration: none;
+}
+
+.dest_detail_map {
+	margin: 30px 0;
+}
+
+.dest_detail_map h2 {
+	margin: 30px 0;
+}
