@@ -1,3 +1,7 @@
+html {
+	background: #f0f8ff;
+}
+
 .destination_search {
 	margin: 50px auto;
 	text-align: center;
@@ -18,17 +22,54 @@
 	margin: 50px auto;
 }
 
+.best_txt {
+	margin: 0px 400px;	
+}
+
 .dest_area_flex {
 	display: flex;
 	justify-content: center;
 }
 
 .area {
-	padding: 20px 40px;
+	padding: 15px 30px;
 	font-size: 2rem;
+	color: white;
+	background: lightblue;
+	margin: 3px;
+}
+
+.area:hover {
+	background: dodgerblue;
 }
 
 .dest_area_flex a {
 	text-decoration: none;
+	text-align: center;
+}
+
+.top_10 a {
+	text-decoration: none;
+	text-align: center;
+}
+
+.top10 {
+	display: flex;
+	justify-content: center;
+}
+
+.top10_inner {
+	background: dodgerblue;
+	color: white;
+	width: 180px;
+	height: 180px;
+	margin: 20px;
+}
+
+.top10_inner:hover {
+	opacity: 0.5;
+}
+
+h2 {
 	text-align: center;
 }
