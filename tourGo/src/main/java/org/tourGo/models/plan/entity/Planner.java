@@ -35,7 +35,7 @@ public class Planner extends BaseEntity {
 	private Integer day;
 	 //(fetch=FetchType.LAZY) 임시로지움
 	@ManyToOne
-	@JoinColumn(name="userId")
+	@JoinColumn(name="userNo")
 	private User user;
 
 	

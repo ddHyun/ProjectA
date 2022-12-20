@@ -2,8 +2,6 @@ package org.tourGo.controller.community.review;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -12,22 +10,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tourGo.common.Pagination;
 import org.tourGo.models.entity.community.review.ReviewEntity;
-import org.tourGo.service.community.ReviewService;
+import org.tourGo.service.community.review.ReviewService;
 
 @Controller
 public class ReviewIndexController{
 	
 	@Autowired
 	private ReviewService reviewService;
-	@Autowired
-	private HttpSession session;
 
 	private String baseUrl = "community/review/";
 
 	
 	//여행후기 메인페이지
 	@GetMapping("/community/review_main")
-	public String index(@RequestParam(name="page", required=false) Integer page, String keyword, String order, Model model){		
+	public String index(@RequestParam(name="page", required=false) Integer page, 
+						String keyword, String order, Model model){		
 		//css, js, board 추가
 		model.addAttribute("board", "review");
 		model.addAttribute("addCss", new String[] {"community/community_common", "community/pagination"});
@@ -46,10 +43,7 @@ public class ReviewIndexController{
 		model.addAttribute("pagination", pagination);
 		
 		model.addAttribute("keyword", keyword);
-		model.addAttribute("order", order);
-		
-		//나중에 지우기
-		session.setAttribute("user", "user02");
+		model.addAttribute("order", order);		
 		
 		return baseUrl+ "review_main";
 			

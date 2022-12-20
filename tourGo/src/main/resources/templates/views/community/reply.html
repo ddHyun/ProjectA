@@ -11,17 +11,23 @@
 	 -->
 
 <!DOCTYPE html>
-<html xmlns:th="http://www.thylemleaf.org">
+<html xmlns:th="http://www.thylemleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	
 	<!-- 댓글 -->
 	<th:block th:fragment="reply">
 		<th:block th:object="${replyRequest}">
 			<div class="rpl">
 				<form method="POST" th:action="@{/reply/register}" name="replyForm" target="ifrmProcess" autocomplete="off">
-					<input th:if="${session.user}" type="hidden" name="id" id="id" th:value="${session.user}">
+					<input th:if="${user}" type="hidden" name="id" id="id" th:value="${user}">
 					<input type="hidden" name="no" th:value="${no}">
 					<div>
-						<textarea rows="2" placeholder="댓글을 남겨보세요" name="content" id="content" th:field="*{replyContent}"></textarea>
+						<th:block sec:authorize="isAuthenticated()">
+							<textarea rows="2" placeholder="댓글을 남겨보세요" name="content" id="content" th:field="*{replyContent}"></textarea>
+						</th:block>
+						<th:block sec:authorize="isAnonymous()">
+							<textarea rows="2" placeholder="댓글 작성은 로그인 후 이용 가능합니다"></textarea>
+						</th:block>
 						<div th:each="err : ${#fields.errors('replyContent')}" th:text="${err}"></div>
 					</div>
 					<div>
@@ -40,7 +46,7 @@
 						<ul>
 							<li class="flex">
 								<div class="item" th:utext="*{replyContent}">댓글내용</div>
-								<th:block th:if="${session.user}==*{id}">
+								<th:block th:if="${user}==*{id}">
 									<button class="item" type="button" th:text="#{community.delete}"
 													id="deleteReply">삭제</button>
 								</th:block>

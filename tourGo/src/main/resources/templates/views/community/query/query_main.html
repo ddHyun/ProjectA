@@ -21,15 +21,34 @@
 				<thead>
 					<tr>
 						<th th:text="#{community.index}">글번호</th>
-						<th th:text="#{community.title}">제목</th>
 						<th th:text="#{common.userName}">작성자</th>
+						<th th:text="#{community.title}">제목</th>
 						<th th:text="#{community.regDt}">작성일</th>
+						<th th:text="#{community.readHit}">조회수</th>
+						<th th:text="#{query.solve}">답변완료</th>
 					</tr>
 				</thead>
 				<tbody>
-					
+					<tr th:if="${lists!=null}" th:each="list, status : ${lists}" th:object="${list}">
+						<td th:text="${status.size-status.index}">글번호</td>
+						<td th:text="*{user.userNm}">작성자</td>
+						<td th:text="*{queryTitle}">제목</td>
+						<td th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</td>
+						<td th:text="*{queryRead}">조회수</td>
+						<td th:text="*{isSolved}">답변완료</td>
+					</tr>
 				</tbody>
 			</table>
+		</div>
+		<div class="marginTop30"></div>
+		<div class="wrap move">
+			
+			<!-- 페이지 -->
+			<th:block th:replace="outlines/pagination::pagination"></th:block>
+			
+			<!-- 문의하기버튼 -->
+			<button class="floatR btn1 width25 marginR3" type="button" 
+				th:onclick="|location.href='@{/community/query_register}'|" th:text="#{query.register}">문의하기</button>
 		</div>
 	</main>
 

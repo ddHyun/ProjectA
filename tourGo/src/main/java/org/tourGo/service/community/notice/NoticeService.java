@@ -1,4 +1,4 @@
-package org.tourGo.service.community;
+package org.tourGo.service.community.notice;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

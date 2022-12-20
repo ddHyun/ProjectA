@@ -1,0 +1,121 @@
+html {
+	background: #f0f8ff;
+}
+
+main {
+	margin: 0px 20px;
+}
+
+.destination_search {
+	margin: 50px auto;
+	text-align: center;
+}
+
+.input_txt {
+	width: 800px;
+	height: 40px;
+	font-size: large;
+}
+
+.input_btn {
+	width: 60px;
+	height: 45px;
+}
+
+.destination_area {
+	margin: 50px auto;
+}
+
+.best_txt {
+	margin: 0px 400px;	
+}
+
+.dest_area_flex {
+	display: flex;
+	justify-content: center;
+}
+
+.area {
+	padding: 15px 30px;
+	font-size: 2rem;
+	color: white;
+	background: lightblue;
+	margin: 3px;
+}
+
+.area:hover {
+	background: dodgerblue;
+}
+
+.dest_area_flex a {
+	text-decoration: none;
+	text-align: center;
+}
+
+.top_10 a {
+	text-decoration: none;
+	text-align: center;
+}
+
+.top10 {
+	display: flex;
+	justify-content: center;
+}
+
+.top10_inner {
+	background: dodgerblue;
+	color: white;
+	width: 180px;
+	height: 180px;
+	margin: 20px;
+}
+
+.top10_inner:hover {
+	opacity: 0.5;
+}
+
+.destination_detail_all {
+	margin: 30px auto;
+}
+
+.destination_detail_title {
+	margin: 30px 0;
+}
+
+.destination_detail_title h2 {
+	text-align: center;
+}
+
+.dest_detail_img {
+	text-align: center;
+}
+
+.dest_detail_img img {
+	width: 800px;
+	margin: 30px 0;
+}
+
+.dest_detail_info {
+	margin: 30px 0;
+}
+
+.dest_detail_txt {
+	margin: 0px 530px;
+}
+
+.dest_detail_txt2 {
+	margin: 0px 530px;
+	display: flex;
+}
+
+.detail_txt a {
+	text-decoration: none;
+}
+
+.dest_detail_map {
+	margin: 30px 0;
+}
+
+.dest_detail_map h2 {
+	margin: 30px 0;
+}
