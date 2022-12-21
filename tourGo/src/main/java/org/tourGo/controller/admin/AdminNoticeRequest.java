@@ -1,4 +1,4 @@
-package org.tourGo.controller.community.notice;
+package org.tourGo.controller.admin;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -6,11 +6,13 @@ import java.time.LocalDateTime;
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.tourGo.models.entity.notice.Notice;
 
 import lombok.*;
 
 @Getter @Setter
-public class NoticeRequest {
+@NoArgsConstructor
+public class AdminNoticeRequest {
 
 	private Long noticeNo;
 	
@@ -35,4 +37,17 @@ public class NoticeRequest {
 	private Integer viewCount;			//조회수
 	
 	private String userId;
+	
+	public AdminNoticeRequest(Notice notice) {
+		noticeNo = notice.getNoticeNo();
+		userId = notice.getUser().getUserId();
+		noticeTitle = notice.getNoticeTitle();
+		noticeContent = notice.getNoticeContent();
+		postStartDt = notice.getPostStartDt();
+		postEndDt = notice.getPostEndDt();
+		gid = notice.getGid();
+		regDt = notice.getRegDt();
+		modDt = notice.getModDt();
+		viewCount = notice.getViewCount();
+	}
 }
