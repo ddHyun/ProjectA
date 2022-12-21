@@ -10,17 +10,17 @@
 		const button1El = document.getElementById("button1");
 		const button2El = document.getElementById("button2");
 		button1El.addEventListener("click", function() {
-		codefty.popup.open("plan/readplan", "", 600, 800, true);
-		//	codefty.popup
-		//		.setCallback(function() {
-///
-		//		})
-			//	.open("../ex02", "제목!", 500, 400);
+		
+			codefty.popup
+				.setCallback(function() {
+
+				})
+				.open("../ex02", "제목!", 500, 400);
 						
 		});
 		
 		button2El.addEventListener("click", function() {
-			codefty.popup.open("plan/makeplan2", "새 일정 만들기", 600, 400, true);
+			codefty.popup.open("../ex02", "제목!", 300, 400, true);
 		});
 	});
 	</script>

@@ -47,20 +47,17 @@ public class PlannerController {
 	private PlannerService plannerService;
 	
 	@GetMapping() // 여행 상세 일정 보는 화면
-	public String plannerdate(Model model,@AuthenticationPrincipal PrincipalDetail principal) {
-		//,@AuthenticationPrincipal PrincipalDetail principal
-	try {
-		Optional<User> _user = userRepository.findByUserId(principal.getUser().getUserId());
-		User user = _user.orElse(null);
-	
-		List<Planner> list = plannerService.userPlanner(user.getUserNo());
-			System.out.println(list);
-		if(list != null || !list.isEmpty()) {
-			model.addAttribute("list",list);	
-		}
-	}catch(Exception e) {
-		return "plan/plannerView";
-	}
+	public String plannerdate(Model model/* ,@AuthenticationPrincipal PrincipalDetail principal */) {
+		/*
+		 * //,@AuthenticationPrincipal PrincipalDetail principal try { Optional<User>
+		 * _user = userRepository.findByUserId(principal.getUser().getUserId()); User
+		 * user = _user.orElse(null);
+		 * 
+		 * List<Planner> list = plannerService.userPlanner(user.getUserNo());
+		 * System.out.println(list); if(list != null || !list.isEmpty()) {
+		 * model.addAttribute("list",list); } }catch(Exception e) { return
+		 * "plan/plannerView"; }
+		 */
 		
 		
 		
@@ -74,14 +71,16 @@ public class PlannerController {
 		
 	
 		//model.addAttribute("user", user);
+	model.addAttribute("addScript", "layer");
 		return "plan/plannerView";
 	}
 	
-	@PostMapping()
-	public String planPs(PlannerRq plannerRq, PlanDetailsRq planDetailsRq,Model model) {
-		
-		return null;
-	}
+	/*
+	 * @PostMapping() public String planPs(PlannerRq plannerRq, PlanDetailsRq
+	 * planDetailsRq,Model model) {
+	 * 
+	 * return null; }
+	 */
 
 
 	@GetMapping("/makePlan") // 여행 상세 일정 만드는 화면
