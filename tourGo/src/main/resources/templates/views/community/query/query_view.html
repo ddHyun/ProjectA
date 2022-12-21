@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layouts/main}">
+		
+	<main layout:fragment="content" class="content">
+		<input type="hidden" id="board" th:value="${board}">
+		<!-- 커뮤니티 공통 상단 네비바 -->
+		<th:block th:replace="outlines/community_top::community_top"></th:block>
+		
+		<div class="marginTop150"></div>
+		
+		<!-- 문의 내용 -->
+		<div class="wrap centerW" th:object="${queryRequest}">
+			<table class="communityT marginAuto">
+				<tr>
+					<td colspan="2" align="left" class="width100 font2" th:text="*{queryTitle}"></td>
+				</tr>
+				<tr>
+					<td class="borderND" align="left" th:text="'작성자 : '+*{user.userNm}"></td>
+					<td class="borderND" align="right" th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}"></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="left" class="enter" th:utext="*{queryContent}"></td>
+				</tr>
+			</table>
+			<div class="marginTop30"></div>
+			
+			<div>
+				<button class="btn0 width25" type="button" th:text="#{community.list}"
+					th:onclick="|location.href='/community/query_main?page=${page}'|">목록</button>
+				<th:block th:if="${sessionUserId}==*{user.userId}">
+					<button class="btn1 width20" type="button" th:text="#{community.modify}"
+						th:onclick="|location.href='/community/query_update/*{queryNo}'|">수정</button>
+					<button class="btn1 width20" type="button" th:text="#{community.delete}"
+						th:onclick="|confirm('정말 삭제하시겠습니까?'); location.href='/community/query_delete/*{queryNo}'|">삭제</button>
+				</th:block>
+			</div>
+			<div class="marginTop30"></div>	
+		</div>
+	</main>
+
+</html>

@@ -1,5 +1,6 @@
 package org.tourGo.service.community.query;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tourGo.common.AlertException;
@@ -18,7 +19,7 @@ public class QuerySaveService {
 	private UserRepository userRepository;
 	
 	//등록과 수정을 같이 처리하는 서비스
-	public QueryEntity process(QueryRequest queryRequest) {
+	public QueryRequest process(QueryRequest queryRequest) {
 		//게시글 번호가 있다면 수정, 없다면 등록
 		Long queryNo = queryRequest.getQueryNo();
 		QueryEntity queryEntity = null;
@@ -30,18 +31,20 @@ public class QuerySaveService {
 		}
 		
 		if(queryEntity==null) {//등록
-			if(user != null) {
-				queryRequest.setUser(user);		
+			queryEntity = new QueryEntity();
+			if(user != null){
+				queryEntity.setUser(user);
 			}
 		}
-		queryEntity = QueryEntity.builder()
-								.user(queryRequest.getUser())
-								.queryContent(queryRequest.getQueryContent())
-								.queryTitle(queryRequest.getQueryTitle())
-								.build();
+
+		queryEntity.setQueryContent(queryRequest.getQueryContent());
+		queryEntity.setQueryTitle(queryRequest.getQueryTitle());
+		queryEntity.setSecretPost(queryRequest.isSecretPost());
 		
 		queryEntity = queryRepository.save(queryEntity);
+		ModelMapper mapper = new ModelMapper();
+		queryRequest = mapper.map(queryEntity, QueryRequest.class);
 		
-		return queryEntity;
+		return queryRequest;
 	}
 }
