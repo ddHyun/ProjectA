@@ -74,7 +74,6 @@ public class ReviewService {
 					.or(reviewEntity.reviewContent.contains(keyword))
 					.or(reviewEntity.region.contains(keyword));
 		}
-		
 		String field = (order==null || !order.equals("read")) ? "regDt" : "reviewRead";
 		Pageable pageable = PageRequest.of(page-1, limit, Sort.by(Direction.DESC, field));
 		

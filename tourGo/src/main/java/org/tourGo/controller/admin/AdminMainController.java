@@ -137,6 +137,7 @@ public class AdminMainController {
 		
 		model.addAttribute("list", list.getContent());
 		model.addAttribute("pagination", pagination);
+		model.addAttribute("searchRequest", searchRequest);
 		
 		return "admin/user/adminTypeManage";
 	}

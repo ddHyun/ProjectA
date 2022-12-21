@@ -4,7 +4,6 @@
 		layout:decorate="~{layouts/main}">
 	
 	<main layout:fragment="content" class="content">
-		<input type="hidden" id="board" th:value="${board}">
 		<!-- 커뮤니티 공통 상단 네비바 -->
 		<th:block th:replace="outlines/community_top:: community_top"></th:block>
 		
@@ -12,16 +11,19 @@
 				
 		<!-- 공지 내용 -->
 		<div class="wrap centerW">
-			<table class="communityT marginAuto" th:object="${noticeRequest}">
+			<table class="communityT marginAuto" th:object="${notice}">
 				<tr>
-					<td align="left" th:text="*{title}">제목</td>				
+					<th scope="row">제목</th>
+					<td th:text="*{noticeTitle}"></td>				
 				</tr>
 				<tr>
-					<td align="right"><span th:text="*{id}">작성자</span>
-						<span th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</span></td>
+					<td colspan="2" align="right">
+						<span class="marginRight20" th:text="*{user.userNm}"></span>
+						<span th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</span>
+					</td>
 				</tr>
 				<tr>
-					<td align="left" th:text="*{noticeContent}">내용</td>
+					<td colspan="2" align="left" th:utext="*{noticeContent}">내용</td>
 				</tr>
 			</table>
 		<div class="marginTop30"></div>
