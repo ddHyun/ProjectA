@@ -25,17 +25,29 @@
 						<th th:text="#{community.title}">제목</th>
 						<th th:text="#{community.regDt}">작성일</th>
 						<th th:text="#{community.readHit}">조회수</th>
-						<th th:text="#{query.solve}">답변완료</th>
+						<th th:text="#{query.solve}">답변여부</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:if="${lists!=null}" th:each="list, status : ${lists}" th:object="${list}">
 						<td th:text="${status.size-status.index}">글번호</td>
 						<td th:text="*{user.userNm}">작성자</td>
-						<td th:text="*{queryTitle}">제목</td>
+						<td><!-- 제목 -->
+							<th:block th:if="*{secretPost}">
+								<a th:href="@{/community/query_view/{queryNo}
+									(queryNo=*{queryNo}, page=${pagination.page})}" th:text="비밀글입니다"></a>
+							</th:block>
+							<th:block th:unless="*{secretPost}">
+								<a th:href="@{/community/query_view/{queryNo}
+									(queryNo=*{queryNo}, page=${pagination.page})}"  th:text="*{queryTitle}"></a>
+							</th:block>
+						</td>
 						<td th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</td>
 						<td th:text="*{queryRead}">조회수</td>
-						<td th:text="*{isSolved}">답변완료</td>
+						<td><!-- 답변 유무 -->
+							<th:block th:if="*{isSolved}" th:text="YES"></th:block>
+							<th:block th:unless="*{isSolved}" th:text="NO"></th:block>
+						</td>
 					</tr>
 				</tbody>
 			</table>

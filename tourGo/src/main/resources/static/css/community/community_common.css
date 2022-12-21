@@ -239,9 +239,16 @@ main.content{
 	box-sizing: border-box;
 }
 
+/* td bottomline 없애기 */
 .borderND{
 	border-bottom: none;
 	padding-left: 1rem;
+}
+
+.borderND input{
+	line-height: 30px;
+	padding: 2px;
+	outline: none;
 }
 
 .search{
