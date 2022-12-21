@@ -20,16 +20,22 @@
 		<!-- test login join -->
 		<th:block>
 			<div class="nav_log">
-				<a th:href="@{/user/login}">Login</a>
-				<a th:href="@{/user/signUp}">SingUp</a>
+				<th:block sec:authorize="isAnonymous()">
+					<a th:href="@{/user/login}" th:text="#{user.login}"></a>
+					<a th:href="@{/user/signUp}" th:text="#{user.sign}"></a>
+				</th:block>
+				<th:block sec:authorize="isAuthenticated()">
+					<a th:href="@{/logout}" th:text="#{user.logout}"></a>
+					<a th:href="@{/user/mypage}" th:text="#{user.mypage}"></a>
+				</th:block>
 			</div>
 		</th:block>
 		<!-- test login join -->
 	</div>
+	</header>
 	
 <!-- 
 	Spring Security 잠시 주석처리 (문경민) 
->>>>>>> merge
 	<header th:fragment="header">
 		<th:block sec:authorize="isAnonymous()">
 			<a th:href="@{/user/login}" th:text="#{user.login}"></a>
@@ -39,17 +45,6 @@
 			<a th:href="@{/logout}" th:text="#{user.logout}"></a>
 			<a th:href="@{/user/mypage}" th:text="#{user.mypage}"></a>
 		</th:block>
-		<div class="nav_log">
-			<th:block sec:authorize="isAnonymous()">
-				<a th:href="@{/user/login}" th:text="#{user.login}"></a>
-				<a th:href="@{/user/signUp}" th:text="#{user.sign}"></a>
-			</th:block>
-			<th:block sec:authorize="isAuthenticated()">
-				<a th:href="@{/logout}" th:text="#{user.logout}"></a>
-				<a th:href="@{/mypage}" th:text="#{user.mypage}"></a>
-			</th:block>
-		</div>
-	</div>
-	 -->
 	</header>
+-->
 </html>

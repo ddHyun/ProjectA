@@ -1827,6 +1827,7 @@ pre code {
 
 .form-control {
   display: block;
+  width: 100%;
   height: calc(1.5em + 0.75rem + 2px);
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
@@ -1840,7 +1841,6 @@ pre code {
   margin-right: 0.5rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-/* width: 100%; */
 
 @media (prefers-reduced-motion: reduce) {
   .form-control {

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+		layout:decorate="~{admin/main}">
+		
+		<main layout:fragment="content">
+			<div class="container">
+			<th:block th:object="${adminNoticeRequest}">
+				<div class="mb-4">
+					<h2 class="m-0 font-weight-bold text-primary">공지 사항 상세 보기</h2>
+				</div>
+				<div class="row mb-4">
+					
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th scope="col" class="w-25">
+									<th scope="col">
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">제목</th>
+									<td th:text="*{noticeTitle}"></td>
+								</tr>
+								<tr>
+									<th scope="row">공지 게시일 기간</th>
+									<td>[[*{postStartDt}]] ~ [[*{postEndDt}]]</td>
+								</tr>
+								<tr>
+									<th scope="row">내용</th>
+									<td th:utext="*{noticeContent}">
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">파일</th>
+									<td>
+										<ul class="list-group" th:each="fileList, index : ${fileList}">
+											<li class="list-inline" th:text="${fileList.fileName}"></li>
+										</ul>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					
+				</div>
+				<div class="row">
+               		<div class="col mb-4 d-grid gap-2 d-md-flex justify-content-md-end">
+               			<a class="btn btn-secondary mr-2" type="button" th:text="취소" th:href="@{/admin/board/noticeList(searchType=${searchType}, searchKeyword=${searchKeyword}, page=${page})}"></a>
+               			<a class="btn btn-warning" type="button" th:text="수정" th:href="@{/admin/board/noticeRegist(noticeNo=*{noticeNo})}"></a>
+               		</div>
+               	</div>
+               	</th:block>
+			</div>
+		</main>
+		
+</html>
