@@ -25,6 +25,8 @@ public class QueryRequest {
 
 	private int queryRead;			//조회수
 	
+	private boolean isSolved;		//답변완료 여부
+	
 	//엔티티 -> 커맨드
 	public QueryRequest(QueryEntity entity) {
 		queryNo = entity.getQueryNo();

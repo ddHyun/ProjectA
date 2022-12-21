@@ -1,4 +1,4 @@
-package org.tourGo.controller.admin;
+package org.tourGo.controller.community.notice;
 
 import java.time.LocalDate;
 

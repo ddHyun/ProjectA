@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+		layout:decorate="~{admin/main}">
+		
+		<main layout:fragment="content">
+			<div class="container-fluid">
+				<div class="row">
+	        		<div class="col-12">
+			            <div class="card shadow mb-4">
+			                <div class="question card-header py-3 justify-content-between">
+			                    <h6 class="m-0 font-weight-bold text-primary">신고 목록</h6>
+			                    <form method="GET" id="searchForm" name="searchForm" th:href="@{/admin/user/userManage}" th:object="${searchRequest}" class="d-flex">
+									<select id="selectBox" class="form-control" th:field="*{searchType}" >
+										<option value="">전체</option>
+										<option value="title">제목</option>
+										<option value="content">내용</option>
+										<option value="title_content">제목+내용</option>
+										<option value="userId">신고자</option>
+									</select>
+									<input type="text" name="searchKeyword" id="searchKeyword" class="form-control" placeholder="입력" th:value="*{searchKeyword}">
+									<button type="submit" class="btn btn-outline-success">
+										<i class="fa-solid fa-magnifying-glass"></i>검색
+									</button>
+								</form>
+			                </div>
+			                <div class="card-body">
+			                	<div class="row">
+				                	<table class="col table table-striped table-bordered table-hove">
+				                		<thead>
+					                		<tr class="text-center">
+					                			<th style="width: 10%;">번호</th>
+					                			<th>제목</th>
+					                			<th>신고자</th>
+					                			<th style="width: 10%;">생성일</th>
+					                		</tr>
+					                	</thead>
+					                	<tbody>
+					                		<th:block th:if="${#lists.isEmpty(list)}">
+					                		<tr>
+					                			<td colspan="4">데이터가 없습니다.</td>
+					                		</tr>
+					                		</th:block>
+					                	</tbody>
+				                	</table>
+			                	</div>
+			                	<!-- <th:block th:replace="admin/outlines/pagination::pagination"></th:block> -->
+			                </div>
+			            </div>
+	        		</div>
+	        	</div>
+	        	
+	        	
+	        </div>
+		</main>
+		
+</html>

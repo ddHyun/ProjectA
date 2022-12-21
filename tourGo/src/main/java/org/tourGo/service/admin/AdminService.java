@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
-import org.tourGo.controller.admin.SearchRequest;
+import org.tourGo.controller.admin.AdminSearchRequest;
 import org.tourGo.models.entity.user.QUser;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.user.ActiveType;
@@ -25,7 +25,7 @@ public class AdminService {
 	private UserRepository userRepository;
 	
 	// 회원 관리(전체)
-	public Page<User> userManage(Pageable pageable, SearchRequest request) {
+	public Page<User> userManage(Pageable pageable, AdminSearchRequest request) {
 		int page = (pageable.getPageNumber() == 0) ? 0 : pageable.getPageNumber() - 1;
 		
 		// USERTYPE이 USER 존재만 갖고오기
@@ -66,7 +66,7 @@ public class AdminService {
 	}
 	
 	// 정지/삭제 회원 관리
-	public Page<User> userActiveManage(Pageable pageable, SearchRequest request) {
+	public Page<User> userActiveManage(Pageable pageable, AdminSearchRequest request) {
 		int page = (pageable.getPageNumber() == 0) ? 0 : pageable.getPageNumber() - 1;
 		
 		// USERTYPE이 USER 존재만 갖고오기

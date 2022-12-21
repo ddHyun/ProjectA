@@ -31,7 +31,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 			// 원래 ((PrincipalDetail) authentication.getPrincipal()).getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER"))
 			// 위 코드로 권한도 확인해야하는데 여기서 체크가 안된다. 아마 hasAnyRole에서 체크하여 넘어오지 않는걸로 판단, 나중에 한번 체크해보자
 			if(authentication != null) {
-				String url = request.isUserInRole("ROLE_USER") == true ? "/index" : "/admin/index";
+				String url = request.isUserInRole("ROLE_USER") == true ? "/main/main_view" : "/admin/index";
 				request.setAttribute("msg", "접근권한 없는 사용자입니다.");
 				request.setAttribute("nextPage", url);
 			} 

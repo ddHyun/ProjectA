@@ -12,105 +12,273 @@
 		<div class="destination_area">
 			<div class="dest_area_flex">
 				<a th:href="@{travel_destination_main}">
-					<div class="area" style="border:1px solid pink;">
+					<div class="area">
 						서울
 					</div>
 				</a>
 				<a th:href="@{travel_destination_main}">
-					<div class="area" style="border:1px solid pink;">
+					<div class="area">
 						인천
 					</div>
 				</a>
 				<a th:href="@{travel_destination_main}">
-					<div class="area" style="border:1px solid pink;">
+					<div class="area">
 						대전
 					</div>
 				</a>
 				<a th:href="@{travel_destination_main}">
-					<div class="area" style="border:1px solid pink;">
+					<div class="area">
 						대구
 					</div>
 				</a>
 				<a th:href="@{travel_destination_main}">
-					<div class="area" style="border:1px solid pink;">
+					<div class="area">
 						광주
 					</div>
 				</a>
 				<a th:href="@{travel_destination_main}">
-					<div class="area" style="border:1px solid pink;">
+					<div class="area">
 						부산
 					</div>
 				</a>
 				<a th:href="@{travel_destination_main}">
-					<div class="area" style="border:1px solid pink;">
+					<div class="area">
 						울산
 					</div>
 				</a>
 				<a th:href="@{travel_destination_main}">
-					<div class="area" style="border:1px solid pink;">
+					<div class="area">
 						세종
 					</div>
 				</a>
 				<a th:href="@{travel_destination_main}">
-					<div class="area" style="border:1px solid pink;">
+					<div class="area">
 						경기
 					</div>
 				</a>
 			</div>
 			<div class="dest_area_flex">
 				<a th:href="@{travel_destination_main}">
-					<div class="area" style="border:1px solid pink;">
+					<div class="area">
 						강원
 					</div>
 				</a>
 				<a th:href="@{travel_destination_main}">
-					<div class="area" style="border:1px solid pink;">
+					<div class="area">
 						충북
 					</div>
 				</a>
 				<a th:href="@{travel_destination_main}">
-					<div class="area" style="border:1px solid pink;">
+					<div class="area">
 						충남
 					</div>
 				</a>
 				<a th:href="@{travel_destination_main}">
-					<div class="area" style="border:1px solid pink;">
+					<div class="area">
 						경북
 					</div>
 				</a>
 				<a th:href="@{travel_destination_main}">
-					<div class="area" style="border:1px solid pink;">
+					<div class="area">
 						경남
 					</div>
 				</a>
 				<a th:href="@{travel_destination_main}">
-					<div class="area" style="border:1px solid pink;">
+					<div class="area">
 						전북
 					</div>
 				</a>
 				<a th:href="@{travel_destination_main}">
-					<div class="area" style="border:1px solid pink;">
+					<div class="area">
 						전남
 					</div>
 				</a>
 				<a th:href="@{travel_destination_main}">
-					<div class="area" style="border:1px solid pink;">
+					<div class="area">
 						제주
 					</div>
 				</a>
 				<a th:href="@{travel_destination_main}">
-					<div class="area" style="border:1px solid pink;">
+					<div class="area">
 						전체
 					</div>
 				</a>
 			</div>
 		</div>
 		<div class="destination_best">
-			<h2>11월 인기여행지 Top 10</h2>
-			<div>
+			<div class="best_txt">
+				<h2 class="best_h2">11월 인기여행지 Top 10 여기는 지역 누르면 변경 되어야함...</h2>
+			</div>
+			<div class="top_10">
+				<div class="top10">
+					<a th:href="@{/destination_detail}">
+						<div class="top10_inner">
+							내용물1
+						</div>
+					</a>
+					<a th:href="@{travel_destination_main}">
+						<div class="top10_inner">
+							내용물2
+						</div>
+					</a>
+					<a th:href="@{travel_destination_main}">
+						<div class="top10_inner">
+							내용물3
+						</div>
+					</a>
+					<a th:href="@{travel_destination_main}">
+						<div class="top10_inner">
+							내용물4
+						</div>
+					</a>
+					<a th:href="@{travel_destination_main}">
+						<div class="top10_inner">
+							내용물5
+						</div>
+					</a>
+				</div>
+				<div class="top10">
+					<a th:href="@{travel_destination_main}">
+						<div class="top10_inner">
+							내용물6
+						</div>
+					</a>
+					<a th:href="@{travel_destination_main}">
+						<div class="top10_inner">
+							내용물7
+						</div>
+					</a>
+					<a th:href="@{travel_destination_main}">
+						<div class="top10_inner">
+							내용물8
+						</div>
+					</a>
+					<a th:href="@{travel_destination_main}">
+						<div class="top10_inner">
+							내용물9
+						</div>
+					</a>
+					<a th:href="@{travel_destination_main}">
+						<div class="top10_inner">
+							내용물10
+						</div>
+					</a>
+				</div>
 			</div>
 		</div>
-</div>
+		<div class="destination_content">
+			<div class="">
+				<div class="dest_content">
+					<div class="content_1">
+						<a th:href="@{/destination_detail}">
+							<img th:src="@{/images/destination/gyeongbokgung.jpg}" alt="">
+							<div class="text-center">
+								<h3 class="text-xl">경복궁</h3>
+							</div>
+						</a>
+					</div>
+					<div class="content_1">
+						<a th:href="@{/destination_detail}">
+							<img th:src="@{/images/destination/gyeongbokgung.jpg}" alt="">
+							<div class="text-center">
+								<h3 class="text-xl">경복궁</h3>
+							</div>
+						</a>
+					</div>
+					<div class="content_1">
+						<a th:href="@{/destination_detail}">
+							<img th:src="@{/images/destination/gyeongbokgung.jpg}" alt="">
+							<div class="text-center">
+								<h3 class="text-xl">경복궁</h3>
+							</div>
+						</a>
+					</div>
+					<div class="content_1">
+						<a th:href="@{/destination_detail}">
+							<img th:src="@{/images/destination/gyeongbokgung.jpg}" alt="">
+							<div class="text-center">
+								<h3 class="text-xl">경복궁</h3>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="dest_content">
+					<div class="content_1">
+						<a th:href="@{/destination_detail}">
+							<img th:src="@{/images/main_test/sub4.jpg}" alt="">
+							<div class="text-center">
+								<h3 class="text-xl">경복궁</h3>
+							</div>
+						</a>
+					</div>
+					<div class="content_1">
+						<a th:href="@{/destination_detail}">
+							<img th:src="@{/images/main_test/sub4.jpg}" alt="">
+							<div class="text-center">
+								<h3 class="text-xl">경복궁</h3>
+							</div>
+						</a>
+					</div>
+					<div class="content_1">
+						<a th:href="@{/destination_detail}">
+							<img th:src="@{/images/main_test/sub4.jpg}" alt="">
+							<div class="text-center">
+								<h3 class="text-xl">경복궁</h3>
+							</div>
+						</a>
+					</div>
+					<div class="content_1">
+						<a th:href="@{/destination_detail}">
+							<img th:src="@{/images/main_test/sub4.jpg}" alt="">
+							<div class="text-center">
+								<h3 class="text-xl">경복궁</h3>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="dest_content">
+					<div class="content_1">
+						<a th:href="@{/destination_detail}">
+							<img th:src="@{/images/main_test/sub4.jpg}" alt="">
+							<div class="text-center">
+								<h3 class="text-xl">경복궁</h3>
+							</div>
+						</a>
+					</div>
+					<div class="content_1">
+						<a th:href="@{/destination_detail}">
+							<img th:src="@{/images/main_test/sub4.jpg}" alt="">
+							<div class="text-center">
+								<h3 class="text-xl">경복궁</h3>
+							</div>
+						</a>
+					</div>
+					<div class="content_1">
+						<a th:href="@{/destination_detail}">
+							<img th:src="@{/images/main_test/sub4.jpg}" alt="">
+							<div class="text-center">
+								<h3 class="text-xl">경복궁</h3>
+							</div>
+						</a>
+					</div>
+					<div class="content_1">
+						<a th:href="@{/destination_detail}">
+							<img th:src="@{/images/main_test/sub4.jpg}" alt="">
+							<div class="text-center">
+								<h3 class="text-xl">경복궁</h3>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="page_check">
+			<!-- 일단 눈으로 확인을 위한 페이징 버튼 -->
+				<a th:href="@{/travel_destination_main}">1</a>
+				<a th:href="@{/travel_destination_main}">2</a>
+				<a th:href="@{/travel_destination_main}">3</a>
+			</div>
+		</div>
+	</div>
 </main>
 
 </html>
