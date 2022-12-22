@@ -7,3 +7,11 @@
 	list-style: none;
 	padding-left: 0;
 }
+
+.page a{
+	margin-right: 10px;
+}
+
+.on{
+	font-weight: bold;
+}

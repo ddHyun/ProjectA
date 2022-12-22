@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/main}">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Modal</title>
+
+	<head>
+		<link th:href="@{/css\plan\planDetails.css}" rel="stylesheet" type="text/css">
+		<link rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+		<style>
+			.modal {
+				position: fixed;
+				top: 0;
+				left: 0;
+
+				width: 100%;
+				height: 100%;
+
+				display: none;
+
+				background-color: rgba(0, 0, 0, 0.4);
+				overflow-y: auto;
+			}
+
+			.modal.show {
+				display: block;
+			}
+
+			.modal_body {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+
+				width: 600px;
+				height: 800px;
+
+				text-align: center;
+
+				background-color: rgb(255, 255, 255);
+				border-radius: 10px;
+				box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+				transform: translateX(-50%) translateY(-50%);
+				overflow: auto;
+			}
+
+
+			.hi::-webkit-scrollbar {
+				display: none;
+			}
+
+			.hi {
+				scrollbar-width: none;
+				-ms-overflow-style: none;
+				}
+				.a{
+					width:500px;
+					height:450px;
+					text-align:center;
+				}
+				img{width:400px;
+				height:400px;}
+			
+		</style>
+	</head>
+</head>
+
+<body>
+
+		<main layout:fragment="content">
+	<div class="modal dateView">
+		<div class="modal_body" style="overflow: hidden;">
+
+
+			<iframe class="hi" th:src="@{plan/readplan}" style="width:100%;height: 100%; border:none;"></iframe>
+
+		</div>
+
+	</div>
+	
+	<div style="border: 1px solid blue;"> 
+	
+<button class="btn-open-popup">Modal 띄우기</button>
+		</div>
+	
+	<div class="grid-container" style="border:1px solid red; ">
+		123
+		<table>
+		
+		
+		<tr th:each="list : ${list}">
+			<td><span th:text="${list.image}"></span></td>
+			<td><span th:text="${list.title}"></span></td>
+		</tr>
+		</table>
+		</div>
+		
+
+
+
+	
+	<!--풋터-->
+		
+<!--	<script type="text/javascript" th:src="@{js/plan/makePlan/plan.js}"></script>-->>
+	<script type="text/javascript" th:src="@{/js/plan/makePlan/plan.js}"></script>
+		</main>
+</body>
+
+</html>

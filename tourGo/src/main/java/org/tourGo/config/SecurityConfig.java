@@ -1,5 +1,7 @@
 package org.tourGo.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +13,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.tourGo.config.auth.CustomAccessDeniedHandler;
 import org.tourGo.config.auth.CustomAuthenticationFailureHandler;
 import org.tourGo.config.auth.CustomAuthenticationSuccessHandler;
@@ -21,7 +25,6 @@ import org.tourGo.config.auth.PrincipalDetailService;
 @EnableWebSecurity // 스프링 시큐리티의 설정을 해당 파일에서 관리
 @EnableGlobalMethodSecurity(prePostEnabled=true) // 특정 주소로 접근 시 권한 및 인증을 미리 체크
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
 	
 	@Autowired
 	private PrincipalDetailService principalDetailService;
@@ -64,14 +67,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.csrf().disable()
 			.authorizeHttpRequests()
-				.antMatchers("/user/mypage").hasRole("USER")
 				.antMatchers("/community/review_register").authenticated()
-				.antMatchers("/community/query_register").authenticated()
 				.antMatchers("/admin/user/adminTypeManage").hasRole("SUPERADMIN")
 				.antMatchers("/admin/**").hasAnyRole("ADMIN", "SUPERADMIN")
+				.antMatchers("/user/mypage").hasRole("USER")
 				.antMatchers("/user/**").permitAll()
 				.antMatchers("/css/**", "/js/**", "/images/**").permitAll()
-				.antMatchers("/**").permitAll()
+				.antMatchers("/main/**").permitAll()
 				.anyRequest()
 				.authenticated()
 			.and()

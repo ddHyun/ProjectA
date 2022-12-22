@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.tourGo.common.AlertException;
 
-@ControllerAdvice("controller")
+@ControllerAdvice("org.tourGo.controller")
 public class ExceptionController {
 //	
 //	@ResponseBody
@@ -30,6 +30,8 @@ public class ExceptionController {
 		if (action != null) {
 			if (action.equals("reload")) { // reload라면 새로고침
 				script += target + ".location.reload();"; 
+			} else if (action.equals("back")) {
+				script += target + ".history.back();"; 
 			} else { // 그외는 페이지 이동
 				script += target + ".location.replace('" + action + "');";
 			}

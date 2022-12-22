@@ -25,16 +25,45 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="list, status : ${lists}" th:object="${list}">
-						<td th:text="${status.size-status.index}">번호</td>
-						<td><a th:href="@{/community/notice_read/noticeNo_{noticeNo}(noticeNo=*{noticeNo})}" th:text="*{title}">제목</a></td>
-						<td th:text="*{id}">작성자</td>
+					<th:block th:if="${!#lists.isEmpty(list)}" th:with="total=${pagination.total}, size=${pagination.pageCnt}, pageNum=${pagination.page - 1}">
+					<tr th:each="list, index : ${list}" th:object="${list}">
+						<td th:text="${total - (pageNum * size + index.index) }">번호</td>
+						<td>
+							<a th:href="@{/community/notice_read/noticeNo/{noticeNo}(noticeNo=*{noticeNo})}" th:text="*{noticeTitle}">제목</a>
+						</td>
+						<td th:text="*{user.userNm}">작성자</td>
 						<td th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</td>
-						<td th:text="*{noticeRead}">조회수</td>
+						<td th:text="*{viewCount}">조회수</td>
 					</tr>
+					</th:block>
+					<th:block th:unless="${!#lists.isEmpty(list)}">
+						<td colspan="5">데이터가 없습니다.</td>
+					</th:block>
 				</tbody>
 			</table>
 		</div>
-		
+		<div class="wrap move">
+			<!-- 페이지 -->			
+			<th:block th:replace="outlines/pagination::pagination"></th:block>
+			
+			<!-- 검색 -->
+			<div class="search-div">
+				<form method="get" class="marginTop30 marginBottom30 search-form" id="searchForm" name="searchForm" th:href="@{/notice_main}" th:object="${searchRequest}">
+					<div>
+						<select id="selectBox" class="" th:field="*{searchType}">
+							<option value="">선택</option>
+							<option value="title">제목</option>
+							<option value="content">내용</option>
+							<option value="title_content">제목+내용</option>
+							<option value="userId">작성자</option>
+						</select>
+						<input type="text" name="searchKeyword" id="searchKeyword" class="" placeholder="입력" th:value="*{searchKeyword}">
+						<button type="submit" class="">
+							<i class="fa-solid fa-magnifying-glass"></i>검색
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
 	</main>
 </html>

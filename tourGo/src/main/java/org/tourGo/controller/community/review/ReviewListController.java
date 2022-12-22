@@ -13,7 +13,7 @@ import org.tourGo.models.entity.community.review.ReviewEntity;
 import org.tourGo.service.community.review.ReviewService;
 
 @Controller
-public class ReviewIndexController{
+public class ReviewListController{
 	
 	@Autowired
 	private ReviewService reviewService;

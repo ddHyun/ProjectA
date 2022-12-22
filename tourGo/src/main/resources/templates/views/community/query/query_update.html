@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layouts/main}">
+
+	<main layout:fragment="content" class="content">
+		<input type="hidden" id="board" th:value="${board}">
+		<!-- 커뮤니티 공통 상단 네비바 -->
+		<th:block th:replace="outlines/community_top::community_top"></th:block>
+		
+		<div class="marginTop150"></div>
+		
+		<!-- 수정 내용 -->
+		<div class="wrap centerW">
+			<form method="post" th:action="@{/community/query_update}" autocomplete=off th:object="${queryRequest}">
+				<input type="hidden" th:field="*{queryNo}">
+				<th:block th:replace="community/query/_form::form"></th:block>
+				<div class="marginTop30"></div>
+				<button class="btn0 width25" type="button" th:text="#{community.cancel}"
+					th:onclick="|history.back();|">취소</button>
+				<button class="btn1 width25" type="submit" th:text="#{community.modify}">수정</button>
+			</form>
+		</div>
+	</main>
+</html>

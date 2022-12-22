@@ -18,7 +18,7 @@ import org.tourGo.models.community.review.ReviewEntityRepository;
 import org.tourGo.models.entity.community.review.ReviewEntity;
 
 @Controller
-public class ReviewReadController {
+public class ReviewViewController {
 
 	@Autowired
 	private ReviewEntityRepository repository;
@@ -32,7 +32,7 @@ public class ReviewReadController {
 	//제목 클릭시 후기읽기 페이지
 	@GetMapping("/community/review_read/reviewNo_{reviewNo}")
 	public String readReview(@PathVariable Long reviewNo, String keyword, String order, @AuthenticationPrincipal PrincipalDetail principal,
-							@CookieValue(value="visitReview", required=false) Cookie cookie , Model model){
+							@CookieValue(value="visitReview", required=false) Cookie cookie , Integer page, Model model){
 		
 		//css, js, board 추가
 		model.addAttribute("board", "review");
@@ -43,6 +43,9 @@ public class ReviewReadController {
 		if(reviewNo==null) {
 			throw new RuntimeException("게시글이 존재하지 않습니다.");
 		}
+		
+		page = page==null? 1 : page;
+		model.addAttribute("page", page);
 		
 		/** 쿠키 처리 S */
 		if(cookie!=null) {
@@ -62,6 +65,8 @@ public class ReviewReadController {
 		ReviewEntity entity = repository.findById(reviewNo).orElseThrow(()->
 					new AlertException("게시글이 존재하지 않습니다", "/community/review_main"));
 		ReviewRequest reviewRequest = new ReviewRequest(entity);
+				
+		
 		List<ReplyRequest> replies = reviewRequest.getReplies().stream().map(ReplyRequest::new).toList();
 		if(replies.size() != 0) {
 			model.addAttribute("replies", replies);
@@ -81,6 +86,8 @@ public class ReviewReadController {
 		if(principal != null) {
 			model.addAttribute("user", principal.getUsername());
 		}
+		
+	
 		
 		return baseUrl + "review_read";
 	}		

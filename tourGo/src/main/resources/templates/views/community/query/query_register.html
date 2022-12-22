@@ -3,7 +3,6 @@
 		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 		layout:decorate="~{layouts/main}">
 		
-	<!-- 문의글 등록화면 -->	
 	<main layout:fragment="content" class="content">
 		<input type="hidden" id="board" th:value="${board}">
 		<!-- 커뮤니티 공통 상단 네비바 -->
@@ -11,6 +10,7 @@
 		
 		<div class="marginTop150"></div>
 		
+	<!-- 문의 등록 -->	
 		<div class="wrap centerW">
 			<form method="post" th:action="@{/community/query_register}" th:object="${queryRequest}" autocomplete=off>
 				<th:block th:replace="community/query/_form::form"></th:block>

@@ -22,6 +22,7 @@ public class LoginController {
 								, Model model) {
 		
 		// 로그인 실패 시 error 표기 model로 보내줌
+		model.addAttribute("addScript", new String[] {"user/login"});
 		model.addAttribute("error", error);
 		model.addAttribute("exception", exception);
 		
@@ -37,13 +38,13 @@ public class LoginController {
 	public String loginPs(HttpServletRequest request
 									, @AuthenticationPrincipal PrincipalDetail principal) {
 		
-		System.out.println("로그인 사용자 : " + principal.getUsername());
+		// System.out.println("로그인 사용자 : " + principal.getUsername());
 		
 		// 관리자 또는 전체 관리자인 경우 admin 인덱스 페이지로 이동
 		if(request.isUserInRole("ROLE_ADMIN") || request.isUserInRole("ROLE_SUPERADMIN")) {
 			return "redirect:/admin/index";
 		}
 		
-		return "redirect:/index";
+		return "redirect:/main_view";
 	}
 }
