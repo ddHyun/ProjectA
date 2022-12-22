@@ -36,6 +36,7 @@ public class ExceptionController {
 				script += target + ".location.replace('" + action + "');";
 			}
 		}
+		e.printStackTrace();
 		model.addAttribute("script", script);
 		
 		return "common/execution_script";
