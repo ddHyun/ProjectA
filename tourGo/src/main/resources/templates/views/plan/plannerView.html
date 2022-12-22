@@ -24,22 +24,7 @@
 		});
 	});
 	</script>
-	<div style="border: 1px solid green; text-align:right;">
-	<button class="xi-plus-circle" type="button"id="button2">버튼</button>
-	
-	</div>
-	<div id="button1" style="border: 1px solid red;display:flex;flex-wrap: wrap;">
-<th:block th:each="list : ${list}">
-	<div style="border: 1px solid blue;">
-	<img th:src="@{/images/main_test/sub1.jpg}" alt=""> <br>
-         <span th:text="${list.title}">emil</span> <br> 
-         <span th:text="${list.sdate}">emil</span>  <br>
-         <span th:text="${list.edate}">emil</span>  <br>
-	</div> 
-     </th:block>
-
-	</div>
-
-	
+	<button type="button"id="button1">버튼</button>
+	<button type="button"id="button2">버튼</button>
 </main>
 </html>
