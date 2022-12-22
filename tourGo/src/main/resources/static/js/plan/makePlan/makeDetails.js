@@ -106,7 +106,9 @@ const tourGo = {
 		});
 	
 	
-	
+		xhr.onerror = function(err) {
+			console.log(err);
+		};
 		
 		xhr.send(null);
 	}
