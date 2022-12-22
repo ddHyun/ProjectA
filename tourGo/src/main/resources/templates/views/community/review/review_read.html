@@ -42,7 +42,8 @@
 			<div class="marginTop30"></div>			
 			
 			<div>
-				<button class="btn0 width25" id="backBtn" type="button" th:text="#{community.list}">목록</button>
+				<button class="btn0 width25" type="button" th:text="#{community.list}"
+					th:onclick="|location.href='/community/review_main?page=${page}'|">목록</button>
 				<th:block th:if="${user==reviewRequest.id}">
 					<button class="btn1 width20" id="modifyBtn" type="button" th:text="#{community.modify}">수정</button>
 					<button class="btn1 width20" id="deleteBtn" type="button" th:text="#{community.delete}">삭제</button>

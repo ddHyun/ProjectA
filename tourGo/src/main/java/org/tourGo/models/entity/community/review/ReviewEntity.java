@@ -36,7 +36,7 @@ public class ReviewEntity extends BaseEntity {
 	private int reviewRead;						//조회수
 	
 	@OrderBy("regDt desc")
-	@OneToMany(mappedBy = "review")
+	@OneToMany(mappedBy = "review", orphanRemoval = true)
 	private List<ReplyEntity> replies = new ArrayList<>();			//댓글	
 	
 	@Override

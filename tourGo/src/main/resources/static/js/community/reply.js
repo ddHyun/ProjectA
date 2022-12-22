@@ -3,15 +3,12 @@ window.addEventListener("DOMContentLoaded", function(){
 	
 	const idEl = document.getElementById("id");
 	if(!idEl){
-		console.log("비로그인");
 		const registerReply = document.getElementById("registerReply");
-		console.log(registerReply);
 		registerReply.disabled = true;
 	}	
 	
 	/**댓글 삭제 이벤트 처리  S*/
 	const deleteReplyEl = document.getElementById("deleteReply");
-	console.log(deleteReplyEl);
 	if(deleteReplyEl){
 		const replyNo = document.getElementById("replyNo").value;
 		deleteReplyEl.addEventListener("click", function() {	
@@ -33,4 +30,13 @@ window.addEventListener("DOMContentLoaded", function(){
 		});
 	} 
 	/**댓글 삭제 이벤트 처리  E*/
+	
+	/**댓글달기 처리 S */
+	const reReplyEl = document.getElementById("reReply");
+	if(reReplyEl){
+		reReplyEl.addEventListener("click", function(){
+			
+		});
+	/**댓글달기 처리 E */
+	}
 });

@@ -33,8 +33,7 @@ public class PlannerService {
 	public Planner process(PlannerRq plannerRq,User user) {
 		
 		
-		
-		LocalDate sdate = plannerRq.getSdate();
+		LocalDate sdate = (plannerRq.getSdate() == null)?LocalDate.now():plannerRq.getSdate();
 		Integer day = plannerRq.getDay();
 		LocalDate edate = sdate.plusDays(day);
 		Planner planner = Planner.builder().title(plannerRq.getTitle()).day(day).sdate(sdate).edate(edate).memo(plannerRq.getMemo())
@@ -51,6 +50,30 @@ public class PlannerService {
 		
 		
 		return planner;
+	}
+	
+	public PlannerRq toDto(Planner planner) {
+		
+		int day = planner.getDay();
+		LocalDate sdate = planner.getSdate();
+		LocalDate edate = sdate.plusDays(day);
+		
+		
+		PlannerRq rq = PlannerRq.builder().day(day).sdate(sdate).edate(edate).image(null).memo(planner.getMemo()).planSize(planner.getPlanSize())
+				.planType(planner.getPlanType()).title(planner.getTitle()).plannerNo(planner.getPlannerNo()).build();
+		
+		return rq;
+	}
+	
+	public Planner toEntity(PlannerRq rq) {
+		int day = rq.getDay();
+		LocalDate sdate = rq.getSdate();
+		LocalDate edate = sdate.plusDays(day);
+		Planner planner = Planner.builder().day(day).sdate(sdate).edate(edate).image(null).memo(rq.getMemo()).planSize(rq.getPlanSize())
+				.planType(rq.getPlanType()).title(rq.getTitle()).build();
+		
+		return planner;
+		
 	}
 	
 	

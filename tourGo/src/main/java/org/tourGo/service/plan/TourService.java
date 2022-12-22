@@ -39,6 +39,7 @@ public class TourService {
 		HttpURLConnection conn = null;
 		
 		try {
+			keyword = URLEncoder.encode(keyword, "UTF-8");
 			String apiURL = getURL(keyword);
 			URL url = new URL(apiURL);
 			ignoreSsl();
@@ -65,7 +66,7 @@ public class TourService {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+			System.out.println("-------------------------------------");
 			String result = sb.toString();
 			System.out.println(result);
 			
@@ -74,8 +75,9 @@ public class TourService {
 			om.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 			om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			try {
-				TourListResponse apiResult = om.readValue(result, TourListResponse.class);
-				items = apiResult.getResponse().getBody().getItems().getItem();
+				//TourListResponse apiResult = om.readValue(result, TourListResponse.class);
+				
+				//items = apiResult.getResponse().getBody().getItems().getItem();
 			} catch (Exception e) {
 					e.printStackTrace();
 			}

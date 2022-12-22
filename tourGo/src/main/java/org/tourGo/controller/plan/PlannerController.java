@@ -4,6 +4,7 @@
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.tourGo.common.AlertException;
 import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.plan.PlannerRq;
@@ -46,80 +48,73 @@ public class PlannerController {
 	@Autowired
 	private PlannerService plannerService;
 	
+	@Autowired
+	private PlanValidator planValidator;
+	
 	@GetMapping() // 여행 상세 일정 보는 화면
-	public String plannerdate(Model model/* ,@AuthenticationPrincipal PrincipalDetail principal */) {
-		/*
-		 * //,@AuthenticationPrincipal PrincipalDetail principal try { Optional<User>
-		 * _user = userRepository.findByUserId(principal.getUser().getUserId()); User
-		 * user = _user.orElse(null);
-		 * 
-		 * List<Planner> list = plannerService.userPlanner(user.getUserNo());
-		 * System.out.println(list); if(list != null || !list.isEmpty()) {
-		 * model.addAttribute("list",list); } }catch(Exception e) { return
-		 * "plan/plannerView"; }
-		 */
-		
-		
-		
-		/**System.out.println("테스트용!!~~~~~~~~~");
-		System.out.println(principal.getUser());
-		System.out.println(principal.getUser().getUserId());*/
+	public String plan(Model model,@AuthenticationPrincipal PrincipalDetail principal) {
+	
+			
 
-		
-		/**Optional<User> _user = userRepository.findByUserId(principal.getUser().getUserId());
-		User user = _user.get();*/
+	/**	User user = userRepository.findByUserId(principal.getUsername())
+				.orElseThrow(()-> new AlertException("로그인 후 이용가능합니다","/user/login"));
 		
 	
-		//model.addAttribute("user", user);
+		model.addAttribute("user", user);*/
 	model.addAttribute("addScript", "layer");
 		return "plan/plannerView";
 	}
 	
-	/*
-	 * @PostMapping() public String planPs(PlannerRq plannerRq, PlanDetailsRq
-	 * planDetailsRq,Model model) {
-	 * 
-	 * return null; }
-	 */
-
-
-	@GetMapping("/makePlan") // 여행 상세 일정 만드는 화면
-	public String makeDate() {
+	@GetMapping("/makeDetails/{no}")
+	public String makeDetails(Model model, @PathVariable Long no) {
+		try {
+		Planner planner = plannerService.getPlanner(no);
+	List<PlanDetailsRq> list = new ArrayList<>();
+	for(PlanDetailsRq rq : list) {
+		rq.setDay(planner.getDay());
 	
-		return "plan/makeDateView";
+	}
+		PlannerRq plannerRq = plannerService.toDto(planner);
+		
+		model.addAttribute("planDetails", list);
+		model.addAttribute("plannerRq", plannerRq);
+		
+		System.out.println(planner);
+		}catch(Exception e) {
+		
+			
+			model.addAttribute("scripts", " alert('유효하지않은 접근입니다'); location.replace('/plan');");
+			return "common/excution";
+			
+			
+		}
+		return "plan/makeDetails";
 	}
 	
+	  @PostMapping()
+	  public String makeDetailsPs(PlannerRq plannerRq, PlanDetailsRq planDetailsRq,Model model) {
+	  
+		  
+	  return null;
+	  }
+	
 	@GetMapping("/makeplan2")
-	public String makeDate2(Model model) {
+	public String makePlan(Model model) {
 		PlannerRq plannerRq= new PlannerRq();
 		model.addAttribute("plannerRq",plannerRq);
 		return "plan/makePlan";
 	}
 	
-	@GetMapping("/makeDetails/{no}")
-	public String makePlan(Model model, @PathVariable Long no) {
-		
-		Planner planner = plannerService.getPlanner(no);
-		PlanDetailsRq planDetailsRq = new PlanDetailsRq();
-		planDetailsRq.setDay(planner.getDay());
-		
-		model.addAttribute("planDetails", planDetailsRq);
-		
-		
-		System.out.println(planner);
-		
-		return "plan/makeDetails";
-	}
-	
-	
-	
 	@PostMapping("/makeDetails")
 	public String makePlanPs(@Valid PlannerRq plannerRq, Errors errors,Model model,@AuthenticationPrincipal PrincipalDetail principal ) {
+	
+		//planValidator.validate(plannerRq, errors);
 
 		if (errors.hasErrors()) {
+	
 			return "plan/makePlan";
 		}
-	//history.back();
+	
 		Optional<User> _user = userRepository.findByUserId(principal.getUser().getUserId());
 		User user = _user.orElse(null);
 		
@@ -134,11 +129,11 @@ public class PlannerController {
 	
 	
 	@GetMapping("/readplan")
-	public String reddate() {
+	public String read() {
 		return "plan/read";
 	}
 	@GetMapping("/writeplan")
-	public String writedate() {
+	public String write() {
 		return "plan/write";
 	}
 		

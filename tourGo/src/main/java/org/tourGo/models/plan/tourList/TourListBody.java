@@ -10,7 +10,7 @@ import lombok.*;
 public class TourListBody {
 	
 	private TourListItems items;
-	private int numOfRows;
+	private	int numOfRows;
 	private int pageNo;
 	private int totalCount;
 }

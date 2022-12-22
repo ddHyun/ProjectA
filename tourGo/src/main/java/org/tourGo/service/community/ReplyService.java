@@ -37,6 +37,9 @@ public class ReplyService {
 			User user = new User();
 			user.setUserId(request.getId());
 			entity.setUser(user);
+			entity.setDepth(request.getDepth());
+			entity.setIdParent(request.getIdParent());
+			entity.setListOrder(request.getListOrder());
 		}
 		
 		return entity;
@@ -45,8 +48,6 @@ public class ReplyService {
 	
 	//댓글 등록하기
 	public ReplyRequest register(ReplyRequest request) {
-		
-		System.out.println("===============replyService entered");
 		
 		//영속성에 불러오기
 		User user = userRepository.findByUserId(request.getId()).orElse(null);
