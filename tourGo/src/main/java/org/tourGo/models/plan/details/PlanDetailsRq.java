@@ -26,7 +26,7 @@ public class PlanDetailsRq {//여행 세부일정을 담당하는 dto
 	    private Long plannerNo;
 	    @DateTimeFormat(pattern="HH : mm")
 	    private LocalTime stime;
-	
+	    @DateTimeFormat(pattern="HH : mm")
 	    private LocalTime etime;
 	    private String name;//관광지이름
 	    private String address;
