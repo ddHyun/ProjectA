@@ -1,20 +1,35 @@
-package org.tourGo.models.destination;
+package org.tourGo.models.destination.entity;
 
-import javax.validation.constraints.NotBlank;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import org.springframework.web.multipart.MultipartFile;
+import org.tourGo.models.entity.user.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class DestinationDetailRequest {	//dto(vo)같은것...?
+public class DestinationDetail {
 	
-	private Long destinationNo;
-	@NotBlank()
+	@Id 
+	@GeneratedValue
+	private Long destinationNo;// db테이블 증감번호
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "userNo")
+	private User user;// 관계매핑
+
+	@Column(nullable = true)
 	private String tourTitle;			// 여행지 이름
 	private String tourDestination; 	// 지역
 	private String tourImg;				// 여행지 이미지
@@ -29,5 +44,4 @@ public class DestinationDetailRequest {	//dto(vo)같은것...?
 	private String tourNumber;			// 관광지 문의 연락처
 	private Integer tourHits;			// 관광지 조회수
 	private Integer tourHeart;			// 관광지 좋아요
-	
 }
