@@ -21,7 +21,7 @@ public class PlanDetailsService {
 	@Autowired
 	private PlanDetailsRepository repository;
 		
-	public List<PlanDetails> userDetails(Long plannerNo){
+	public PlanDetails userDetails(Long plannerNo){
 		
 		//QPlanDetails qPlan = QPlanDetails.planDetails;
 		
@@ -30,9 +30,9 @@ public class PlanDetailsService {
 		orders.add(Order.desc("sdate"));
 	
 		List<PlanDetails> list = repository.findAllByPlanner(plannerNo,Sort.by(orders));
+		PlanDetails details = list.get(0);
 		
-		
-		return list;
+		return details;
 	}
 	
 	

@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.tourGo.models.plan.PlannerRq;
 import org.tourGo.models.plan.entity.PlanDetails;
 import org.tourGo.models.plan.tourList.TourList;
@@ -23,7 +24,7 @@ public class PlanDetailsRq {//여행 세부일정을 담당하는 dto
 		
 		private Long DetailsNo;
 	    private Long plannerNo;
-
+	    @DateTimeFormat(pattern="HH : mm")
 	    private LocalTime stime;
 	
 	    private LocalTime etime;

@@ -22,6 +22,7 @@ public class PlanValidator implements Validator{
 		PlannerRq planner = (PlannerRq) target;
 		
 		//제목 입력했는지 체크
+		/**
 		String title = planner.getTitle();
 		if(title ==null || title.isBlank()) {
 			errors.rejectValue("title", "errors.title");
@@ -33,7 +34,7 @@ public class PlanValidator implements Validator{
 			errors.rejectValue("sdate", "errors.sdate");
 		}
 		
-		
+		*/
 	}
 
 }

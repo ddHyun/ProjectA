@@ -26,13 +26,16 @@ public class PlanDetails extends BaseEntity {
 	@JoinColumn(name="plannerNo")
 	private Planner planner;//관계매핑
 	
-	private LocalTime sTime;
-	private LocalTime eTime;
+	private LocalTime sTime; //관광지 시작 시간
+	private LocalTime eTime; //관광지 종료 시간
 	@Column(nullable=true)
-	private int day;
+	private int day; //planner엔티
 	 private String image;//관광지 이미지
 	  private String name;//관광지이름
 	  private String address;//관광지 주소
+	  
+	  private Double mapX;
+	  private Double mapY;
 	
 }
 
