@@ -45,6 +45,7 @@ public class QueryViewController {
 			}
 		}
 		
+		//비회원일 때 id에 비번넣기
 		String sessionUserId = "";
 		if(principal!=null) {
 			sessionUserId = principal.getUser().getUserId();

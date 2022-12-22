@@ -21,6 +21,10 @@ public class ReplyRequest {
 	private String replyContent;	//내용
 	private LocalDateTime regDt;	//작성일
 	private LocalDateTime modDt;//수정일
+	private int depth;					
+	private Long idParent;			//모댓글의 글번호
+	private String listOrder;			//1차정렬
+	
 	
 	public ReplyRequest() {	}
 
@@ -32,6 +36,8 @@ public class ReplyRequest {
 		replyContent = entity.getReplyContent();
 		regDt = entity.getRegDt();
 		modDt = entity.getModDt();
+		depth = entity.getDepth();
+		idParent = entity.getIdParent();
 	}
 	
 	

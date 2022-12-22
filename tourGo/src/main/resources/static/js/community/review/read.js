@@ -1,10 +1,10 @@
 const btnFn = {
 	/**목록으로 돌아가기 S */
-	back(){
+/*	back(){
 		const keyword = document.getElementById("keyword").value;
 		const order = document.getElementById("order").value;
 		location.href = `../review_main?keyword=${keyword}&order=${order}`;
-	},
+	},*/
 	/**목록으로 돌아가기 E */
 	
 	/**게시글 수정하기 S */
@@ -48,12 +48,12 @@ const btnFn = {
 window.addEventListener("DOMContentLoaded", function(){
 	
 	/**목록이동 선택 이벤트 처리 S */
-	const backBtnEl = document.getElementById("backBtn");
+/*	const backBtnEl = document.getElementById("backBtn");
 	if(backBtnEl){
 		backBtnEl.addEventListener("click", function(){
 			btnFn.back();
 		});
-	}
+	}*/
 	/**목록이동 선택 이벤트 처리 E */
 	
 	const reviewNoEl = document.getElementById("reviewNo");

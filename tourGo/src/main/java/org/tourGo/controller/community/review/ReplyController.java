@@ -1,5 +1,7 @@
 package org.tourGo.controller.community.review;
 
+import java.time.LocalDateTime;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +44,22 @@ public class ReplyController {
 				}				
 			}		
 			request.setReviewNo(reviewNo);
-			System.out.println("==============reply principalID : "+principal.getUsername());
+			
+			//listOrder 설정
+			String listOrder = request.getListOrder()==null? ""+System.currentTimeMillis() : request.getListOrder();
+			System.out.println("=======================");
+			System.out.println("listOrder: "+listOrder);
+			request.setListOrder(listOrder);
+			
+			//depth, idParent 설정
+			Long replyNo = request.getReplyNo();
+			int depth = replyNo ==null ? 0 : 1;
+			long idParent = replyNo == null ? 0 : replyNo;
+			request.setDepth(depth);
+			request.setIdParent(idParent);
+
+			System.out.println("depth: "+depth+", idParent : "+idParent);
+
 			request.setId(principal.getUsername());
 			request = replyService.register(request);
 			

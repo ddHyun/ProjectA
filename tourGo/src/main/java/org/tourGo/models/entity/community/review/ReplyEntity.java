@@ -26,6 +26,11 @@ public class ReplyEntity extends BaseEntity{
 	@Lob
 	@Column(nullable=false)
 	private String replyContent;	//댓글내용
+	
+	@Column(columnDefinition = "int default '0'")
+	private int depth;					
+	private Long idParent;				//모댓글 글번호
+	private String listOrder;				//1차 정렬
 
 	@Override
 	public String toString() {
