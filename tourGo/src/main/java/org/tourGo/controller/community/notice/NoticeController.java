@@ -84,11 +84,13 @@ public class NoticeController {
 			cookie.setValue(cookie.getValue()+"_["+noticeNo+"]");
 			response.addCookie(cookie);
 			//조회수 증가메서드 추가
+			noticeService.updateNoticeRead(noticeNo);
 		}
 	}else {
 		Cookie newCookie = new Cookie("visitNotice", "["+noticeNo+"]");
 		response.addCookie(newCookie);
 		//조회수 증가메서드 추가
+		noticeService.updateNoticeRead(noticeNo);
 	}
 	/*쿠키 처리 E*/
 	

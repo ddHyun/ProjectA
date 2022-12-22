@@ -69,9 +69,8 @@ public class NoticeService {
 	}
 
 	//조회수 증가
-	public boolean updateNoticeRead(int noticeNo) {
-//		noticeRepository.updateNoticeRead(noticeNo);
-		return false;
+	public void updateNoticeRead(Long noticeNo) {
+		noticeRepository.updateViewCount(noticeNo);
 	}
 
 }
