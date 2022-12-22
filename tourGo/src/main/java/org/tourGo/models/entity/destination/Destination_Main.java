@@ -8,10 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.apache.catalina.User;
+import org.tourGo.models.entity.user.User;
 
-import groovy.transform.builder.Builder;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -23,9 +23,9 @@ public class Destination_Main {
 	@Id @GeneratedValue
 	private Long DestinationNo;// db테이블 증감번호
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "userNo")
-//	private User user;// 관계매핑
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "userNo")
+	private User user;// 관계매핑
 	
 	@Column(nullable = true)
 	private Long tour_idx;	// 관광지 idx
