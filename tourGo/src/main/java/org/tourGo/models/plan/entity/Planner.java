@@ -37,7 +37,7 @@ public class Planner extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name="userNo")
 	private User user; //유저 pk값이랑 관계매핑
-	private Integer like; //추천수
+	private Integer heart; //추천수
 	private Integer hit; //조회수
 	private Boolean open;//공개,비공개 여부
 	

@@ -21,13 +21,21 @@ public class PlannerService {
 	@Autowired
 	private UserRepository userRepo;
 	
-	public List<Planner> userPlanner(Long userNo){ //db로부터 플래너 번호를 내림차순하여 planner List형태로 변환하는 메서드
+	public List<PlannerRq> userPlanner(User user){ //db로부터 플래너 번호를 내림차순하여 planner List형태로 변환하는 메서드
 
 
 		
-		List<Planner> list = plannerRepo.findAllByUser(userNo,Sort.by(Sort.Direction.DESC,"plannerNo"));
-
-		return list;
+		List<Planner> list = plannerRepo.findAllByUser(user,Sort.by(Sort.Direction.DESC,"plannerNo"));
+		List<PlannerRq> list2 = new ArrayList<>();
+		
+		for(Planner planner : list) {
+		PlannerRq rq =	PlannerRq.builder().day(planner.getDay()).image(planner.getImage()).sdate(planner.getSdate()).edate(planner.getEdate())
+		.memo(planner.getMemo()).planSize(planner.getPlanSize()).planType(planner.getPlanType()).plannerNo(planner.getPlannerNo())
+		.title(planner.getTitle()).build();
+		list2.add(rq);
+		}
+		
+		return list2;
 	}
 	
 	public Planner process(PlannerRq plannerRq,User user) {

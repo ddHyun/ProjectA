@@ -53,15 +53,21 @@ public class PlannerController {
 	
 	@GetMapping() // 여행 상세 일정 보는 화면
 	public String plan(Model model,@AuthenticationPrincipal PrincipalDetail principal) {
-	
-			
+		model.addAttribute("addScript", "layer");
 
-	/**	User user = userRepository.findByUserId(principal.getUsername())
-				.orElseThrow(()-> new AlertException("로그인 후 이용가능합니다","/user/login"));
+			try {
+		Optional<User> _user = userRepository.findByUserId(principal.getUser().getUserId());
+		User user = _user.orElse(null);
 		
-	
-		model.addAttribute("user", user);*/
-	model.addAttribute("addScript", "layer");
+		List<PlannerRq> list = plannerService.userPlanner(user);
+		model.addAttribute("list",list);
+		System.out.println(list);
+		System.out.println(user);
+			}catch(Exception e) {
+			
+				return "plan/plannerView";
+			}
+
 		return "plan/plannerView";
 	}
 	
