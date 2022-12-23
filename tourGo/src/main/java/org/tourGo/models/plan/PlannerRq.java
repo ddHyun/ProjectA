@@ -24,8 +24,9 @@ import lombok.NoArgsConstructor;
 public class PlannerRq {//여행 일정짜기dto
 
 	 private Long plannerNo;
-	 @NotBlank()
+	 @NotBlank
 	 private String title;
+	 
 	 @DateTimeFormat(pattern="yyyy-MM-dd")
 	 private LocalDate sdate;
 	 @DateTimeFormat(pattern="yyyy-MM-dd")

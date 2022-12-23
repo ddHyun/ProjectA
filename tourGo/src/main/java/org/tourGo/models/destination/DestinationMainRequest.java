@@ -11,12 +11,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class DestinationRequest {	//dto(vo)같은것...?
+public class DestinationMainRequest {	//dto(vo)같은것...?
 	
 	private Long destinationNo;
 	@NotBlank()
-	private String name;	//관광지 이름
-	private String address;	//관광지 주소
-	private String image;	//관광지 이미지
-
+	private String tourTitle; 	// 관광지 이름
+	private String tourImg; 	// 관광지 이미지
+	private int tourHits; 		// 관광지 조회수
+	private int tourHeart; 		// 관광지 좋아요
+	
 }

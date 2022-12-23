@@ -1,4 +1,4 @@
-package org.tourGo.models.entity.destination;
+package org.tourGo.models.destination.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,21 +18,19 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Destination_Main {
+public class DestinationMain {
 
 	@Id @GeneratedValue
-	private Long DestinationNo;// db테이블 증감번호
+	private Long destinationMainNo;// db테이블 증감번호
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userNo")
 	private User user;// 관계매핑
 	
 	@Column(nullable = true)
-	private Long tour_idx;	// 관광지 idx
-	private String title; 	// 관광지 이름
-	private String image1; 	// 관광지 이미지1
-	private String image2; 	// 관광지 이미지2
-	private int hits; 		// 관광지 조회수
-	private int bookmark; 	// 관광지 좋아요
+	private String tourTitle; 	// 관광지 이름
+	private String tourImg; 	// 관광지 이미지
+	private int tourHits; 		// 관광지 조회수
+	private int tourHeart; 		// 관광지 좋아요
 
 }

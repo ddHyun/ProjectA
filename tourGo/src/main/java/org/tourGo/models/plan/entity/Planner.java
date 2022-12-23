@@ -23,21 +23,23 @@ import lombok.*;
 @Data
 public class Planner extends BaseEntity {
 	@Id @GeneratedValue
-	private Long plannerNo;
-	private String title;
-	private String planSize;	 
+	private Long plannerNo; //자동증감번호
+	private String title; //사용자 정의 제목
+	private String planSize;	 //여행 인원수
 	@Enumerated(EnumType.STRING) 
-	private TourType planType;
-	 private LocalDate sdate;
-	 private LocalDate edate;
-	 private String image;
-	 private String memo;
-	private Integer day;
+	private TourType planType; // enum으로 여행 타입 설정
+	 private LocalDate sdate; //시작날짜
+	 private LocalDate edate; //종료날짜
+	 private String image; // planDetails에서 가장첫번째 이미지 추출(예정)
+	 private String memo; // 사용자 정의 여행 메모
+	private Integer day; // 여행일 (1,2,3,4...)
 	 //(fetch=FetchType.LAZY) 임시로지움
 	@ManyToOne
 	@JoinColumn(name="userNo")
-	private User user;
-
+	private User user; //유저 pk값이랑 관계매핑
+	private Integer heart; //추천수
+	private Integer hit; //조회수
+	private Boolean open;//공개,비공개 여부
 	
 /**	@OneToMany(mappedBy="plan", fetch=FetchType.LAZY)
 	private List<PlanDetailsEntity> plainDetails;*/

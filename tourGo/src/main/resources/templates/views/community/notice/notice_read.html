@@ -14,16 +14,27 @@
 			<table class="communityT marginAuto" th:object="${notice}">
 				<tr>
 					<th scope="row">제목</th>
-					<td th:text="*{noticeTitle}"></td>				
+					<td colspan="3" th:text="*{noticeTitle}"></td>				
 				</tr>
 				<tr>
-					<td colspan="2" align="right">
-						<span class="marginRight20" th:text="*{user.userNm}"></span>
-						<span th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</span>
+					<td>
+						<div style="display: inline-block; float: left;">
+							<span class="marginRight20" >작성자</span>
+							<span th:text="*{user.userNm}"></span>
+						</div>
+					</td>
+					<td colspan="3">
+						<div style="display: inline-block; float: right;">
+							<span class="marginRight20">조회수</span>
+							<span class="centerW" th:text="*{viewCount}"></span>
+							<span class="sep"></span>
+							<span class="marginRight20">작성일</span>
+							<span class="centerW" th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}"></span>
+						</div>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2" align="left" th:utext="*{noticeContent}">내용</td>
+					<td colspan="4" align="left" th:utext="*{noticeContent}">내용</td>
 				</tr>
 			</table>
 		<div class="marginTop30"></div>
