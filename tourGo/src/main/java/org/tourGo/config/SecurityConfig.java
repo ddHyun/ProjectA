@@ -69,7 +69,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/css/**", "/js/**", "/images/**").permitAll()
 				.antMatchers("/main/**").permitAll()
 
->>>>>>> merge
 			.and()
 				.formLogin()
 				.loginPage("/user/login")
