@@ -320,6 +320,10 @@ td select{
 	display: flex;
 }
 
+.flex li{
+	margin: 2px;	
+}
+
 .item{
 	word-wrap: break-word;
 }

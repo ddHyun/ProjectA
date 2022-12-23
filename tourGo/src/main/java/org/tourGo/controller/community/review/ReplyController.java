@@ -1,7 +1,5 @@
 package org.tourGo.controller.community.review;
 
-import java.time.LocalDateTime;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;

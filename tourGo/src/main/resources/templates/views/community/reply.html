@@ -14,7 +14,7 @@
 <html xmlns:th="http://www.thylemleaf.org"
 		xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	
-	<!-- 댓글 -->
+	<!-- 댓글 등록 -->
 	<th:block th:fragment="reply">
 		<th:block th:object="${replyRequest}">
 			<div class="rpl">
@@ -37,25 +37,34 @@
 			</div>
 		</th:block>
 		<br>
-			<th:block th:if="${replies}" th:each="reply : ${replies}" th:object="${reply}">
-				<input type="hidden" id="replyNo" th:value="*{replyNo}">
-				<div class="rpl" th:id="*{'comment_' + replyNo}">
-					<div class="innerRpl">
-						<ul>
-							<small th:text="*{name}">작성자</small>
-							<small style="color:#888;" th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</small>
-							<li class="flex">
-								<div class="item" th:utext="*{replyContent}">댓글내용</div>
-								<button class="item" type="button" th:text="#{reply}" id="reReply">댓글쓰기</button>
-								<th:block th:if="${user}==*{id}">
-									<button class="item" type="button" th:text="#{community.delete}"
-													id="deleteReply">삭제</button>
-								</th:block>
-							</li>
-						</ul>
-					</div>
+		
+		<th:block th:if="${replies}" th:each="reply : ${replies}" th:object="${reply}">
+			<input type="hidden" id="replyNo" th:value="*{replyNo}">
+			<div class="rpl" th:id="*{'comment_' + replyNo}">
+				<div class="innerRpl">
+					<ul class="flex">
+						<li class="item" th:utext="*{replyContent}">댓글내용</li>
+						<li th:text="*{name}">작성자</li>
+						<li style="color:#888;" th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</li>
+						<th:block sec:authorize="isAuthenticated()" th:if="${user}!=*{id}">
+							<li><button class="item" type="button" th:text="#{reply}" th:id="reReply">댓글쓰기</button></li>
+						</th:block>
+						<th:block th:if="${user}==*{id}">
+								<li><button class="item" type="button" th:text="#{community.delete}"
+												id="deleteReply">삭제</button></li>
+						</th:block>						
+					</ul>
 				</div>
-			</th:block>
-			<br>
+			</div>
+		</th:block>
+		<br>
+		
+		
 	</th:block>
+	
+	
+	
+	
+	
+	
 </html>

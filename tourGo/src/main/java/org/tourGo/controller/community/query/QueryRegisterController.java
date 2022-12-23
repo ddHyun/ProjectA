@@ -22,17 +22,12 @@ public class QueryRegisterController {
 	@Autowired
 	private QuerySaveService service;
 	
-	//static & board명 추가
-	private void addCommons(Model model) {
-		model.addAttribute("board", "query");
-		model.addAttribute("addCss", new String[] {"community/community_common"});
-		model.addAttribute("addScript", new String[] {"community/community_common"});
-	}
 	
 	@GetMapping
 	public String form(Model model, @AuthenticationPrincipal PrincipalDetail principal) {
 		//static & board명 추가
-		addCommons(model);
+		model.addAttribute("board", "query");
+		model.addAttribute("addCss", new String[] {"community/community_common"});
 		if(principal==null) {
 			throw new AlertException("로그인 후 이용 가능합니다", "/user/login");
 		}
@@ -51,7 +46,8 @@ public class QueryRegisterController {
 	public String process(@Valid QueryRequest queryRequest, Errors errors, Model model) {
 		if(errors.hasErrors()) {
 			//static & board명 추가
-			addCommons(model);
+			model.addAttribute("board", "query");
+			model.addAttribute("addCss", new String[] {"community/community_common"});
 			model.addAttribute("queryRequest", queryRequest);
 			return "community/query/query_register";
 		}

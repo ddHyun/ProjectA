@@ -23,7 +23,6 @@ public class QueryListController {
 		
 		model.addAttribute("board", "query");
 		model.addAttribute("addCss", new String[] {"community/community_common", "community/pagination"});
-		model.addAttribute("addScript", new String[] {"community/community_common"});
 		
 		page = page == null ? 1 : page;
 		Page<QueryEntity> results = service.gets(page, 10);

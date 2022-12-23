@@ -8,13 +8,6 @@
 			<img class="wideImg" th:if="${board=='query'}" th:src="@{/images/community/img0.jpg}" alt="질문에 답을 하다">
 			<img class="wideImg" th:if="${board=='notice'}" th:src="@{/images/community/img2.jpg}" alt="공지사항">
 		</div>
-		<div class="wrap">
-			<nav class="top_nav font2 centerW">
-				<a id="notice" th:href="@{/community/notice_main}" th:text="#{community.notice}">공지</a>
-				<a id="query" th:href="@{/community/query_main}" th:text="#{community.query}">문의</a>
-				<a id="review" th:href="@{/community/review_main}" th:text="#{community.review}">후기</a>
-			</nav>		
-		</div>
 	</th:block>
 	
 </html>

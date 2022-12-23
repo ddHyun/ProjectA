@@ -37,7 +37,7 @@ public class ReviewViewController {
 		//css, js, board 추가
 		model.addAttribute("board", "review");
 		model.addAttribute("addCss", new String[] {"community/community_common"});
-		model.addAttribute("addScript", new String[] {"community/community_common", "ckeditor/ckeditor",
+		model.addAttribute("addScript", new String[] {"ckeditor/ckeditor",
 				"community/review/read", "community/reply"});
 
 		if(reviewNo==null) {
