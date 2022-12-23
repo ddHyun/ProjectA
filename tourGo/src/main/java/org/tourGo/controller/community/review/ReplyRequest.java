@@ -38,6 +38,13 @@ public class ReplyRequest {
 		modDt = entity.getModDt();
 		depth = entity.getDepth();
 		idParent = entity.getIdParent();
+		listOrder = entity.getListOrder();
+	}
+
+	@Override
+	public String toString() {
+		return "ReplyRequest [replyNo=" + replyNo + ", replyContent=" + replyContent + ", regDt=" + regDt + ", modDt="
+				+ modDt + ", depth=" + depth + ", idParent=" + idParent + ", listOrder=" + listOrder + "]";
 	}
 	
 	

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.tourGo.common.JsonResult;
 import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.community.review.ReplyEntityRepository;
-import org.tourGo.service.community.ReplyService;
+import org.tourGo.service.community.reply.ReplyService;
 
 @Controller
 @RequestMapping("/reply")
@@ -45,8 +45,6 @@ public class ReplyController {
 			
 			//listOrder 설정
 			String listOrder = request.getListOrder()==null? ""+System.currentTimeMillis() : request.getListOrder();
-			System.out.println("=======================");
-			System.out.println("listOrder: "+listOrder);
 			request.setListOrder(listOrder);
 			
 			//depth, idParent 설정
@@ -55,8 +53,6 @@ public class ReplyController {
 			long idParent = replyNo == null ? 0 : replyNo;
 			request.setDepth(depth);
 			request.setIdParent(idParent);
-
-			System.out.println("depth: "+depth+", idParent : "+idParent);
 
 			request.setId(principal.getUsername());
 			request = replyService.register(request);

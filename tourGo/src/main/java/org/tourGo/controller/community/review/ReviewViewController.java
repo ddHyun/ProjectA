@@ -1,11 +1,14 @@
 package org.tourGo.controller.community.review;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +18,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.tourGo.common.AlertException;
 import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.community.review.ReviewEntityRepository;
+import org.tourGo.models.entity.community.review.QReplyEntity;
+import org.tourGo.models.entity.community.review.ReplyEntity;
 import org.tourGo.models.entity.community.review.ReviewEntity;
+
+import com.querydsl.core.BooleanBuilder;
 
 @Controller
 public class ReviewViewController {
@@ -66,8 +73,14 @@ public class ReviewViewController {
 					new AlertException("게시글이 존재하지 않습니다", "/community/review_main"));
 		ReviewRequest reviewRequest = new ReviewRequest(entity);
 				
+		//댓글목록
+//		List<ReplyRequest> replies = reviewRequest.getReplies().stream().map(ReplyRequest::new).toList();
+
+		Comparator<ReplyEntity> compare = Comparator
+																.comparing(ReplyEntity::getListOrder, Comparator.reverseOrder())
+																.thenComparing(ReplyEntity::getReplyNo);
+		List<ReplyRequest> replies = reviewRequest.getReplies().stream().sorted(compare).map(ReplyRequest::new).toList();
 		
-		List<ReplyRequest> replies = reviewRequest.getReplies().stream().map(ReplyRequest::new).toList();
 		if(replies.size() != 0) {
 			model.addAttribute("replies", replies);
 		}
@@ -76,7 +89,7 @@ public class ReviewViewController {
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("order", order);		
 		
-		//댓글
+		//댓글 커맨드 객체
 		ReplyRequest replyRequest = new ReplyRequest();
 		model.addAttribute("replyRequest", replyRequest);
 

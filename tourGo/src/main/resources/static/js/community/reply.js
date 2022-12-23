@@ -8,6 +8,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	}	
 	
 	/**댓글 삭제 이벤트 처리  S*/
+	/*
 	const deleteReplyEl = document.getElementById("deleteReply");
 	if(deleteReplyEl){
 		const replyNo = document.getElementById("replyNo").value;
@@ -29,34 +30,47 @@ window.addEventListener("DOMContentLoaded", function(){
 		});
 		});
 	} 
+	*/
 	/**댓글 삭제 이벤트 처리  E*/
 	
-	/**댓글쓰기 양식 버튼이벤트 S */
-	const reReplyEl = document.getElementById("reReply");
-	if(reReplyEl){
-		reReplyEl.addEventListener("click", function(e){
-			console.log(e.target);
-			const divEl = document.createElement("div");
-			divEl.className = "rpl";
-			let text = "<form method='post' th:action='@{/reply/register}' name='replyForm' target='ifrmProcess' th:object='${replyRequest}'>";
-			text += "<input th:if='${user}' type='hidden' name='id' id='id' th:value='${user}'>";
-			text += "<input type='hidden' name='no' th:value='${no}'>";
-			text += "<div>";
-			text += "<textarea rows='2'>";
-			text += "</textarea>";
-			text += "<div th:each='err : ${#fields.errors('replyContent')}' th:text='${err}'>";
-			text += "</div>";
-			text += "<button type='submit' th:text='댓글등록'>";
-			text += "</button>";
-			text += "</div>";
-			text += "</form>";
-			divEl.innerHTML = text;
-
-		
-			const replyNo = document.getElementById("replyNo").value;	
-			console.log(replyNo);
-			document.getElementById("comment_"+replyNo).appendChild(divEl);
-		});
-	}
-	/**댓글쓰기 양식 버튼이벤트 E */
 });
+
+	/**댓글쓰기 양식 버튼이벤트 S */
+	function writeReply(replyNo){
+
+		const textareaEl = document.createElement("textarea");
+		textareaEl.setAttribute("name", "replyContent");
+		textareaEl.setAttribute("th:field", "*{replyContent}");
+		
+		const button0El = document.createElement("button");
+		button0El.setAttribute("type", "button");
+		button0El.innerText = "취소하기";
+		
+		/**취소하기 버튼 이벤트 S */
+		button0El.addEventListener("click", function(){
+			parent.removeChild(textareaEl);
+			parent.removeChild(button0El);
+			parent.removeChild(button1El);
+		});
+		/**취소하기 버튼 이벤트 E */
+		
+		const button1El = document.createElement("button");
+		button1El.setAttribute("type", "submit");
+		button1El.innerText = "댓글등록";
+	
+		const parent = document.getElementById("reRpl"+replyNo);
+
+		parent.appendChild(textareaEl);
+		parent.appendChild(button0El);
+		parent.appendChild(button1El);
+	}	
+	/**댓글쓰기 양식 버튼이벤트 E */
+	
+	/**댓글삭제 버튼이벤트 S */
+	function deleteReply(replyNo){
+		if(!confirm("정말 삭제하시겠습니까?")){
+			return;
+		}
+	}
+	/**댓글삭제 버튼이벤트 E */
+	
