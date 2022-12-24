@@ -56,13 +56,18 @@ public class PlannerController {
 	
 			
 
-	/**	User user = userRepository.findByUserId(principal.getUsername())
-				.orElseThrow(()-> new AlertException("로그인 후 이용가능합니다","/user/login"));
+
+	Optional<User> _user = userRepository.findByUserId(principal.getUser().getUserId());
+	User user = _user.orElse(null);
+	
+	List<PlannerRq> list = plannerService.userPlanner(user);
+	
+	System.out.println(list);
 		
 	
-		model.addAttribute("user", user);*/
-	model.addAttribute("addScript", "layer");
-		return "plan/plannerView";
+		model.addAttribute("user", user);
+	model.addAttribute("addScript", "layer");	
+	return "plan/plannerView";
 	}
 	
 	@GetMapping("/makeDetails/{no}")
