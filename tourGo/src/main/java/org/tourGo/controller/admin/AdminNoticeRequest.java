@@ -38,6 +38,7 @@ public class AdminNoticeRequest {
 	
 	private String userId;
 	
+	@Builder
 	public AdminNoticeRequest(Notice notice) {
 		noticeNo = notice.getNoticeNo();
 		userId = notice.getUser().getUserId();

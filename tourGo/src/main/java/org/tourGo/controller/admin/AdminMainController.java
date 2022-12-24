@@ -1,5 +1,7 @@
 package org.tourGo.controller.admin;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.tourGo.common.JsonResult;
 import org.tourGo.common.Pagination;
 import org.tourGo.config.auth.PrincipalDetail;
+import org.tourGo.models.entity.community.query.QueryEntity;
 import org.tourGo.models.entity.user.User;
+import org.tourGo.service.admin.AdminQueryService;
 import org.tourGo.service.admin.AdminService;
 
 
@@ -23,6 +27,9 @@ public class AdminMainController {
 	
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private AdminQueryService adminQueryService;
 	
 	private String base_url = "/admin";
 	
@@ -43,6 +50,11 @@ public class AdminMainController {
 		// 부트스트랩 관련 JS 추가
 		model.addAttribute("addScript", new String[] {"admin/demo/chart-area-demo", "admin/demo/chart-pie-demo"});
 		model.addAttribute("addBootstrapJs", new String[] {"jquery/jquery.min", "jquery-easing/jquery.easing.min", "bootstrap/js/bootstrap.bundle.min", "bootstrap/js/bootstrap.min", "chart.js/Chart.min"});
+		
+		// 문의내역 최근 3개 출력
+		List<QueryEntity> list = adminQueryService.findTop3ByOrderByRegDtDesc();
+		model.addAttribute("list", list);
+		
 		return  "admin/index";
 	}
 	

@@ -92,21 +92,35 @@
 		            <div class="card shadow mb-4">
 		                <div class="question card-header py-3 justify-content-between">
 		                    <h6 class="m-0 font-weight-bold text-primary">최근 문의 내역</h6>
-		                    <a href="#">자세히 보기 >></a>
+		                    <a th:href="@{/admin/query/queryList}">자세히 보기 >></a>
 		                </div>
 		                <div class="card-body">
-		                	<table class="col">
+		                	<table class="table table-bordered">
 		                		<colgroup>
 		                			<col style="width:85%; text-align: center;">
 		                			<col style="text-align: center;">
 		                		</colgroup>
-		                		<tr class="text-center">
-		                			<th>문의 제목</th>
-		                			<th>등록 날짜</th>
-		                		</tr>
-		                		<tr class="text-left"> <!-- th:each 사용 -->
-		                			<td colspan="2">데이터가 비어있습니다.</td>
-		                		</tr>
+		                		<thead>
+			                		<tr class="text-center">
+			                			<th>문의 제목</th>
+			                			<th>등록 날짜</th>
+		                			</tr>
+		                		</thead>
+		                		<tbody>
+		                		<th:block th:if="${!#lists.isEmpty(list)}">
+		                			<tr th:each="list, index : ${list}" class="text-center">
+		                				<td>
+			                				<a th:href="@{/admin/query/queryView/{queryNo}(queryNo=${list.queryNo})}" th:name="${list.queryTitle}" th:text="${list.queryTitle}"></a>
+			                			</td>
+		                				<td th:text="${#temporals.format(list.regDt,'yyyy-MM-dd HH:mm')}"></td>
+		                			</tr>
+		                		</th:block>
+		                		<th:block th:unless="${!#lists.isEmpty(list)}">
+			                		<tr class="text-center"> <!-- th:each 사용 -->
+			                			<td colspan="2">데이터가 비어있습니다.</td>
+			                		</tr>
+		                		</th:block>
+		                		</tbody>
 		                	</table>
 		                </div>
 		            </div>
