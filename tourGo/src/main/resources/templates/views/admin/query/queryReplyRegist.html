@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+		layout:decorate="~{admin/main}">
+		
+		<main layout:fragment="content">
+			<div class="container">
+				<div class="mb-4">
+					<h2 class="m-0 font-weight-bold text-primary">공지 사항 작성</h2>
+				</div>
+				<form class="row" method="post" th:action="@{/admin/board/noticeRegist}" th:object="${adminNoticeRequest}">
+					<input th:if="*{noticeNo != null && noticeNo > 0}" type="hidden" th:field="*{noticeNo}">
+					<input type="hidden" id="gid" name="gid" th:value="${gid}">
+					<div class="col-12 mb-4">
+						<label for="noticeTitle" class="form-label">제목:</label>
+						<input type="text" class="form-control" placeholder="제목을 입력해주세요" name="noticeTitle" th:field="*{noticeTitle}">
+					</div>
+					<div class="col-6 mb-4">
+						<label for="postStartDt" class="form-label">공지 시작일</label>
+						<input type="date" class="form-control" name="postStartDt" id="postStartDt" th:value="*{postStartDt}">
+					</div>
+					<div class="col-6 mb-4">
+						<label for="postEndDt" class="form-label">공지 종료일</label>
+						<input type="date" class="form-control" name="postEndDt" id="postEndDt" th:value="*{postEndDt}">
+					</div>
+					<div class="col-12 mb-4">
+						<label for="noticeContent" class="form-label">내용:</label>
+						<textarea class="form-control" rows="10" id="noticeContent" th:field="*{noticeContent}"></textarea>
+					</div>
+					<div class="col-12 mb-4">
+						<label for="files" class="form-label">파일</label>
+						<input class="form-control-file" type="file" id="files" name="files" multiple data-gid>
+					</div>
+					<div class="col-12 mb-4 d-grid gap-2 d-md-flex justify-content-md-end">
+						<input class="btn btn-secondary mr-2" type="button" value="취소">
+						<th:block th:if="${user == adminNoticeRequest.userId && adminNoticeRequest.noticeNo != null}">
+							<input class="btn btn-primary" type="submit" value="수정">
+						</th:block>
+						<th:block th:unless="${user == adminNoticeRequest.userId && adminNoticeRequest.noticeNo != null}">
+							<input class="btn btn-primary" type="submit" value="저장">
+						</th:block>
+					</div>
+				</form>
+			</div>
+			
+			<script type="text/html" id="tpl">
+			<li>
+				<a href="../file/download/#[id]">
+					#[fileName]
+				</a>
+				<span class="remove" data-id="#[id]">[X]</span>
+			</li>
+		</script>
+		</main>
+		
+</html>

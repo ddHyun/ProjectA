@@ -22,18 +22,22 @@ public class QueryRequest {
 	private User user;					//작성자 이름, 아이디
 	
 	private LocalDateTime regDt;	//작성일
+	
+	private LocalDateTime modDt;	//작성일
 
 	private int queryRead;			//조회수
 	
 	private boolean isSolved;		//답변완료 여부
 	
 	//엔티티 -> 커맨드
+	@Builder
 	public QueryRequest(QueryEntity entity) {
 		queryNo = entity.getQueryNo();
 		queryTitle = entity.getQueryTitle();
 		queryContent = entity.getQueryContent();
 		user = entity.getUser();
 		regDt = entity.getRegDt();
+		modDt = entity.getModDt();
 		queryRead = entity.getQueryRead();
 	}
 }
