@@ -153,13 +153,35 @@ public class PlannerController {
 	}
 	
 	
-	@GetMapping("/readplan")
-	public String read() {
+	
+	@GetMapping("/readplan/{no}")
+	public String read(Model model, @PathVariable Long no ) {
+		
+		Planner planner = plannerService.getPlanner(no);
+		
+		model.addAttribute("planner", planner);
+		model.addAttribute("addScript", "layer");	
 		return "plan/read";
 	}
-	@GetMapping("/writeplan")
-	public String write() {
-		return "plan/write";
-	}
+	@GetMapping("/writeplan/{no}")
+
+	public String write(Model model, @PathVariable Long no ) {
 		
+		Planner planner = plannerService.getPlanner(no);
+		model.addAttribute("planner", planner);
+		
+		model.addAttribute("addScript", "layer");
+		return "plan/write";
+	
+	}
+	
+
+
+	@PostMapping("/readplan")
+
+	public String writeps(PlannerRq plannerRq)	{
+		return "plan/read";
+		
+		
+	}
 }
