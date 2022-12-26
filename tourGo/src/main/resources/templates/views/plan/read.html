@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="ko" class="hihi">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Modal</title>
-    <head>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<main layout:fragment="content">
 <style>
    .hihi::-webkit-scrollbar {display: none;}
 
 .hihi{scrollbar-width: none; -ms-overflow-style:none;}
 
- </style>   
+ </style>  
+
+  
     </head>
   </head>
   <body style="margin:0;">
@@ -22,22 +23,32 @@
       </div>
       <div class="update" style="border: 1px solid blue; width:20%;text-align:center;">
         
-        <input type="button"value="수정" onclick = location.href="writeplan"  style="border-radius: 50%;height: 50px; width: 50px;cursor: pointer; "></input>
+
+        
+        <a th:href="@{/plan/writeplan/}+${planner.plannerNo}">
+        <button type="submit" 
+           style="border-radius: 50%;height: 50px; width: 50px;cursor: pointer; ">
+          
+           </button>
+            </a>
       </div>
+
+      
       <div class="delete" style="border: 1px solid blue; width:20%;text-align:center;">
-       <input type="button"value="삭제"style="border-radius: 50%;height: 50px; width: 50px;cursor: pointer; "></input>
+       <input class=type="button"value="삭제"  style="border-radius: 50%;height: 50px; width: 50px;cursor: pointer; "></input>
       </div>
       </div>
+
 
 
     
 
 		<div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
       <div style="border: 1px solid green; width:50%; height: 50%;">
-        여행 제목
+        제목
       </div>
       <div style="border: 1px solid blue; width:50%; height: 50%;">
-        즐거운 여행 리스트
+        <span th:text="${planner.title}">   </span>
       </div>
 		</div>
     <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
@@ -45,7 +56,7 @@
         여행 기간
       </div>
       <div style="border: 1px solid blue; width:50%; height: 50%;">
-        ex) 2022 12 01~2022 12 03
+        <span th:text="${planner.sdate}"></span> ~ <span th:text="${planner.edate}">   </span>
       </div>
 		</div>
     <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
@@ -53,7 +64,8 @@
         여행타입
       </div>
       <div style="border: 1px solid blue; width:50%; height: 50%;">
-        Ex)가족여행
+      
+        <span th:text="${planner.planType}">   </span>
       </div>
 		</div>
     <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
@@ -61,7 +73,7 @@
         여행 인원수
       </div>
       <div style="border: 1px solid blue; width:50%; height: 50%;">
-        4인
+        <span th:text="${planner.planSize}"> </span>
       </div>
 		</div>
     <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
@@ -69,7 +81,7 @@
         사용자 정의 메모
       </div>
       <div style="border: 1px solid blue; width:50%; height: 50%;">
-        사용자 정의 메모
+        <span th:text="${planner.memo}"> </span>
       </div>
 		</div>
   </div>
@@ -112,5 +124,5 @@
 
 
   </body>
-
+</main>
 </html>
