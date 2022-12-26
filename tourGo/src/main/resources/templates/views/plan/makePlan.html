@@ -41,8 +41,8 @@
             <label>  여행기간 </label>
                 </div>
             <div class="dateview">
-     <label><input type="date" name="sdate"></label>
-       <select name="day">
+     <label><input type="date" name="sdate" th:field="*{sdate}"></label>
+       <select name="day" th:field="*{day}" >
 
     <option value="1">1일</option>
     <option value="2">2일</option>
@@ -56,6 +56,7 @@
 
 </select>
 			<div class='error' th:each="err : ${#fields.errors('sdate')}" th:text="${err}"></div>
+			<div class='error' th:each="err : ${#fields.errors('day')}" th:text="${err}"></div>
             </div>
           </div>
 
@@ -80,7 +81,7 @@
                 <label>여행인원</label>
             </div> 
             <div class="input_view">
-	<select name="planSize">
+	<select name="planSize" th:field="*{planSize}">
 
     	<option value="1">1명</option>
     	<option value="2">2명</option>
@@ -108,7 +109,7 @@
               <div class="dateview">
      
     
-                <textarea name="memo" class="autosize" maxlength="250" onkeydown="resize(this)" onkeyup="resize(this)" placeholder="추가 바람" style="vertical-align: middle; width: 100%; "></textarea>
+                <textarea name="memo" th:field="*{memo}" class="autosize" maxlength="250" onkeydown="resize(this)" onkeyup="resize(this)" placeholder="추가 바람" style="vertical-align: middle; width: 100%; "></textarea>
 
               </div>
               
