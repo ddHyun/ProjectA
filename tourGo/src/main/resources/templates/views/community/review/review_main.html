@@ -5,7 +5,6 @@
 		
 	<!-- 메인시작 -->
 	<main layout:fragment="content" class="content">
-		<input type="hidden" id="board" th:value="${board}">
 		<!-- 커뮤니티 공통 상단 네비바 -->
 		<th:block th:replace="outlines/community_top::community_top"></th:block>
 		<!-- 게시판명 -->
@@ -51,7 +50,7 @@
 							<td th:text="${status.size-status.index}">글번호</td>
 							<td><a th:href="@{/community/review_read/reviewNo_{reviewNo}
  										(reviewNo=*{reviewNo}, keyword=${keyword}, order=${order}, page=${pagination.page})}" 
-								th:text="*{reviewTitle}">제목</a></td>
+								th:text="*{reviewTitle+' ['+replies.size()+']'}">제목</a></td>
 							<td th:text="*{region}">여행지</td>
 							<td th:text="*{period}">기간</td>
 							<td th:text="*{name}">작성자</td>

@@ -14,12 +14,12 @@
 <html xmlns:th="http://www.thylemleaf.org"
 		xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	
-	<!-- 댓글 -->
+	<!-- 댓글 등록 -->
 	<th:block th:fragment="reply">
 		<th:block th:object="${replyRequest}">
 			<div class="rpl">
 				<form method="POST" th:action="@{/reply/register}" name="replyForm" target="ifrmProcess" autocomplete="off">
-					<input th:if="${user}" type="hidden" name="id" id="id" th:value="${user}">
+					<input type="hidden" id="id" th:value="${user}">
 					<input type="hidden" name="no" th:value="${no}">
 					<div>
 						<th:block sec:authorize="isAuthenticated()">
@@ -37,25 +37,51 @@
 			</div>
 		</th:block>
 		<br>
-			<th:block th:if="${replies}" th:each="reply : ${replies}" th:object="${reply}">
+		
+		<!-- 목록 -->
+		<th:block th:if="${replies}" th:each="reply : ${replies}" th:object="${reply}">
+			<div class="rpl" th:id="*{'comment_' + replyNo}">
+				<input type="hidden" name="depth" id="depth" th:value="*{depth}">
 				<input type="hidden" id="replyNo" th:value="*{replyNo}">
-				<div class="rpl" th:id="*{'comment_' + replyNo}">
-					<div class="innerRpl">
-						<ul>
-							<small th:text="*{name}">작성자</small>
-							<small style="color:#888;" th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</small>
-							<li class="flex">
-								<div class="item" th:utext="*{replyContent}">댓글내용</div>
-								<button class="item" type="button" th:text="#{reply}" id="reReply">댓글쓰기</button>
-								<th:block th:if="${user}==*{id}">
-									<button class="item" type="button" th:text="#{community.delete}"
-													id="deleteReply">삭제</button>
-								</th:block>
-							</li>
-						</ul>
-					</div>
+				<div class="innerRpl">
+					<ul class="flex">
+						<li class="item" th:utext="*{replyContent}">댓글내용</li>
+						<li th:text="*{name}">작성자</li>
+						<li style="color:#888;" th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</li>
+						<th:block sec:authorize="isAuthenticated()" th:if="*{depth==0}">
+							<li><button class="item" type="button" th:text="#{reply}" th:replyNo="*{replyNo}" th:id="*{'dn'+replyNo}"
+										th:onclick="writeReply(this.getAttribute('replyNo'))">댓글쓰기</button></li>
+						</th:block>
+						<th:block th:if="${user}==*{id}">
+							<li><button class="item" type="button" th:text="#{community.delete}" th:replyNo="*{replyNo}" 
+									th:onclick="deleteReply(this.getAttribute('replyNo'))">삭제</button></li>
+						</th:block>						
+					</ul>
 				</div>
-			</th:block>
-			<br>
+				
+			<!-- 대댓글 -->
+			<div>
+				<form method='post' th:action='@{/reply/register}' name='reReplyForm'
+					 target='ifrmProcess' th:object='${replyRequest}'>
+					<input type='hidden' name='no' th:value='${no}'>
+					<input type="hidden" name="depth" th:value="${reply.depth}">
+					<input type="hidden" name="idParent" th:value="${reply.idParent}">
+					<input type="hidden" name="listOrder" th:value="${reply.listOrder}">
+					<input type='hidden' name='replyNo'  th:value='${reply.replyNo}'>
+					<div th:each="err : ${#fields.errors('replyContent')}" th:text='${err}'></div>
+					<div th:id="${'reRpl'+reply.replyNo}"></div>
+				</form>
+			</div>
+			</div>
+		</th:block>
+		<br>
+		
+		
 	</th:block>
+	
+	
+	
+	
+	
+	
 </html>

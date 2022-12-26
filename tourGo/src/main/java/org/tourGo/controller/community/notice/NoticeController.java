@@ -34,14 +34,6 @@ public class NoticeController {
 	
 	private String baseUrl = "community/notice/";
 	
-	//static 정보
-	private void addCssJs(String boardName, String[] cssList, String[] jsList, Model model) {
-		model.addAttribute("board", boardName);
-		model.addAttribute("addCss", cssList);
-		model.addAttribute("addScript", jsList);
-	}
-	
-
 	//공지사항 메인페이지
 	@GetMapping("/notice_main")
 	public String index(Model model,
@@ -52,8 +44,8 @@ public class NoticeController {
 								SearchRequest searchRequest,
 								NoticeRequest noticeRequest) {
 		//css, js, board 추가
-		addCssJs("notice", new String[] {"community/community_common", "community/pagination", "community/search"},
-				new String[] {"community/community_common"}, model);
+		model.addAttribute("board", "notice");
+		model.addAttribute("addCss", new String[] {"community/community_common", "community/pagination", "community/search"});
 		
 		//전체목록 조회
 		Page<Notice> list = noticeService.noticeList(pageable, searchRequest);
@@ -75,8 +67,8 @@ public class NoticeController {
 										@RequestParam(name="page", required=false) String page,
 										@CookieValue(value="visitNotice", required=false) Cookie cookie) throws Exception{
 	//css, js, board 추가
-	addCssJs("notice", new String[] {"community/community_common"},
-			new String[] {"community/community_common"}, model);
+	model.addAttribute("board", "notice");
+	model.addAttribute("addCss", new String[] {"community/community_common"});
 		
 	/*쿠키 처리 S*/
 	if(cookie!= null) {

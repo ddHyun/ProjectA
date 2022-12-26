@@ -28,7 +28,7 @@ public class ReviewListController{
 		//css, js, board 추가
 		model.addAttribute("board", "review");
 		model.addAttribute("addCss", new String[] {"community/community_common", "community/pagination"});
-		model.addAttribute("addScript", new String[] {"community/community_common", "community/review/index"});
+		model.addAttribute("addScript", new String[] {"community/review/index"});
 		
 		page = page == null? 1 : page;
 		

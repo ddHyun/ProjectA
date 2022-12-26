@@ -21,18 +21,13 @@ public class QueryUpdateController {
 	private QueryInfoService infoservice;
 	@Autowired
 	private QuerySaveService saveService;
-	
-	//static & board명 추가
-	private void addCommons(Model model) {
-		model.addAttribute("board", "query");
-		model.addAttribute("addCss", new String[] {"community/community_common"});
-		model.addAttribute("addScript", new String[] {"community/community_common"});
-	}
+
 
 	@GetMapping("/{queryNo}")
 	public String form(@PathVariable Long queryNo, Model model) {
 		//static & board명 추가
-		addCommons(model);
+		model.addAttribute("board", "query");
+		model.addAttribute("addCss", new String[] {"community/community_common"});
 				
 		QueryRequest queryRequest = infoservice.process(queryNo);
 		model.addAttribute("queryRequest", queryRequest);
@@ -45,7 +40,8 @@ public class QueryUpdateController {
 		
 		if(errors.hasErrors()) {
 			//static & board명 추가
-			addCommons(model);
+			model.addAttribute("board", "query");
+			model.addAttribute("addCss", new String[] {"community/community_common"});
 			return "community/query/query_update";
 		}
 		queryRequest = saveService.process(queryRequest);

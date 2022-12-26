@@ -1,6 +1,6 @@
 package org.tourGo.controller.community.review;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.tourGo.common.JsonResult;
+import org.tourGo.common.AlertException;
 import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.community.review.ReplyEntityRepository;
-import org.tourGo.service.community.ReplyService;
+import org.tourGo.models.entity.community.review.ReplyEntity;
+import org.tourGo.service.community.reply.ReplyService;
 
 @Controller
 @RequestMapping("/reply")
@@ -47,8 +47,6 @@ public class ReplyController {
 			
 			//listOrder 설정
 			String listOrder = request.getListOrder()==null? ""+System.currentTimeMillis() : request.getListOrder();
-			System.out.println("=======================");
-			System.out.println("listOrder: "+listOrder);
 			request.setListOrder(listOrder);
 			
 			//depth, idParent 설정
@@ -57,8 +55,6 @@ public class ReplyController {
 			long idParent = replyNo == null ? 0 : replyNo;
 			request.setDepth(depth);
 			request.setIdParent(idParent);
-
-			System.out.println("depth: "+depth+", idParent : "+idParent);
 
 			request.setId(principal.getUsername());
 			request = replyService.register(request);
@@ -77,12 +73,23 @@ public class ReplyController {
 	
 	//댓글 삭제
 	@GetMapping("/remove")
-	@ResponseBody
-	public JsonResult<Boolean> remove(Long replyNo){
-		replyRepository.deleteById(replyNo);
-		JsonResult<Boolean> result = new JsonResult<>();
-		result.setSuccess(true);
+	public String process(Long replyNo, Model model){
+		if(replyNo==null) {
+			throw new AlertException("댓글 번호가 존재하지 않습니다", "back");
+		}
+		ReplyEntity replyEntity = replyRepository.findById(replyNo).orElse(null);
+		long reviewNo = replyEntity.getReview().getReviewNo();
+		if(replyEntity.getDepth()==1) {//대댓글인 경우 해당 대댓글만 삭제
+			replyRepository.deleteById(replyNo);
+		}else {//모댓글인 경우 하위 대댓글 같이 삭제
+			String listOrder = replyEntity.getListOrder();
+			replyRepository.deleteByListOrder(listOrder);
+		}
 		
-		return result;
+		String script = "parent.location.replace('/community/review_read/reviewNo_"
+									+reviewNo+"');parent.location.reload();";
+		model.addAttribute("script", script);
+		return "common/execution_script";
 	}
+	
 }

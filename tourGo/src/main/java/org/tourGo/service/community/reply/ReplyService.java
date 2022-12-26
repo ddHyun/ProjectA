@@ -1,6 +1,10 @@
-package org.tourGo.service.community;
+package org.tourGo.service.community.reply;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import org.tourGo.controller.community.review.ReplyRequest;
 import org.tourGo.models.community.review.ReplyEntityRepository;
@@ -23,13 +27,7 @@ public class ReplyService {
 	//커맨드 -> 엔티티
 	public ReplyEntity requestToEntity(ReplyRequest request) {
 		
-		ReplyEntity entity = null;
-		Long replyNo = request.getReplyNo();
-		
-		if(replyNo != null) {//기존목록 있으면 DB에서 가져오기
-			entity = replyRepository.findById(replyNo).orElse(null);
-		}else {
-			entity = new ReplyEntity();
+			ReplyEntity entity = new ReplyEntity();
 			entity.setReplyContent(request.getReplyContent());
 			ReviewEntity review = new ReviewEntity();
 			review.setReviewNo(request.getReviewNo());
@@ -40,15 +38,14 @@ public class ReplyService {
 			entity.setDepth(request.getDepth());
 			entity.setIdParent(request.getIdParent());
 			entity.setListOrder(request.getListOrder());
-		}
 		
 		return entity;
 	}
-
+	
 	
 	//댓글 등록하기
 	public ReplyRequest register(ReplyRequest request) {
-		
+
 		//영속성에 불러오기
 		User user = userRepository.findByUserId(request.getId()).orElse(null);
 		ReviewEntity review = reviewRepository.findById(request.getReviewNo()).orElse(null);
@@ -56,6 +53,8 @@ public class ReplyService {
 		ReplyEntity entity = requestToEntity(request);
 		entity.setUser(user);
 		entity.setReview(review);
+		System.out.println("================");
+		System.out.println("idParent : "+entity.getIdParent());
 		entity = replyRepository.save(entity);
 		ReplyRequest replyRequest = new ReplyRequest(entity);
 		

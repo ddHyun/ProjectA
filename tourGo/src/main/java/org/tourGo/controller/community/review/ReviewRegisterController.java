@@ -34,7 +34,7 @@ public class ReviewRegisterController {
 		//static & board명 추가
 		model.addAttribute("board", "review");
 		model.addAttribute("addCss", new String[] {"community/community_common"});
-		model.addAttribute("addScript", new String[] {"community/community_common", "ckeditor/ckeditor",
+		model.addAttribute("addScript", new String[] {"ckeditor/ckeditor",
 				"community/review/form", "fileupload"});
 		
 		//지역, 기간 목록
