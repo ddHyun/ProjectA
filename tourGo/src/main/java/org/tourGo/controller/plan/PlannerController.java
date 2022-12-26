@@ -63,7 +63,7 @@ public class PlannerController {
 	
 	System.out.println(list);
 		
-	
+		model.addAttribute("list", list);
 		model.addAttribute("user", user);
 	model.addAttribute("addScript", "layer");	
 	return "plan/plannerView";
@@ -127,7 +127,7 @@ public class PlannerController {
 		//planValidator.validate(plannerRq, errors);
 
 		if (errors.hasErrors()) {
-	
+			model.addAttribute("plannerRq", plannerRq);
 			return "plan/makePlan";
 		}
 	
