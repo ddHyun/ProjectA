@@ -15,4 +15,5 @@ public interface PlannerRepository extends JpaRepository<Planner, Long>{
 	//List<PlannerEntity> findAllByOrderByPlannerNoDESC();
 		List<Planner> findAllByUser(User user,Sort sort);
 
+
 }

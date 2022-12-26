@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ import org.tourGo.common.AlertException;
 import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.plan.PlannerRq;
+import org.tourGo.models.plan.TourType;
 import org.tourGo.models.plan.details.PlanDetailsRq;
 import org.tourGo.models.plan.entity.PlanDetails;
 import org.tourGo.models.plan.entity.Planner;
@@ -48,10 +50,17 @@ public class PlannerController {
 	private PlannerService plannerService;
 	
 	@Autowired
-	private PlanValidator planValidator;
-	
-	@Autowired
 	private PlanDetailsService detailsService;
+	
+	@ModelAttribute("planTypes")
+	public TourType[] tourType() {
+		return TourType.values();	
+	}
+	
+	
+	
+	
+	
 	
 	@GetMapping() // 여행 상세 일정 보는 화면
 	public String plan(Model model,@AuthenticationPrincipal PrincipalDetail principal) {

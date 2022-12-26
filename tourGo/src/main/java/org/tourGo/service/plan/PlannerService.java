@@ -37,6 +37,16 @@ public class PlannerService {
 		return list2;
 	}
 	
+	public Planner updatePlanner(PlannerRq request) {
+		
+		Planner planner = PlannerService.toEntity(request);
+		
+		plannerRepo.save(planner);
+		
+		return planner;
+
+	}
+	
 	public List<Planner> plannerList(User user){
 		List<Planner> list = plannerRepo.findAllByUser(user,Sort.by(Sort.Direction.DESC,"plannerNo"));
 		
@@ -67,7 +77,7 @@ public class PlannerService {
 		return planner;
 	}
 	
-	public PlannerRq toDto(Planner planner) {
+	public static PlannerRq toDto(Planner planner) {
 		
 		int day = planner.getDay();
 		LocalDate sdate = planner.getSdate();
@@ -80,11 +90,11 @@ public class PlannerService {
 		return rq;
 	}
 	
-	public Planner toEntity(PlannerRq rq) {
+	public static Planner toEntity(PlannerRq rq) {
 		int day = rq.getDay();
 		LocalDate sdate = rq.getSdate();
 		LocalDate edate = sdate.plusDays(day);
-		Planner planner = Planner.builder().day(day).sdate(sdate).edate(edate).image(null).memo(rq.getMemo()).planSize(rq.getPlanSize())
+		Planner planner = Planner.builder().plannerNo(rq.getPlannerNo()).day(day).sdate(sdate).edate(edate).image(null).memo(rq.getMemo()).planSize(rq.getPlanSize())
 				.planType(rq.getPlanType()).title(rq.getTitle()).build();
 		
 		return planner;

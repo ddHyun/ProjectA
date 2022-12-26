@@ -7,7 +7,7 @@ FRIENDS("친구/지인"),
 PARENTS("부모님"),
 FAMILY("가족");
 
-private String name;
+private final String name;
 
 TourType(String name) {
 	this.name=name;
