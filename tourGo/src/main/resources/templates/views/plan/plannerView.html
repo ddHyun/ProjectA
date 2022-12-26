@@ -8,6 +8,9 @@
 	<script>
 	window.addEventListener("DOMContentLoaded", function() {
 		const button1El = document.getElementById("button1");
+		
+		
+		
 		const button2El = document.getElementById("button2");
 		button1El.addEventListener("click", function() {
 		codefty.popup.open("plan/readplan", "", 600, 800, true);
@@ -24,6 +27,17 @@
 		});
 	});
 	</script>
+	
+<tr th:each="list : ${list}">
+    <td th:text="${user.username}">username</td>
+    <td th:text="${user.age}">0</td>
+</tr>
+
+	
+	</th:each>
+	
+	
+	
 	<button type="button"id="button1">버튼</button>
 	<button type="button"id="button2">버튼</button>
 </main>

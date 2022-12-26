@@ -9,7 +9,7 @@ import org.tourGo.models.entity.user.User;
 
 import lombok.*;
 
-@Getter @Setter @ToString
+@Getter @Setter
 @NoArgsConstructor
 public class QueryRequest {
 
@@ -22,15 +22,18 @@ public class QueryRequest {
 	private LocalDateTime regDt;	//작성일
 	private int queryRead;			//조회수	
 	private boolean secretPost;	//글 공개여부	
+	private LocalDateTime modDt;	//작성일
 	private boolean isSolved;		//답변완료 여부
 	
 	//엔티티 -> 커맨드
+	@Builder
 	public QueryRequest(QueryEntity entity) {
 		queryNo = entity.getQueryNo();
 		queryTitle = entity.getQueryTitle();
 		queryContent = entity.getQueryContent();
 		user = entity.getUser();
 		regDt = entity.getRegDt();
+		modDt = entity.getModDt();
 		queryRead = entity.getQueryRead();
 		secretPost = entity.isSecretPost();
 		isSolved = entity.isSolved();

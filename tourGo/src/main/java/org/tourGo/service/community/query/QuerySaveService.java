@@ -30,16 +30,29 @@ public class QuerySaveService {
 				.orElseThrow(() -> new AlertException("게시글이 존재하지 않습니다", "/community/query_main"));
 		}
 		
-		if(queryEntity==null) {//등록
-			queryEntity = new QueryEntity();
-			if(user != null){
-				queryEntity.setUser(user);
-			}
-		}
+		/**
+         if(queryEntity==null) {//등록
+		    queryEntity = new QueryEntity();
+		    if(user != null){
+		        queryEntity.setUser(user);
+		    }
+        }
 
-		queryEntity.setQueryContent(queryRequest.getQueryContent());
-		queryEntity.setQueryTitle(queryRequest.getQueryTitle());
-		queryEntity.setSecretPost(queryRequest.isSecretPost());
+        queryEntity.setQueryContent(queryRequest.getQueryContent());
+        queryEntity.setQueryTitle(queryRequest.getQueryTitle());
+        queryEntity.setSecretPost(queryRequest.isSecretPost());
+		 */
+		
+		// (문경민 2022-12-24, 문의사항 Builder로 수정, 문제 있으면 연락해주세요)
+		queryEntity = QueryEntity.builder()
+							.queryNo(queryNo)
+							.queryTitle(queryRequest.getQueryTitle())
+							.queryContent(queryRequest.getQueryContent())
+							.user(user)
+							.queryRead(queryRequest.getQueryRead())
+							.secretPost(queryRequest.isSecretPost())
+							.isSolved(false)
+							.build();
 		
 		queryEntity = queryRepository.save(queryEntity);
 		ModelMapper mapper = new ModelMapper();

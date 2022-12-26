@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+		layout:decorate="~{admin/main}">
+		
+		<main layout:fragment="content">
+			<div class="container">
+			<th:block th:object="${queryRequest}">
+				<div class="mb-4">
+					<h2 class="m-0 font-weight-bold text-primary">문의 사항 상세 보기</h2>
+				</div>
+				<div class="row mb-4">
+					
+						<table class="table table-bordered">
+							<tbody>
+								<tr>
+									<th scope="row">제목</th>
+									<td th:text="*{queryTitle}"></td>
+								</tr>
+								<tr>
+									<th scope="row">내용</th>
+									<td th:utext="*{queryContent}">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						
+				</div>
+				
+				<th:block th:if="${queryReplyRequest != null}" th:object="${queryReplyRequest}">
+				<div id="queryReplyDiv">
+					<div class="mb-4">
+						<h3 class="m-0 font-weight-bold">답변</h3>
+					</div>
+					<div class="row mb-4">
+						<div>
+							<div th:utext="*{queryReplyContent}"></div>
+						</div>
+					</div>
+				</div>
+				<!--/*  답변 수정용 폼 */-->
+				<form class="d-none" method="post" id="replyForm" name="replyForm" th:action="@{/admin/query/queryReplyRegister}" th:object="${queryReplyRequest}">
+					<input type="hidden" id="queryReplyNo" name="queryReplyNo" th:value="*{queryReplyNo}">
+					<input type="hidden" id="queryNo" name="queryNo" th:value="${queryRequest.queryNo}">
+					<div class="row mb-4">
+					  <label for="queryReplyContent" class="h4 font-weight-bolder text-primary" id="queryLabel"></label>
+					  <textarea class="form-control" placeholder="답변을 작성해주세요" id="queryReplyContent" name="queryReplyContent" rows="5" th:text="*{queryReplyContent}"></textarea>
+					</div>
+				</form>
+				</th:block>
+				
+				<!--/*  답변 등록용 폼 */-->
+				<th:block th:unless="${queryReplyRequest != null}" th:object="${queryReplyRequest}">
+				<form class="d-none" method="post" id="replyForm" name="replyForm" th:action="@{/admin/query/queryReplyRegister}" th:object="${queryReplyRequest}">
+					<input type="hidden" id="queryNo" name="queryNo" th:value="${queryRequest.queryNo}">
+					<div class="row mb-4">
+					  <label for="queryReplyContent" class="h4 font-weight-bolder text-primary" id="queryLabel"></label>
+					  <textarea class="form-control" placeholder="답변을 작성해주세요" id="queryReplyContent" name="queryReplyContent" rows="5"></textarea>
+					</div>
+				</form>
+				</th:block>
+				
+				<div class="row">
+               		<div class="col mb-4 d-grid gap-2 d-md-flex justify-content-md-end">
+               			<a class="btn btn-secondary mr-2" type="button" th:text="취소" th:href="@{/admin/query/queryList(searchType=${searchType}, searchKeyword=${searchKeyword}, page=${page})}"></a>
+               			<th:block th:if="${queryReplyRequest != null}">
+	               			<a class="btn btn-warning" id="updateReply" type="button" th:text="답변수정" th:onclick="updateReplyForm()"></a>
+               			</th:block>
+               			<th:block th:unless="${queryReplyRequest != null}">
+	               			<a class="btn btn-primary" id="createReply" type="button" th:text="답변등록" th:onclick="createReplyForm()"></a>
+               			</th:block>
+               		</div>
+               	</div>
+               	</th:block>
+			</div>
+		</main>
+		
+</html>
