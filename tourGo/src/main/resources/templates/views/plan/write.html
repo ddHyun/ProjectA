@@ -29,7 +29,12 @@
         <input type="button"value="취소" onclick = location.href="readplan" style="border-radius: 50%;height: 50px; width: 50px;cursor: pointer; "></input>
       </div>
       <div class="delete" style="border: 1px solid blue; width:20%;text-align:center;">
-       <input type="button"value="완료" onclick = location.href="readplan" style="border-radius: 50%;height: 50px; width: 50px;cursor: pointer; "></input>
+      <form th:action="@{/plan/readplan}" th:object="${planner}" method="post">
+      
+       <input type="button"value="완료" style="border-radius: 50%;height: 50px; width: 50px;cursor: pointer; "></input>
+     
+      
+     
       </div>
       </div>
 
@@ -41,7 +46,7 @@
         여행 제목
       </div>
       <div style="border: 1px solid blue; width:50%; height: 50%; overflow:hidden; ">
-         <input type="text" style="width:99%;">
+         <input type="text" style="width:99%;" th:value="${planner.title}">
       </div>
 		</div>
     <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
@@ -49,8 +54,8 @@
         여행 기간
       </div>
       <div style="border: 1px solid blue; width:50%; height: 50%;">
-       <label><input type="date"></label>
-       <select name="day">
+       <label><input type="date" th:value="${planner.sdate}"></label>
+       <select name="day" th:value="${planner.edate}">
     <option value="">2일</option>
     <option value="1">1일</option>
     <option value="2">2일</option>
@@ -69,14 +74,14 @@
       <div style="border: 1px solid green; width:50%;">
         <label>여행타입</label>
       </div>
-      <div style="border: 1px solid blue; width:50%;">
-              <label><input type="radio" name="fruit" value="solo">나홀로 여행</label>
-              <label><input type="radio" name="fruit" value="Couple">연인/커플</label>
+        <div class="input_view">
+              <label><input type="radio" name="planType" value="SOLO">나홀로 여행</label>
+              <label><input type="radio" name="planType" value="COUPLE">연인/커플</label>
               <br>
-              <label><input type="radio" name="fruit" value="friend">친구/지인</label>
-              <label><input type="radio" name="fruit" value="Parents">부모님</label>
-              <label><input type="radio" name="fruit" value="family">가족</label>
-      </div>
+              <label><input type="radio" name="planType" value="FRIENDS">친구/지인</label>
+              <label><input type="radio" name="planType" value="PARENTS">부모님</label>
+              <label><input type="radio" name="planType" value="FAMILY">가족</label>
+          </div>
 		</div>
     <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
       <div style="border: 1px solid green; width:50%; height: 50%;">
@@ -116,112 +121,9 @@
     text-align: center;
     word-break: keep-all;
     line-height: 1.2;">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
+  
   </div>
-
+</form>
 
 
   </body>
