@@ -115,6 +115,7 @@ codefty.popup = {
 
         document.body.appendChild(layerDim);
         document.body.appendChild(layerPopup);
+        document.body.classList.add("fixed");
     },
     /**
      * 팝업 닫기
@@ -130,6 +131,7 @@ codefty.popup = {
         if (layerDim) {
             document.body.removeChild(layerDim);
         }
+        document.body.classList.remove("fixed");
     }
 };
 
