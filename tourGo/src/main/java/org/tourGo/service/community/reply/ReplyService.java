@@ -27,12 +27,6 @@ public class ReplyService {
 	//커맨드 -> 엔티티
 	public ReplyEntity requestToEntity(ReplyRequest request) {
 		
-//		ReplyEntity entity = null;
-//		Long replyNo = request.getReplyNo();
-//		
-//		if(replyNo != null) {//기존목록 있으면 DB에서 가져오기
-//			entity = replyRepository.findById(replyNo).orElse(null);
-//		}else {
 			ReplyEntity entity = new ReplyEntity();
 			entity.setReplyContent(request.getReplyContent());
 			ReviewEntity review = new ReviewEntity();
@@ -44,7 +38,6 @@ public class ReplyService {
 			entity.setDepth(request.getDepth());
 			entity.setIdParent(request.getIdParent());
 			entity.setListOrder(request.getListOrder());
-//		}
 		
 		return entity;
 	}

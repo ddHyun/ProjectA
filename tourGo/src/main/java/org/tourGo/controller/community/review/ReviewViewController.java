@@ -74,8 +74,6 @@ public class ReviewViewController {
 		ReviewRequest reviewRequest = new ReviewRequest(entity);
 				
 		//댓글목록
-//		List<ReplyRequest> replies = reviewRequest.getReplies().stream().map(ReplyRequest::new).toList();
-
 		Comparator<ReplyEntity> compare = Comparator
 																.comparing(ReplyEntity::getListOrder, Comparator.reverseOrder())
 																.thenComparing(ReplyEntity::getReplyNo);

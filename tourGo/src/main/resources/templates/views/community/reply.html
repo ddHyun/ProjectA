@@ -19,7 +19,7 @@
 		<th:block th:object="${replyRequest}">
 			<div class="rpl">
 				<form method="POST" th:action="@{/reply/register}" name="replyForm" target="ifrmProcess" autocomplete="off">
-					<input th:if="${user}" type="hidden" name="id" id="id" th:value="${user}">
+					<input type="hidden" id="id" th:value="${user}">
 					<input type="hidden" name="no" th:value="${no}">
 					<div>
 						<th:block sec:authorize="isAuthenticated()">
@@ -41,7 +41,7 @@
 		<!-- 목록 -->
 		<th:block th:if="${replies}" th:each="reply : ${replies}" th:object="${reply}">
 			<div class="rpl" th:id="*{'comment_' + replyNo}">
-				<input type="hidden" id="depth" th:value="*{depth}">
+				<input type="hidden" name="depth" id="depth" th:value="*{depth}">
 				<input type="hidden" id="replyNo" th:value="*{replyNo}">
 				<div class="innerRpl">
 					<ul class="flex">
@@ -49,7 +49,7 @@
 						<li th:text="*{name}">작성자</li>
 						<li style="color:#888;" th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</li>
 						<th:block sec:authorize="isAuthenticated()" th:if="*{depth==0}">
-							<li><button class="item" type="button" th:text="#{reply}" th:replyNo="*{replyNo}" 
+							<li><button class="item" type="button" th:text="#{reply}" th:replyNo="*{replyNo}" th:id="*{'dn'+replyNo}"
 										th:onclick="writeReply(this.getAttribute('replyNo'))">댓글쓰기</button></li>
 						</th:block>
 						<th:block th:if="${user}==*{id}">
@@ -63,7 +63,6 @@
 			<div>
 				<form method='post' th:action='@{/reply/register}' name='reReplyForm'
 					 target='ifrmProcess' th:object='${replyRequest}'>
-					<input type='hidden' name='id' th:value='${user}'>
 					<input type='hidden' name='no' th:value='${no}'>
 					<input type="hidden" name="depth" th:value="${reply.depth}">
 					<input type="hidden" name="idParent" th:value="${reply.idParent}">

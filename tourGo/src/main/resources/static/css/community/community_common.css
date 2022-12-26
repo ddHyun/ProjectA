@@ -311,6 +311,14 @@ td select{
 	border: 1px solid rgba(0,153,204,0.3);
 }
 
+/* 너비70% */
+.reRpl{
+	width: 76%;
+	margin-left: 6rem;
+	background-color:#f0f8ff;
+	border: 1px solid rgba(0,153,204,0.3);
+}
+
 .innerRpl{
 	width: 92%;
 	margin: auto;
