@@ -3,39 +3,55 @@
 		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 		layout:decorate="~{layouts/main}">
 	<main layout:fragment="content">
-		<div>회원가입</div>
+		
 		<form method="post" id="signForm" name="signform" th:action="@{/user/login}" th:object="${signRequest}">
-				<label for="userId" class="req" th:text="#{user.userId}"></label>
-				<input type="text" name="userId" th:field="*{userId}" class="sign_input required" th:title="#{user.userId}">
-				<div id="err_userId" class="err"></div>
+				<div class="sign_text">회원가입</div>
+				<div class="form_input">
+					<label for="userId" class="sign_label req" th:text="#{user.userId}"></label>
+					<input type="text" name="userId" th:field="*{userId}" class="sign_input required" th:title="#{user.userId}">
+					<div id="err_userId" class="err"></div>
+				</div>
 				
-				<label for="userPw" class="req" th:text="#{user.userPw}"></label>
-				<input type="password" name="userPw" th:field="*{userPw}" class="sign_input required" th:title="#{user.userPw}">
-				<div id="err_userPw" class="err"></div>
+				<div class="form_input">
+					<label for="userPw" class="sign_label req" th:text="#{user.userPw}"></label>
+					<input type="password" name="userPw" th:field="*{userPw}" class="sign_input required" th:title="#{user.userPw}">
+					<div id="err_userPw" class="err"></div>
+				</div>
 				
-				<label for="userPwRe" class="req" th:text="#{user.userPwRe}"></label>
-				<input type="password" name="userPwRe" id="userPwRe" class="sign_input required" th:title="#{user.userPwRe}">
-				<div id="err_userPwRe" class="err"></div>
+				<div class="form_input">
+					<label for="userPwRe" class="sign_label req" th:text="#{user.userPwRe}"></label>
+					<input type="password" name="userPwRe" id="userPwRe" class="sign_input required" th:title="#{user.userPwRe}">
+					<div id="err_userPwRe" class="err"></div>
+				</div>
 				
-				<label for="userNm" class="req" th:text="#{user.userNm}"></label>
-				<input type="text" name="userNm" th:field="*{userNm}" class="sign_input required" th:title="#{user.userNm}">
-				<div id="err_userNm" class="err"></div>
+				<div class="form_input">
+					<label for="userNm" class="sign_label req" th:text="#{user.userNm}"></label>
+					<input type="text" name="userNm" th:field="*{userNm}" class="sign_input required" th:title="#{user.userNm}">
+					<div id="err_userNm" class="err"></div>
+				</div>
 				
-				<label for="birth" class="req" th:text="#{user.birth}"></label>
-				<input type="text" name="birth" th:field="*{birth}" class="sign_input required" th:title="#{user.birth}">
-				<div id="err_birth" class="err"></div>
-
-				<label for="email" class="req" th:text="#{user.email}"></label>
-				<input type="text" name="email" th:field="*{email}" class="sign_input required" th:title="#{user.email}">
-				<div id="err_email" class="err"></div>
-			
-				<label for="mobile" class="req" th:text="#{user.mobile}"></label>
-				<input type="text" name="mobile" th:field="*{mobile}" class="sign_input required" th:title="#{user.mobile}">
-				<div id="err_mobile" class="err"></div>
+				<div class="form_input">
+					<label for="birth" class="sign_label req" th:text="#{user.birth}"></label>
+					<input type="text" name="birth" th:field="*{birth}" class="sign_input required" th:title="#{user.birth}">
+					<div id="err_birth" class="err"></div>
+				</div>
 				
-				<label for="intro" th:text="#{user.intro}"></label>
-				<textarea rows="5" cols="8" name="intro" th:field="*{intro}" class="sign_textarea">
-				</textarea>
+				<div class="form_input">
+					<label for="email" class="sign_label req" th:text="#{user.email}"></label>
+					<input type="text" name="email" th:field="*{email}" class="sign_input required" th:title="#{user.email}">
+					<div id="err_email" class="err"></div>
+				</div>
+				
+				<div class="form_input">
+					<label for="mobile" class="sign_label req" th:text="#{user.mobile}"></label>
+					<input type="text" name="mobile" th:field="*{mobile}" class="sign_input required" th:title="#{user.mobile}">
+					<div id="err_mobile" class="err"></div>
+				</div>
+				
+				<div class="form_input">
+					<label for="intro" th:text="#{user.intro}" class="sign_label"></label>
+					<textarea rows="5" cols="8" name="intro" th:field="*{intro}" class="sign_textarea"></textarea>
+				</div>
 				
 				<div class="sign_agree">
 					<div class="input_check">
@@ -48,11 +64,9 @@
 					</div>
 				</div>
 				
-				<div>
-					<div class=check_all>
-						<input type="checkbox" id="checkAll" name="checkAll" class="required" title="이용약관 및 개인정보 수집 및 이용에 대한 안내">
-						<label for="checkAll">위의 이용약관 및 개인정보 수집 및 이용에 대한 안내에 동의합니다.</label>
-					</div>
+				<div class=check_all>
+					<input type="checkbox" id="checkAll" name="checkAll" class="required" title="이용약관 및 개인정보 수집 및 이용에 대한 안내">
+					<label for="checkAll">위의 이용약관 및 개인정보 수집 및 이용에 대한 안내에 동의합니다.</label>
 				</div>
 				
 				<div class="btn_confirm">

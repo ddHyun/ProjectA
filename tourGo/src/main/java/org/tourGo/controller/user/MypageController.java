@@ -1,6 +1,7 @@
 package org.tourGo.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,9 @@ public class MypageController {
 	
 	@GetMapping("/user/mypage")
 	public String mypage(Model model) {
-		model.addAttribute("addScript", new String[] {"user/mypage"});
+		model.addAttribute("addCss", new String[] {"user/mypage"});
+		model.addAttribute("addScript", new String[] {"user/mypage", "fileUpload"});
+		
 		return "user/mypage";
 	}
 	
