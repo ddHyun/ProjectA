@@ -78,10 +78,8 @@ public class ReviewViewController {
 																.comparing(ReplyEntity::getListOrder, Comparator.reverseOrder())
 																.thenComparing(ReplyEntity::getReplyNo);
 		List<ReplyRequest> replies = reviewRequest.getReplies().stream().sorted(compare).map(ReplyRequest::new).toList();
-		
-		if(replies.size() != 0) {
-			model.addAttribute("replies", replies);
-		}
+		model.addAttribute("replies", replies);
+
 		model.addAttribute("reviewRequest", reviewRequest);	
 		
 		model.addAttribute("keyword", keyword);

@@ -1,12 +1,4 @@
 const btnFn = {
-	/**목록으로 돌아가기 S */
-/*	back(){
-		const keyword = document.getElementById("keyword").value;
-		const order = document.getElementById("order").value;
-		location.href = `../review_main?keyword=${keyword}&order=${order}`;
-	},*/
-	/**목록으로 돌아가기 E */
-	
 	/**게시글 수정하기 S */
 	modify(reviewNo){
 		try{
@@ -45,16 +37,30 @@ const btnFn = {
 	/**게시글 삭제하기 E */
 }
 
-window.addEventListener("DOMContentLoaded", function(){
+/**좋아요 토글 처리 S */
+function toggleLiked(){
+	const user = document.getElementById("user");
+	if(user.value==''){
+		alert("로그인 후 이용 가능합니다");
+		return;
+	}
 	
-	/**목록이동 선택 이벤트 처리 S */
-/*	const backBtnEl = document.getElementById("backBtn");
-	if(backBtnEl){
-		backBtnEl.addEventListener("click", function(){
-			btnFn.back();
-		});
-	}*/
-	/**목록이동 선택 이벤트 처리 E */
+	const likedEl = document.getElementById("liked");
+	let liked = false;
+	if(likedEl.className=="liked"){
+		likedEl.innerHTML = '<i class="fa-solid fa-heart" onclick="toggleLiked();"></i>';
+		likedEl.className += " on";		
+		liked = true;
+	}else{
+		likedEl.innerHTML = '<i class="fa-regular fa-heart" onclick="toggleLiked();"></i>';
+		likedEl.className = "liked";		
+	}
+
+}	
+
+/**좋아요 토글 처리 E */
+
+window.addEventListener("DOMContentLoaded", function(){
 	
 	const reviewNoEl = document.getElementById("reviewNo");
 	if(reviewNoEl){

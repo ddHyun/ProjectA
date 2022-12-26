@@ -8,6 +8,7 @@
 	<main layout:fragment="content" class="content">
 		<input type="hidden" id="order" th:value="${order}">
 		<input type="hidden" id="keyword" th:value="${keyword}">
+		<input type="hidden" id="user" th:value="${user}">
 		<!-- 커뮤니티 공통 상단 네비바 -->
 		<th:block th:replace="outlines/community_top::community_top"></th:block>
 		
@@ -40,6 +41,23 @@
 			</table>
 			<div class="marginTop30"></div>			
 			
+			<!-- 좋아요 -->
+			<div class="width80 marginAuto">
+				<div align="left">
+					<span class="liked" id="liked">
+						<i class="fa-regular fa-heart" onclick="toggleLiked();"></i>
+					</span>
+					<span th:text="' '+#{review.like}"></span>
+					<span>
+						<i class="fa-regular fa-comment-dots"></i>
+						<span th:text="#{community.reply}+' '+${replies.size()}"></span>
+					</span>
+				</div>
+			</div>
+			
+			<!-- 댓글 -->
+			<th:block th:replace="community/reply::reply"></th:block>
+			
 			<div>
 				<button class="btn0 width25" type="button" th:text="#{community.list}"
 					th:onclick="|location.href='/community/review_main?page=${page}'|">목록</button>
@@ -48,10 +66,8 @@
 					<button class="btn1 width20" id="deleteBtn" type="button" th:text="#{community.delete}">삭제</button>
 				</th:block>
 			</div>
-			<div class="marginTop30"></div>		
 			
-			<!-- 댓글 -->
-			<th:block th:replace="community/reply::reply"></th:block>
+			<div class="marginTop30"></div>				
 			
 		</div>
 	</main>					

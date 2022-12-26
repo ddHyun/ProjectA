@@ -13,6 +13,8 @@
 		
 		<script th:src="@{/js/common.js}"></script>
 		<script th:each="script : ${addScript}" th:src="@{/js/{js}.js(js=${script})}"></script>
+		<!-- added by Hyun -->
+		<script src="https://kit.fontawesome.com/c89215f053.js" crossorigin="anonymous"></script>
 
 	</head>
 	<body>
