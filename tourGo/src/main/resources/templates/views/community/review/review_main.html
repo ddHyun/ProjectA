@@ -25,7 +25,9 @@
 				<!-- 여행지 검색 -->
 				<div class="m_item search">
 						<input type="text" placeholder="여행지 검색" name="keyword" id="search">
-						<button class="btn1" type="submit" th:text="#{review.search}"></button>
+						<button class="btn1" type="submit">
+							<i class="fa-solid fa-magnifying-glass"><span th:text="#{review.search}"></span></i>
+						</button>
 				</div>
 			</form>
 		</div>
@@ -48,9 +50,12 @@
 					<th:block>
 						<tr th:each="list, status:${lists}" th:object="${list}">
 							<td th:text="${status.size-status.index}">글번호</td>
-							<td><a th:href="@{/community/review_read/reviewNo_{reviewNo}
- 										(reviewNo=*{reviewNo}, keyword=${keyword}, order=${order}, page=${pagination.page})}" 
-								th:text="*{reviewTitle+' ['+replies.size()+']'}">제목</a></td>
+							<td>
+								<a th:href="@{/community/review_read/reviewNo_{reviewNo}(reviewNo=*{reviewNo}, 
+ 										keyword=${keyword}, order=${order}, page=${pagination.page})}" th:text="*{reviewTitle}">								
+								제목</a>
+								<span th:if="*{replies != null && replies.size() != 0}" th:text="*{' ['+replies.size()+']'}"></span>
+							</td>
 							<td th:text="*{region}">여행지</td>
 							<td th:text="*{period}">기간</td>
 							<td th:text="*{name}">작성자</td>

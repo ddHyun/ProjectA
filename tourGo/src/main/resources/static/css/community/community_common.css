@@ -382,3 +382,12 @@ td select{
 	font-size: 1.1em;
 	font-weight: 300;
 }
+
+/* 좋아요 */
+.liked i{
+	color: red;
+}
+
+.liked:hover{
+	cursor: pointer;
+}
