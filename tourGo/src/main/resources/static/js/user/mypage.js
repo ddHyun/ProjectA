@@ -66,6 +66,27 @@ const formValidator = {
 window.addEventListener("DOMContentLoaded", function() {
 	//signForm.addEventListener("submit", formValidator);
 	
+	/** 파일 선택 이벤트 처리 S */
+	const filesEl = document.getElementById("files");
+	if (filesEl) {
+		filesEl.addEventListener("change", function(e) {
+			const gidEl = document.getElementById("gid");
+			if (!gidEl) { // 그룹 ID는 필수 이므로 없는 경우는 파일 업로드 차단
+				return;
+			}
+			/**파일에 gid 부여 S */
+			const gid = gidEl.value;
+			filesEl.dataset.gid=gid;
+			/**파일에 gid 부여 E */
+			
+			const files = e.target.files;			
+			
+			fileUpload.process(gid, files, true);
+			this.value = "";
+		});		
+	}		
+	/** 파일 선택 이벤트 처리 E */
+	
 	const submitBtn = document.getElementById("btn_update");
 	if (submitBtn) {
 		submitBtn.addEventListener("click", formValidator);
