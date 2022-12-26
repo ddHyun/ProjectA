@@ -37,6 +37,14 @@ public class PlannerService {
 		return list2;
 	}
 	
+	public List<Planner> plannerList(User user){
+		List<Planner> list = plannerRepo.findAllByUser(user,Sort.by(Sort.Direction.DESC,"plannerNo"));
+		
+		
+		
+		return list;
+	}
+	
 	public Planner process(PlannerRq plannerRq,User user) {
 		
 		

@@ -41,8 +41,7 @@ import lombok.Value;
 @RequestMapping("/plan")
 public class PlannerController {
 
-	@Autowired
-	private PlanDetailsRepository detailsRepp;
+
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -51,12 +50,12 @@ public class PlannerController {
 	@Autowired
 	private PlanValidator planValidator;
 	
+	@Autowired
+	private PlanDetailsService detailsService;
+	
 	@GetMapping() // 여행 상세 일정 보는 화면
 	public String plan(Model model,@AuthenticationPrincipal PrincipalDetail principal) {
-	
-			
-
-
+		
 	Optional<User> _user = userRepository.findByUserId(principal.getUser().getUserId());
 	User user = _user.orElse(null);
 	
@@ -69,30 +68,42 @@ public class PlannerController {
 	model.addAttribute("addScript", "layer");	
 	return "plan/plannerView";
 	}
-	
+	//아이디값확인해서 아이디일치하지않으면 예외처리하기!!
 	@GetMapping("/makeDetails/{no}")
-	public String makeDetails(Model model, @PathVariable Long no) {
+	public String makeDetails(Model model, @PathVariable Long no,@AuthenticationPrincipal PrincipalDetail principal) {
 		try {
+			Optional<User> _user = userRepository.findByUserId(principal.getUser().getUserId());
+			User user = _user.orElse(null);
+			
 		Planner planner = plannerService.getPlanner(no);
-	List<PlanDetailsRq> list = new ArrayList<>();
-	for(PlanDetailsRq rq : list) {
-		rq.setDay(planner.getDay());
-	
-	}
-		PlannerRq plannerRq = plannerService.toDto(planner);
 		
+		boolean check=	detailsService.checkPlanner(user, planner);
+		if(!check) {
+			model.addAttribute("scripts", " alert('유효하지않은 접근입니다'); location.replace('/plan');");
+			return "common/excution";
+		}
+		
+		List<PlanDetailsRq> list = new ArrayList<>();
+		
+		PlannerRq plannerRq = plannerService.toDto(planner);
+		ArrayList<String> test = new ArrayList<>();
+		for(int i =1 ; i<= plannerRq.getDay() ; i++) {
+			String d = "day"+i;
+			test.add(d);
+		}
+		model.addAttribute("test", test);
 		model.addAttribute("planDetails", list);
 		model.addAttribute("plannerRq", plannerRq);
 		
 		System.out.println(planner);
 		}catch(Exception e) {
-		
-			
-			model.addAttribute("scripts", " alert('유효하지않은 접근입니다'); location.replace('/plan');");
-			return "common/excution";
-			
-			
+			throw new AlertException("없는 플래너입니다!!","/plan");
 		}
+		
+	
+			
+			
+		
 		return "plan/makeDetails";
 	}
 	

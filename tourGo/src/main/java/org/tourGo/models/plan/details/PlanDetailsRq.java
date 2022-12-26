@@ -53,6 +53,7 @@ public class PlanDetailsRq {//여행 세부일정을 담당하는 dto
 	    public static PlanDetails entityToPlanDeatils(PlanDetailsRq planDetails) {
 
 	    	return PlanDetails.builder()
+	    			
 	    			.DetailNo(planDetails.getDetailsNo())
 	    			.day(planDetails.getDay())
 	    			.sTime(planDetails.getStime())
