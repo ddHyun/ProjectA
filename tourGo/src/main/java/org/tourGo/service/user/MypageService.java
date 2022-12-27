@@ -21,6 +21,8 @@ public class MypageService {
 	@Transactional
 	public void process(MypageRequest request) {
 		
+		System.out.println(request.toString());
+		
 		User user = userRepository.findById(request.getUserNo()).orElseThrow(() -> {
 			return new IllegalArgumentException("회원이 존재하지 않습니다.");
 		});
@@ -33,6 +35,7 @@ public class MypageService {
 		user.setEmail(request.getEmail());
 		user.setMobile(request.getMobile());
 		user.setIntro(request.getIntro());
+		user.setGid(request.getGid());
 		
 		userRepository.save(user);
 	}

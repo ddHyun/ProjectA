@@ -25,9 +25,6 @@ public class FileRUDService {
 	//gid로 파일 조회하기
 	public List<FileInfo> getFileLists(String gid){
 		List<FileInfo> fileLists = repository.findByGid(gid);
-		if(fileLists.size()==0) {
-			throw new RuntimeException("파일이 없습니다");
-		}
 		return fileLists;
 	}
 	
@@ -41,5 +38,11 @@ public class FileRUDService {
 	public boolean removeFileLists(String gid) {
 		int affectedRows = repository.deleteByGid(gid);
 		return affectedRows > 0;
+	}
+	
+	// gid로 파일 하나만 확인하기
+	public FileInfo findTopByGidOrderByRegDtDesc(String gid) {
+		FileInfo fileInfo = repository.findTopByGidOrderByRegDtDesc(gid);
+		return fileInfo;
 	}
 }
