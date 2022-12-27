@@ -74,14 +74,14 @@
       <div style="border: 1px solid green; width:50%;">
         <label>여행타입</label>
       </div>
-        <div class="input_view">
-              <label><input type="radio" name="planType" value="SOLO">나홀로 여행</label>
-              <label><input type="radio" name="planType" value="COUPLE">연인/커플</label>
-              <br>
-              <label><input type="radio" name="planType" value="FRIENDS">친구/지인</label>
-              <label><input type="radio" name="planType" value="PARENTS">부모님</label>
-              <label><input type="radio" name="planType" value="FAMILY">가족</label>
-          </div>
+          <div th:each="type : ${planTypes}">
+    <input type="radio" th:field="${planner.planType}" th:value="${type.name()}"
+           class="form-check-input">
+    <label th:for="${#ids.prev('planType')}" th:text="${type.name}"
+           class="form-check-label">
+        
+    </label>
+</div>
 		</div>
     <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
       <div style="border: 1px solid green; width:50%; height: 50%;">
