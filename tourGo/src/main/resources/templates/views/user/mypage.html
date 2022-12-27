@@ -6,7 +6,7 @@
 	
 	<main layout:fragment="content">
 		<h4>마이페이지</h4>
-		<form id="mypageForm" name="mypageForm" th:object="${#authentication.principal.user}">
+		<form id="mypageForm" name="mypageForm" th:object="${user}">
 				<input type="hidden" id="gid" name="gid" th:value="${gid}">
 				<input type="hidden" name="userNo" th:value="*{userNo}" class="required">
 				<input type="hidden" name="userId" th:value="*{userId}" class="required">
@@ -17,10 +17,11 @@
 				
 				<div class="user-profile">
 					<div class="mb-3">
-						<img th:src="@{/images/user/img_avatar_default.png}" class="w-25">
-					</div>
-					<div class="mb-1">
-						<input type="button" value="프로필 사진 변경" class="w-25">
+						<img id="profile" name="profile" th:src="${profile}" class="w-25 profile-picture mb-3">
+						<label for="files">
+							<span class="w-20 btn-gradient">프로필 사진 업로드</span>
+						</label>
+						<input type="file" name="files" id="files" value="프로필 사진 변경">
 					</div>
 				</div>
 				
@@ -34,7 +35,7 @@
 						<label for="userPwNew" class="req" th:text="#{user.userPwNew}"></label>
 					</div>
 					<input type="password" name="userPwNew" id="userPwNew" class="form-control required" th:title="#{user.userPwNew}">
-					<div id="err_userPwNew" class="err"></div>
+					<div id="err_userPwNew" class="err err_close"></div>
 				</div>
 				
 				<div class="form-input">
@@ -42,7 +43,7 @@
 						<label for="birth" class="req" th:text="#{user.birth}"></label>
 					</div>
 					<input type="text" name="birth" id="birth" th:value="*{birth}" class="form-control required" th:title="#{user.birth}">
-					<div id="err_birth" class="err"></div>
+					<div id="err_birth" class="err err_close"></div>
 				</div>
 				
 				<div class="form-input">
@@ -50,7 +51,7 @@
 						<label for="email" class="req" th:text="#{user.email}"></label>
 					</div>
 					<input type="text" name="email" id="email" th:value="*{email}" class="form-control required" th:title="#{user.email}">
-					<div id="err_email" class="err"></div>
+					<div id="err_email" class="err err_close"></div>
 				</div>
 				
 				<div class="form-input">
@@ -58,7 +59,7 @@
 						<label for="mobile" class="req" th:text="#{user.mobile}"></label>
 					</div>
 					<input type="text" name="mobile" id="mobile" th:value="*{mobile}" class="form-control required" th:title="#{user.mobile}">
-					<div id="err_mobile" class="err"></div>
+					<div id="err_mobile" class="err err_close"></div>
 				</div>
 				
 				<div class="form-input">
