@@ -39,8 +39,8 @@ public class PlannerRq {//여행 일정짜기dto
 	 private String memo; // 사용자 정의 메모
 	 private String image;//대표이미지
 	 private Integer day;//사용자 지정 일수 
-	 private String heart; // 좋아요
-	 private String hit; //조회수
+	 private Integer heart; // 좋아요
+	 private Integer hit; //조회수
 	 
 	 
 	

@@ -65,9 +65,14 @@ public class PlannerController {
 	@GetMapping() // 여행 상세 일정 보는 화면
 	public String plan(Model model,@AuthenticationPrincipal PrincipalDetail principal) {
 		
-	Optional<User> _user = userRepository.findByUserId(principal.getUser().getUserId());
+	Optional<User> _user = null;
+	try {
+	_user = userRepository.findByUserId(principal.getUser().getUserId());
+	}catch (Exception e) {
+		throw new RuntimeException("로그인후 이용가능한 페이지입니다");
+	}
 	User user = _user.orElse(null);
-	
+
 	List<PlannerRq> list = plannerService.userPlanner(user);
 	
 	System.out.println(list);
@@ -143,7 +148,7 @@ public class PlannerController {
 		Optional<User> _user = userRepository.findByUserId(principal.getUser().getUserId());
 		User user = _user.orElse(null);
 		
-		Planner planner = plannerService.process(plannerRq, user);
+		Planner planner = plannerService.insertPlanner(plannerRq, user);
 
 		model.addAttribute("scripts", "parent.location.replace('../plan/makeDetails/" + planner.getPlannerNo() + "');");
 		model.addAttribute("plannerRq", plannerRq);
@@ -157,9 +162,9 @@ public class PlannerController {
 	@GetMapping("/readplan/{no}")
 	public String read(Model model, @PathVariable Long no ) {
 		
-		Planner planner = plannerService.getPlanner(no);
+		PlannerRq plannerRq = PlannerService.toDto(plannerService.getPlanner(no)); // 플래너번호를 받아 dto객체로 변환
 		
-		model.addAttribute("planner", planner);
+		model.addAttribute("planner", plannerRq);
 		model.addAttribute("addScript", "layer");	
 		return "plan/read";
 	}
@@ -167,20 +172,30 @@ public class PlannerController {
 
 	public String write(Model model, @PathVariable Long no ) {
 		
-		Planner planner = plannerService.getPlanner(no);
-		model.addAttribute("planner", planner);
+		
+		PlannerRq plannerRq = PlannerService.toDto(plannerService.getPlanner(no));
+		
+		model.addAttribute("planner", plannerRq);
 		
 		model.addAttribute("addScript", "layer");
 		return "plan/write";
 	
 	}
 	
-
+	
 
 	@PostMapping("/readplan")
-
-	public String writeps(PlannerRq plannerRq)	{
-		return "plan/read";
+	public String writeps(@Valid PlannerRq plannerRq,Model model,@AuthenticationPrincipal PrincipalDetail principal)	{
+		Optional<User> _user = null;
+		_user = userRepository.findByUserId(principal.getUser().getUserId());
+		
+		User user = _user.orElse(null);
+	
+		Planner planner = plannerService.updatePlanner(plannerRq,user);
+		model.addAttribute("scripts", "location.replace('/plan/readplan/" + planner.getPlannerNo() + "');");
+		
+		
+		return "common/excution";
 		
 		
 	}
