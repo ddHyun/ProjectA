@@ -84,7 +84,7 @@ public class PlannerService {
 		LocalDate edate = sdate.plusDays(day);
 		
 		
-		PlannerRq rq = PlannerRq.builder().day(day).sdate(sdate).edate(edate).image(null).memo(planner.getMemo()).planSize(planner.getPlanSize())
+		PlannerRq rq = PlannerRq.builder().day(day).sdate(sdate).edate(edate).image(planner.getImage()).memo(planner.getMemo()).planSize(planner.getPlanSize())
 				.planType(planner.getPlanType()).title(planner.getTitle()).plannerNo(planner.getPlannerNo()).build();
 		
 		return rq;
@@ -94,7 +94,7 @@ public class PlannerService {
 		int day = rq.getDay();
 		LocalDate sdate = rq.getSdate();
 		LocalDate edate = sdate.plusDays(day);
-		Planner planner = Planner.builder().plannerNo(rq.getPlannerNo()).day(day).sdate(sdate).edate(edate).image(null).memo(rq.getMemo()).planSize(rq.getPlanSize())
+		Planner planner = Planner.builder().plannerNo(rq.getPlannerNo()).day(day).sdate(sdate).edate(edate).image(rq.getImage()).memo(rq.getMemo()).planSize(rq.getPlanSize())
 				.planType(rq.getPlanType()).title(rq.getTitle()).build();
 		
 		return planner;
