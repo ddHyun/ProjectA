@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.tourGo.common.AlertException;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.plan.PlannerRq;
 import org.tourGo.models.plan.entity.Planner;
@@ -28,23 +30,31 @@ public class PlannerService {
 		List<PlannerRq> list2 = new ArrayList<>();
 		
 		for(Planner planner : list) {
-		PlannerRq rq =	PlannerRq.builder().day(planner.getDay()).image(planner.getImage()).sdate(planner.getSdate()).edate(planner.getEdate())
-		.memo(planner.getMemo()).planSize(planner.getPlanSize()).planType(planner.getPlanType()).plannerNo(planner.getPlannerNo())
-		.title(planner.getTitle()).build();
+		PlannerRq rq =	PlannerService.toDto(planner);
+		
 		list2.add(rq);
 		}
 		
 		return list2;
 	}
 	
-	public Planner updatePlanner(PlannerRq request) {
+	public Planner updatePlanner(PlannerRq request,User user) {
 		
-		Planner planner = PlannerService.toEntity(request);
-		
+	
+		Planner planner = PlannerService.toEntity(request, user);
 		plannerRepo.save(planner);
 		
 		return planner;
 
+	}
+	public void deletePlanner(PlannerRq request) {
+		Optional<Planner> _planner = plannerRepo.findById(request.getPlannerNo());
+		Planner planner = _planner.orElse(null);
+		if(planner ==null) {
+			throw new AlertException("플래너를 삭제할수없습니다","parent","/plan");
+		}
+		plannerRepo.delete(planner);
+		
 	}
 	
 	public List<Planner> plannerList(User user){
@@ -55,14 +65,17 @@ public class PlannerService {
 		return list;
 	}
 	
-	public Planner process(PlannerRq plannerRq,User user) {
+	public Planner insertPlanner(PlannerRq plannerRq,User user) {
 		
 		
-		LocalDate sdate = (plannerRq.getSdate() == null)?LocalDate.now():plannerRq.getSdate();
+		/**LocalDate sdate = (plannerRq.getSdate() == null)?LocalDate.now():plannerRq.getSdate();
 		Integer day = plannerRq.getDay();
 		LocalDate edate = sdate.plusDays(day);
 		Planner planner = Planner.builder().title(plannerRq.getTitle()).day(day).sdate(sdate).edate(edate).memo(plannerRq.getMemo())
-		.planSize(plannerRq.getPlanSize()).planType(plannerRq.getPlanType()).user(user).build();
+		.planSize(plannerRq.getPlanSize()).planType(plannerRq.getPlanType()).user(user).heart(plannerRq.getHeart())
+		.hit(plannerRq.getHit()).image(plannerRq.getImage())
+		.build();*/
+		Planner planner = PlannerService.toEntity(plannerRq, user);
 	
 		planner = plannerRepo.save(planner);
 		return planner;
@@ -85,9 +98,21 @@ public class PlannerService {
 		
 		
 		PlannerRq rq = PlannerRq.builder().day(day).sdate(sdate).edate(edate).image(planner.getImage()).memo(planner.getMemo()).planSize(planner.getPlanSize())
-				.planType(planner.getPlanType()).title(planner.getTitle()).plannerNo(planner.getPlannerNo()).build();
+				.planType(planner.getPlanType()).title(planner.getTitle()).plannerNo(planner.getPlannerNo()).heart(planner.getHeart())
+				.hit(planner.getHit()).build();
 		
 		return rq;
+	}
+	
+	public static Planner toEntity(PlannerRq rq,User user) {
+		int day = rq.getDay();
+		LocalDate sdate = rq.getSdate();
+		LocalDate edate = sdate.plusDays(day);
+		Planner planner = Planner.builder().plannerNo(rq.getPlannerNo()).day(day).sdate(sdate).edate(edate).image(rq.getImage()).memo(rq.getMemo()).planSize(rq.getPlanSize())
+				.planType(rq.getPlanType()).title(rq.getTitle()).user(user).build();
+		
+		return planner;
+		
 	}
 	
 	public static Planner toEntity(PlannerRq rq) {
@@ -100,6 +125,7 @@ public class PlannerService {
 		return planner;
 		
 	}
+	
 	
 	
 	
