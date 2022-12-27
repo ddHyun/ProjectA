@@ -148,7 +148,7 @@ public class PlannerController {
 		Optional<User> _user = userRepository.findByUserId(principal.getUser().getUserId());
 		User user = _user.orElse(null);
 		
-		Planner planner = plannerService.process(plannerRq, user);
+		Planner planner = plannerService.insertPlanner(plannerRq, user);
 
 		model.addAttribute("scripts", "parent.location.replace('../plan/makeDetails/" + planner.getPlannerNo() + "');");
 		model.addAttribute("plannerRq", plannerRq);
@@ -185,10 +185,13 @@ public class PlannerController {
 	
 
 	@PostMapping("/readplan")
-	public String writeps(@Valid PlannerRq plannerRq,Model model)	{
-
+	public String writeps(@Valid PlannerRq plannerRq,Model model,@AuthenticationPrincipal PrincipalDetail principal)	{
+		Optional<User> _user = null;
+		_user = userRepository.findByUserId(principal.getUser().getUserId());
+		
+		User user = _user.orElse(null);
 	
-		Planner planner = plannerService.updatePlanner(plannerRq);
+		Planner planner = plannerService.updatePlanner(plannerRq,user);
 		model.addAttribute("scripts", "location.replace('/plan/readplan/" + planner.getPlannerNo() + "');");
 		
 		
