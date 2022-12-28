@@ -9,98 +9,32 @@
 				<input type="button" class="input_btn" value="검색">
 			</div>
 		</div>
-		<div class="destination_area">
-			<div class="dest_area_flex">
-				<input type="radio" value="서울" checked>서울</input>
-				<a th:href="@{travel_destination_main}">
-					<div class="area">
-						인천
-					</div>
-				</a>
-				<a th:href="@{travel_destination_main}">
-					<div class="area">
-						대전
-					</div>
-				</a>
-				<a th:href="@{travel_destination_main}">
-					<div class="area">
-						대구
-					</div>
-				</a>
-				<a th:href="@{travel_destination_main}">
-					<div class="area">
-						광주
-					</div>
-				</a>
-				<a th:href="@{travel_destination_main}">
-					<div class="area">
-						부산
-					</div>
-				</a>
-				<a th:href="@{travel_destination_main}">
-					<div class="area">
-						울산
-					</div>
-				</a>
-				<a th:href="@{travel_destination_main}">
-					<div class="area">
-						세종
-					</div>
-				</a>
-				<a th:href="@{travel_destination_main}">
-					<div class="area">
-						경기
-					</div>
-				</a>
+		<fieldset>
+			<div class="destination_area">
+				<div>
+					<input type="radio" name="destination" id="all" onclick="showDiv(this);">전체
+					<input type="radio" name="destination" id="seoul" onclick="showDiv(this);">서울
+					<input type="radio" name="destination" id="inchen" onclick="showDiv(this);">인천
+					<input type="radio" name="destination" id="daejun" onclick="showDiv(this);">대전
+					<input type="radio" name="destination" id="sejong" onclick="showDiv(this);">세종
+					<input type="radio" name="destination" id="daegu" onclick="showDiv(this);">대구
+					<input type="radio" name="destination" id="busan" onclick="showDiv(this);">부산
+					<input type="radio" name="destination" id="wolsan" onclick="showDiv(this);">울산
+					<input type="radio" name="destination" id="gwangju" onclick="showDiv(this);">광주
+				</div>
+				<div>
+					<input type="radio" name="destination" id="gyeonggi" onclick="showDiv(this);">경기
+					<input type="radio" name="destination" id="gangwong" onclick="showDiv(this);">강원
+					<input type="radio" name="destination" id="chungbuk" onclick="showDiv(this);">충북
+					<input type="radio" name="destination" id="chungnam" onclick="showDiv(this);">충남
+					<input type="radio" name="destination" id="gyeongbuk" onclick="showDiv(this);">경북
+					<input type="radio" name="destination" id="gyeongnam" onclick="showDiv(this);">경남
+					<input type="radio" name="destination" id="junbuk" onclick="showDiv(this);">전북
+					<input type="radio" name="destination" id="junnam" onclick="showDiv(this);">전남
+					<input type="radio" name="destination" id="jeju" onclick="showDiv(this);">제주
+				</div>
 			</div>
-			<div class="dest_area_flex">
-				<a th:href="@{travel_destination_main}">
-					<div class="area">
-						강원
-					</div>
-				</a>
-				<a th:href="@{travel_destination_main}">
-					<div class="area">
-						충북
-					</div>
-				</a>
-				<a th:href="@{travel_destination_main}">
-					<div class="area">
-						충남
-					</div>
-				</a>
-				<a th:href="@{travel_destination_main}">
-					<div class="area">
-						경북
-					</div>
-				</a>
-				<a th:href="@{travel_destination_main}">
-					<div class="area">
-						경남
-					</div>
-				</a>
-				<a th:href="@{travel_destination_main}">
-					<div class="area">
-						전북
-					</div>
-				</a>
-				<a th:href="@{travel_destination_main}">
-					<div class="area">
-						전남
-					</div>
-				</a>
-				<a th:href="@{travel_destination_main}">
-					<div class="area">
-						제주
-					</div>
-				</a>
-				<a th:href="@{travel_destination_main}">
-					<div class="area">
-						전체
-					</div>
-				</a>
-			</div>
-		</div>
+		</fieldset>
 		<div class="destination_content">
 			<div class="">
 				<div class="dest_content">
@@ -207,7 +141,7 @@
 				</div>
 			</div>
 			<div class="page_check">
-			<!-- 일단 눈으로 확인을 위한 페이징 버튼 -->
+				<!-- 일단 눈으로 확인을 위한 페이징 버튼 -->
 				<a th:href="@{/travel_destination_main}">1</a>
 				<a th:href="@{/travel_destination_main}">2</a>
 				<a th:href="@{/travel_destination_main}">3</a>

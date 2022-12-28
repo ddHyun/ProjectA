@@ -31,7 +31,7 @@
       <div class="delete" style="border: 1px solid blue; width:20%;text-align:center;">
       <form th:action="@{/plan/readplan}" th:object="${planner}" method="post">
       
-       <input type="button"value="완료" style="border-radius: 50%;height: 50px; width: 50px;cursor: pointer; "></input>
+       <button type="submit" style="border-radius: 50%;height: 50px; width: 50px;cursor: pointer; ">완료</input>
      
       
      
@@ -46,7 +46,7 @@
         여행 제목
       </div>
       <div style="border: 1px solid blue; width:50%; height: 50%; overflow:hidden; ">
-         <input type="text" style="width:99%;" th:value="${planner.title}">
+         <input type="text" style="width:99%;" th:field="${planner.title}">
       </div>
 		</div>
     <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
@@ -54,9 +54,9 @@
         여행 기간
       </div>
       <div style="border: 1px solid blue; width:50%; height: 50%;">
-       <label><input type="date" th:value="${planner.sdate}"></label>
-       <select name="day" th:value="${planner.edate}">
-    <option value="">2일</option>
+       <label><input type="date" th:value="${planner.sdate}" name="sdate"></label>
+       <select name="day" th:field="${planner.day}">
+
     <option value="1">1일</option>
     <option value="2">2일</option>
     <option value="3">3일</option>
@@ -74,22 +74,22 @@
       <div style="border: 1px solid green; width:50%;">
         <label>여행타입</label>
       </div>
-        <div class="input_view">
-              <label><input type="radio" name="planType" value="SOLO">나홀로 여행</label>
-              <label><input type="radio" name="planType" value="COUPLE">연인/커플</label>
-              <br>
-              <label><input type="radio" name="planType" value="FRIENDS">친구/지인</label>
-              <label><input type="radio" name="planType" value="PARENTS">부모님</label>
-              <label><input type="radio" name="planType" value="FAMILY">가족</label>
-          </div>
+          <div th:each="type : ${planTypes}">
+    <input type="radio" th:field="${planner.planType}" th:value="${type.name()}"
+           class="form-check-input">
+    <label th:for="${#ids.prev('planType')}" th:text="${type.name}"
+           class="form-check-label">
+        
+    </label>
+</div>
 		</div>
     <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
       <div style="border: 1px solid green; width:50%; height: 50%;">
         여행 인원수
       </div>
       <div style="border: 1px solid blue; width:50%; height: 50%;">
-         <select name="person">
-    <option value="">2명</option>
+         <select th:field="${planner.planSize}">
+    
     <option value="1">1명</option>
     <option value="2">2명</option>
     <option value="3">3명</option>
@@ -108,7 +108,7 @@
         사용자 정의 메모
       </div>
       <div style="border: 1px solid blue; width:50%; overflow:hidden;">
-     <textarea class="autosize" maxlength="250"placeholder="추가 바람" style="resize: none;vertical-align: middle; width: 100%; "></textarea>
+     <textarea class="autosize" maxlength="250"placeholder="추가 바람" style="resize: none;vertical-align: middle; width: 100%; "th:field="${planner.memo}"></textarea>
 
       </div>
 		</div>

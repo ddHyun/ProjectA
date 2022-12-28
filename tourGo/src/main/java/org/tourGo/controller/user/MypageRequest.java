@@ -3,6 +3,8 @@ package org.tourGo.controller.user;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import org.tourGo.models.entity.user.User;
+
 import lombok.*;
 
 @Getter @Setter @ToString
@@ -30,4 +32,6 @@ public class MypageRequest {
 	private String mobile;
 	
 	private String intro;
+	
+	private String gid;
 }

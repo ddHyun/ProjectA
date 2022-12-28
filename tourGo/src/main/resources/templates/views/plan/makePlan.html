@@ -20,12 +20,7 @@
     <div class="border">
     	
         <div class="flex">  
-      
-          <div class="title">
               <lable>여행제목</lable>
-    
-          </div>
-          
           <div class="input_view">
 
     
@@ -37,9 +32,9 @@
       
 
           <div class="flex">  
-            <div class="title">
+
             <label>  여행기간 </label>
-                </div>
+
             <div class="dateview">
      <label><input type="date" name="sdate" th:field="*{sdate}"></label>
        <select name="day" th:field="*{day}" >
@@ -61,19 +56,7 @@
           </div>
 
         <div class="flex">  
-      
-          <div class="title">
               <label>여행타입</label>
-    
-          </div><!--
-          <div class="input_view">
-              <label><input type="radio" name="planType" value="SOLO">나홀로 여행</label>
-              <label><input type="radio" name="planType" value="COUPLE">연인/커플</label>
-              <label><input type="radio" name="planType" value="FRIENDS">친구/지인</label>
-              <label><input type="radio" name="planType" value="PARENTS">부모님</label>
-              <label><input type="radio" name="planType" value="FAMILY">가족</label>
-          </div>
-          -->
           <div th:each="type : ${planTypes}">
     <input type="radio" th:field="*{planType}" th:value="${type.name()}"
            class="form-check-input">
@@ -87,9 +70,9 @@
           <div class='error' th:each="err : ${#fields.errors('planType')}" th:text="${err}"></div>	
           </div>
           <div class="flex">  
-            <div class="title">
+
                 <label>여행인원</label>
-            </div> 
+ 
             <div class="input_view">
 	<select name="planSize" th:field="*{planSize}">
 
@@ -110,11 +93,9 @@
             </div>
             <div class="flex">  
       
-              <div class="title">
-              <label>사용자 정의 메모</label>
-                  
-        
-              </div>
+         
+              <label>메모</label>
+    
               
               <div class="dateview">
      
