@@ -44,6 +44,7 @@
 						<th th:text="#{common.userName}">작성자</th>
 						<th th:text="#{community.regDt}">작성일</th>
 						<th th:text="#{community.readHit}">조회수</th>
+						<th th:text="#{like}">추천수</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -61,6 +62,7 @@
 							<td th:text="*{name}">작성자</td>
 							<td th:text="*{#temporals.format(regDt,'yyyy-MM-dd HH:mm')}">작성일</td>
 							<td th:text="*{reviewRead}">조회수</td>
+							<td th:text="${totalLikes[status.index]}">추천수</td>
 						</tr>
 					</th:block>
 				</tbody>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
+import org.tourGo.models.entity.community.review.LikedEntity;
 import org.tourGo.models.entity.community.review.ReplyEntity;
 import org.tourGo.models.entity.community.review.ReviewEntity;
 
@@ -30,6 +31,7 @@ public class ReviewRequest {
 	private LocalDateTime modDt;	//수정일
 	private int reviewRead;			//조회수
 	private List<ReplyEntity> replies;	//댓글
+	private List<LikedEntity> likes;		//좋아요
 	
 	public ReviewRequest() {}
 	
@@ -46,5 +48,6 @@ public class ReviewRequest {
 		modDt = entity.getModDt();
 		reviewRead = entity.getReviewRead();	
 		replies = entity.getReplies();
+		likes = entity.getLikes();
 	}	
 }

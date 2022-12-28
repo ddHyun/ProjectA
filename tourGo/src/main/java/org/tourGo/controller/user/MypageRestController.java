@@ -16,12 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.tourGo.common.JsonResult;
 import org.tourGo.service.user.MypageService;
 import org.tourGo.service.user.ValidateHandleService;
+import org.tourGo.services.file.FileUploadService;
 
 @RestController
 public class MypageRestController {
 	
 	@Autowired
 	private MypageService mypageService;
+	
+	@Autowired
+	private FileUploadService uploadService;
 	
 	@Autowired
 	private ValidateHandleService validateHandleService;
@@ -38,7 +42,10 @@ public class MypageRestController {
 			Map<String, String> validatorResult = validateHandleService.validateHandling(errors);
 			return new JsonResult<>(false, "실패", validatorResult);
 		}
+		
 		mypageService.process(request);
+		// 파일 업로드 완료 처리 
+		uploadService.updateSuccess(request.getGid());
 		
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUserId(), request.getUserPwNew()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);

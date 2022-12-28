@@ -39,10 +39,7 @@ public class ReviewEntity extends BaseEntity {
 	@OneToMany(mappedBy = "review", orphanRemoval = true)
 	private List<ReplyEntity> replies = new ArrayList<>();			//댓글	
 	
-	@Override
-	public String toString() {
-		return "ReviewEntity [reviewNo=" + reviewNo + ", user=" + user + ", reviewTitle=" + reviewTitle + ", region="
-				+ region + ", period=" + period + ", reviewContent=" + reviewContent + ", gid=" + gid + ", reviewRead="
-				+ reviewRead + ", hash=" + "]";
-	}
+	@OneToMany(mappedBy = "review", orphanRemoval = true)
+	private List<LikedEntity> likes = new ArrayList<>();				//좋아요
+	
 }

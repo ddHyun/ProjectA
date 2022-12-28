@@ -38,6 +38,8 @@ public class SignRequest {
 	
 	private String intro;
 	
+	private String gid;
+	
 	@AssertTrue
 	private boolean check1;
 	
