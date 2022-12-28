@@ -84,8 +84,6 @@ public class AdminQueryService {
 					.isSolved(true)
 					.build();
 		
-		System.out.println("문의 수정 : " + query.toString());
-		
 		queryRepository.save(query);
 	}
 }

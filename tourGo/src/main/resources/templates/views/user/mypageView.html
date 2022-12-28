@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	layout:decorate="~{layouts/main}">
+	
+	<main layout:fragment="content">
+		<div class="container">
+			<h2>마이페이지</h2>
+			<form id="mypageForm" name="mypageForm" th:object="${user}">
+					<input type="hidden" name="userNo" th:value="*{userNo}" class="required">
+					<input type="hidden" name="userId" th:value="*{userId}" class="required">
+					
+					<div class="user-name">
+						<span th:text="*{userNm}"></span><span>(<span th:text="*{userId}"></span>)</span>
+					</div>
+					
+					<div class="user-profile mb-3">
+						<div class="profile-picture mb-3">
+							<img id="profile" name="profile" th:src="${profile}" class="profile">
+						</div>
+					</div>
+					
+					<div class="row mb-4">
+						<div class="col-4">
+							<div class="mb-2">
+								<span class="font-weight-bold">닉네임</span>
+							</div>
+							<div class="w-100"></div>
+							<div class="border-bottom-info p-1">
+								<span th:text="*{nickNm}"></span>
+							</div>
+							<span></span>
+						</div>
+						<div class="col">
+							<div class="mb-2">
+								<span class="font-weight-bold">이메일</span>
+							</div>
+							<div class="w-100"></div>
+							<div class="border-bottom-info p-1">
+								<span th:text="*{email}"></span>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row mb-4">
+						<div class="col-6">
+							<div class="mb-2">
+								<span class="font-weight-bold">전화번호</span>
+							</div>
+							<div class="w-100"></div>
+							<div class="border-bottom-info p-1">
+								<span th:text="*{mobile}"></span>
+							</div>
+							<span></span>
+						</div>
+						<div class="col">
+							<div class="mb-2">
+								<span class="font-weight-bold">생년월일</span>
+							</div>
+							<div class="w-100"></div>
+							<div class="border-bottom-info p-1">
+								<span th:text="*{birth}"></span>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row mb-4">
+						<div class="col">
+							<div class="mb-2">
+								<span class="font-weight-bold">자기소개</span>
+							</div>
+							<div class="w-100"></div>
+							<div class="border-bottom-info p-1">
+								<span th:utext="*{intro}"></span>
+							</div>
+						</div>
+					</div>
+			</form>
+		</div>
+	</main>
+	
+</html>

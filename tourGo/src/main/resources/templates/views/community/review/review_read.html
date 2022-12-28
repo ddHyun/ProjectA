@@ -29,7 +29,7 @@
 				</tr>
 				<tr>
 					<td colspan="4" align="right">
-						<span th:text="*{name}"></span>&nbsp;&nbsp;
+						<a th:href="@{/user/mypage/{id}(id=*{id})}"><span th:text="*{name}"></span></a>&nbsp;&nbsp;
 						<span th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}"></span>
 					</td>
 				</tr>

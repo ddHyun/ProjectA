@@ -5,7 +5,7 @@
 	layout:decorate="~{layouts/main}">
 	
 	<main layout:fragment="content">
-		<h4>마이페이지</h4>
+		<h2>마이페이지 수정</h2>
 		<form id="mypageForm" name="mypageForm" th:object="${user}">
 				<input type="hidden" id="gid" name="gid" th:value="${gid}">
 				<input type="hidden" name="userNo" th:value="*{userNo}" class="required">
@@ -15,14 +15,14 @@
 					<span th:text="*{userNm}"></span><span>(<span th:text="*{userId}"></span>)</span>
 				</div>
 				
-				<div class="user-profile">
-					<div class="mb-3">
-						<img id="profile" name="profile" th:src="${profile}" class="w-25 profile-picture mb-3">
-						<label for="files">
-							<span class="w-20 btn-gradient">프로필 사진 업로드</span>
-						</label>
-						<input type="file" name="files" id="files" value="프로필 사진 변경">
+				<div class="user-profile mb-3">
+					<div class="profile-picture mb-3">
+						<img id="profile" name="profile" th:src="${profile}" class="profile">
 					</div>
+					<label for="files">
+						<span class="w-20 btn-gradient">프로필 사진 업로드</span>
+					</label>
+					<input type="file" name="files" id="files" value="프로필 사진 변경">
 				</div>
 				
 				<!--  
@@ -35,6 +35,14 @@
 						<label for="userPwNew" class="req" th:text="#{user.userPwNew}"></label>
 					</div>
 					<input type="password" name="userPwNew" id="userPwNew" class="form-control required" th:title="#{user.userPwNew}">
+					<div id="err_userPwNew" class="err err_close"></div>
+				</div>
+				
+				<div class="form-input">
+					<div class="mb-2">
+						<label for="nickNm" th:text="#{user.nickNm}"></label>
+					</div>
+					<input type="text" name="nickNm" id="nickNm" th:value="*{nickNm}" class="form-control" th:title="#{user.nickNm}">
 					<div id="err_userPwNew" class="err err_close"></div>
 				</div>
 				

@@ -5,6 +5,7 @@ const formValidator = {
 	/* 임시 Ajax  */
 	 async handleEvent(e) {		
 		const requiredEls = document.getElementsByClassName('required');
+		const nickNm = document.getElementById('nickNm');
 		const intro = document.getElementById('intro');
 		const gid = document.getElementById('gid');
 		const data = {};
@@ -24,6 +25,7 @@ const formValidator = {
 					data[el.name] = el.value;
 			}
 		}
+		data[nickNm.name] = nickNm.value;
 		data[intro.name] = intro.value;
 		data[gid.name] = gid.value;
 		// console.log(data);
