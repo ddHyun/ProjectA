@@ -13,7 +13,12 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	// 사용자 확인
+	// 사용자 확인(유저 번호)
+	public Optional<User> findById(Long id) {
+		return userRepository.findById(id);
+	}
+	
+	// 사용자 확인(유저 아이디)
 	public Optional<User> findByUserId(String userId) {
 		return userRepository.findByUserId(userId);
 	}

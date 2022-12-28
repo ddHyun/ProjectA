@@ -7,7 +7,7 @@ import org.tourGo.models.entity.user.User;
 
 import lombok.*;
 
-@Getter @Setter @ToString
+@Getter @Setter
 public class MypageRequest {
 	
 	private Long userNo;
@@ -32,6 +32,8 @@ public class MypageRequest {
 	private String mobile;
 	
 	private String intro;
+	
+	private String nickNm;
 	
 	private String gid;
 }

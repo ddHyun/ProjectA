@@ -24,7 +24,10 @@ public class User extends BaseEntity {
 	private String userPw;
 	
 	@Column(length=20, nullable=false)
-	private String userNm; // 사용자 생일
+	private String userNm; // 사용자 이름
+	
+	@Column(length=20)
+	private String nickNm; // 닉네임
 	
 	@Column(length=8, nullable=false)
 	private String birth; // 생일

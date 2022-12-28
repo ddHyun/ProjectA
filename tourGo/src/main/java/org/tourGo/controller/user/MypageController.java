@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.file.FileInfo;
@@ -26,9 +27,6 @@ public class MypageController {
 	
 	@Autowired
 	private FileRUDService fileService;
-	
-	@Value("${file.uploadPath}")
-	private String fileUploadPath;
 	
 	@GetMapping("/user/mypage")
 	public String mypage(Model model
@@ -48,8 +46,8 @@ public class MypageController {
 		FileInfo file = fileService.findTopByGidOrderByRegDtDesc(gid);
 		
 		if(file != null) {
-			long id = file.getId();
-			model.addAttribute("profile", "/uploads/" + (id % 10) + "/" + id);
+			long fileId = file.getId();
+			model.addAttribute("profile", "/uploads/" + (fileId % 10) + "/" + fileId);
 		} else {
 			model.addAttribute("profile", "/images/user/img_avatar_default.png");
 		}
@@ -60,4 +58,28 @@ public class MypageController {
 		return "user/mypage";
 	}
 	
+	@GetMapping("/user/mypage/{id}")
+	public String mypage(Model model
+									,@PathVariable("id") String userId) {
+		
+		model.addAttribute("addCss", new String[] {"user/mypage"});
+		model.addAttribute("addScript", new String[] {"user/mypage", "fileUpload"});
+		
+		// 사용자 정보
+		User user = userService.findByUserId(userId).orElseThrow();
+		
+		// 프로필 출력
+		FileInfo file = fileService.findTopByGidOrderByRegDtDesc(user.getGid());
+		if(file != null) {
+			long fileId = file.getId();
+			model.addAttribute("profile", "/uploads/" + (fileId % 10) + "/" + fileId);
+		} else {
+			model.addAttribute("profile", "/images/user/img_avatar_default.png");
+		}
+		
+		model.addAttribute("user", user);
+		
+		return "user/mypageView";
+	}
+			
 }
