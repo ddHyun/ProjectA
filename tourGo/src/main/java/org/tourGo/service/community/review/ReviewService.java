@@ -44,8 +44,7 @@ public class ReviewService {
 			entity.setReviewTitle(request.getReviewTitle());
 			entity.setRegion(request.getRegion());
 			entity.setPeriod(request.getPeriod());
-			entity.setReviewContent(request.getReviewContent());
-			
+			entity.setReviewContent(request.getReviewContent());			
 		} 
 		
 		return entity;		
@@ -106,42 +105,19 @@ public class ReviewService {
 
 		//기존 내용이라 DB조회 후 영속성 안으로 가져옴
 		ReviewEntity reviewEntity = requestToEntity(reviewRequest);			
-		
-//		//변경사항 체크
-//		BiPredicate<String, String> checkUpdate = (s1, s2) -> s1.equals(s2);
-//		
-//		String[] oldData = {reviewEntity.getReviewTitle(), reviewEntity.getReviewContent(),
-//				reviewEntity.getPeriod(), reviewEntity.getRegion()};
-//		String[] newData = {reviewRequest.getReviewTitle(), reviewRequest.getReviewContent(),
-//										reviewRequest.getPeriod(), reviewRequest.getRegion()};
-//		boolean isCheck = true;		
-//		for(int i=0; i<oldData.length; i++) {
-//			boolean compare = checkUpdate.test(oldData[i], newData[i]);
-//			if(!compare) {
-//				isCheck = compare;
-//				break;
-//			}
-//		}
-//		
-//		
-//		if(!isCheck) {
-//			//checkUpdate 결과 false인 것들만 entity로 넣어주기
-//			reviewEntity.setReviewTitle(reviewRequest.getReviewTitle());
-//			reviewEntity.setReviewContent(reviewRequest.getReviewContent());
-//			reviewEntity.setRegion(reviewRequest.getRegion());
-//			reviewEntity.setPeriod(reviewRequest.getPeriod());
+
 		try {
 			reviewEntity.setReviewTitle(reviewRequest.getReviewTitle());
 			reviewEntity.setReviewContent(reviewRequest.getReviewContent());
 			reviewEntity.setRegion(reviewRequest.getRegion());
 			reviewEntity.setPeriod(reviewRequest.getPeriod());
 			reviewRepository.save(reviewEntity);
+			
 			return true;
 		}catch(Exception e){
+			
 			return false;
 			
 		}
-//		}
-		
 	}	
 }

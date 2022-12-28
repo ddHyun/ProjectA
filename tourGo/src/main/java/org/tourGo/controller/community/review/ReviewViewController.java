@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.tourGo.common.AlertException;
 import org.tourGo.config.auth.PrincipalDetail;
+import org.tourGo.models.community.review.LikedEntityRepository;
 import org.tourGo.models.community.review.ReviewEntityRepository;
 import org.tourGo.models.entity.community.review.QReplyEntity;
 import org.tourGo.models.entity.community.review.ReplyEntity;
@@ -31,6 +32,8 @@ public class ReviewViewController {
 	private ReviewEntityRepository repository;
 	@Autowired
 	private HttpServletResponse response;
+	@Autowired
+	private LikedEntityRepository likedRepository;
 
 
 	private String baseUrl = "community/review/";
@@ -72,6 +75,12 @@ public class ReviewViewController {
 		ReviewEntity entity = repository.findById(reviewNo).orElseThrow(()->
 					new AlertException("게시글이 존재하지 않습니다", "/community/review_main"));
 		ReviewRequest reviewRequest = new ReviewRequest(entity);
+		
+		//좋아요 목록
+		List<LikedRequest> likes = reviewRequest.getLikes().stream().map(LikedRequest::new).toList();
+		long totalLikes = likedRepository.countByReviewAndLiked(entity, true);
+		model.addAttribute("likes", likes);
+		model.addAttribute("totalLikes", totalLikes);
 				
 		//댓글목록
 		Comparator<ReplyEntity> compare = Comparator

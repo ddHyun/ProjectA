@@ -38,6 +38,7 @@ const btnFn = {
 }
 
 /**좋아요 토글 처리 S */
+/** 
 function toggleLiked(){
 	const user = document.getElementById("user");
 	if(user.value==''){
@@ -51,16 +52,83 @@ function toggleLiked(){
 		likedEl.innerHTML = '<i class="fa-solid fa-heart" onclick="toggleLiked();"></i>';
 		likedEl.className += " on";		
 		liked = true;
+		console.log("좋아요 클릭");
 	}else{
 		likedEl.innerHTML = '<i class="fa-regular fa-heart" onclick="toggleLiked();"></i>';
 		likedEl.className = "liked";		
+		console.log("좋아요 취소");
 	}
 
+	const reviewNo = document.getElementById("reviewNo").value;
+	document.getElementById("ifrmProcess").src="/liked?reviewNo="+reviewNo+"&liked="+liked;
 }	
-
+*/
 /**좋아요 토글 처리 E */
 
+
+
 window.addEventListener("DOMContentLoaded", function(){
+	
+	/**클릭한 좋아요 상태 처리 S */
+	const likedNoEl = document.getElementById("likedNo");
+	if(likedNoEl){
+		const liked = document.getElementById("liked").value;
+		if(liked){
+			document.getElementsByClassName("toggleLiked")[0].className = "fa-solid fa-heart toggleLiked on";
+		}
+	}
+	/**클릭한 좋아요 상태 처리 E */
+	
+	/** 좋아요 토클 처리 S */
+	const toggleLikedEls = document.getElementsByClassName("toggleLiked");
+	for (const el of toggleLikedEls) {
+		el.addEventListener("click", function() {
+		
+			try {
+				const classList = this.classList;
+				if (classList.contains("login_required")) {
+					throw new Error("로그인 후 이용가능합니다.");								
+				}
+			
+				const reviewNoEl = document.getElementById("reviewNo");
+				if (!reviewNoEl) {
+					throw new Error("잘못된 접근입니다.");
+				}
+				const reviewNo = reviewNoEl.value;	
+				const likedNoEl = document.getElementById("likedNo");
+				const likedNo = likedNoEl ? likedNoEl.value : ""; 
+				const liked = classList.contains("on") ? false : true;
+				const url = `/liked?reviewNo=${reviewNo}&liked=${liked}&likedNo=${likedNo}`;
+				
+				const xhr = new XMLHttpRequest();
+				xhr.open("GET", url);
+				xhr.onreadystatechange = function() {
+					if (xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
+						const result = JSON.parse(xhr.responseText);
+						if (!result.success) {
+							alert(result.message);
+							return;
+						}
+						
+						if (liked) {
+							el.className = "fa-solid fa-heart toggleLiked";
+							classList.add("on");
+						} else {
+							el.className = "fa-regular fa-heart toggleLiked";
+							classList.remove("on");
+						}
+						document.getElementById("totalLikes").innerText = result.data;
+					}
+				};
+				xhr.send(null);
+				
+			} catch (err) {
+				alert(err.message);
+			}
+		});
+	}
+	/** 좋아요 토클 처리 E */
+	
 	
 	const reviewNoEl = document.getElementById("reviewNo");
 	if(reviewNoEl){
