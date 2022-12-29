@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	layout:decorate="~{layouts/main}">
+	
+	<main layout:fragment="content">
+		<div class="container">
+			<h2>신고</h2>
+			<th:block th:object="${reportRequest}">
+			<form method="post" id="reportForm" name="reportForm" th:href="@{/report/{target}/{targetId}(target=*{target}, targetId=*{targetId})}">
+				<input type="hidden" name="target" th:field="*{target}"/>
+				<input type="hidden" name="targetId" th:field="*{targetId}"/>
+				<input type="hidden" name="user" th:field="*{user}"/>
+				
+				<div class="row mb-2">
+					<div class="col-1 form_title">
+						<span class="font-weight-bold">제목</span>
+					</div>
+					<div class="col">
+						<input type="text" th:field="*{reportTitle}" class="form-control">
+					</div>
+				</div>
+				
+				<div class="row mb-2">
+					<div class="col-1 form_title">
+						<span class="font-weight-bold">신고 사유</span>
+					</div>
+					<div class="col">
+						<select th:name="reportType">
+							<option th:each="type : ${reportType}" th:value="${type}" th:text="${type.getOption()}"></option>
+						</select>
+					</div>
+				</div>
+				
+				<div class="row mb-2">
+					<div class="col-1 form_title">
+						<span class="font-weight-bold">신고 내용</span>
+					</div>
+					<div class="col">
+						<textarea rows="20" class="form_textarea" id="reportContent" name="reportContent" th:text="*{reportContent}"></textarea>
+					</div>
+				</div>
+				
+				<div class="row mb-4">
+					<div class="col-9"></div>
+           			<div class="col">
+           				<th:block th:if="*{target == 'review'}">
+	           				<button type="button" class="btn btn-secondary" th:href="@{/community/review_read/reviewNo_{reviewNo}(reviewNo=*{targetId})}">취소</button>
+           				</th:block>
+           				<th:block th:if="*{target == 'user'}">
+	           				<button type="button" class="btn btn-secondary" th:href="@{/user/mypage/{id}(id=*{targetId})}">취소</button>
+           				</th:block>
+           				<button type="submit" class="btn btn-danger">등록</button>
+           			</div>
+           		</div>
+				
+			</form>
+			</th:block>
+		</div>
+	</main>
+</html>
