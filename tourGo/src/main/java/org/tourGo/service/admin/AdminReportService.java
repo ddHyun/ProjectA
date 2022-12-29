@@ -1,5 +1,7 @@
 package org.tourGo.service.admin;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +25,10 @@ public class AdminReportService {
 	
 	@Autowired
 	private ReportRepository reportRepository;
+	
+	public Optional<Report> findById(Long reportNo) {
+		return reportRepository.findById(reportNo);
+	}
 	
 	public Page<Report> reportList(Pageable pageable, AdminSearchRequest request) {
 		int page = (pageable.getPageNumber() == 0) ? 0 : pageable.getPageNumber() - 1;

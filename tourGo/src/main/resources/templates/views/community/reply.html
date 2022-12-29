@@ -46,7 +46,7 @@
 				<div class="innerRpl">
 					<ul class="flex">
 						<li class="item" th:utext="*{replyContent}">댓글내용</li>
-						<li th:text="*{name}"><a th:href="@{/user/mypage/{id}(id=*{id})}">작성자</a></li>
+						<li><a th:href="@{/user/mypage/{id}(id=*{id})}" th:text="*{name}">작성자</a></li>
 						<li style="color:#888;" th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</li>
 						<th:block sec:authorize="isAuthenticated()" th:if="*{depth==0}">
 							<li><button class="item" type="button" th:text="#{reply}" th:replyNo="*{replyNo}" th:id="*{'dn'+replyNo}"

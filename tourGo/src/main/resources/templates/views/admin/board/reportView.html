@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+		layout:decorate="~{admin/main}">
+		
+		<main layout:fragment="content">
+			<div class="container">
+			<th:block th:object="${adminReportRequest}">
+				<div class="mb-4">
+					<h2 class="m-0 font-weight-bold text-primary">공지 사항 상세 보기</h2>
+				</div>
+				<div class="row mb-4">
+					
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th scope="col" class="w-25">
+									<th scope="col">
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">제목</th>
+									<td th:text="*{reportTitle}"></td>
+								</tr>
+								<tr>
+									<th scope="row">내용</th>
+									<td th:utext="*{reportContent}">
+									</td>
+								</tr>
+								<th:block th:if="*{target == 'review'}">
+								<tr>
+									<th scope="row">해당 신고 후기 링크</th>
+									<td>
+										<a th:href="@{/community/review_read/reviewNo_{reviewNo}(reviewNo=*{targetId})}">해당 링크로 이동</a>
+									</td>
+								</tr>
+								</th:block>
+								<th:block th:if="*{target == 'reply'}">
+								<tr>
+									<th scope="row">해당 신고 댓글 링크</th>
+									<td>
+										
+									</td>
+								</tr>
+								</th:block>
+							</tbody>
+						</table>
+					
+				</div>
+				<div class="row">
+               		<div class="col mb-4 d-grid gap-2 d-md-flex justify-content-md-end">
+               			<a class="btn btn-secondary mr-2" type="button" th:text="취소" th:href="@{/admin/board/reportList(searchType=${searchType}, searchKeyword=${searchKeyword}, page=${page})}"></a>
+               			<a class="btn btn-danger" type="button" th:text="삭제" th:href="@{/admin/board/reportRegist(reportNo=*{reportNo})}"></a>
+               		</div>
+               	</div>
+               	</th:block>
+			</div>
+		</main>
+		
+</html>
