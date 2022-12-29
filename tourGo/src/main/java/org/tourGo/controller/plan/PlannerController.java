@@ -199,13 +199,13 @@ public class PlannerController {
 		
 		
 	}
-	@PostMapping("/deleteplan")
-	public String deletePs(PlannerRq plannerRq,Model model,@AuthenticationPrincipal PrincipalDetail principal) {
-		Optional<User> _user = null;
-		_user = userRepository.findByUserId(principal.getUser().getUserId());
+	@GetMapping("/deleteplan/{no}")
+	public String deletePs(Model model, @PathVariable Long no) {
+	
+		Planner planner = plannerService.getPlanner(no);
 		
-		User user = _user.orElse(null);
-		plannerService.deletePlanner(plannerRq, user);
+		plannerService.deletePlanner(planner);
+		
 		
 		model.addAttribute("scripts", " alert('처리가 완료되었습니다'); parent.location.replace('/plan');");
 		return "common/excution";

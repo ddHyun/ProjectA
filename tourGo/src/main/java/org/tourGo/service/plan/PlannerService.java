@@ -47,13 +47,10 @@ public class PlannerService {
 		return planner;
 
 	}
-	public void deletePlanner(PlannerRq request,User user) {
-		try {
-		Planner planner = PlannerService.toEntity(request, user);
+	public void deletePlanner(Planner planner) {
+		
 		plannerRepo.delete(planner);
-		}catch(Exception e) {
-			throw new RuntimeException("에러 발생 다시 시도해주시기바랍니다");
-		}
+		
 	}
 	
 	public List<Planner> plannerList(User user){
@@ -98,7 +95,7 @@ public class PlannerService {
 		
 		PlannerRq rq = PlannerRq.builder().day(day).sdate(sdate).edate(edate).image(planner.getImage()).memo(planner.getMemo()).planSize(planner.getPlanSize())
 				.planType(planner.getPlanType()).title(planner.getTitle()).plannerNo(planner.getPlannerNo()).heart(planner.getHeart())
-				.hit(planner.getHit()).build();
+				.hit(planner.getHit()).open(planner.getOpen()).build();
 		
 		return rq;
 	}
@@ -108,7 +105,7 @@ public class PlannerService {
 		LocalDate sdate = rq.getSdate();
 		LocalDate edate = sdate.plusDays(day);
 		Planner planner = Planner.builder().plannerNo(rq.getPlannerNo()).day(day).sdate(sdate).edate(edate).image(rq.getImage()).memo(rq.getMemo()).planSize(rq.getPlanSize())
-				.planType(rq.getPlanType()).title(rq.getTitle()).user(user).build();
+				.planType(rq.getPlanType()).title(rq.getTitle()).user(user).open(rq.getOpen()).build();
 		
 		return planner;
 		
@@ -119,7 +116,7 @@ public class PlannerService {
 		LocalDate sdate = rq.getSdate();
 		LocalDate edate = sdate.plusDays(day);
 		Planner planner = Planner.builder().plannerNo(rq.getPlannerNo()).day(day).sdate(sdate).edate(edate).image(rq.getImage()).memo(rq.getMemo()).planSize(rq.getPlanSize())
-				.planType(rq.getPlanType()).title(rq.getTitle()).build();
+				.planType(rq.getPlanType()).title(rq.getTitle()).open(rq.getOpen()).build();
 		
 		return planner;
 		
