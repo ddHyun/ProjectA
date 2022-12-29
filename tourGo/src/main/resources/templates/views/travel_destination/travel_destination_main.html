@@ -11,36 +11,67 @@
 		</div>
 		<fieldset>
 			<div class="destination_area">
-				<div>
-					<input type="radio" name="destination" id="all" onclick="showDiv(this);">
+				<div class="destination_radio">
+					<input type="radio" name="destination" id="all" onclick="showDiv(event);" checked>
 					<label for='all'>전체</label>
-					
-					<input type="radio" name="destination" id="seoul" onclick="showDiv(this);">
+
+					<input type="radio" name="destination" id="seoul" onclick="showDiv(event);">
 					<label for="seoul">서울</label>
-					<input type="radio" name="destination" id="inchen" onclick="showDiv(this);">인천
-					<input type="radio" name="destination" id="daejun" onclick="showDiv(this);">대전
-					<input type="radio" name="destination" id="sejong" onclick="showDiv(this);">세종
-					<input type="radio" name="destination" id="daegu" onclick="showDiv(this);">대구
-					<input type="radio" name="destination" id="busan" onclick="showDiv(this);">부산
-					<input type="radio" name="destination" id="wolsan" onclick="showDiv(this);">울산
-					<input type="radio" name="destination" id="gwangju" onclick="showDiv(this);">광주
+
+					<input type="radio" name="destination" id="inchen" onclick="showDiv(event);">
+					<label for="inchen">인천</label>
+
+					<input type="radio" name="destination" id="daejun" onclick="showDiv(event);">
+					<label for="daejun">대전</label>
+
+					<input type="radio" name="destination" id="sejong" onclick="showDiv(event);">
+					<label for="sejong">세종</label>
+
+					<input type="radio" name="destination" id="daegu" onclick="showDiv(event);">
+					<label for="daegu">대구</label>
+
+					<input type="radio" name="destination" id="busan" onclick="showDiv(event);">
+					<label for="busan">부산</label>
+
+					<input type="radio" name="destination" id="wolsan" onclick="showDiv(event);">
+					<label for="wolsan">울산</label>
+
+					<input type="radio" name="destination" id="gwangju" onclick="showDiv(event);">
+					<label for="gwangju">광주</label>
 				</div>
-				<div>
-					<input type="radio" name="destination" id="gyeonggi" onclick="showDiv(this);">경기
-					<input type="radio" name="destination" id="gangwong" onclick="showDiv(this);">강원
-					<input type="radio" name="destination" id="chungbuk" onclick="showDiv(this);">충북
-					<input type="radio" name="destination" id="chungnam" onclick="showDiv(this);">충남
-					<input type="radio" name="destination" id="gyeongbuk" onclick="showDiv(this);">경북
-					<input type="radio" name="destination" id="gyeongnam" onclick="showDiv(this);">경남
-					<input type="radio" name="destination" id="junbuk" onclick="showDiv(this);">전북
-					<input type="radio" name="destination" id="junnam" onclick="showDiv(this);">전남
-					<input type="radio" name="destination" id="jeju" onclick="showDiv(this);">제주
+				<div class="destination_radio">
+					<input type="radio" name="destination" id="gyeonggi" onclick="showDiv(event);">
+					<label for="gyeonggi">경기</label>
+
+					<input type="radio" name="destination" id="gangwong" onclick="showDiv(event);">
+					<label for="gangwong">강원</label>
+
+					<input type="radio" name="destination" id="chungbuk" onclick="showDiv(event);">
+					<label for="chungbuk">충북</label>
+
+					<input type="radio" name="destination" id="chungnam" onclick="showDiv(event);">
+					<label for="chungnam">충남</label>
+
+					<input type="radio" name="destination" id="gyeongbuk" onclick="showDiv(event);">
+					<label for="gyeongbuk">경북</label>
+
+					<input type="radio" name="destination" id="gyeongnam" onclick="showDiv(event);">
+					<label for="gyeongnam">경남</label>
+
+					<input type="radio" name="destination" id="junbuk" onclick="showDiv(event);">
+					<label for="junbuk">전북</label>
+
+					<input type="radio" name="destination" id="junnam" onclick="showDiv(event);">
+					<label for="junnam">전남</label>
+
+					<input type="radio" name="destination" id="jeju" onclick="showDiv(event);">
+					<label for="jeju">제주</label>
 				</div>
 			</div>
 		</fieldset>
 		<div class="destination_content">
 			<div class="">
-				<div class="dest_content">
+				<div class="dest_content" id="allBox">
 					<div class="content_1">
 						<a th:href="@{/destination_detail}">
 							<img th:src="@{/images/destination/gyeongbokgung.jpg}" alt="">
