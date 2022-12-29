@@ -7,6 +7,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tourGo.common.Pagination;
 import org.tourGo.models.entity.notice.Notice;
@@ -25,6 +26,16 @@ public class AdminReportController {
 	@Autowired
 	private AdminReportService reportService;
 	
+	private void addCommons(Model model) {
+		// 부트스트랩 관련 CSS 추가
+		model.addAttribute("addCss", new String[] {"admin/sb-admin-2"});
+		model.addAttribute("addBootstrapCss", new String[] {"fontawesome-free/css/all", "datatables/dataTables.bootstrap4"});
+		
+		// 부트스트랩 관련 JS 추가
+		model.addAttribute("addScript", new String[] {});
+		model.addAttribute("addBootstrapJs", new String[] {"jquery/jquery.min", "jquery-easing/jquery.easing.min", "bootstrap/js/bootstrap.bundle.min", "bootstrap/js/bootstrap.min"});
+	}
+	
 	@GetMapping("/admin/board/reportList")
 	public String reportList(Model model,
 										@PageableDefault Pageable pageable,
@@ -32,14 +43,7 @@ public class AdminReportController {
 										@RequestParam(name="searchKeyword", required=false) String searchKeyword,
 										@RequestParam(name="page", required=false) String page,
 										AdminSearchRequest searchRequest) {
-		// 부트스트랩 관련 CSS 추가
-		model.addAttribute("addCss", new String[] {"admin/sb-admin-2"});
-		model.addAttribute("addBootstrapCss", new String[] {"fontawesome-free/css/all"});
-		
-		// 부트스트랩 관련 JS 추가
-		model.addAttribute("addScript", new String[] {"admin/demo/chart-area-demo", "admin/demo/chart-pie-demo"});
-		model.addAttribute("addBootstrapJs", new String[] {"jquery/jquery.min", "jquery-easing/jquery.easing.min", "bootstrap/js/bootstrap.bundle.min", "bootstrap/js/bootstrap.min"});
-		
+		addCommons(model);
 		Page<Report> list = reportService.reportList(pageable, searchRequest);
 		Pagination<Report> pagination = new Pagination<>(list, base_url + "/board/reportList");
 		
@@ -50,4 +54,24 @@ public class AdminReportController {
 		return "admin/board/reportList";
 	}
 	
+	@GetMapping("/admin/board/reportView/{reportNo}")
+	public String reportView(Model model,
+										@PathVariable("reportNo") Long reportNo,
+										@RequestParam(name="searchType", required=false) String searchType,
+										@RequestParam(name="searchKeyword", required=false) String searchKeyword,
+										@RequestParam(name="page", required=false) String page,
+										AdminReportRequest adminReportRequest) {
+		
+		addCommons(model);
+		Report report = reportService.findById(reportNo).orElseThrow();
+		
+		adminReportRequest = new AdminReportRequest(report);
+		
+		model.addAttribute("adminReportRequest", adminReportRequest);
+		model.addAttribute("page", page);
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchKeyword", searchKeyword);
+		
+		return "admin/board/reportView";
+	}
 }

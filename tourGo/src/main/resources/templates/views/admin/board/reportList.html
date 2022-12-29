@@ -40,7 +40,7 @@
 					                		<th:block th:if="${!#lists.isEmpty(list)}" th:with="total=${pagination.total}, size=${pagination.pageCnt}, pageNum=${pagination.page - 1}">
 					                		<tr th:each="list, index : ${list}" class="text-center">
 					                			<td th:text="${total - (pageNum * size + index.index)}"></td>
-					                			<td th:text="${list.reportTitle}"></td>
+					                			<td><a th:href="@{/admin/board/reportView/{reportNo}(reportNo=${list.reportNo})}" th:text="${list.reportTitle}"></a></td>
 					                			<td th:text="${list.user.userNm}"></td>
 					                			<td th:text="${#temporals.format(list.regDt,'yyyy-MM-dd HH:mm')}"></td>
 					                		</tr>
