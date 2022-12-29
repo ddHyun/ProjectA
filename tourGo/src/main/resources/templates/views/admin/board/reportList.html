@@ -37,7 +37,15 @@
 					                		</tr>
 					                	</thead>
 					                	<tbody>
-					                		<th:block th:if="${#lists.isEmpty(list)}">
+					                		<th:block th:if="${!#lists.isEmpty(list)}" th:with="total=${pagination.total}, size=${pagination.pageCnt}, pageNum=${pagination.page - 1}">
+					                		<tr th:each="list, index : ${list}" class="text-center">
+					                			<td th:text="${total - (pageNum * size + index.index)}"></td>
+					                			<td th:text="${list.reportTitle}"></td>
+					                			<td th:text="${list.user.userNm}"></td>
+					                			<td th:text="${#temporals.format(list.regDt,'yyyy-MM-dd HH:mm')}"></td>
+					                		</tr>
+					                		</th:block>
+					                		<th:block th:unless="${!#lists.isEmpty(list)}">
 					                		<tr>
 					                			<td colspan="4">데이터가 없습니다.</td>
 					                		</tr>
@@ -45,13 +53,15 @@
 					                	</tbody>
 				                	</table>
 			                	</div>
-			                	<!-- <th:block th:replace="admin/outlines/pagination::pagination"></th:block> -->
+			                	<div class="row">
+			                		<div class="col">
+			                			<th:block th:replace="admin/outlines/pagination::pagination"></th:block>
+			                		</div>
+			                	</div>
 			                </div>
 			            </div>
 	        		</div>
 	        	</div>
-	        	
-	        	
 	        </div>
 		</main>
 		

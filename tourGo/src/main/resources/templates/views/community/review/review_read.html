@@ -44,6 +44,10 @@
 			<div>
 				<button class="btn0 width25" type="button" th:text="#{community.list}"
 					th:onclick="|location.href='/community/review_main?page=${page}'|">목록</button>
+				<th:block sec:authorize="isAuthenticated()">
+				<a class="btn2 width25" type="button" th:text="#{report}"
+					th:href="@{/report/review/{reviewNo}(reviewNo=${reviewRequest.reviewNo})}"></a>
+				</th:block>
 				<th:block th:if="${user==reviewRequest.id}">
 					<button class="btn1 width20" id="modifyBtn" type="button" th:text="#{community.modify}">수정</button>
 					<button class="btn1 width20" id="deleteBtn" type="button" th:text="#{community.delete}">삭제</button>

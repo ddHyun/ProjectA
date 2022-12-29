@@ -42,7 +42,7 @@
 				<div class="rpl" th:id="*{'comment_' + replyNo}">
 					<div class="innerRpl">
 						<ul>
-							<small th:text="*{name}">작성자</small>
+							<a th:href="@{/user/mypage/{id}(id=*{id})}"><small th:text="*{name}">작성자</small></a>
 							<small style="color:#888;" th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</small>
 							<li class="flex">
 								<div class="item" th:utext="*{replyContent}">댓글내용</div>
