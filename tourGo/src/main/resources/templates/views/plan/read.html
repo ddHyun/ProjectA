@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Modal</title>
+    <link th:href="@{/css/plan/readwrite.css}" rel="stylesheet" type="text/css">
+    <head>
+
 
 <main layout:fragment="content">
 <style>
@@ -12,38 +18,29 @@
 
   
     </head>
-  </head>
-  <body style="margin:0;">
 
-    <div style="overflow: hidden;">
+  <body>
 
-    <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
-      <div style="border: 1px solid green; width:60%;">
-        사용자가 정의한 제목
-      </div>
-      <div class="update" style="border: 1px solid blue; width:20%;text-align:center;">
+    <div>
+
+    <div class="b_input">  
+      <div class="update">
         
 
         
           <a th:href="@{/plan/writeplan/}+${planner.plannerNo}">
-        <button type="submit"value="삭제" 
-           style="border-radius: 50%;height: 50px; width: 50px;cursor: pointer; ">   
+        <button type="submit" class="b_click">
       수정
-            
-          
            </button>
            </a>
          
       </div>
 
       
-      <div class="delete" style="border: 1px solid blue; width:20%;text-align:center;">
+      <div class="delete">
           <a th:href="@{/plan/writeplan/}+${planner.plannerNo}">
-        <button type="submit"style="border-radius: 50%;height: 50px; width: 50px;cursor: pointer; ">
-   
+        <button type="submit" class="b_click">
       삭제
-            
-          
            </button>
            </a>
       </div>
@@ -53,49 +50,52 @@
 
     
 
-		<div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
-      <div style="border: 1px solid green; width:50%; height: 50%;">
-        제목
+		<div class="flex" >  
+      <div class="width-30">
+        <span>여행제목</span>
       </div>
-      <div style="border: 1px solid blue; width:50%; height: 50%;">
+		<div class="width-70">
         <span th:text="${planner.title}">   </span>
       </div>
 		</div>
-    <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
-      <div style="border: 1px solid green; width:50%; height: 50%;">
-        여행 기간
+		
+<div class="flex">   
+      <div class="width-30">
+        여행기간
       </div>
-      <div style="border: 1px solid blue; width:50%; height: 50%;">
+		<div class="width-70">
         <span th:text="${planner.sdate}"></span> ~ <span th:text="${planner.edate}">   </span>
       </div>
 		</div>
-    <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
-      <div style="border: 1px solid green; width:50%; height: 50%;">
+		
+<div class="flex">  
+      <div class="width-30">
         여행타입
       </div>
-      <div style="border: 1px solid blue; width:50%; height: 50%;">
-      
+		<div class="width-70">
         <span th:text="${planner.planType}">   </span>
       </div>
 		</div>
-    <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
-      <div style="border: 1px solid green; width:50%; height: 50%;">
-        여행 인원수
+		
+<div class="flex">  
+      <div class="width-30">
+        여행인원
       </div>
-      <div style="border: 1px solid blue; width:50%; height: 50%;">
+		<div class="width-70">
         <span th:text="${planner.planSize}"> </span>
       </div>
 		</div>
-    <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
-      <div style="border: 1px solid green; width:50%; height: 50%;">
-        사용자 정의 메모
+		
+<div class="flex">  
+      <div class="width-30">
+        메모
       </div>
-      <div style="border: 1px solid blue; width:50%; height: 50%;">
+		<div class="width-70">
         <span th:text="${planner.memo}"> </span>
       </div>
 		</div>
   </div>
-  <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
+  <div>  
 
    Day1
     </div>
