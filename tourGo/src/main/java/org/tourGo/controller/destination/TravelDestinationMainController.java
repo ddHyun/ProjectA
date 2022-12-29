@@ -27,6 +27,9 @@ public class TravelDestinationMainController {
 	@GetMapping("/travel_destination_main")
 	public String travel_dstination_main(Model model) {
 		
+		String[] addScript = new String[] {"destination/info"};
+		model.addAttribute("addScript", addScript);
+		
 		DestinationMainRequest main = new DestinationMainRequest();
 		model.addAttribute("main", main);
 		
