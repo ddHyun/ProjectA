@@ -47,14 +47,13 @@ public class PlannerService {
 		return planner;
 
 	}
-	public void deletePlanner(PlannerRq request) {
-		Optional<Planner> _planner = plannerRepo.findById(request.getPlannerNo());
-		Planner planner = _planner.orElse(null);
-		if(planner ==null) {
-			throw new AlertException("플래너를 삭제할수없습니다","parent","/plan");
-		}
+	public void deletePlanner(PlannerRq request,User user) {
+		try {
+		Planner planner = PlannerService.toEntity(request, user);
 		plannerRepo.delete(planner);
-		
+		}catch(Exception e) {
+			throw new RuntimeException("에러 발생 다시 시도해주시기바랍니다");
+		}
 	}
 	
 	public List<Planner> plannerList(User user){
