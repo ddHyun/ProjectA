@@ -1,138 +1,144 @@
 <!DOCTYPE html>
-<html class="hihi" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Modal</title>
-    <link th:href="@{/css/plan/readwrite.css}" rel="stylesheet" type="text/css">
-    <head>
+<html class="hihi" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Modal</title>
+	<link th:href="@{/css/plan/readwrite.css}" rel="stylesheet" type="text/css">
+
+	<head>
 
 
-<main layout:fragment="content">
-<style>
-   .hihi::-webkit-scrollbar {display: none;}
+		<main layout:fragment="content">
+			<style>
+				.hihi::-webkit-scrollbar {
+					display: none;
+				}
 
-.hihi{scrollbar-width: none; -ms-overflow-style:none;}
+				.hihi {
+					scrollbar-width: none;
+					-ms-overflow-style: none;
+				}
+			</style>
 
- </style>  
 
-  
-    </head>
+	</head>
 
-  <body>
+<body>
 
-    <div class="form-group" style="margin-top: 30px;">
+	<div class="form-group" style="margin-top: 30px;">
 
-    <div class="b_input">  
-      <div class="update">
-        
-	
-        
-          <a th:href="@{/plan/writeplan/}+${planner.plannerNo}">
-        <button type="submit" class="b_click">
-      수정
-           </button>
-           </a>
-         
-      </div>
-
-      
-      <div class="delete">
-          <a th:href="@{/plan/deleteplan/}+${planner.plannerNo}">
-        <button type="submit" class="b_click">
-      삭제
-           </button>
-           </a>
-      </div>
-      </div>
+		<div class="b_input">
+			<div class="update">
 
 
 
-    
+				<a th:href="@{/plan/writeplan/}+${planner.plannerNo}">
+					<button type="submit" class="b_click">
+						수정
+					</button>
+				</a>
 
-		<div class="flex form-group" >  
-      <div class="width-30">
-        <span>여행제목</span>
-      </div>
-		<div class="width-70">
-        <span th:text="${planner.title}">   </span>
-      </div>
+			</div>
+
+
+			<div class="delete">
+				<a th:href="@{/plan/deleteplan/}+${planner.plannerNo}">
+					<button type="submit" class="b_click">
+						삭제
+					</button>
+				</a>
+			</div>
 		</div>
-		
-<div class="flex form-group">   
-      <div class="width-30">
-        여행기간
-      </div>
-		<div class="width-70">
-        <span th:text="${planner.sdate}"></span> ~ <span th:text="${planner.edate}">   </span>
-      </div>
-		</div>
-		
-<div class="flex form-group">  
-      <div class="width-30">
-        여행타입
-      </div>
-		<div class="width-70">
-        <span th:text="${planner.planType}">   </span>
-      </div>
-		</div>
-		
-<div class="flex form-group">  
-      <div class="width-30">
-        여행인원
-      </div>
-		<div class="width-70">
-        <span th:text="${planner.planSize}"> </span>
-      </div>
-		</div>
-		
-<div class="flex form-group">  
-      <div class="width-30">
-        메모
-      </div>
-		<div class="width-70">
-        <span th:text="${planner.memo}"> </span>
-      </div>
-		</div>
-  </div>
-  <div>  
 
-   Day1
-    </div>
-    <div style="padding: 20px 20px;
+
+
+
+
+		<div class="flex form-group">
+			<div class="width-30">
+				<span>여행제목</span>
+			</div>
+			<div class="width-70">
+				<span th:text="${planner.title}"> </span>
+			</div>
+		</div>
+
+		<div class="flex form-group">
+			<div class="width-30">
+				여행기간
+			</div>
+			<div class="width-70">
+				<span th:text="${planner.sdate}"></span> ~ <span th:text="${planner.edate}"> </span>
+			</div>
+		</div>
+
+		<div class="flex form-group">
+			<div class="width-30">
+				여행타입
+			</div>
+			<div class="width-70">
+				<span th:text="${planner.planType}"> </span>
+			</div>
+		</div>
+
+		<div class="flex form-group">
+			<div class="width-30">
+				여행인원
+			</div>
+			<div class="width-70">
+				<span th:text="${planner.planSize}"> </span>
+			</div>
+		</div>
+
+		<div class="flex form-group">
+			<div class="width-30">
+				메모
+			</div>
+			<div class="width-70">
+				<span th:text="${planner.memo}"> </span>
+			</div>
+		</div>
+	</div>
+	<div>
+
+		Day1
+	</div>
+	<div style="padding: 20px 20px;
     text-align: center;
     word-break: keep-all;
     line-height: 1.2;">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Aperiam distinctio aut fuga voluptatem qui inventore, 
-    dolor voluptas ad minima accusamus nam! Fugit pariatur, 
-    ipsa nobis dignissimos dolor reiciendis voluptatum natus!
- 
-
-  </div>
+		Lorem ipsum dolor sit amet consectetur adipisicing elit.
+		Aperiam distinctio aut fuga voluptatem qui inventore,
+		dolor voluptas ad minima accusamus nam! Fugit pariatur,
+		ipsa nobis dignissimos dolor reiciendis voluptatum natus!
+		Lorem ipsum dolor sit amet consectetur adipisicing elit.
+		Aperiam distinctio aut fuga voluptatem qui inventore,
+		dolor voluptas ad minima accusamus nam! Fugit pariatur,
+		ipsa nobis dignissimos dolor reiciendis voluptatum natus!
+		Lorem ipsum dolor sit amet consectetur adipisicing elit.
+		Aperiam distinctio aut fuga voluptatem qui inventore,
+		dolor voluptas ad minima accusamus nam! Fugit pariatur,
+		ipsa nobis dignissimos dolor reiciendis voluptatum natus!
+		Lorem ipsum dolor sit amet consectetur adipisicing elit.
+		Aperiam distinctio aut fuga voluptatem qui inventore,
+		dolor voluptas ad minima accusamus nam! Fugit pariatur,
+		ipsa nobis dignissimos dolor reiciendis voluptatum natus!
+		Lorem ipsum dolor sit amet consectetur adipisicing elit.
+		Aperiam distinctio aut fuga voluptatem qui inventore,
+		dolor voluptas ad minima accusamus nam! Fugit pariatur,
+		ipsa nobis dignissimos dolor reiciendis voluptatum natus!
+		Lorem ipsum dolor sit amet consectetur adipisicing elit.
+		Aperiam distinctio aut fuga voluptatem qui inventore,
+		dolor voluptas ad minima accusamus nam! Fugit pariatur,
+		ipsa nobis dignissimos dolor reiciendis voluptatum natus!
 
 
+	</div>
 
-  </body>
+
+
+</body>
 </main>
+
 </html>

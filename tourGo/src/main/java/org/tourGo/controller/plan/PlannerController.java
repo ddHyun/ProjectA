@@ -210,6 +210,24 @@ public class PlannerController {
 		model.addAttribute("scripts", " alert('처리가 완료되었습니다'); parent.location.replace('/plan');");
 		return "common/excution";
 	}
+	@GetMapping("/plannerallview")
+	public String planallview(Model model,@AuthenticationPrincipal PrincipalDetail principal) {
+		
+	Optional<User> _user = null;
+	try {
+	_user = userRepository.findByUserId(principal.getUser().getUserId());
+	}catch (Exception e) {
+		throw new RuntimeException("로그인후 이용가능한 페이지입니다");
+	}
+	User user = _user.orElse(null);
+
+	List<PlannerRq> list = plannerService.userPlanner(user);
 	
+	System.out.println(list);
+		
+		model.addAttribute("list", list);
+
+	return "plan/plannerallView";
+	}
 	
 }

@@ -1,136 +1,147 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Modal</title>
-    <link th:href="@{/css/plan/makeDate.css}" rel="stylesheet" type="text/css">
-    <head>
-<style>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
- </style>   
+<head>
+	<meta charset="UTF-8" />
+	<title>Modal</title>
+	<link th:href="@{/css/plan/makeDate.css}" rel="stylesheet" type="text/css">
 
+	<head>
+		<style>
 
-    </head>
-  </head>
-  <body>
+		</style>
 
 
-    
-    <form method="post" th:action="@{/plan/makeDetails}" th:object="${plannerRq}">
- 
+	</head>
+</head>
 
-      <div class="form-group">  
-              <label class=title>여행제목</label>
-<div class="input_title_box">
-              <input class="width-100" type="text"th:field="*{title}">
-			<div class='error' th:each="err : ${#fields.errors('title')}" th:text="${err}"></div>	
-</div>
-          </div>
-         
+<body>
 
 
 
-          <div class="form-group">  
+	<form method="post" th:action="@{/plan/makeDetails}" th:object="${plannerRq}">
 
-            <label class=title>  여행기간 </label>
 
-            <div class="input_box">
-     <input  type="date" name="sdate" th:field="*{sdate}" style="font-size: 17px;">
-       <select name="day" th:field="*{day}" style="font-size: 17px;" >
-
-    <option value="1">1일</option>
-    <option value="2">2일</option>
-    <option value="3">3일</option>	
-    <option value="4">4일</option>
-    <option value="5">5일</option>
-    <option value="6">6일</option>
-    <option value="7">7일</option>
-    <option value="8">8일</option>
-    <option value="9">9일</option>
-
-</select>
-			<div class='error' th:each="err : ${#fields.errors('sdate')}" th:text="${err}"></div>
-			<div class='error' th:each="err : ${#fields.errors('day')}" th:text="${err}"></div>
-            </div>
-          </div>
- 
-        <div class="form-group">  
-              <label class=title>여행타입</label>
-              <div style="display: flex; flex-wrap: wrap;">
-          <div th:each="type : ${planTypes}">
-    <input type="radio" th:field="*{planType}" th:value="${type.name()}"
-           class="form-check-input">
-    <label th:for="${#ids.prev('planType')}" th:text="${type.name}"
-           class="form-check-label">
-        
-    </label>
-</div>
-   <div class='error' th:each="err : ${#fields.errors('planType')}" th:text="${err}"></div>	
-          </div>
-</div>
-          
-         
-       
-     
-          <div class="form-group">  
-
-                <label class=title>여행인원</label>
- 
-            <div>
-	<select name="planSize" th:field="*{planSize}" style="font-size: 17px;">
-
-    	<option value="1">1명</option>
-    	<option value="2">2명</option>
-    	<option value="3">3명</option>
-    	<option value="4">4명</option>
-   	 	<option value="5">5명</option>
-   	 	<option value="6">6명</option>
-    	<option value="7">7명</option>
-    	<option value="8">8명</option>
-    	<option value="9">9명</option>
-
-</select>
-
-            </div>
-
-            </div>
-                
-            <div class="form-group">  
-      
-         
-              <label class=title>메모</label>
-    
-              
-              <div class="input">
-     
-    
-                <textarea name="memo" th:field="*{memo}"  maxlength="250"  placeholder="추가 바람" style="resize: none; width:450px; height:60px" ></textarea>
-                
-
-              </div>
-              
-              
-              </div>
-            
-
-    
+		<div class="form-group">
+			<label class=title>여행제목</label>
+			<div class="input_title_box">
+				<input class="width-100" type="text" th:field="*{title}">
+				<div class='error' th:each="err : ${#fields.errors('title')}" th:text="${err}"></div>
+			</div>
+		</div>
 
 
 
-<div style="position: absolute; right: 0px; bottom: 0px;">
-  <button style=" margin: 0 30px;" type="submit">일정 만들기</button>
-  <button style=" margin: 0 30px;" onclick="close()">창닫기</button></div>
-</form>
+
+		<div class="form-group">
+
+			<label class=title> 여행기간 </label>
+
+			<div class="input_box">
+				<input type="date" name="sdate" th:field="*{sdate}" style="font-size: 17px;">
+				<select name="day" th:field="*{day}" style="font-size: 17px;">
+
+					<option value="1">1일</option>
+					<option value="2">2일</option>
+					<option value="3">3일</option>
+					<option value="4">4일</option>
+					<option value="5">5일</option>
+					<option value="6">6일</option>
+					<option value="7">7일</option>
+					<option value="8">8일</option>
+					<option value="9">9일</option>
+
+				</select>
+				<div class='error' th:each="err : ${#fields.errors('sdate')}" th:text="${err}"></div>
+				<div class='error' th:each="err : ${#fields.errors('day')}" th:text="${err}"></div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class=title>여행타입</label>
+			<div style="display: flex; flex-wrap: wrap;">
+				<div th:each="type : ${planTypes}">
+					<input type="radio" th:field="*{planType}" th:value="${type.name()}" class="form-check-input">
+					<label th:for="${#ids.prev('planType')}" th:text="${type.name}" class="form-check-label">
+
+					</label>
+				</div>
+				<div class='error' th:each="err : ${#fields.errors('planType')}" th:text="${err}"></div>
+			</div>
+		</div>
 
 
-    <div>
-    <script>
-function close() {
 
-}
 
-</script>
+		<div class="form-group">
 
-  </body>
+			<label class=title>여행인원</label>
+
+			<div>
+				<select name="planSize" th:field="*{planSize}" style="font-size: 17px;">
+
+					<option value="1">1명</option>
+					<option value="2">2명</option>
+					<option value="3">3명</option>
+					<option value="4">4명</option>
+					<option value="5">5명</option>
+					<option value="6">6명</option>
+					<option value="7">7명</option>
+					<option value="8">8명</option>
+					<option value="9">9명</option>
+
+				</select>
+
+			</div>
+
+		</div>
+		<div class="form-group">
+			<label class=title>공개여부</label>
+			<input type="radio" name="chk_info" value="yes" checked="checked">공개
+			<input type="radio" name="chk_info" value="no">비공개
+
+
+
+		</div>
+
+		<div class="form-group">
+
+
+			<label class=title>메모</label>
+
+
+			<div class="input">
+
+
+				<textarea name="memo" th:field="*{memo}" maxlength="250" placeholder="추가 바람"
+					style="resize: none; width:450px; height:60px"></textarea>
+
+
+			</div>
+
+
+		</div>
+
+
+
+
+
+
+		<div style="position: absolute; right: 0px; bottom: 0px;">
+			<button style=" margin: 0 30px;" type="submit">일정 만들기</button>
+			<button style=" margin: 0 30px;" onclick="close()">창닫기</button>
+		</div>
+	</form>
+
+
+	<div>
+		<script>
+			function close() {
+
+			}
+
+		</script>
+
+</body>
+
 </html>
