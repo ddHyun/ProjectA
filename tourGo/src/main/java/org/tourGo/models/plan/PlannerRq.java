@@ -41,7 +41,7 @@ public class PlannerRq {//여행 일정짜기dto
 	 private Integer day;//사용자 지정 일수 
 	 private Integer heart; // 좋아요
 	 private Integer hit; //조회수
-	 
+	 private Boolean open;//공개여무
 	 
 	
 	 
