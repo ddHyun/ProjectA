@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko" class="hihi" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <title>Modal</title>
@@ -18,26 +17,27 @@
 
     
     <form method="post" th:action="@{/plan/makeDetails}" th:object="${plannerRq}">
- 
+    <div class="border">
+    	
+        <div class="flex">  
+              <lable>여행제목</lable>
+          <div class="input_view">
 
-      <div class="form-group">  
-              <label class=title>여행제목</label>
-<div class="input_title_box">
-              <input class="width-100" type="text"th:field="*{title}">
+    
+              <input class="title_input" type="text"th:field="*{title}">
 			<div class='error' th:each="err : ${#fields.errors('title')}" th:text="${err}"></div>	
-</div>
+            
           </div>
-         
+          </div>
+      
 
+          <div class="flex">  
 
+            <label>  여행기간 </label>
 
-          <div class="form-group">  
-
-            <label class=title>  여행기간 </label>
-
-            <div class="input_box">
-     <input  type="date" name="sdate" th:field="*{sdate}" style="font-size: 17px;">
-       <select name="day" th:field="*{day}" style="font-size: 17px;" >
+            <div class="dateview">
+     <label><input type="date" name="sdate" th:field="*{sdate}"></label>
+       <select name="day" th:field="*{day}" >
 
     <option value="1">1일</option>
     <option value="2">2일</option>
@@ -54,10 +54,9 @@
 			<div class='error' th:each="err : ${#fields.errors('day')}" th:text="${err}"></div>
             </div>
           </div>
- 
-        <div class="form-group">  
-              <label class=title>여행타입</label>
-              <div style="display: flex; flex-wrap: wrap;">
+
+        <div class="flex">  
+              <label>여행타입</label>
           <div th:each="type : ${planTypes}">
     <input type="radio" th:field="*{planType}" th:value="${type.name()}"
            class="form-check-input">
@@ -66,19 +65,16 @@
         
     </label>
 </div>
-   <div class='error' th:each="err : ${#fields.errors('planType')}" th:text="${err}"></div>	
-          </div>
-</div>
           
-         
-       
-     
-          <div class="form-group">  
+          
+          <div class='error' th:each="err : ${#fields.errors('planType')}" th:text="${err}"></div>	
+          </div>
+          <div class="flex">  
 
-                <label class=title>여행인원</label>
+                <label>여행인원</label>
  
-            <div>
-	<select name="planSize" th:field="*{planSize}" style="font-size: 17px;">
+            <div class="input_view">
+	<select name="planSize" th:field="*{planSize}">
 
     	<option value="1">1명</option>
     	<option value="2">2명</option>
@@ -95,42 +91,39 @@
             </div>
 
             </div>
-                
-            <div class="form-group">  
+            <div class="flex">  
       
          
-              <label class=title>메모</label>
+              <label>메모</label>
     
               
-              <div class="input">
+              <div class="dateview">
      
     
-                <textarea name="memo" th:field="*{memo}"  maxlength="250"  placeholder="추가 바람" style="resize: none; width:450px; height:60px" ></textarea>
-                
+                <textarea name="memo" th:field="*{memo}" class="autosize" maxlength="250" onkeydown="resize(this)" onkeyup="resize(this)" placeholder="추가 바람" style="vertical-align: middle; width: 100%; "></textarea>
 
               </div>
               
               
               </div>
             
-
+    </div>
     
 
 
 
 <div style="position: absolute; right: 0px; bottom: 0px;">
   <button style=" margin: 0 30px;" type="submit">일정 만들기</button>
-  <button style=" margin: 0 30px;" onclick="close()">창닫기</button></div>
+  <button style=" margin: 0 30px;" data-dismiss="modal">창닫기</button></div>
 </form>
 
 
-    <div>
+    
     <script>
-function close() {
-
-}
-
-</script>
-
+      function resize(obj) {
+        obj.style.height = "1px";
+        obj.style.height = 100%+(obj.scrollHeight)+"px";
+      }
+      </script>
   </body>
 </html>

@@ -80,7 +80,7 @@ codefty.popup = {
 
             var layerContents = document.createElement("iframe");
             layerContents.src=url;
-            layerContents.width=width - 40;
+            layerContents.width=width;
             layerContents.height=h;
             layerContents.setAttribute('frameborder', 0);
             layerContents.setAttribute('scrolling', 'auto');

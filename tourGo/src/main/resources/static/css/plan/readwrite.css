@@ -1,0 +1,26 @@
+*{
+	box-sizing: border-box;
+	margin:0;
+	padding:0;
+
+}
+.b_input{
+	display:flex;
+	justify-content: flex-end;
+}
+.flex{
+	display:flex;
+}
+.width-30{
+	width:30%;
+	text-align:right;
+	font-weight: bold;
+	font-size:17px;
+}
+.width-70{
+	width:70%;
+}
+.b_click {
+	border-radius: 50%;height: 50px; width: 50px;cursor: pointer;
+	margin-right: 20px;
+}
