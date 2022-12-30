@@ -33,7 +33,7 @@
 								<tr>
 									<th scope="row">해당 신고 후기 링크</th>
 									<td>
-										<a th:href="@{/community/review_read/reviewNo_{reviewNo}(reviewNo=*{targetId})}">해당 링크로 이동</a>
+										<a th:href="@{/community/review_read/reviewNo_{reviewNo}(reviewNo=*{targetId})}" target="blank">해당 링크로 이동</a>
 									</td>
 								</tr>
 								</th:block>
@@ -52,7 +52,7 @@
 				<div class="row">
                		<div class="col mb-4 d-grid gap-2 d-md-flex justify-content-md-end">
                			<a class="btn btn-secondary mr-2" type="button" th:text="취소" th:href="@{/admin/board/reportList(searchType=${searchType}, searchKeyword=${searchKeyword}, page=${page})}"></a>
-               			<a class="btn btn-danger" type="button" th:text="삭제" th:href="@{/admin/board/reportRegist(reportNo=*{reportNo})}"></a>
+               			<a class="btn btn-danger" type="button" th:text="삭제" th:href="@{/admin/board/reportProcess/{reportNo}(reportNo=*{reportNo})}"></a>
                		</div>
                	</div>
                	</th:block>

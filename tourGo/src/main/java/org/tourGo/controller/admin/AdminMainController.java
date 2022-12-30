@@ -48,7 +48,7 @@ public class AdminMainController {
 		model.addAttribute("addBootstrapCss", new String[] {"fontawesome-free/css/all"});
 		
 		// 부트스트랩 관련 JS 추가
-		model.addAttribute("addScript", new String[] {"admin/demo/chart-area-demo", "admin/demo/chart-pie-demo"});
+		model.addAttribute("addScript", new String[] {"admin/demo/chart-bar-demo", "admin/demo/chart-pie-demo"});
 		model.addAttribute("addBootstrapJs", new String[] {"jquery/jquery.min", "jquery-easing/jquery.easing.min", "bootstrap/js/bootstrap.bundle.min", "bootstrap/js/bootstrap.min", "chart.js/Chart.min"});
 		
 		// 문의내역 최근 3개 출력

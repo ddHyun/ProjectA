@@ -10,19 +10,22 @@
 	        		<div class="col-12">
 			            <div class="card shadow mb-4">
 			                <div class="question card-header py-3 justify-content-between">
-			                    <h6 class="m-0 font-weight-bold text-primary">신고 목록</h6>
-			                    <form method="GET" id="searchForm" name="searchForm" th:href="@{/admin/user/userManage}" th:object="${searchRequest}" class="d-flex">
-									<select id="selectBox" class="form-control" th:field="*{searchType}" >
-										<option value="">전체</option>
-										<option value="title">제목</option>
-										<option value="content">내용</option>
-										<option value="title_content">제목+내용</option>
-										<option value="userId">신고자</option>
-									</select>
-									<input type="text" name="searchKeyword" id="searchKeyword" class="form-control" placeholder="입력" th:value="*{searchKeyword}">
-									<button type="submit" id="searchBtn" class="btn btn-outline-success">
-										<i class="fa-solid fa-magnifying-glass"></i>검색
-									</button>
+			                    <h6 class="m-0 font-weight-bold text-primary">공지 사항</h6>
+			                    <form method="get"  class="form-inline bd-highlight justify-content-between" id="searchForm" name="searchForm" th:href="@{/admin/board/noticeList}" th:object="${searchRequest}">
+									<div></div>
+									<div>
+										<select id="selectBox" class="form-control" th:field="*{searchType}" >
+											<option value="">선택</option>
+											<option value="title">제목</option>
+											<option value="content">내용</option>
+											<option value="title_content">제목+내용</option>
+											<option value="userId">작성자</option>
+										</select>
+										<input type="text" name="searchKeyword" id="searchKeyword" class="form-control" placeholder="입력" th:value="*{searchKeyword}">
+										<button type="submit" id="searchBtn" class="btn btn-outline-success">
+											<i class="fa-solid fa-magnifying-glass"></i>검색
+										</button>
+									</div>
 								</form>
 			                </div>
 			                <div class="card-body">

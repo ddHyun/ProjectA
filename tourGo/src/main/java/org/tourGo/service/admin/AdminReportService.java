@@ -9,11 +9,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.tourGo.controller.admin.AdminSearchRequest;
 import org.tourGo.models.entity.report.QReport;
 import org.tourGo.models.entity.report.Report;
 import org.tourGo.models.report.ReportRepository;
 import org.tourGo.models.user.UserRepository;
+import org.tourGo.service.community.reply.ReplyService;
+import org.tourGo.service.community.review.ReviewService;
 
 import com.querydsl.core.BooleanBuilder;
 
@@ -25,6 +28,12 @@ public class AdminReportService {
 	
 	@Autowired
 	private ReportRepository reportRepository;
+	
+	@Autowired
+	private ReviewService reviewService;
+	
+	@Autowired
+	private ReplyService replyService;
 	
 	public Optional<Report> findById(Long reportNo) {
 		return reportRepository.findById(reportNo);
@@ -62,5 +71,27 @@ public class AdminReportService {
 		pageable = PageRequest.of(page, 10, Sort.by(Order.desc("regDt")));
 		
 		return reportRepository.findAll(booleanBuilder, pageable);
+	}
+	
+	// 신고 대상 처리(분기)
+	@Transactional
+	public void deleteFromReportTarget(Long reportNo) {
+		
+		Report report = reportRepository.findById(reportNo).orElseThrow();
+		
+		// 1. 후기 삭제
+		if(report.getTarget().equals("review")) {
+			reviewService.deleteReview(report.getTargetId());
+		}
+		// 2. 댓글 삭제
+		else if(report.getTarget().equals("reply")) {
+			
+		}
+		
+		// 처리 여부
+		
+		report = report.updateProcessYn('Y');
+		
+		reportRepository.save(report);
 	}
 }

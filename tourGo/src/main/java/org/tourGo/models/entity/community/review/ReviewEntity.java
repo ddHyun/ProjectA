@@ -34,6 +34,8 @@ public class ReviewEntity extends BaseEntity {
 	private String gid;								//file 그룹id
 	@Column(columnDefinition = "int default '0'", insertable=false, updatable=false)
 	private int reviewRead;						//조회수
+	@Column(nullable=false, columnDefinition="char(1) default 'N'", insertable=false)
+	private char deleteYn; 					// 삭제 여부
 	
 	@OrderBy("regDt desc")
 	@OneToMany(mappedBy = "review", orphanRemoval = true)

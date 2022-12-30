@@ -4,12 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tourGo.common.Pagination;
+import org.tourGo.config.auth.PrincipalDetail;
+import org.tourGo.controller.report.ReportRequest;
 import org.tourGo.models.entity.notice.Notice;
 import org.tourGo.models.entity.report.Report;
 import org.tourGo.service.admin.AdminReportService;
@@ -73,5 +77,16 @@ public class AdminReportController {
 		model.addAttribute("searchKeyword", searchKeyword);
 		
 		return "admin/board/reportView";
+	}
+	
+	// 후기 신고 대상 삭제
+	@GetMapping("/admin/board/reportProcess/{reportNo}")
+	public String deleteProcessReport(@PathVariable("reportNo") Long reportNo,
+														@AuthenticationPrincipal PrincipalDetail principal,
+														Model model) {
+		
+		reportService.deleteFromReportTarget(reportNo);
+		
+		return "redirect:/admin/board/reportList";
 	}
 }

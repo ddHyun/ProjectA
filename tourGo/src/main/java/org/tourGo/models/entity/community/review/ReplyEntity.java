@@ -30,6 +30,8 @@ public class ReplyEntity extends BaseEntity{
 	private int depth;					
 	private Long idParent;				//모댓글 글번호
 	private String listOrder;				//1차 정렬
+	@Column(nullable=false, columnDefinition="char(1) default 'N'", insertable=false)
+	private String deleteYn; 					// 삭제 여부
 
 	@Override
 	public String toString() {

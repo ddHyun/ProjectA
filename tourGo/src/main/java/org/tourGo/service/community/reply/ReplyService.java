@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.tourGo.controller.community.review.ReplyRequest;
 import org.tourGo.models.community.review.ReplyEntityRepository;
 import org.tourGo.models.community.review.ReviewEntityRepository;
@@ -61,4 +62,13 @@ public class ReplyService {
 		return replyRequest;
 	}
 
+	// 댓글 삭제처리
+	@Transactional
+	public void deleteReply(Long replyNo){
+		ReplyEntity reply = replyRepository.findById(replyNo).orElseThrow();
+		
+		// reply.setDeleteYn("Y");
+		// replyRepository.save(reply);
+	}
+	
 }
