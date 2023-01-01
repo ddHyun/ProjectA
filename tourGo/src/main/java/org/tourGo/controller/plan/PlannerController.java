@@ -12,6 +12,10 @@ import javax.validation.Valid;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,7 +67,7 @@ public class PlannerController {
 	
 	
 	@GetMapping() // 여행 상세 일정 보는 화면
-	public String plan(Model model,@AuthenticationPrincipal PrincipalDetail principal) {
+	public String plan(Model model,@AuthenticationPrincipal PrincipalDetail principal,@PageableDefault(page=0, size=3,sort="plannerNo", direction = Sort.Direction.DESC) Pageable pageable) {
 		
 	Optional<User> _user = null;
 	try {
@@ -73,15 +77,22 @@ public class PlannerController {
 	}
 	User user = _user.orElse(null);
 
-	List<PlannerRq> list = plannerService.userPlanner(user);
 	
+
+	Page<Planner> list = plannerService.plannerList(pageable,user);
+
 	System.out.println(list);
-		
+
 		model.addAttribute("list", list);
 		model.addAttribute("user", user);
+		//model.addAttribute("list2",plannerService.plannerList(pageable));
 	model.addAttribute("addScript", "layer");	
 	return "plan/plannerView";
 	}
+	
+	
+	
+	
 	//아이디값확인해서 아이디일치하지않으면 예외처리하기!!
 	@GetMapping("/makeDetails/{no}")
 	public String makeDetails(Model model, @PathVariable Long no,@AuthenticationPrincipal PrincipalDetail principal) {

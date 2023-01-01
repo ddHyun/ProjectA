@@ -7,13 +7,20 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.tourGo.common.AlertException;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.plan.PlannerRq;
 import org.tourGo.models.plan.entity.Planner;
+import org.tourGo.models.plan.entity.QPlanner;
 import org.tourGo.models.user.UserRepository;
+
+import com.querydsl.core.BooleanBuilder;
+
+
 
 @Service
 public class PlannerService {
@@ -53,13 +60,31 @@ public class PlannerService {
 		
 	}
 	
-	public List<Planner> plannerList(User user){
-		List<Planner> list = plannerRepo.findAllByUser(user,Sort.by(Sort.Direction.DESC,"plannerNo"));
+//	public List<Planner> plannerList(User user){
+//		List<Planner> list = plannerRepo.findAllByUser(user,Sort.by(Sort.Direction.DESC,"plannerNo"));
+//
+//		
+//		return list;
+//	}
+	
+	
+	public Page<Planner> plannerList(Pageable pageable,User user){
+		BooleanBuilder builder = new BooleanBuilder();
+		QPlanner planner = QPlanner.planner;
+		builder.and(planner.user.eq(user));
+		
+		Page<Planner> list = plannerRepo.findAll(builder, pageable);
 		
 		
 		
 		return list;
 	}
+	
+	
+	
+	
+	
+	
 	
 	public Planner insertPlanner(PlannerRq plannerRq,User user) {
 		
@@ -121,6 +146,8 @@ public class PlannerService {
 		return planner;
 		
 	}
+
+
 	
 	
 	
