@@ -10,9 +10,11 @@ import org.tourGo.models.entity.community.review.ReplyEntity;
 import org.tourGo.models.entity.community.review.ReviewEntity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter
+@NoArgsConstructor
 public class ReviewRequest {
 
 	private Long reviewNo; 		//글번호
@@ -32,8 +34,7 @@ public class ReviewRequest {
 	private int reviewRead;			//조회수
 	private List<ReplyEntity> replies;	//댓글
 	private List<LikedEntity> likes;		//좋아요
-	
-	public ReviewRequest() {}
+	private int totalLikes; 			//좋아요 총 개수
 	
 	public ReviewRequest(ReviewEntity entity) {
 		reviewNo = entity.getReviewNo();
@@ -49,5 +50,6 @@ public class ReviewRequest {
 		reviewRead = entity.getReviewRead();	
 		replies = entity.getReplies();
 		likes = entity.getLikes();
+		totalLikes = entity.getTotalLikes();
 	}	
 }

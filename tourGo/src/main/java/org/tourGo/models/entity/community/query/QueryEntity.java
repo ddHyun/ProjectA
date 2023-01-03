@@ -36,6 +36,9 @@ public class QueryEntity extends BaseEntity{
 	@Column(columnDefinition="boolean default false")
 	private boolean isSolved; 	//답변완료 유무 확인
 	
+	@OneToOne(mappedBy="query")	//답변 엔티티
+	private QueryReplyEntity queryReply;
+	
 	@Builder
 	public QueryEntity(Long queryNo, String queryTitle, String queryContent, User user, int queryRead, boolean secretPost , boolean isSolved) {
 		this.queryNo = queryNo;

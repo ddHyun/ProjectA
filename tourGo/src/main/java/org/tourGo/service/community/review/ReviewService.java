@@ -37,6 +37,7 @@ public class ReviewService {
 		
 		if (entity == null) { // 후기 추가인 경우 새로운 entity 객체 생성 및 사용자 계정 생성, gid는 최초 추가시에만 생성 및 DB  처리
 			entity = new ReviewEntity();
+											
 			User user = new User();
 			user.setUserId(request.getId());
 			entity.setUser(user);
@@ -73,7 +74,22 @@ public class ReviewService {
 					.or(reviewEntity.reviewContent.contains(keyword))
 					.or(reviewEntity.region.contains(keyword));
 		}
-		String field = (order==null || !order.equals("read")) ? "regDt" : "reviewRead";
+		
+		String field = "";
+		order = order == null ? "date" : order;
+		
+		switch(order) {
+			case "date" : 
+				field = "regDt";
+				break;
+			case "read" :
+				field = "reviewRead";
+				break;
+			case "liked" :
+				field = "totalLikes";
+				break;
+		}
+		
 		Pageable pageable = PageRequest.of(page-1, limit, Sort.by(Direction.DESC, field));
 		
 		Page<ReviewEntity> lists = reviewRepository.findAll(builder, pageable);

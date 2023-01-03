@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import javax.validation.constraints.NotBlank;
 
 import org.tourGo.models.entity.community.query.QueryEntity;
+import org.tourGo.models.entity.community.query.QueryReplyEntity;
 import org.tourGo.models.entity.user.User;
 
 import lombok.*;
@@ -24,6 +25,7 @@ public class QueryRequest {
 	private boolean secretPost;	//글 공개여부	
 	private LocalDateTime modDt;	//작성일
 	private boolean isSolved;		//답변완료 여부
+	private QueryReplyEntity queryReply; //답변
 	
 	//엔티티 -> 커맨드
 	@Builder
@@ -37,5 +39,8 @@ public class QueryRequest {
 		queryRead = entity.getQueryRead();
 		secretPost = entity.isSecretPost();
 		isSolved = entity.isSolved();
+		queryReply = entity.getQueryReply();
 	}
+	
+	
 }

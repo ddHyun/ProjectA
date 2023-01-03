@@ -25,10 +25,23 @@
 			</table>
 			<div class="marginTop30"></div>
 			
+			<!-- 답변 -->
+			<div th:if="${queryReply}" class="wrap centerW" th:object="${queryReply}">
+				<table class="communityT marginAuto">
+					<tr>
+						<td class="borderND" th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">
+					</tr>
+					<tr>
+						<td th:utext="*{queryReplyContent}"></td>
+					</tr>
+				</table>
+			</div>
+			<div class="marginTop30"></div>	
+			
 			<div>
 				<button class="btn0 width25" type="button" th:text="#{community.list}"
 					th:onclick="|location.href='/community/query_main?page=${page}'|">목록</button>
-				<th:block th:if="${sessionUserId}==*{user.userId}">
+				<th:block th:if="${user}==*{user.userId}">
 					<button class="btn1 width20" type="button" th:text="#{community.modify}"
 						th:onclick="|location.href='/community/query_update/*{queryNo}'|">수정</button>
 					<button class="btn1 width20" type="button" th:text="#{community.delete}"

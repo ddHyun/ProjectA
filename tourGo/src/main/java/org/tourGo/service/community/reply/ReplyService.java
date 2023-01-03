@@ -1,10 +1,6 @@
 package org.tourGo.service.community.reply;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import org.tourGo.controller.community.review.ReplyRequest;
 import org.tourGo.models.community.review.ReplyEntityRepository;
@@ -53,8 +49,6 @@ public class ReplyService {
 		ReplyEntity entity = requestToEntity(request);
 		entity.setUser(user);
 		entity.setReview(review);
-		System.out.println("================");
-		System.out.println("idParent : "+entity.getIdParent());
 		entity = replyRepository.save(entity);
 		ReplyRequest replyRequest = new ReplyRequest(entity);
 		

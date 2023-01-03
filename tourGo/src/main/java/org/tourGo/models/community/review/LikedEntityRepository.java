@@ -7,5 +7,5 @@ import org.tourGo.models.entity.community.review.ReviewEntity;
 
 public interface LikedEntityRepository extends JpaRepository<LikedEntity, Long>, QuerydslPredicateExecutor {
 
-	long countByReviewAndLiked(ReviewEntity review, boolean liked);
+	int countByReviewAndLiked(ReviewEntity review, boolean liked);
 }
