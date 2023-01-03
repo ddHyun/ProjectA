@@ -15,5 +15,11 @@ public interface ReviewEntityRepository extends JpaRepository<ReviewEntity, Long
 	@Transactional
 	@Query("update ReviewEntity r set r.reviewRead=(r.reviewRead+1) where r.reviewNo=:reviewNo")
 	int updateReviewRead(@Param("reviewNo") Long reviewNo);
+	
+	//좋아요 업데이트
+	@Modifying
+	@Transactional
+	@Query("update ReviewEntity r set r.totalLikes=:totalLikes where r.reviewNo=:reviewNo")
+	int updateTotalLikes(int totalLikes, long reviewNo);
 
 }

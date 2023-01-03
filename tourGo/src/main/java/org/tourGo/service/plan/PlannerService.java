@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.tourGo.common.AlertException;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.plan.PlannerRq;
@@ -26,7 +28,7 @@ import com.querydsl.core.BooleanBuilder;
 public class PlannerService {
 
 	@Autowired
-	private PlannerRepository plannerRepo;
+	private PlannerRepository plannerRepo; // 여기서 선언해서 그런건가요?
 	@Autowired
 	private UserRepository userRepo;
 	
@@ -81,7 +83,10 @@ public class PlannerService {
 	}
 	
 	
-	
+	public Page<Planner> plannerSearchList(String searchKeyword, Pageable pageable) {
+		
+		return plannerRepo.findByTitleContaining(searchKeyword, pageable); // plannerRepo 왜 이거인지??
+	}
 	
 	
 	
@@ -148,7 +153,6 @@ public class PlannerService {
 	}
 
 
-	
 	
 	
 	

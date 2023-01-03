@@ -12,19 +12,19 @@
 		<div class="marginTop60"></div>
 		
 		<div class="width80 marginAuto">
-			<input th:if="${keyword}" type="hidden" th:value="${keyword}" id="keyword">
 			<!-- 조회 정렬-->
-			<form class="flex" method="get" th:action="@{/community/review_main}" autocomplete="off">
+			<form class="flex" name="frmSearch" method="get" th:action="@{/community/review_main}" autocomplete="off">
 				<div class="m_item">
 					<select name="order" id="order">
 						<option th:value="date" th:selected="date==${order}">최신순</option>
 						<option th:value="read" th:selected="read==${order}">조회순</option>
+						<option th:value="liked" th:selected="liked==${order}">추천순</option>
 					</select>
 				</div>
 				<div class="m_item"></div>
 				<!-- 여행지 검색 -->
 				<div class="m_item search">
-						<input type="text" placeholder="여행지 검색" name="keyword" id="search">
+						<input type="text" placeholder="여행지 검색" name="keyword" th:value="${keyword}">
 						<button class="btn1" type="submit">
 							<i class="fa-solid fa-magnifying-glass"><span th:text="#{review.search}"></span></i>
 						</button>
@@ -62,7 +62,7 @@
 							<td th:text="*{name}">작성자</td>
 							<td th:text="*{#temporals.format(regDt,'yyyy-MM-dd HH:mm')}">작성일</td>
 							<td th:text="*{reviewRead}">조회수</td>
-							<td th:text="${totalLikes[status.index]}">추천수</td>
+							<td th:text="*{totalLikes}">추천수</td>
 						</tr>
 					</th:block>
 				</tbody>

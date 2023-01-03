@@ -37,43 +37,14 @@ const btnFn = {
 	/**게시글 삭제하기 E */
 }
 
-/**좋아요 토글 처리 S */
-/** 
-function toggleLiked(){
-	const user = document.getElementById("user");
-	if(user.value==''){
-		alert("로그인 후 이용 가능합니다");
-		return;
-	}
-	
-	const likedEl = document.getElementById("liked");
-	let liked = false;
-	if(likedEl.className=="liked"){
-		likedEl.innerHTML = '<i class="fa-solid fa-heart" onclick="toggleLiked();"></i>';
-		likedEl.className += " on";		
-		liked = true;
-		console.log("좋아요 클릭");
-	}else{
-		likedEl.innerHTML = '<i class="fa-regular fa-heart" onclick="toggleLiked();"></i>';
-		likedEl.className = "liked";		
-		console.log("좋아요 취소");
-	}
-
-	const reviewNo = document.getElementById("reviewNo").value;
-	document.getElementById("ifrmProcess").src="/liked?reviewNo="+reviewNo+"&liked="+liked;
-}	
-*/
-/**좋아요 토글 처리 E */
-
-
-
 window.addEventListener("DOMContentLoaded", function(){
 	
 	/**클릭한 좋아요 상태 처리 S */
 	const likedNoEl = document.getElementById("likedNo");
 	if(likedNoEl){
 		const liked = document.getElementById("liked").value;
-		if(liked){
+		console.log(liked);
+		if(liked=="true"){
 			document.getElementsByClassName("toggleLiked")[0].className = "fa-solid fa-heart toggleLiked on";
 		}
 	}

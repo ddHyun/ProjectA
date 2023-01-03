@@ -99,6 +99,19 @@
 				<span th:text="${planner.memo}"> </span>
 			</div>
 		</div>
+		
+							<label class=title>공개여부</label>	
+			<div th:if="${planner.open}">		
+			<input type="radio" name="open" value="true" checked="checked">공개
+			<input type="radio" name="open" value="false">비공개
+			</div>
+			
+			<div th:unless="${planner.open}">
+				<input type="radio" name="open" value="true">공개
+			<input type="radio" name="open" value="false"  checked="checked">비공개
+			</div>
+		
+		
 	</div>
 	<div>
 

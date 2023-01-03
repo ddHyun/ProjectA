@@ -22,7 +22,7 @@ import lombok.*;
 @NoArgsConstructor
 @Data
 public class Planner extends BaseEntity {
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long plannerNo; //자동증감번호
 	private String title; //사용자 정의 제목
 	private String planSize;	 //여행 인원수
