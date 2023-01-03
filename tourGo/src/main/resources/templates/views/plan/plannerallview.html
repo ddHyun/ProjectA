@@ -11,10 +11,12 @@
 
 <div
 		style="border: 1px solid blue; display: grid; grid-template-columns: repeat(3,450px); place-content: center;grid-column-gap: 100px;">
+		
+		
 		<th:block th:each="li,status : ${list}" th:object="${li}">
 
 			<!--    <div th:id="'ex'+${status.count}" style="border:1px solid green;">-->
-
+			<a th:href="@{plannerallview_page/}+*{plannerNo}" style="text-decoration: none;">
 			<div th:class="buttons" style="border:1px solid green; cursor: pointer;margin-top:70px"
 				th:data-no="*{plannerNo}">
 				<img style="max-width: 450px;" th:src="@{/images/main_test/sub4.jpg}"> <br>
@@ -22,7 +24,7 @@
 				<span th:text="*{title}"> </span>
 				<input type="hidden" th:name="test" th:value="*{plannerNo}" />
 			</div>
-
+</a>
 		</th:block>
 	</div>
 	

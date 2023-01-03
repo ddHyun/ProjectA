@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/main}">
+	<main layout:fragment="content">
+		
+		
+		
+		
+		
+		
+	<div class="form-group" style="margin-top: 30px;">
+
+	
+				<span th:text="${planner.title}"> </span>
+
+		</div>
+
+
+				<span th:text="${planner.sdate}"></span> ~ <span th:text="${planner.edate}"> </span>
+			</div>
+		</div>
+
+		<div class="flex form-group">
+			<div class="width-30">
+				여행타입
+			</div>
+			<div class="width-70">
+				<span th:text="${planner.planType}"> </span>
+			</div>
+		</div>
+
+		<div class="flex form-group">
+			<div class="width-30">
+				여행인원
+			</div>
+			<div class="width-70">
+				<span th:text="${planner.planSize}"> </span>
+			</div>
+		</div>
+
+		<div class="flex form-group">
+			<div class="width-30">
+				메모
+			</div>
+			<div class="width-70">
+				<span th:text="${planner.memo}"> </span>
+			</div>
+		</div>
+		
+							<label class=title>공개여부</label>	
+			<div th:if="${planner.open}">		
+			<input type="radio" name="open" value="true" checked="checked">공개
+			<input type="radio" name="open" value="false">비공개
+			</div>
+			
+			<div th:unless="${planner.open}">
+				<input type="radio" name="open" value="true">공개
+			<input type="radio" name="open" value="false"  checked="checked">비공개
+			</div>
+		
+		
+	</div>
+	</main>
+</html>

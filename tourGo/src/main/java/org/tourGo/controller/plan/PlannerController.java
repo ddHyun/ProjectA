@@ -257,4 +257,25 @@ public class PlannerController {
 	return "plan/plannerallView";
 	}
 	
+	@GetMapping("/plannerallview_page/{no}")
+	public String planallview_page(Model model,@AuthenticationPrincipal PrincipalDetail principal, @PathVariable Long no ) {
+		
+	Optional<User> _user = null;
+	try {
+	_user = userRepository.findByUserId(principal.getUser().getUserId());
+	}catch (Exception e) {
+		throw new RuntimeException("로그인후 이용가능한 페이지입니다");
+	}
+	User user = _user.orElse(null);
+
+	List<PlannerRq> list = plannerService.userPlanner(user);
+	PlannerRq plannerRq = PlannerService.toDto(plannerService.getPlanner(no)); // 플래너번호를 받아 dto객체로 변환
+	
+	model.addAttribute("planner", plannerRq);
+
+		
+		model.addAttribute("list", list);
+
+	return "plan/plannerallView_page";
+	}
 }
