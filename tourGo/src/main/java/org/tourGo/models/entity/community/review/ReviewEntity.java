@@ -12,6 +12,7 @@ import lombok.*;
 @Entity
 @Table(name="review")
 @Getter @Setter
+@NoArgsConstructor
 public class ReviewEntity extends BaseEntity {
 
 	@Id @GeneratedValue
@@ -40,6 +41,25 @@ public class ReviewEntity extends BaseEntity {
 	private List<ReplyEntity> replies = new ArrayList<>();			//댓글	
 	
 	@OneToMany(mappedBy = "review", orphanRemoval = true)
-	private List<LikedEntity> likes = new ArrayList<>();				//좋아요
+	private List<LikedEntity> likes = new ArrayList<>();				//좋아요	
 	
+	@Column(columnDefinition = "int default '0'", insertable=false, updatable=false)
+	private int totalLikes; 	//좋아요 총 개수
+
+//	@Builder
+//	public ReviewEntity(Long reviewNo, User user, String reviewTitle, String region, String period,
+//			String reviewContent, String gid, int reviewRead, List<ReplyEntity> replies, List<LikedEntity> likes,
+//			int totalLikes) {
+//		this.reviewNo = reviewNo;
+//		this.user = user;
+//		this.reviewTitle = reviewTitle;
+//		this.region = region;
+//		this.period = period;
+//		this.reviewContent = reviewContent;
+//		this.gid = gid;
+//		this.reviewRead = reviewRead;
+//		this.replies = replies;
+//		this.likes = likes;
+//		this.totalLikes = totalLikes;
+//	}	
 }

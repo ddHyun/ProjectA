@@ -2,6 +2,7 @@ package org.tourGo.service.community.review;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.tourGo.common.AlertException;
 import org.tourGo.controller.community.review.LikedRequest;
 import org.tourGo.models.community.review.LikedEntityRepository;
@@ -22,7 +23,8 @@ public class LikedService {
 	private UserRepository userRepository;
 	
 	//좋아요 클릭 : insert / 좋아요 취소 : update
-	public Long process(LikedRequest likedRequest) {
+	@Transactional
+	public int process(LikedRequest likedRequest) {
 		
 		Long likedNo = likedRequest.getLikedNo();
 		LikedEntity likedEntity = null;
@@ -55,8 +57,9 @@ public class LikedService {
 				
 		likedRepository.save(likedEntity);
 		//좋아요 클릭 총 개수
-		Long totalLikes = likedRepository.countByReviewAndLiked(reviewEntity, true);
-		
+		int totalLikes = likedRepository.countByReviewAndLiked(reviewEntity, true);
+		//reviewEntity 좋아요 개수 업데이트
+		reviewRepository.updateTotalLikes(totalLikes, reviewEntity.getReviewNo());
 		return totalLikes;
-	}
+	}	
 }
