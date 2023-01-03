@@ -25,11 +25,7 @@ public class DestinationDetail {
 	@GeneratedValue
 	private Long destinationNo;// db테이블 증감번호
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "userNo")
-	private User user;// 관계매핑
-
-	@Column(nullable = true)
+	@Column(nullable = false)
 	private String tourTitle;			// 여행지 이름
 	private String tourDestination; 	// 지역
 	private String tourImg;				// 여행지 이미지

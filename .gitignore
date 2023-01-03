@@ -22,3 +22,9 @@
 .metadata/.plugins/org.eclipse.m2e.logback.configuration/logback.1.16.3.20211002-1029.xml
 .metadata/.plugins/org.eclipse.ui.workbench/workingsets.xml
 /.metadata/
+abcd.iml
+.idea/.gitignore
+.idea/.name
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
