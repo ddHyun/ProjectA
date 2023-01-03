@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.tourGo.models.destination.entity.DestinationDetail;
-
+import org.tourGo.models.destination.entity.QDestinationDetail;
 
 import com.querydsl.core.BooleanBuilder;
 
@@ -24,9 +24,9 @@ public class DestinationDetailService {
 		BooleanBuilder builder = new BooleanBuilder();
 		QDestinationDetail destinationdetail = QDestinationDetail.destinationDetail;
 		
-		Page<DestinationDetail> list = destinationRepository.findAll(builder, pageable);
+//		Page<DestinationDetail> list = destinationRepository.findAll(builder, pageable);
 		
-		return list;
+		return null;
 	}
 
 }
