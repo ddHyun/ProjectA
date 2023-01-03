@@ -67,7 +67,7 @@ public class PlannerController {
 	
 	
 	@GetMapping() // 여행 상세 일정 보는 화면
-	public String plan(Model model,@AuthenticationPrincipal PrincipalDetail principal,@PageableDefault(page=0, size=3,sort="plannerNo", direction = Sort.Direction.DESC) Pageable pageable) {
+	public String plan(Model model,@AuthenticationPrincipal PrincipalDetail principal,@PageableDefault(page=0, size=3,sort="plannerNo", direction = Sort.Direction.DESC) Pageable pageable,String searchKeyword) {
 		
 	Optional<User> _user = null;
 	try {
@@ -77,14 +77,30 @@ public class PlannerController {
 	}
 	User user = _user.orElse(null);
 
+		Page<Planner> list = null;
+	
+	if(searchKeyword == null) {
+		list = plannerService.plannerList(pageable, user);
+	} else {
+		list = plannerService.plannerSearchList(searchKeyword, pageable);
+	}
+	
 	
 
-	Page<Planner> list = plannerService.plannerList(pageable,user);
+	/* Page<Planner> list = plannerService.plannerList(pageable,user); */
 
 	System.out.println(list);
+	
+	int nowPage = list.getPageable().getPageNumber()+1; // pageable 0부터 시작하기때문에 +1 해준다
+	int startPage = Math.max(nowPage-4, 1); // 둘중 큰거 반환함.
+	int endPage = Math.min(nowPage + 5,list.getTotalPages());
+	
 
 		model.addAttribute("list", list);
 		model.addAttribute("user", user);
+		model.addAttribute("nowPage",nowPage);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
 		//model.addAttribute("list2",plannerService.plannerList(pageable));
 	model.addAttribute("addScript", "layer");	
 	return "plan/plannerView";
@@ -104,7 +120,7 @@ public class PlannerController {
 		
 		boolean check=	detailsService.checkPlanner(user, planner);
 		if(!check) {
-			model.addAttribute("scripts", " alert('유효하지않은 접근입니다'); location.replace('/plan');");
+			model.addAttribute("scripts", " alert('유효하지않은 접근입니다'); location.replace('{page}/plan');");
 			return "common/excution";
 		}
 		
@@ -139,7 +155,7 @@ public class PlannerController {
 	  return null;
 	  }
 	
-	@GetMapping("/makeplan2")
+	@GetMapping("{page}/makeplan2")
 	public String makePlan(Model model) {
 		PlannerRq plannerRq= new PlannerRq();
 		model.addAttribute("plannerRq",plannerRq);
@@ -170,7 +186,7 @@ public class PlannerController {
 	
 	
 	
-	@GetMapping("/readplan/{no}")
+	@GetMapping("{page}/readplan/{no}")
 	public String read(Model model, @PathVariable Long no ) {
 		
 		PlannerRq plannerRq = PlannerService.toDto(plannerService.getPlanner(no)); // 플래너번호를 받아 dto객체로 변환
@@ -218,7 +234,7 @@ public class PlannerController {
 		plannerService.deletePlanner(planner);
 		
 		
-		model.addAttribute("scripts", " alert('처리가 완료되었습니다'); parent.location.replace('/plan');");
+		model.addAttribute("scripts", " alert('처리가 완료되었습니다'); parent.location.replace('/plan/');");
 		return "common/excution";
 	}
 	@GetMapping("/plannerallview")
