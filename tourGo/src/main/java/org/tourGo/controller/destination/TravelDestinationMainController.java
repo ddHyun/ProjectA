@@ -12,8 +12,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.tourGo.common.JsonResult;
 import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.destination.DestinationDetailRequest;
 
@@ -44,14 +48,26 @@ public class TravelDestinationMainController {
 	}
 	
 	@GetMapping("/travel")
-	public String ex(@RequestParam String destination, Model model) {
+	public String ex(String destination, Model model) {
+		
 		
 		String[] addScript = new String[] { "destination/info" };
 		model.addAttribute("addScript", addScript);
-		
-		List<DestinationDetail> list = destinationService.dest_detailList(destination);
-		model.addAttribute("list", list);
 		return "travel_destination/travel_destination_main";
+	}
+	
+	@ResponseBody
+	@GetMapping("/api/travel/{destination}")
+	public JsonResult<?> ex02(@PathVariable(name="destination", required=false) String destination
+								, Model model) {
+		
+		System.out.println("테스트 : " + destination);
+		List<DestinationDetail> list = destinationService.dest_detailList(destination);
+		if(list.isEmpty()) {
+			return new JsonResult<>(false, "값이 없습니다.", null);
+		}
+		
+		return new JsonResult<>(true, "성공", list);
 	}
 
 	@GetMapping("/destination_detail")

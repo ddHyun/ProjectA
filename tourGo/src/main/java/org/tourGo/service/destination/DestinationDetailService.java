@@ -25,7 +25,9 @@ public class DestinationDetailService {
 		BooleanBuilder builder = new BooleanBuilder();
 		QDestinationDetail destinationdetail = QDestinationDetail.destinationDetail;
 		
-		builder.and(destinationdetail.tourDestination.eq(destination));
+		if(!destination.equals("전체")) {
+			builder.and(destinationdetail.tourDestination.eq(destination));
+		}
 		
 		List<DestinationDetail> list = (List<DestinationDetail>) destinationRepository.findAll(builder);
 		

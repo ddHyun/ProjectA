@@ -1,30 +1,30 @@
-function showDiv(event) {
-            const radioId = event.target.id;
-            
+// radio 클릭 시 db 값 불러오기
+window.addEventListener("DOMContentLoaded", function() {
+	
+	// const inputValue = document.querySelectorAll("input[name=destination]:checked");
+    const destination = document.querySelectorAll("input[name=destination]");
+   	
+   	destination.forEach(radio => {
+		radio.addEventListener("click", function() {
+			value = radio.value;
+			console.log(value);
+			
+			const url = '/api/travel/'+value;
+		    const xhr = new XMLHttpRequest();
+		    
+		    xhr.open("GET", url);
+		    xhr.responseType='json';
+			xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+			xhr.send();
+		    xhr.onload = () => {
+				const data = xhr.response.data;
+				console.log("데이터 : " + JSON.stringify(data));
+			}
+		});
+	});	
+});
 
-            
-            let query = 'label[for="' + radioId + '"]'
-            let text = document.querySelector(query).innerText;
-			
-			console.log(radioId);
-			console.log(query);
-			
-            document.getElementById('allBox').innerText = text;
-
-        }
-        
-        /*
-                    const inputValue = document.getElementById('radioId').value;
-            const url = 'travel?destination=${inputValue}';
-            const xhr = new XMLHttpRequest();
-            
-            xhr.open("GET", url);
-            xhr.addEventListener("readystatechange", function() {
-				if(xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
-					document.getElementById("allBox").innerHTML=xhr.response;
-				};
-			});
-			
-			xhr.send(null);
-        */
-        
+// db 값 불러온거 뿌려주기
+function appendHtml() {
+	
+}
