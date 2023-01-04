@@ -1,5 +1,6 @@
 package org.tourGo.controller.destination;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.destination.DestinationDetailRequest;
 
@@ -38,6 +40,17 @@ public class TravelDestinationMainController {
 		DestinationDetailRequest main = new DestinationDetailRequest();
 		model.addAttribute("main", main);
 
+		return "travel_destination/travel_destination_main";
+	}
+	
+	@GetMapping("/travel")
+	public String ex(@RequestParam String destination, Model model) {
+		
+		String[] addScript = new String[] { "destination/info" };
+		model.addAttribute("addScript", addScript);
+		
+		List<DestinationDetail> list = destinationService.dest_detailList(destination);
+		model.addAttribute("list", list);
 		return "travel_destination/travel_destination_main";
 	}
 
