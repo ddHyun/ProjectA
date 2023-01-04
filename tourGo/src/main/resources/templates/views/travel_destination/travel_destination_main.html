@@ -12,13 +12,13 @@
 		<fieldset>
 			<div class="destination_area">
 				<div class="destination_radio">
-					<input type="radio" name="destination" id="all" onclick="showDiv(event);" checked>
+					<input type="radio" name="destination" id="all" value="" onclick="showDiv(event);" checked>
 					<label for='all'>전체</label>
 
-					<input type="radio" name="destination" id="seoul" onclick="showDiv(event);">
+					<input type="radio" name="destination" id="seoul" value="" onclick="showDiv(event);">
 					<label for="seoul">서울</label>
 
-					<input type="radio" name="destination" id="inchen" onclick="showDiv(event);">
+					<input type="radio" name="destination" id="inchen" value="" onclick="showDiv(event);">
 					<label for="inchen">인천</label>
 
 					<input type="radio" name="destination" id="daejun" onclick="showDiv(event);">
@@ -71,9 +71,14 @@
 		</fieldset>
 		<div class="destination_content">
 			<div class="allBox"  id="allBox">
-				
+				<th:block th:each="destination,status : ${list}">
+					<span th:text="${destination.tourDestination"></span>
+					<span th:text="${destination.tourTitle"></span>
+					<img style="max-width: 300px;" th:src="@{/images/main_test/sub4.jpg}">
+				</th:block>
 			</div>
 		</div>
+		
 	</div>
 </main>
 

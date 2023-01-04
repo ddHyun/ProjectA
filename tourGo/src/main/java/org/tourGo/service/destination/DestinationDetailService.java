@@ -1,6 +1,7 @@
 package org.tourGo.service.destination;
 
 import java.awt.print.Pageable;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,14 +20,17 @@ public class DestinationDetailService {
 	private String serviceKey = "ORm3mQovRB97uz6GfTJJNBR/2egRn2vglLUfbXCP+2pblHvBggwbP1wMwnl/RvFZfHqob4GRBHbQDNn6IZP/Fg==";
 	
 	
-	public Page<DestinationDetail> dest_detailList(Pageable pageable, String destination) {
+	public List<DestinationDetail> dest_detailList(String destination) {
 		
 		BooleanBuilder builder = new BooleanBuilder();
 		QDestinationDetail destinationdetail = QDestinationDetail.destinationDetail;
 		
-//		Page<DestinationDetail> list = destinationRepository.findAll(builder, pageable);
+		builder.and(destinationdetail.tourDestination.eq(destination));
 		
-		return null;
+		List<DestinationDetail> list = (List<DestinationDetail>) destinationRepository.findAll(builder);
+		
+		
+		return list;
 	}
 
 }
