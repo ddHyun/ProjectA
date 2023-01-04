@@ -82,7 +82,7 @@ public class PlannerController {
 	if(searchKeyword == null) {
 		list = plannerService.plannerList(pageable, user);
 	} else {
-		list = plannerService.plannerSearchList(searchKeyword, pageable);
+		list = plannerService.plannerSearchList(searchKeyword, pageable,user);
 	}
 	
 	
