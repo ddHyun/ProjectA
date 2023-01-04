@@ -20,7 +20,7 @@
 				el.addEventListener("click", function () {
 					const v = el.dataset.no;
 					console.log(v);
-					codefty.popup.open(`plan/readplan/` + v, "", 550, 800, true);
+					codefty.popup.open(`/plan/readplan/` + v, "", 550, 800, true);
 				});
 			}
 			/**
@@ -44,7 +44,7 @@
 
 			const button2El = document.getElementById("button2");
 			button2El.addEventListener("click", function () {
-				codefty.popup.open("plan/makeplan2", "새 일정 만들기", 600, 500, true);
+				codefty.popup.open("/plan/makeplan2", "새 일정 만들기", 600, 500, true);
 			});
 		});
 	</script>
