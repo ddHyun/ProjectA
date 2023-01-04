@@ -83,9 +83,14 @@ public class PlannerService {
 	}
 	
 	
-	public Page<Planner> plannerSearchList(String searchKeyword, Pageable pageable) {
+	public Page<Planner> plannerSearchList(String searchKeyword, Pageable pageable,User user) {
 		
-		return plannerRepo.findByTitleContaining(searchKeyword, pageable); // plannerRepo 왜 이거인지??
+		BooleanBuilder builder = new BooleanBuilder();
+		QPlanner planner = QPlanner.planner;
+		builder.and(planner.user.eq(user));
+		builder.and(planner.title.contains(searchKeyword));
+		Page<Planner> list = plannerRepo.findAll(builder,pageable);
+		return list; // plannerRepo 왜 이거인지??
 	}
 	
 	

@@ -82,7 +82,7 @@ public class PlannerController {
 	if(searchKeyword == null) {
 		list = plannerService.plannerList(pageable, user);
 	} else {
-		list = plannerService.plannerSearchList(searchKeyword, pageable);
+		list = plannerService.plannerSearchList(searchKeyword, pageable,user);
 	}
 	
 	
@@ -155,7 +155,7 @@ public class PlannerController {
 	  return null;
 	  }
 	
-	@GetMapping("{page}/makeplan2")
+	@GetMapping("/makeplan2")
 	public String makePlan(Model model) {
 		PlannerRq plannerRq= new PlannerRq();
 		model.addAttribute("plannerRq",plannerRq);
@@ -186,7 +186,7 @@ public class PlannerController {
 	
 	
 	
-	@GetMapping("{page}/readplan/{no}")
+	@GetMapping("/readplan/{no}")
 	public String read(Model model, @PathVariable Long no ) {
 		
 		PlannerRq plannerRq = PlannerService.toDto(plannerService.getPlanner(no)); // 플래너번호를 받아 dto객체로 변환
