@@ -30,37 +30,13 @@ public class PlanDetailsRq {//여행 세부일정을 담당하는 dto
 	    private LocalTime etime;//관광지 종료시간
 	    private String name;//관광지이름
 	    private String address; //관광지 주소
-	    private int day; // day1,day2...등 일자 표시용
+	    private Integer day; // day1,day2...등 일자 표시용
 	    private String image;//관광지 이미지
 	    private String sigungu;//시,군,구
-
+		private Double mapX;
+		private Double mapY;
 	    
 	    
-	    public static PlanDetailsRq planDetailsToPlanDetailsEntity(PlanDetails entity) {
-
-	    	return PlanDetailsRq.builder()
-	    			.DetailsNo(entity.getDetailNo())
-	    			//.plannerNo(entity.getPlannerNo().getPlannerNo())
-	    			.day(entity.getDay())
-	    			.stime(entity.getSTime())
-	    			.etime(entity.getETime())
-	    			.image(entity.getImage())
-	    			.name(entity.getName())
-	    			.build();
-	    
-	    }
-	    
-	    public static PlanDetails entityToPlanDeatils(PlanDetailsRq planDetails) {
-
-	    	return PlanDetails.builder()
-	    			
-	    			.DetailNo(planDetails.getDetailsNo())
-	    			.day(planDetails.getDay())
-	    			.sTime(planDetails.getStime())
-	    			.eTime(planDetails.getEtime())
-	    			.image(planDetails.getImage())
-	    			.name(planDetails.getName())
-	    			.build();
-	    }
+	 
 	    
 }
