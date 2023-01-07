@@ -3,12 +3,14 @@
 	layout:decorate="~{travel_destination/travel_destination_main_layout}">
 <main layout:fragment="content">
 	<div class="destination">
-		<div class="destination_search">
-			<div class="search_input">
-				<input type="text" class="input_txt" placeholder="여행지 검색">
-				<input type="button" class="input_btn" value="검색">
+		<form th:action="@{/travel_destination_main}" method="get">
+			<div class="destination_search">
+				<div class="search_input">
+					<input type="text" class="input_txt" name="destSearchKeyword" placeholder="여행지 검색">
+					<input type="button" class="input_btn" value="검색">
+				</div>
 			</div>
-		</div>
+		</form>
 		<fieldset>
 			<div class="destination_area">
 				<div class="destination_radio">

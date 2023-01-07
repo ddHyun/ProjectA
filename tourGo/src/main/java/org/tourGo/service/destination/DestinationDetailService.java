@@ -20,21 +20,8 @@ public class DestinationDetailService {
 	private String serviceKey = "ORm3mQovRB97uz6GfTJJNBR/2egRn2vglLUfbXCP+2pblHvBggwbP1wMwnl/RvFZfHqob4GRBHbQDNn6IZP/Fg==";
 	
 	
-	// DB에서 값 가져 오기
-	public List<DestinationDetail> dest_detailList(String destination) {
-		
-		BooleanBuilder builder = new BooleanBuilder();
-		QDestinationDetail destinationdetail = QDestinationDetail.destinationDetail;
-		
-		if(!destination.equals("전체")) {
-			builder.and(destinationdetail.tourDestination.eq(destination));
-		}
-		
-		List<DestinationDetail> list = (List<DestinationDetail>) destinationRepository.findAll(builder);
-		
-		
-		return list;
-	}
+	
+
 
 }
  

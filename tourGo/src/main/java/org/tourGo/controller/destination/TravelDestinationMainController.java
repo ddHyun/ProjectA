@@ -26,33 +26,25 @@ import org.tourGo.models.destination.entity.DestinationDetail;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.user.UserRepository;
 import org.tourGo.service.destination.DestinationDetailService;
+import org.tourGo.service.destination.DestinationMainService;
 
 @Controller
 public class TravelDestinationMainController {
 
 	@Autowired
-	private DestinationDetailService destinationService;
-
-	@GetMapping("/travel_destination_main1")
-	public String travel_dstination_main(Model model) {
-
-		String[] addScript = new String[] { "destination/info" };
-		model.addAttribute("addScript", addScript);
-		
-		
-
-		DestinationDetailRequest main = new DestinationDetailRequest();
-		model.addAttribute("main", main);
-
-		return "travel_destination/travel_destination_main";
-	}
+	private DestinationMainService destinationMainService;
 	
 	@GetMapping("/travel_destination_main")
-	public String ex(String destination, Model model) {
+	public String ex(String destination, Model model,@RequestParam(name="destSearchKeyword",required=false)String keyword) {
 		
 		
 		String[] addScript = new String[] { "destination/info" };
 		model.addAttribute("addScript", addScript);
+		
+		if(keyword != null) {
+			List<DestinationDetail> search = destinationMainService.dest_search(keyword);
+			model.addAttribute("search", search);
+		}
 		return "travel_destination/travel_destination_main";
 	}
 	
@@ -62,17 +54,18 @@ public class TravelDestinationMainController {
 								, Model model) {
 		
 		System.out.println("테스트 : " + destination);
-		List<DestinationDetail> list = destinationService.dest_detailList(destination);
+		List<DestinationDetail> list = destinationMainService.dest_mainList(destination);
 		if(list.isEmpty()) {
 			return new JsonResult<>(false, "값이 없습니다.", null);
 		}
 		
 		return new JsonResult<>(true, "성공", list);
-	}
+	}		
 
 	@GetMapping("/destination_detail")
 	public String dstination_detail() {
 		return "travel_destination/destination_detail";
 	}
 
+	
 }
