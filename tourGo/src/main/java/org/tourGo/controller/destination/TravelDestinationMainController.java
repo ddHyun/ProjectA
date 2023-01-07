@@ -33,7 +33,7 @@ public class TravelDestinationMainController {
 	@Autowired
 	private DestinationDetailService destinationService;
 
-	@GetMapping("/travel_destination_main")
+	@GetMapping("/travel_destination_main1")
 	public String travel_dstination_main(Model model) {
 
 		String[] addScript = new String[] { "destination/info" };
@@ -47,7 +47,7 @@ public class TravelDestinationMainController {
 		return "travel_destination/travel_destination_main";
 	}
 	
-	@GetMapping("/travel")
+	@GetMapping("/travel_destination_main")
 	public String ex(String destination, Model model) {
 		
 		
