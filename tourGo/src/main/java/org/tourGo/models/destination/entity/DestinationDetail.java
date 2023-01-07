@@ -24,6 +24,7 @@ public class DestinationDetail {
 
 	@Column(nullable = false)
 	private String tourTitle;			// 여행지 이름
+	@Column(nullable = false)
 	private String tourDestination; 	// 지역
 	private String tourImg;				// 여행지 이미지
 	private String tourDetaiIinfo;		// 여행지 상세정보
