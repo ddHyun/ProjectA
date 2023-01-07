@@ -278,4 +278,10 @@ public class PlannerController {
 
 	return "plan/plannerallView_page";
 	}
+	@GetMapping("/weather")
+		public String weather() {
+			
+		
+	return "plan/weather";
+	}
 }
