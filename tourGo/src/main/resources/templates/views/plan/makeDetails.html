@@ -39,7 +39,7 @@
 </button>
 </div>
 <div class="saveNclose"> 
-<form th:action="@{/}" method="post" th:object="${planDetails}">
+<form th:action="@{/}" method="post" th:object="${list}">
 <button type="submit" class="save_btn">save</button>
 <a href="http://www.naver.com">
 <span class="material-symbols-outlined" style="font-size : 100px; float:right;">
@@ -64,10 +64,20 @@ close
 <div class="list">
 
 <div class="selected_items">
-<!--<a href="#">
- <div class="x_button"> <span class="material-symbols-outlined">
-close
-</span></div></a>-->
+<!--
+	
+	<div th:each="${details : list}">
+	
+	<div name="title" th:value="*{title}"><%=title%></div>
+	<div><img src= name="image"></img></div>
+	<div name="address" th:value="*{address}"><%=address%></div>
+	
+	</div>	
+	
+
+<
+
+-->
 
 
 <div>

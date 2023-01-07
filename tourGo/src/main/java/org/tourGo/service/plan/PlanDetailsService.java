@@ -2,6 +2,7 @@ package org.tourGo.service.plan;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -45,6 +46,8 @@ public class PlanDetailsService {
 		return image;
 	}
 	
+	
+	
 	public boolean checkPlanner(User user,Planner planner) {
 
 		if(planner.getUser() != user) {
@@ -52,6 +55,18 @@ public class PlanDetailsService {
 		}
 			
 		return true;
+	}
+	
+	public void deleteDetails(Long no) {
+		try {
+		Optional<PlanDetails> _details = detailsRepo.findById(no);
+		PlanDetails details = _details.orElse(null);
+		
+		detailsRepo.delete(details);
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 	public List<PlanDetailsRq> getPlanDetailsRqList(Planner planner){
 		BooleanBuilder builder = new BooleanBuilder();
