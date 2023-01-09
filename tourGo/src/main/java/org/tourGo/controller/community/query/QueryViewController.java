@@ -36,7 +36,6 @@ public class QueryViewController {
 		}
 		model.addAttribute("board", "query");
 		model.addAttribute("addCss", new String[] {"community/community_common"});
-		model.addAttribute("addScript", new String[] {"community/community_common"});
 		
 		/** 쿠키 처리 S */
 		if(cookie!=null) {

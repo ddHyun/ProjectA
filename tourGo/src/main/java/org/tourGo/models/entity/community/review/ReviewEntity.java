@@ -42,10 +42,7 @@ public class ReviewEntity extends BaseEntity {
 	@OneToMany(mappedBy = "review", orphanRemoval = true)
 	private List<ReplyEntity> replies = new ArrayList<>();			//댓글	
 	
-	@OneToMany(mappedBy = "review", orphanRemoval = true)
-	private List<LikedEntity> likes = new ArrayList<>();				//좋아요	
-	
-	@Column(columnDefinition = "int default '0'", insertable=false, updatable=false)
+	@Column(columnDefinition = "int default '0'")
 	private int totalLikes; 	//좋아요 총 개수
 
 //	@Builder

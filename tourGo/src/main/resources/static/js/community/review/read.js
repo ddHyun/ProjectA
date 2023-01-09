@@ -40,13 +40,9 @@ const btnFn = {
 window.addEventListener("DOMContentLoaded", function(){
 	
 	/**클릭한 좋아요 상태 처리 S */
-	const likedNoEl = document.getElementById("likedNo");
-	if(likedNoEl){
-		const liked = document.getElementById("liked").value;
-		console.log(liked);
-		if(liked=="true"){
-			document.getElementsByClassName("toggleLiked")[0].className = "fa-solid fa-heart toggleLiked on";
-		}
+	const uidEl = document.getElementById("uid");
+	if(uidEl){
+		document.getElementsByClassName("toggleLiked")[0].className = "fa-solid fa-heart toggleLiked on";
 	}
 	/**클릭한 좋아요 상태 처리 E */
 	
@@ -66,10 +62,11 @@ window.addEventListener("DOMContentLoaded", function(){
 					throw new Error("잘못된 접근입니다.");
 				}
 				const reviewNo = reviewNoEl.value;	
-				const likedNoEl = document.getElementById("likedNo");
-				const likedNo = likedNoEl ? likedNoEl.value : ""; 
+				const uid = document.getElementById("uid").value;
 				const liked = classList.contains("on") ? false : true;
-				const url = `/liked?reviewNo=${reviewNo}&liked=${liked}&likedNo=${likedNo}`;
+				const url = `/liked?reviewNo=${reviewNo}&uid=${uid}`;
+				
+				console.log('contains on? : ', liked);
 				
 				const xhr = new XMLHttpRequest();
 				xhr.open("GET", url);
@@ -80,6 +77,8 @@ window.addEventListener("DOMContentLoaded", function(){
 							alert(result.message);
 							return;
 						}
+						
+						console.log('liked : ', liked);
 						
 						if (liked) {
 							el.className = "fa-solid fa-heart toggleLiked";

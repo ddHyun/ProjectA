@@ -255,6 +255,21 @@ main.content{
 	box-sizing: border-box;
 }
 
+/* 답변테이블 */
+.rplT{
+	border-collapse: collapse;
+	width: 80%;
+	/* 열너비 자동 */
+	table-layout: auto;
+	padding: 10px;
+	background-color:#f0f8ff;	
+	border: 1px solid rgba(0,153,204,0.3);
+}
+
+.rplT tr:nth-child(2) td{
+	padding-left: 1rem;
+}
+
 /* td bottomline 없애기 */
 .borderND{
 	border-bottom: none;
@@ -305,7 +320,7 @@ td select{
 .enter{
 	white-space: pre-wrap;
 	font-size: 1rem;
-	padding: 1rem;
+	padding: 1rem 1rem 15rem 1rem;
 }
 
 .enter img{
