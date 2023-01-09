@@ -19,4 +19,12 @@ public class LikedRequest {
 		userId = entity.getUser().getUserId();
 		liked = entity.isLiked();
 	}
+
+	@Override
+	public String toString() {
+		return "LikedRequest [likedNo=" + likedNo + ", reviewNo=" + reviewNo + ", userId=" + userId + ", liked=" + liked
+				+ "]";
+	}
+	
+	
 }

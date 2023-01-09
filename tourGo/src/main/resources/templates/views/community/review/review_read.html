@@ -51,7 +51,7 @@
 						</th:block>
 						<i class="fa-regular fa-heart toggleLiked" th:classappend="${user == null }? 'login_required' : ''"></i>
 					</span>
-					<span th:text="' '+#{review.like}"></span><span th:text="' '+${totalLikes}" id="totalLikes"></span>&nbsp;
+					<span th:text="' '+#{review.like}"></span><span th:text="' '+${reviewRequest.totalLikes}" id="totalLikes"></span>&nbsp;
 					<span>
 						<i class="fa-regular fa-comment-dots"></i>
 						<span th:text="#{community.reply}+' '+${replies.size()}"></span>

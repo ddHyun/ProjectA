@@ -89,6 +89,9 @@ window.addEventListener("DOMContentLoaded", function(){
 							classList.remove("on");
 						}
 						document.getElementById("totalLikes").innerText = result.data;
+						if(!likedNoEl){
+							location.reload();
+						}
 					}
 				};
 				xhr.send(null);

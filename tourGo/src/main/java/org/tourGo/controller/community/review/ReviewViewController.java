@@ -78,9 +78,7 @@ public class ReviewViewController {
 		
 		//좋아요 목록
 		List<LikedRequest> likes = reviewRequest.getLikes().stream().map(LikedRequest::new).toList();
-		long totalLikes = likedRepository.countByReviewAndLiked(entity, true);
 		model.addAttribute("likes", likes);
-		model.addAttribute("totalLikes", totalLikes);
 				
 		//댓글목록
 		Comparator<ReplyEntity> compare = Comparator
@@ -103,9 +101,7 @@ public class ReviewViewController {
 
 		if(principal != null) {
 			model.addAttribute("user", principal.getUsername());
-		}
-		
-	
+		}	
 		
 		return baseUrl + "review_read";
 	}		

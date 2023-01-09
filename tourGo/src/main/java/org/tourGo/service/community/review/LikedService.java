@@ -1,5 +1,8 @@
 package org.tourGo.service.community.review;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +30,8 @@ public class LikedService {
 	public int process(LikedRequest likedRequest) {
 		
 		Long likedNo = likedRequest.getLikedNo();
+		System.out.println("============");
+		System.out.println("likedNo : "+likedNo);
 		LikedEntity likedEntity = null;
 		
 		ReviewEntity reviewEntity = reviewRepository.findById(likedRequest.getReviewNo()).
@@ -35,16 +40,24 @@ public class LikedService {
 		
 		if(likedNo != null) {//좋아요 식별자 있을 경우
 			likedEntity = likedRepository.findById(likedNo).orElseThrow(() -> new AlertException("처리 도중 오류가 발생했습니다", "back"));
-			System.out.println(likedEntity);
-			System.out.printf("entityId : %s, requestId : %s", likedEntity.getUser().getUserId(), likedRequest.getUserId());
 			if(likedEntity.getUser().getUserId().equals(likedRequest.getUserId())) {//좋아요 누른 사람이 같은 경우 update
-				likedEntity.update(likedRequest.isLiked());
+				likedEntity = LikedEntity.builder()
+													.likedNo(likedEntity.getLikedNo())
+													.user(likedEntity.getUser())
+													.review(likedEntity.getReview())
+													.liked(likedRequest.isLiked())
+													.build();
+				System.out.println("====================");
+				System.out.println("(업데이트)좋아요 누른 사람이 같은 경우 likedEntity : "+likedEntity);
 			}else{
 				likedEntity = LikedEntity.builder()
+													.likedNo(likedEntity.getLikedNo())
 													.user(user)
-													.review(reviewEntity)
+													.review(likedEntity.getReview())
 													.liked(likedRequest.isLiked())
 													.build();		
+				System.out.println("====================");
+				System.out.println("(업데이트)좋아요 누른 사람이 다른 경우 likedEntity : "+likedEntity);
 			}
 		}else {
 			likedEntity = LikedEntity.builder()
@@ -52,12 +65,14 @@ public class LikedService {
 												.review(reviewEntity)
 												.liked(likedRequest.isLiked())
 												.build();			
-			
+			System.out.println("====================");
+			System.out.println("좋아요 처음 누른 경우 likedEntity : "+likedEntity);
 		}
 				
 		likedRepository.save(likedEntity);
 		//좋아요 클릭 총 개수
 		int totalLikes = likedRepository.countByReviewAndLiked(reviewEntity, true);
+		
 		//reviewEntity 좋아요 개수 업데이트
 		reviewRepository.updateTotalLikes(totalLikes, reviewEntity.getReviewNo());
 		return totalLikes;
