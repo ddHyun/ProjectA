@@ -8,6 +8,12 @@ import lombok.*;
 @NoArgsConstructor
 public class LikedRequest {
 
+	private String uid;		//식별자(reviewNo_userNo)
+	
+	public LikedRequest(LikedEntity entity) {
+		uid = entity.getUid();
+	}
+	/*
 	private Long likedNo;			//식별자
 	private Long reviewNo;			//게시글 번호
 	private String userId;			//좋아요 클릭한 사람
@@ -25,6 +31,6 @@ public class LikedRequest {
 		return "LikedRequest [likedNo=" + likedNo + ", reviewNo=" + reviewNo + ", userId=" + userId + ", liked=" + liked
 				+ "]";
 	}
-	
+	*/
 	
 }

@@ -27,12 +27,12 @@
 			
 			<!-- 답변 -->
 			<div th:if="${queryReply}" class="wrap centerW" th:object="${queryReply}">
-				<table class="communityT marginAuto">
+				<table class="rplT marginAuto">
 					<tr>
-						<td class="borderND" th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">
+						<td align="right" class="borderND" th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">
 					</tr>
 					<tr>
-						<td th:utext="*{queryReplyContent}"></td>
+						<td align="left" th:utext="*{queryReplyContent}"></td>
 					</tr>
 				</table>
 			</div>

@@ -46,8 +46,7 @@
 				<div align="left">
 					<span class="liked">
 						<th:block th:if="${likes}" th:each="like : ${likes}">
-							<input th:if="*{like.userId}==${user}" type="hidden" id="likedNo" th:value="*{like.likedNo}">
-							<input th:if="*{like.userId}==${user}" type="hidden" id="liked" th:value="*{like.liked}">
+							<input type="hidden" id="uid" th:value="*{like.uid}">
 						</th:block>
 						<i class="fa-regular fa-heart toggleLiked" th:classappend="${user == null }? 'login_required' : ''"></i>
 					</span>
