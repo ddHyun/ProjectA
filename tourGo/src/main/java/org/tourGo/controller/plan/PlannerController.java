@@ -133,7 +133,7 @@ public class PlannerController {
 			test.add(d);
 		}
 		model.addAttribute("test", test);
-		model.addAttribute("planDetails", list);
+		model.addAttribute("list", list);
 		model.addAttribute("plannerRq", plannerRq);
 		
 		System.out.println(planner);
@@ -277,5 +277,11 @@ public class PlannerController {
 		model.addAttribute("list", list);
 
 	return "plan/plannerallView_page";
+	}
+	@GetMapping("/weather")
+		public String weather() {
+			
+		
+	return "plan/weather";
 	}
 }
