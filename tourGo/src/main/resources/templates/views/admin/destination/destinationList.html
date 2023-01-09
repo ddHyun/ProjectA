@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+		layout:decorate="~{admin/main}">
+		
+		<main layout:fragment="content">
+			<div class="container-fluid">
+					<div class="row">
+	        		<div class="col-12">
+			            <div class="card shadow mb-4">
+			                <div class="question card-header py-3 justify-content-between">
+			                    <h6 class="m-0 font-weight-bold text-primary">관광 데이터 불러오기</h6>
+			                </div>
+			                <div class="card-body">
+			                	<div class="row row-cols-lg-5 text-center m-1 pt-2 pb-2">
+			                		<div class="col">
+								      <a th:href="@{/admin/destination/destinationCallBack/{areaCode}(areaCode=1)}" class="btn btn-block btn-secondary">서울</a>
+								    </div>
+								    <div class="col">
+								       <a th:href="@{/admin/destination/destinationCallBack/{areaCode}(areaCode=2)}" class="btn btn-block btn-secondary">인천</a>
+								    </div>
+								    <div class="col">
+								       <a th:href="@{/admin/destination/destinationCallBack/{areaCode}(areaCode=3)}" class="btn btn-block btn-secondary">대전</a>
+								    </div>
+								    <div class="col">
+								       <a th:href="@{/admin/destination/destinationCallBack/{areaCode}(areaCode=4)}" class="btn btn-block btn-secondary">대구</a>
+								    </div>
+								    <div class="col">
+								       <a th:href="@{/admin/destination/destinationCallBack/{areaCode}(areaCode=5)}" class="btn btn-block btn-secondary">광주</a>
+								    </div>
+								</div>
+								<div class="row row-cols-lg-5 text-center m-1 pt-2 pb-2">
+								    <div class="col">
+								       <a th:href="@{/admin/destination/destinationCallBack/{areaCode}(areaCode=6)}" class="btn btn-block btn-secondary">부산</a>
+								    </div>
+								    <div class="col">
+								       <a th:href="@{/admin/destination/destinationCallBack/{areaCode}(areaCode=7)}" class="btn btn-block btn-secondary">울산</a>
+								    </div>
+								    <div class="col">
+								       <a th:href="@{/admin/destination/destinationCallBack/{areaCode}(areaCode=8)}" class="btn btn-block btn-secondary">세종</a>
+								    </div>
+								    <div class="col">
+								       <a th:href="@{/admin/destination/destinationCallBack/{areaCode}(areaCode=31)}" class="btn btn-block btn-secondary">경기</a>
+								    </div>
+								    <div class="col">
+								       <a th:href="@{/admin/destination/destinationCallBack/{areaCode}(areaCode=32)}" class="btn btn-block btn-secondary">강원</a>
+								    </div>
+			                	</div>
+			                </div>
+			            </div>
+	        		</div>
+	        	</div>
+			</div>
+		</main>
+</html>

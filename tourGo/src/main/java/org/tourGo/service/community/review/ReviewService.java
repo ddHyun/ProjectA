@@ -1,5 +1,7 @@
 package org.tourGo.service.community.review;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -51,6 +53,11 @@ public class ReviewService {
 		return entity;		
 	}
 	
+	// 여행후기 하나만 확인
+	public Optional<ReviewEntity> findById(Long reviewNo) {
+		return reviewRepository.findById(reviewNo);
+	}
+	
 	// 여행후기 모든 목록 조회	
 	public Page<ReviewEntity> getAllReviewList(){
 		return getAllReviewList(1);
@@ -68,8 +75,8 @@ public class ReviewService {
 		limit = limit <= 0 ? 20 : limit;
 		BooleanBuilder builder = new BooleanBuilder();
 		
+		QReviewEntity reviewEntity = QReviewEntity.reviewEntity;
 		if(keyword!=null) {//검색어 조회 조건
-			QReviewEntity reviewEntity = QReviewEntity.reviewEntity;
 			builder.or(reviewEntity.reviewTitle.contains(keyword))
 					.or(reviewEntity.reviewContent.contains(keyword))
 					.or(reviewEntity.region.contains(keyword));
@@ -89,7 +96,6 @@ public class ReviewService {
 				field = "totalLikes";
 				break;
 		}
-		
 		Pageable pageable = PageRequest.of(page-1, limit, Sort.by(Direction.DESC, field));
 		
 		Page<ReviewEntity> lists = reviewRepository.findAll(builder, pageable);
@@ -135,5 +141,15 @@ public class ReviewService {
 			return false;
 			
 		}
-	}	
+	}
+	
+	// 후기 삭제처리
+	@Transactional
+	public void deleteReview(Long reviewNo){
+		ReviewEntity review = reviewRepository.findById(reviewNo).orElseThrow();
+		
+		review.setDeleteYn('Y');
+		
+		reviewRepository.save(review);
+	}
 }

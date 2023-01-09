@@ -27,12 +27,12 @@
            <hr class="sidebar-divider my-0">
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
                     <i class="fa-solid fa-users"></i>
                     <span>회원 관리</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" th:href="@{/admin/user/userManage}">
                         	<i class="fa-solid fa-person-circle-check"></i>
@@ -54,12 +54,12 @@
           	<hr class="sidebar-divider my-0">
 			
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fa-solid fa-bars-staggered"></i>
                     <span>게시글 관리</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" th:href="@{/admin/board/noticeList}">
@@ -82,6 +82,30 @@
                     <i class="fa-solid fa-circle-question"></i>
                     <span>문의 관리</span>
                 </a>
+            </li>
+            
+			<!-- Divider -->
+           	<hr class="sidebar-divider my-0">
+			
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="true" aria-controls="collapseThree">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                    <span>지역 데이터 관리</span>
+                </a>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" th:href="@{/admin/destination/destinationList}">
+                        	<i class="fa-solid fa-list-check"></i>
+                        	지역 데이터 목록
+                        </a>
+                        <a class="collapse-item">
+                        	<i class="fa-regular fa-flag"></i>
+                        	지역 데이터 갖고오기
+                        </a>
+                    </div>
+                </div>
             </li>
 
         </ul>

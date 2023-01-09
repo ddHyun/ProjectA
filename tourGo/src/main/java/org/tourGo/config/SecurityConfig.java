@@ -63,6 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.csrf().disable()
 			.authorizeHttpRequests()
 				.antMatchers("/community/review_register").authenticated()
+				.antMatchers("/report/**").authenticated()
 				.antMatchers("/admin/user/adminTypeManage").hasRole("SUPERADMIN")
 				.antMatchers("/admin/**").hasAnyRole("ADMIN", "SUPERADMIN")
 				.antMatchers("/user/mypage").hasRole("USER")
@@ -86,6 +87,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.exceptionHandling().accessDeniedHandler(customAccessDeniedHandler);
 		//모달 팜업창 관련
-		http.headers().frameOptions().disable(); // Spring Security 비활성화
+		// http.headers().frameOptions().disable(); // Spring Security 비활성화
 	}
 }

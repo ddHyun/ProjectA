@@ -9,7 +9,7 @@ import org.tourGo.models.entity.user.User;
 import org.tourGo.models.report.ReportType;
 
 @Entity
-@Getter
+@Getter @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Report extends BaseEntity {
@@ -37,6 +37,9 @@ public class Report extends BaseEntity {
 	@Column(nullable=false, columnDefinition="char(1) default 'N'", insertable=false)
 	private char deleteYn;
 	
+	@Column(nullable=false, columnDefinition="char(1) default 'N'", insertable=false)
+	private char processYn;
+	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="userNo")
 	private User user;
@@ -49,5 +52,10 @@ public class Report extends BaseEntity {
 		targetId = request.getTargetId();
 		reportType = request.getReportType();
 		user = request.getUser();
+	}
+	
+	public Report updateProcessYn(char processYn) {
+		this.processYn = processYn;
+		return this;
 	}
 }
