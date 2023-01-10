@@ -50,7 +50,7 @@
 				<tbody>
 					<th:block>
 						<tr th:each="list, status:${lists}" th:object="${list}">
-							<td th:text="${status.size-status.index}">글번호</td>
+							<td th:text="${(pagination.total%10)+((pagination.lastPage-pagination.page)*10)-status.index}">글번호</td>
 							<td>
 								<a th:href="@{/community/review_read/reviewNo_{reviewNo}(reviewNo=*{reviewNo}, 
  										keyword=${keyword}, order=${order}, page=${pagination.page})}" th:text="*{reviewTitle}">								

@@ -29,7 +29,7 @@ public class LikedService {
 		
 		//좋아요 총개수 
 		long reviewNo = Long.parseLong(uid.split("_")[0]);
-		int totalLikes = likedRepository.findUid(reviewNo).size();
+		int totalLikes = likedRepository.countByUid(reviewNo);
 		//review 좋아요 총개수 업데이트
 		reviewRepository.updateTotalLikes(totalLikes, reviewNo);
 		return totalLikes;

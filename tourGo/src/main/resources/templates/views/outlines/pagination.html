@@ -3,14 +3,14 @@
 	<th:block th:fragment="pagination" th:if="${pagination != null}" th:object="${pagination}">
 		<ul class="pagination">
 			<th:block th:if="*{page > pageCnt}">
-				<li class="page first">
+				<li class="page first"><!-- 처음 -->
 					<a th:href="@{{url}(url=*{baseUrl}, keyword=${keyword}, order=${order}, page=1)}">
-						<i class="fa-solid fa-backward-fast"></i>
+						<i class="fa-solid fa-angles-left"></i>
 					</a>
 				</li>
-				<li class="page prev">
+				<li class="page prev"><!-- 이전 -->
 					<a th:href="@{{url}(url=*{baseUrl}, keyword=${keyword}, order=${order},  page=*{prev})}">
-						<i class="fa-solid fa-caret-left"></i>
+						<i class="fa-solid fa-angle-left"></i>
 					</a>
 				</li>
 			</th:block>
@@ -26,14 +26,14 @@
 					</li>
 				</th:block>
 			</th:block>
-				<li th:if="*{next > 0}" class="page next">
+				<li th:if="*{next > 0}" class="page next"><!-- 다음 -->
 					<a th:href="@{{url}(url=*{baseUrl}, page=*{next})}">
-						<i class="fa-solid fa-caret-right"></i>
+						<i class="fa-solid fa-angle-right"></i>
 					</a>
 				</li>
-				<li th:if="*{page < lastPage}" class="page last">
+				<li th:if="*{page < lastPage}" class="page last"><!-- 마지막 -->
 					<a th:href="@{{url}(url=*{baseUrl},  keyword=${keyword}, order=${order}, page=*{lastPage})}">
-						<i class="fa-solid fa-forward-fast"></i>
+						<i class="fa-solid fa-angles-right"></i>
 					</a>
 				</li>
 		</ul>

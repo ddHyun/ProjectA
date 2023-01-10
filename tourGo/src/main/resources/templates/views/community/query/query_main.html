@@ -27,7 +27,7 @@
 				</thead>
 				<tbody>
 					<tr th:if="${lists!=null}" th:each="list, status : ${lists}" th:object="${list}">
-						<td th:text="${status.size-status.index}">글번호</td>
+						<td th:text="${(pagination.total%10)+((pagination.lastPage-pagination.page)*10)-status.index}">글번호</td>
 						<td><!-- 제목 -->
 							<th:block th:if="*{secretPost}">
 								<a th:href="@{/community/query_view/{queryNo}

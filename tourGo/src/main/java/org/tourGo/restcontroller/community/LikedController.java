@@ -21,16 +21,13 @@ public class LikedController {
 	@RequestMapping("/liked")
 	public JsonResult<Object> process(Long reviewNo, String uid, Model model, 
 						@AuthenticationPrincipal PrincipalDetail principal) {
-		
 		if(reviewNo==null) {
 			throw new JsonException("유효한 게시글번호가 아닙니다");
 		}
 		int totalLikes = 0;
 
 		try {
-			uid = uid==null? ""+reviewNo+"_"+principal.getUser().getUserNo() : uid;
-			System.out.println("=============");
-			System.out.println("uid : "+uid);
+			uid = uid==""? ""+reviewNo+"_"+principal.getUser().getUserNo() : uid;
 			totalLikes = likedService.process(uid);
 		}catch(Exception e) {
 			throw new JsonException(e.getMessage());

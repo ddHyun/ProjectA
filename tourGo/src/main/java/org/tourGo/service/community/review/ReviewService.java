@@ -83,8 +83,10 @@ public class ReviewService {
 		}
 		
 		String field = "";
-		order = order == null ? "date" : order;
-		
+		if(order== "" || order == null) {
+			order = "date";
+		}
+
 		switch(order) {
 			case "date" : 
 				field = "regDt";
