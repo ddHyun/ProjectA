@@ -50,7 +50,6 @@ window.addEventListener("DOMContentLoaded", function(){
 	const toggleLikedEls = document.getElementsByClassName("toggleLiked");
 	for (const el of toggleLikedEls) {
 		el.addEventListener("click", function() {
-		
 			try {
 				const classList = this.classList;
 				if (classList.contains("login_required")) {
@@ -62,11 +61,10 @@ window.addEventListener("DOMContentLoaded", function(){
 					throw new Error("잘못된 접근입니다.");
 				}
 				const reviewNo = reviewNoEl.value;	
-				const uid = document.getElementById("uid").value;
+				const uidEl = document.getElementById("uid");
+				const uid = uidEl != null ? uidEl.value : "";
 				const liked = classList.contains("on") ? false : true;
 				const url = `/liked?reviewNo=${reviewNo}&uid=${uid}`;
-				
-				console.log('contains on? : ', liked);
 				
 				const xhr = new XMLHttpRequest();
 				xhr.open("GET", url);
@@ -77,8 +75,6 @@ window.addEventListener("DOMContentLoaded", function(){
 							alert(result.message);
 							return;
 						}
-						
-						console.log('liked : ', liked);
 						
 						if (liked) {
 							el.className = "fa-solid fa-heart toggleLiked";
