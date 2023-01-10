@@ -121,7 +121,6 @@ public class DestinationService {
 															.mapX(Double.valueOf(object.get("mapx").toString()).doubleValue())
 															.mapY(Double.valueOf(object.get("mapy").toString()).doubleValue())
 															.tourAddr(object.get("addr1").toString())
-															.user(user)
 															.build();
 					
 					destinationDetailRepository.save(detail);

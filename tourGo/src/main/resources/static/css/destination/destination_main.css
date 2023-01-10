@@ -216,3 +216,25 @@ input[type='checkbox']+label.standalone {
 	height: 20px;
 	width: 20px;
 }
+
+#allBox {
+    display: grid;
+    grid-template-columns: repeat(4, 450px);
+    place-content: center;
+}
+
+#allBox div {
+	height: 350px;
+	width: 350px;
+	align-items: center;
+}
+
+#allBox img {
+	width: 350px;
+	height: 260px;
+	display: block;
+	text-align: center;
+}
+
+#allBox span {
+}

@@ -47,6 +47,8 @@ public class TravelDestinationMainController {
 		
 		// 페이징 처리 바인딩
 		model.addAttribute("destination", destinationMainService.pageList(pageable));
+		model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
+		model.addAttribute("next", pageable.next().getPageNumber());
 		
 //		if(keyword != null) {
 //			List<DestinationDetail> search = destinationMainService.dest_search(keyword);

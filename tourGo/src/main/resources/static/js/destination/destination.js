@@ -23,12 +23,21 @@ window.addEventListener("DOMContentLoaded", function() {
 
 				const allBoxEl = document.getElementById("allBox");
 				allBoxEl.innerHTML = "";
+				
 
 				for (const item of data) {
 
 					const divEl = document.createElement("div");
 					let html = "";
-					html += `<span> ${item.tourTitle} </span>`;
+					html += 
+					`
+					<div class="subBox">
+					
+					<img src=' ${item.tourImg}'>
+					<span> ${item.tourTitle} </span>
+
+					<div>
+					`;
 					
 					divEl.innerHTML=html;
 					allBoxEl.appendChild(divEl);
