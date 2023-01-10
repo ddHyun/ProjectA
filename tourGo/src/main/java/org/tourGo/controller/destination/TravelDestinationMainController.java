@@ -8,6 +8,9 @@ import javax.validation.Valid;
 import org.modelmapper.internal.Errors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,16 +38,20 @@ public class TravelDestinationMainController {
 	private DestinationMainService destinationMainService;
 	
 	@GetMapping("/travel_destination_main")
-	public String ex(String destination, Model model,@RequestParam(name="destSearchKeyword",required=false)String keyword) {
+	public String ex(String destination,  @PageableDefault(page=0, size=3, sort="destinationNo", direction = Sort.Direction.DESC)
+    Pageable pageable, Model model, @RequestParam(name="destSearchKeyword",required=false)String keyword) {
 		
 		
 		String[] addScript = new String[] { "destination/info" };
 		model.addAttribute("addScript", addScript);
 		
-		if(keyword != null) {
-			List<DestinationDetail> search = destinationMainService.dest_search(keyword);
-			model.addAttribute("search", search);
-		}
+		// 페이징 처리 바인딩
+		model.addAttribute("destination", destinationMainService.pageList(pageable));
+		
+//		if(keyword != null) {
+//			List<DestinationDetail> search = destinationMainService.dest_search(keyword);
+//			model.addAttribute("search", search);
+//		}
 		return "travel_destination/travel_destination_main";
 	}
 	

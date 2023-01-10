@@ -2,9 +2,13 @@ package org.tourGo.service.destination;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.tourGo.models.destination.entity.DestinationDetail;
 import org.tourGo.models.destination.entity.QDestinationDetail;
 
@@ -47,6 +51,16 @@ public class DestinationMainService {
 		
 		return search;
 	}
+	
+	// 페이징 처리
+//	@Transactional(readOnly = true)
+	public Page<DestinationDetail> pageList(Pageable pageable) {
+		
+		return destinationMainRepository.findAll(pageable);
+	}
+	
+	
+	// 검색 기능
 
 
 	
