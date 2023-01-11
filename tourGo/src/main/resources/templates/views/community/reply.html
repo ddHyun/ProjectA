@@ -40,17 +40,25 @@
 		
 		<!-- 목록 -->
 		<th:block th:if="${replies}" th:each="reply : ${replies}" th:object="${reply}">
-			<div class="rpl" th:id="*{'comment_' + replyNo}">
+			<div class="rpl bn" th:id="*{'comment_' + replyNo}" th:classappend="*{depth > 0}? 'reRpl' : ''">
 				<input type="hidden" name="depth" id="depth" th:value="*{depth}">
 				<input type="hidden" id="replyNo" th:value="*{replyNo}">
 				<div class="innerRpl">
 					<ul class="flex">
 						<li class="item" th:utext="*{replyContent}">댓글내용</li>
-						<li><a th:href="@{/user/mypage/{id}(id=*{id})}" th:text="*{name}">작성자</a></li>
+						<th:block th:if="${reviewRequest.id}==*{id}">
+							<li>
+								<a th:href="@{/user/mypage/{id}(id=*{id})}" th:text="*{name}">작성자</a>
+								<sub>작성자</sub>
+							</li>
+						</th:block>
+						<th:block th:unless="${reviewRequest.id}==*{id}">
+							<li th:text="*{name}">작성자</li>
+						</th:block>
 						<li style="color:#888;" th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</li>
 						<th:block sec:authorize="isAuthenticated()" th:if="*{depth==0}">
 							<li><button class="item" type="button" th:text="#{reply}" th:replyNo="*{replyNo}" th:id="*{'dn'+replyNo}"
-										th:onclick="writeReply(this.getAttribute('replyNo'))">댓글쓰기</button></li>
+										th:onclick="writeReply(this.getAttribute('replyNo'))">답글쓰기</button></li>
 						</th:block>
 						<th:block th:if="${user}==*{id}">
 							<li><button class="item" type="button" th:text="#{community.delete}" th:replyNo="*{replyNo}" 
