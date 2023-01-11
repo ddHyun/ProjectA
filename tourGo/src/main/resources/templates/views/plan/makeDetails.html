@@ -39,9 +39,9 @@
 </button>
 </div>
 <div class="saveNclose"> 
-<form th:action="@{/}" method="post" th:object="${list}">
+<form th:action="@{/plan}" method="post">
 <button type="submit" class="save_btn">save</button>
-<a href="http://www.naver.com">
+<a th:href="@{/plan}">
 <span class="material-symbols-outlined" style="font-size : 100px; float:right;">
 close	
 </span>
@@ -55,7 +55,8 @@ close
 
 
 <div th:each =" day,status : ${test}">
-<button th:text="${day}" th:value="${status.count}" name="day"></button>
+<input type="radio" th:id ="${day}" th:value="${status.count}" name="day" th:checked="${status.index == 0 ? 'true':'false'}" onclick="planner.loadSelection()">
+<label th:for="${day}" th:text="${day}">
 </div>
 
 
@@ -64,20 +65,24 @@ close
 <div class="list">
 
 <div class="selected_items">
-<!--
-	
+<span>123</span>
+
+	<div th:if="${list != null}">
 	<div th:each="${details : list}">
 	
-	<div name="title" th:value="*{title}"><%=title%></div>
-	<div><img src= name="image"></img></div>
-	<div name="address" th:value="*{address}"><%=address%></div>
+	<span name="title" th:value="${datails.title}"></span>
+
+	<span name="address" th:value="${datails.address}"></span>
 	
+	</div>
 	</div>	
 	
+	
+</div>
 
-<
 
--->
+
+
 
 
 <div>
@@ -109,6 +114,7 @@ close
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5cf0f012351259a60d2d7388a32df3af"></script>
 <!--<script type="text/javascript" th:src="@{js/plan/makePlan/kakaoMap.js}"></script>-->
+<script type="text/javascript" th:src="@{/js/plan/makePlan/ajax_loader.js}"></script>
 <script type="text/javascript" th:src="@{/js/plan/makePlan/makeDetails.js}"></script>
 
 <script type="text/html" id='tpl_selectedItems'>
