@@ -1,8 +1,39 @@
-function newPage()  {
-  window.location.href = 'https://www.naver.com'
-};
+const _URL = document.location.href;
 
 let map;
+
+
+const planner = {
+	loadSelection() {
+		try {
+			const dayEl = document.querySelector("input[name='day']:checked");
+			const day = dayEl.value || 1;
+			console.log(day);
+			if (!day || ""+ day.trim() == "") {
+				throw new Error("잘못된 접근입니다.");
+			}
+			const els = document.querySelectorAll(".selected_items");
+			for (const el of els) {
+				el.innerHTML = "";
+			}
+			var newURL = `/select/${day}`;
+			console.log(newURL	);			
+			tp.ajaxLoader(newURL, false);
+			
+			
+			}catch (err) {
+			alert(err.message);
+		}
+		
+		
+}
+
+}
+
+
+
+
+
 const tourGo = {
 	 
 	 search(){
@@ -12,7 +43,7 @@ const tourGo = {
 			
 		}
 
-			const url = `tourList?keyword=${keyword}`;
+			const url = `/tourList?keyword=${keyword}`;
 				const xhr = new XMLHttpRequest();
 		xhr.open("GET", url);
 				xhr.addEventListener("readystatechange", function() {

@@ -124,7 +124,7 @@ public class PlannerController {
 			return "common/excution";
 		}
 		
-		List<PlanDetailsRq> list = new ArrayList<>();
+		List<PlanDetailsRq> list = null;
 		
 		PlannerRq plannerRq = plannerService.toDto(planner);
 		ArrayList<String> test = new ArrayList<>();
@@ -284,4 +284,10 @@ public class PlannerController {
 		
 	return "plan/weather";
 	}
+	
+	
+
+	
+	
+	
 }
