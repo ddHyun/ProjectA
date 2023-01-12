@@ -24,8 +24,7 @@ public class ReviewListController{
 	//여행후기 메인페이지
 	@GetMapping("/community/review_main")
 	public String index(@RequestParam(name="page", required=false) Integer page, 
-						String keyword, @RequestParam(name="order", required=false) String order, Model model){		
-		
+						String keyword, String order, Model model){		
 		//css, js, board 추가
 		model.addAttribute("board", "review");
 		model.addAttribute("addCss", new String[] {"community/community_common", "community/pagination"});

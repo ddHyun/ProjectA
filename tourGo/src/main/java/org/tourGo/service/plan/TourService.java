@@ -75,9 +75,9 @@ public class TourService {
 			om.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 			om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			try {
-				TourListResponse apiResult = om.readValue(result, TourListResponse.class);
+				//TourListResponse apiResult = om.readValue(result, TourListResponse.class);
 				
-				items = apiResult.getResponse().getBody().getItems().getItem();
+				//items = apiResult.getResponse().getBody().getItems().getItem();
 			} catch (Exception e) {
 					e.printStackTrace();
 			}

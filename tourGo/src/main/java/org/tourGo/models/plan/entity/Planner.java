@@ -40,6 +40,8 @@ public class Planner extends BaseEntity {
 	private Integer heart; //추천수
 	private Integer hit; //조회수
 	private Boolean open;//공개,비공개 여부
+	@Column(columnDefinition = "integer default 0", nullable = false)
+    private int view; // 조회수
 	
 /**	@OneToMany(mappedBy="plan", fetch=FetchType.LAZY)
 	private List<PlanDetailsEntity> plainDetails;*/
