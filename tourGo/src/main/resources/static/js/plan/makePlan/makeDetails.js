@@ -4,6 +4,7 @@ let map;
 
 
 const planner = {
+	/**관광지 선택시마다 db에 값 저장, 날짜 변경시에 ajax로 변경사항(stime,etime) db에 업데이트, 마지막에 save누를때도 동일하게 업데이트 */
 	loadSelection() {
 		try {
 			const dayEl = document.querySelector("input[name='day']:checked");
@@ -107,14 +108,7 @@ const tourGo = {
 									.replace(/<%=address%>/g, address)
 									.replace(/<%=id%>/g, item.contentid)
 									;
-						html += `
-						<div>
-		       
-		           		 	<label for="check">시간</label>
-		            		<input type="time" name="checkTime id="check">        
-		      		  	</div>
-		      		  	
-		      		  	`;		
+							
 									
 						const dom = domParser.parseFromString(html, "text/html");
 						const liEl = dom.querySelector("li");		

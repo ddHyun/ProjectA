@@ -74,7 +74,14 @@ close
 
 	<span name="address" th:value="${datails.address}"></span>
 	
+	<label for="checkST">시작</label>
+	<input type="time" name="stime" th:value="${details.stime}!=null ? ${details.stime} : null " id="checkST"> 
+	
+	<label for="checkET">종료</label>
+	<input type="time" name="etime" th:value="${details.etime}!=null ? ${details.etime} : null " id="checkET"> 
+	
 	</div>
+	
 	</div>	
 	
 	

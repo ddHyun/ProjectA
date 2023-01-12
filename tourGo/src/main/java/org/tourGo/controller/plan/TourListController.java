@@ -17,7 +17,7 @@ public class TourListController {
 	@GetMapping("/tourList")
 	public List<TourList> tourList(String keyword){
 		List<TourList> items = service.process(keyword);
-		
+		System.out.println(items);
 		
 		return items;
 	}
