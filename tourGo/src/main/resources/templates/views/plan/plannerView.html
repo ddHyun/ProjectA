@@ -244,7 +244,6 @@
 		<th:block th:each="li,status : ${list}" th:object="${li}">
 
 			<!--    <div th:id="'ex'+${status.count}" style="border:1px solid green;">-->
-
 			<div th:class="buttons" style="border:1px solid green; cursor: pointer;margin-top:70px"
 				th:data-no="*{plannerNo}">
 				<img style="max-width: 450px;" th:src="@{/images/main_test/sub4.jpg}"> <br>
@@ -255,11 +254,14 @@
 
 		</th:block>
 	</div>
-
-	<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-		<a th:if="${page != nowPage}" th:href="@{/plan/(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
+	<div style="text-align: center;">
+		<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+		<a th:if="${page != nowPage and page>0}" th:href="@{/plan/(page = ${page - 1})}" th:text="${page}"></a>
 		<strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
+	
 	</th:block>
+	</div>
+
 
 	<form th:action="@{/plan/}" method="get">
 	
