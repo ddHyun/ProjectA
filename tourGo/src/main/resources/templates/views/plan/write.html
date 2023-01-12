@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html class="hihi2" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Modal</title>
+	<link th:href="@{/css/plan/readwrite.css}" rel="stylesheet" type="text/css">
+
+	<head>
+
+
+		<main layout:fragment="content">
+			<style>
+				.hihi2::-webkit-scrollbar {
+					display: none;
+				}
+
+				.hihi2 {
+					scrollbar-width: none;
+					-ms-overflow-style: none;
+				}
+			</style>
+
+	</head>
+
+<body>
+
+	<div class="form-group" style="margin-top: 30px;">
+
+		<div class="b_input">
+			<div class="delete">
+
+				<a th:href="@{/plan/readplan/}+${planner.plannerNo}">
+					<button class="b_click">
+						취소
+					</button>
+				</a>
+
+			</div>
+
+
+			<div class="update">
+				<form th:action="@{/plan/readplan/}+${planner.plannerNo}" th:object="${planner}" method="post">
+
+					<button type="submit" class="b_click">완료</input>
+			</div>
+		</div>
+
+
+
+
+
+		<div class="flex form-group">
+			<div class="width-30">
+				<span>여행제목</span>
+			</div>
+			<div class="width-70">
+				<input type="text" th:field="${planner.title}">
+			</div>
+		</div>
+
+		<div class="flex form-group">
+			<div class="width-30">
+				여행기간
+			</div>
+			<div class="width-70">
+				<label><input type="date" th:value="${planner.sdate}" name="sdate"></label>
+				<select name="day" th:field="${planner.day}">
+
+					<option value="1">1일</option>
+					<option value="2">2일</option>
+					<option value="3">3일</option>
+					<option value="4">4일</option>
+					<option value="5">5일</option>
+					<option value="6">6일</option>
+					<option value="7">7일</option>
+					<option value="8">8일</option>
+					<option value="9">9일</option>
+
+				</select>
+			</div>
+		</div>
+
+		<div class="flex form-group">
+			<div class="width-30">
+				여행타입
+			</div>
+			<div class="width-70" style="display:flex;align-items: center;font-size:14px;margin-top: 3px;">
+
+
+				<div th:each="type : ${planTypes}">
+					<input type="radio" th:field="${planner.planType}" th:value="${type.name()}"
+						class="form-check-input">
+					<label th:for="${#ids.prev('planType')}" th:text="${type.name}" class="form-check-label">
+
+					</label>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="flex form-group">
+			<div class="width-30">
+				여행인원
+			</div>
+			<div class="width-70">
+				<select th:field="${planner.planSize}">
+
+					<option value="1">1명</option>
+					<option value="2">2명</option>
+					<option value="3">3명</option>
+					<option value="4">4명</option>
+					<option value="5">5명</option>
+					<option value="6">6명</option>
+					<option value="7">7명</option>
+					<option value="8">8명</option>
+					<option value="9">9명</option>
+
+				</select>
+			</div>
+		</div>
+
+		<div class="flex form-group">
+			<div class="width-30">
+				메모
+			</div>
+			<div class="width-70">
+				<textarea class="autosize" maxlength="250" placeholder="추가 바람"
+					style="resize: none;vertical-align: middle; width: 100%; " th:field="${planner.memo}"></textarea>
+
+			</div>
+			
+						<label class=title>공개여부</label>	
+			<div th:if="${planner.open}">		
+			<input type="radio" name="open" value="true" checked="checked">공개
+			<input type="radio" name="open" value="false">비공개
+			</div>
+			
+			<div th:unless="${planner.open}">
+				<input type="radio" name="open" value="true">공개
+			<input type="radio" name="open" value="false"  checked="checked">비공개
+			</div>
+			
+		</div>
+	</div>
+	<div>
+
+		Day1
+	</div>
+	<div style="padding: 20px 20px;
+    text-align: center;
+    word-break: keep-all;
+    line-height: 1.2;">
+	</div>
+
+
+	</form>
+</body>
+</main>
+
+</html>
