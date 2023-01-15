@@ -99,6 +99,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	const reviewNoEl = document.getElementById("reviewNo");
 	if(reviewNoEl){
 		const reviewNo = reviewNoEl.value;
+
 	
 		/**수정 선택 이벤트 처리 S */
 		const modifyBtnEl = document.getElementById("modifyBtn");
