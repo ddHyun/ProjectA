@@ -31,6 +31,7 @@ public class TourService {
 	
 	private String serviceKey = "ORm3mQovRB97uz6GfTJJNBR%2F2egRn2vglLUfbXCP%2B2pblHvBggwbP1wMwnl%2FRvFZfHqob4GRBHbQDNn6IZP%2FFg%3D%3D";
 	
+	//private String serviceKey = "ORm3mQovRB97uz6GfTJJNBR/2egRn2vglLUfbXCP+2pblHvBggwbP1wMwnl/RvFZfHqob4GRBHbQDNn6IZP/Fg==";
 	
 	public List<TourList> process(String keyword) {
 		List<TourList> items = null;	
@@ -75,9 +76,9 @@ public class TourService {
 			om.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 			om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			try {
-				//TourListResponse apiResult = om.readValue(result, TourListResponse.class);
+				TourListResponse apiResult = om.readValue(result, TourListResponse.class);
 				
-				//items = apiResult.getResponse().getBody().getItems().getItem();
+				items = apiResult.getResponse().getBody().getItems().getItem();
 			} catch (Exception e) {
 					e.printStackTrace();
 			}

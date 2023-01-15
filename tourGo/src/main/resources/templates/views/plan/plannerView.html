@@ -254,9 +254,15 @@
 
 		</th:block>
 	</div>
+<<<<<<< HEAD
 	<div style="text-align: center;">
 		<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
 		<a th:if="${page != nowPage and page>0}" th:href="@{/plan/(page = ${page - 1})}" th:text="${page}"></a>
+=======
+
+	<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+		<a th:if="${page != nowPage} and ${nowPage} != 0" th:href="@{/plan/(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
+>>>>>>> 정재욱
 		<strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
 	
 	</th:block>
