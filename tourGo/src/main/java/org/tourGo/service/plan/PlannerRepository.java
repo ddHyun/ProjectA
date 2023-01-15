@@ -23,7 +23,7 @@ public interface PlannerRepository extends JpaRepository<Planner, Long>, Queryds
 	//List<PlannerEntity> findAllByOrderByPlannerNoDESC();
 	List<Planner> findAllByUser(User user,Sort sort); 
 		Page<Planner> findByTitleContaining(String searchKeyword, Pageable pageable);
-
+		
 		
 
 }

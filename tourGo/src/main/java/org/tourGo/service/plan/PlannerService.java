@@ -32,6 +32,12 @@ public class PlannerService {
 	@Autowired
 	private UserRepository userRepo;
 	
+	public Planner find(Long no) {
+		Optional<Planner> _planner = plannerRepo.findById(no);
+		Planner planner = _planner.orElse(null);
+		return planner;
+	}
+	
 	public List<PlannerRq> userPlanner(User user)	{ //db로부터 플래너 번호를 내림차순하여 planner List형태로 변환하는 메서드
 
 

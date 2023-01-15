@@ -19,6 +19,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,7 +48,6 @@ import lombok.Value;
 @Controller
 @RequestMapping("/plan")
 public class PlannerController {
-
 
 	@Autowired
 	private UserRepository userRepository;
@@ -140,7 +140,7 @@ public class PlannerController {
 			return "common/excution";
 		}
 		
-		List<PlanDetailsRq> list = new ArrayList<>();
+		List<PlanDetailsRq> list = null;
 		
 		PlannerRq plannerRq = plannerService.toDto(planner);
 		ArrayList<String> test = new ArrayList<>();
@@ -256,18 +256,17 @@ public class PlannerController {
 	
 	
 	@GetMapping("/plannerallview_page/{no}")
+	@Transactional
 	public String planallview_page(Model model,@AuthenticationPrincipal PrincipalDetail principal, @PathVariable Long no ) {
 		
 
 
-	List<Planner> list = plannerService.plannerList3();
-	PlannerRq plannerRq = PlannerService.toDto(plannerService.getPlanner(no)); // 플래너번호를 받아 dto객체로 변환
+
+	Planner planner = plannerService.find(no);
+
+	planner.setHit(planner.getHit() + 1);
 	
-	model.addAttribute("planner", plannerRq);
-
-		
-		model.addAttribute("list", list);
-
+	model.addAttribute("planner", planner);
 	return "plan/plannerallView_page";
 	}
 	@GetMapping("/weather")

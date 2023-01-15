@@ -38,10 +38,10 @@ public class Planner extends BaseEntity {
 	@JoinColumn(name="userNo")
 	private User user; //유저 pk값이랑 관계매핑
 	private Integer heart; //추천수
-	private Integer hit; //조회수
+	@Column(name= "hit", columnDefinition = "int default 0")
+	private int hit; //조회수
 	private Boolean open;//공개,비공개 여부
-	@Column(columnDefinition = "integer default 0", nullable = false)
-    private int view; // 조회수
+
 	
 /**	@OneToMany(mappedBy="plan", fetch=FetchType.LAZY)
 	private List<PlanDetailsEntity> plainDetails;*/
