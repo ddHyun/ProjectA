@@ -40,7 +40,8 @@ const tourGo = {
 	 search(){
 		const keyword = document.getElementById(`keyword`).value;
 		if(!keyword){
-			throw new Error("키워드를 입력해주세요");
+			alert("키워드를 입력해주세요");
+			return;
 			
 		}
 
