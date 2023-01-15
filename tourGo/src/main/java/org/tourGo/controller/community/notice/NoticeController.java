@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -18,8 +19,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tourGo.common.Pagination;
+import org.tourGo.config.auth.PrincipalDetail;
+import org.tourGo.controller.community.review.UidRequest;
 import org.tourGo.models.entity.notice.Notice;
 import org.tourGo.service.community.notice.NoticeService;
+import org.tourGo.service.community.review.ReadHitService;
 
 @Controller
 @RequestMapping("/community")
@@ -31,6 +35,8 @@ public class NoticeController {
 	HttpServletRequest request;
 	@Autowired
 	HttpServletResponse response;
+	@Autowired
+	ReadHitService readService;
 	
 	private String baseUrl = "community/notice/";
 	
@@ -62,6 +68,7 @@ public class NoticeController {
 	@GetMapping("/notice_read/noticeNo/{noticeNo}")
 	public String readNotice(Model model, 
 										@PathVariable Long noticeNo,  
+										@AuthenticationPrincipal PrincipalDetail principal,
 										@RequestParam(name="searchType", required=false) String searchType,
 										@RequestParam(name="searchKeyword", required=false) String searchKeyword,
 										@RequestParam(name="page", required=false) String page,
@@ -70,21 +77,11 @@ public class NoticeController {
 	model.addAttribute("board", "notice");
 	model.addAttribute("addCss", new String[] {"community/community_common"});
 		
-	/*쿠키 처리 S*/
-	if(cookie!= null) {
-		if(!cookie.getValue().contains("["+noticeNo+"]")) {
-			cookie.setValue(cookie.getValue()+"_["+noticeNo+"]");
-			response.addCookie(cookie);
-			//조회수 증가메서드 추가
-			noticeService.updateNoticeRead(noticeNo);
-		}
-	}else {
-		Cookie newCookie = new Cookie("visitNotice", "["+noticeNo+"]");
-		response.addCookie(newCookie);
-		//조회수 증가메서드 추가
-		noticeService.updateNoticeRead(noticeNo);
-	}
-	/*쿠키 처리 E*/
+	//조회수 처리(Modified by Hyun)
+	Long userNo = principal != null ? principal.getUser().getUserNo() : null;
+	
+	String readUid = UidRequest.getUid(noticeNo, userNo);
+	readService.process(readUid, "readHit", "notice");
 	
 	//글번호로 내용 조회
 	Notice notice = noticeService.findById(noticeNo).orElseThrow();
