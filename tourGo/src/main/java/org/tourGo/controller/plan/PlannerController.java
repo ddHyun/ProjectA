@@ -140,7 +140,12 @@ public class PlannerController {
 			return "common/excution";
 		}
 		
-		List<PlanDetailsRq> list = null;
+		ArrayList<PlanDetailsRq> list = new ArrayList<>();
+		PlanDetailsRq rq1 = PlanDetailsRq.builder().DetailsNo(1l).name("관광지1").address("주소1").build();
+		PlanDetailsRq rq2 = PlanDetailsRq.builder().DetailsNo(2l).name("관광지2").address("주소2").build();
+		list.add(rq2);
+		list.add(rq1);
+		
 		
 		PlannerRq plannerRq = plannerService.toDto(planner);
 		ArrayList<String> test = new ArrayList<>();
@@ -151,7 +156,7 @@ public class PlannerController {
 		model.addAttribute("test", test);
 		model.addAttribute("list", list);
 		model.addAttribute("plannerRq", plannerRq);
-		
+		model.addAttribute("plannerNo", planner.getPlannerNo());
 		System.out.println(planner);
 		}catch(Exception e) {
 			throw new AlertException("없는 플래너입니다!!","/plan");
@@ -199,8 +204,6 @@ public class PlannerController {
 		return "common/excution";
 				
 	}
-	
-	
 	
 	@GetMapping("/readplan/{no}")
 	public String read(Model model, @PathVariable Long no ) {
@@ -274,5 +277,13 @@ public class PlannerController {
 			
 		
 	return "plan/weather";
+	}
+	
+	
+	@GetMapping("/makeDetails_move/{no}")
+	public String makeDetails2(Model model,@PathVariable Long no) {
+
+		model.addAttribute("scripts", "parent.location.replace('../makeDetails/" + no + "');");
+		return "common/excution";
 	}
 }
