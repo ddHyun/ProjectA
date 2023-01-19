@@ -337,22 +337,41 @@ td select{
 /*댓글창*/
 .rpl{
 	width: 80%;
+	min-height: 38px;
+	line-height: 38px;
 	margin: 5px auto;
 	background-color:#f0f8ff;
 	border: 1px solid rgba(0,153,204,0.3);
 }
 
-/* 너비70% */
 .reRpl{
 	width: 76%;
-	margin-left: 6rem;
+	min-height: 38px;
+	line-height: 38px;
+	margin-left: 10.8rem;
 	background-color:#f0f8ff;
+	border-top-color: transparent !important;
 	border: 1px solid rgba(0,153,204,0.3);
 }
 
 .innerRpl{
-	width: 92%;
 	margin: auto;
+}
+
+/*댓글목록*/
+.bn{
+	border-left: none;
+	border-right: none;
+	background-color: transparent;
+	margin-bottom: -6px;
+}
+
+/*댓글쓰기 양식*/
+.reRplArea{
+	margin: auto !important;
+	display: block;
+	background-color:#f0f8ff;
+	border: 1px solid rgba(0,153,204,0.3);
 }
 
 .flex{
@@ -421,4 +440,10 @@ td select{
 
 .liked:hover{
 	cursor: pointer;
+}
+
+/*작성자*/ 
+sub{
+	color: #fff;
+	background-color: #000;
 }

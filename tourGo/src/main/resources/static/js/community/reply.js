@@ -8,27 +8,14 @@ window.addEventListener("DOMContentLoaded", function(){
 		registerReply.disabled = true;
 	}
 	/**미로그인시 등록버튼 비활성화 처리 E */
-	
-	/**댓글depth 1 들여쓰기 처리 S */
-	const commentEl = document.getElementsByClassName("rpl");
-	if(commentEl){
-		for(el of commentEl){
-			const depthEl = el.querySelectorAll("#depth");
-			for(subEl of depthEl){
-				const depth = subEl.value;
-				if(depth==1){
-					el.className += " reRpl";
-				}
-			}
-		}
-	}
-	/**댓글depth 1 들여쓰기 처리 E */		
+
 });
 
 	/**댓글쓰기 양식 버튼이벤트 S */
 	function writeReply(replyNo){	
 		document.getElementById("dn"+replyNo).style.display="none";
 		const textareaEl = document.createElement("textarea");
+		textareaEl.setAttribute("class", "reRplArea");
 		textareaEl.setAttribute("name", "replyContent");
 		textareaEl.setAttribute("th:field", "*{replyContent}");
 		
@@ -47,7 +34,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		
 		const button1El = document.createElement("button");
 		button1El.setAttribute("type", "submit");
-		button1El.innerText = "댓글등록";
+		button1El.innerText = "답글등록";
 	
 		const parent = document.getElementById("reRpl"+replyNo);
 		parent.appendChild(textareaEl);

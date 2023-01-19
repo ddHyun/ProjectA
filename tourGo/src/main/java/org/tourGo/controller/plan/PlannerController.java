@@ -205,8 +205,6 @@ public class PlannerController {
 				
 	}
 	
-	
-	
 	@GetMapping("/readplan/{no}")
 	public String read(Model model, @PathVariable Long no ) {
 		
@@ -279,5 +277,13 @@ public class PlannerController {
 			
 		
 	return "plan/weather";
+	}
+	
+	
+	@GetMapping("/makeDetails_move/{no}")
+	public String makeDetails2(Model model,@PathVariable Long no) {
+
+		model.addAttribute("scripts", "parent.location.replace('../makeDetails/" + no + "');");
+		return "common/excution";
 	}
 }

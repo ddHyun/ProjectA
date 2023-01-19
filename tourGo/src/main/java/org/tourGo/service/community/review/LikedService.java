@@ -3,33 +3,38 @@ package org.tourGo.service.community.review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.tourGo.models.community.review.LikedEntityRepository;
+import org.tourGo.common.AlertException;
 import org.tourGo.models.community.review.ReviewEntityRepository;
-import org.tourGo.models.entity.community.review.LikedEntity;
+import org.tourGo.models.community.review.UidEntityRepository;
+import org.tourGo.models.entity.community.review.UidEntity;
 
 @Service
 public class LikedService {
 
 	@Autowired
-	private LikedEntityRepository likedRepository;
+	private UidEntityRepository uidRepository;
 	@Autowired
 	private ReviewEntityRepository reviewRepository;
 	
 	@Transactional
-	public int process(String uid) {
-		//기존 uid가 있다면 삭제 -> 좋아요 취소, 없다면 등록 -> 좋아요 클릭
-		LikedEntity likedEntity = likedRepository.findById(uid).orElse(null);
-		
-		if(likedEntity==null) {//uid 조회결과가 없다면 추가(좋아요 클릭)
-			likedEntity = LikedEntity.builder().uid(uid).build();
-			likedRepository.save(likedEntity);
-		}else {//조회결과가 있다면 삭제(좋아요 취소)
-			likedRepository.delete(likedEntity);
+	public int process(String uid, String field) {
+		//기존 uid가 있다면 삭제, 없다면 등록
+		UidEntity uidEntity = uidRepository.findByFieldAndUid(field, uid).orElse(null);
+		System.out.println("====uid일치 조회 : "+uidEntity);
+		try {
+			if(uidEntity==null) {//uid 조회결과가 없다면 추가
+				uidEntity = UidEntity.builder().uid(uid).field(field).build();
+				uidRepository.save(uidEntity);
+			}else {//조회결과가 있다면 삭제
+				uidRepository.delete(uidEntity);
+			}
+		}catch(RuntimeException e) {
+			throw new AlertException("처리 도중 문제가 발생했습니다. 다시 시도해 주세요", "back");
 		}
 		
 		//좋아요 총개수 
 		long reviewNo = Long.parseLong(uid.split("_")[0]);
-		int totalLikes = likedRepository.findUid(reviewNo).size();
+		int totalLikes = uidRepository.countByUid(field, reviewNo);
 		//review 좋아요 총개수 업데이트
 		reviewRepository.updateTotalLikes(totalLikes, reviewNo);
 		return totalLikes;
