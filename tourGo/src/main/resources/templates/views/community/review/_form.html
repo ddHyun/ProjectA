@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+	<!-- 여행후기글 등록form -->
+	<th:block th:fragment="form">
+	
+		<table class="communityT marginAuto">
+			<tr>						
+				<td colspan="4" align="left"><!-- 제목 -->
+					<span class="errMsg" th:each="err : ${#fields.errors('reviewTitle')}" th:text="${err}"></span>
+					<input class="width100 borderX clkBorderX font2" type="text" name="reviewTitle" 
+						placeholder="제목을 입력해 주세요" th:field="*{reviewTitle}">
+				</td>
+			</tr>
+			<tr>
+				<th th:text="#{common.region}"></th><!-- 여행지 -->
+				<td align="left">
+					<select class="width100 borderX clkBorderX" name="region">
+						<option value="">선택[필수]</option>
+						<option th:each="region, status : ${regionLists}" th:value="${region}" 
+									th:text="${region}" th:selected="${region}==*{region}"></option>
+					</select>
+				</td>
+				<th th:text="#{review.period}"></th><!-- 여행기간 -->
+				<td align="left">
+					<select name="period">
+						<option value="">선택[필수]</option>
+						<option th:each="period, status : ${periodLists}" th:text="${period}" 
+									th:value="${period}" th:selected="${period}==*{period}"></option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th th:text="#{review.file}"></th><!-- 파일 -->
+				<td colspan="3" align="left">
+					<input type="file" name="files" id="files" multiple data-gid>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4"> <!-- 내용 -->
+					<div class="errMsg" th:each="err: ${#fields.errors('reviewContent')}" th:text="${err}"></div>
+					<textarea rows="20" id='reviewContent' name="reviewContent"
+						placeholder="내용을 입력해 주세요" th:field="*{reviewContent}">
+					</textarea>
+				</td>
+			</tr>
+		</table>
+		
+	</th:block>
+</html>

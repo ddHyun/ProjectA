@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tourGo.common.Pagination;
 import org.tourGo.models.entity.community.review.ReviewEntity;
-import org.tourGo.service.community.review.ReviewService;
+import org.tourGo.service.community.review.ReviewInfoService;
 
 @Controller
 public class ReviewListController{
 	
 	@Autowired
-	private ReviewService reviewService;
+	private ReviewInfoService reviewService;
 
 	private String baseUrl = "community/review/";
 
@@ -31,7 +31,7 @@ public class ReviewListController{
 		model.addAttribute("addScript", new String[] {"community/review/index"});
 		
 		page = page == null? 1 : page;
-		
+
 		Page<ReviewEntity> results = reviewService.getAllReviewList(page, 10, order, keyword);
 		//Page<엔티티>->List<엔티티>->Stream<엔티티>->Stream<커맨드>->List<커맨드>
 		List<ReviewRequest> lists = results.getContent().stream().map(ReviewRequest::new).toList();

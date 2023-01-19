@@ -16,7 +16,8 @@ import org.tourGo.models.entity.report.Report;
 import org.tourGo.models.report.ReportRepository;
 import org.tourGo.models.user.UserRepository;
 import org.tourGo.service.community.reply.ReplyService;
-import org.tourGo.service.community.review.ReviewService;
+import org.tourGo.service.community.review.ReviewDeleteService;
+import org.tourGo.service.community.review.ReviewInfoService;
 
 import com.querydsl.core.BooleanBuilder;
 
@@ -30,7 +31,7 @@ public class AdminReportService {
 	private ReportRepository reportRepository;
 	
 	@Autowired
-	private ReviewService reviewService;
+	private ReviewDeleteService reviewService;
 	
 	@Autowired
 	private ReplyService replyService;
@@ -80,8 +81,8 @@ public class AdminReportService {
 		Report report = reportRepository.findById(reportNo).orElseThrow();
 		
 		// 1. 후기 삭제
-		if(report.getTarget().equals("review")) {
-			reviewService.deleteReview(report.getTargetId());
+		if(report.getTarget().equals("review")) { //Modified by Hyun
+			reviewService.process(report.getTargetId());
 		}
 		// 2. 댓글 삭제
 		else if(report.getTarget().equals("reply")) {

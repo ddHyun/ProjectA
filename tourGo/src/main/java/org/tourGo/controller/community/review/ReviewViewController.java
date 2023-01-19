@@ -45,10 +45,7 @@ public class ReviewViewController {
 
 		if(reviewNo==null) {
 			throw new RuntimeException("게시글이 존재하지 않습니다.");
-		}
-		
-		page = page==null? 1 : page;
-		model.addAttribute("page", page);
+		}		
 		
 		Long userNo = null;
 		
@@ -82,6 +79,9 @@ public class ReviewViewController {
 		model.addAttribute("reviewRequest", reviewRequest);	
 		
 		//목록으로 돌아가기 url
+		page = page==null? 1 : page;
+		keyword = keyword==null? "" : keyword;
+		order = order==null? "" : order;
 		String url = "/community/review_main?keyword="+keyword+"&order="+order+"&page="+page;
 		model.addAttribute("url", url);
 		

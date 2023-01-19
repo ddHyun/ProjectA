@@ -11,13 +11,15 @@
 		
 		<!-- 수정 내용 -->
 		<div class="wrap centerW">
-			<form method="post" th:action="@{/community/query_update}" autocomplete=off th:object="${queryRequest}">
-				<input type="hidden" name="queryNo" th:field="*{queryNo}">
-				<th:block th:replace="community/query/_form::form"></th:block>
+			<form method="post" th:action="@{/community/review_update}" autocomplete="off" th:object="${reviewRequest}">
+				<!-- <input type="hidden" name="gid" id="gid" th:value="${gid}"> -->
+				<input type="hidden" name="gid" th:field="*{gid}">
+				<input type="hidden" name="reviewNo" th:field="*{reviewNo}">
+				<th:block th:replace="community/review/_form::form"></th:block>
 				<div class="marginTop30"></div>
 				<button class="btn0 width25" type="button" th:text="#{community.cancel}"
-					th:onclick="|history.back();|">취소</button>
-				<button class="btn1 width25" type="submit" th:text="#{community.modify}">수정</button>
+							th:onclick="history.back();">취소</button>
+				<button class="btn1 width25" type="submit"th:text="#{community.modify}">수정</button>
 			</form>
 		</div>
 	</main>

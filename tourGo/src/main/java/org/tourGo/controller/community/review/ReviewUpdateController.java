@@ -8,22 +8,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.tourGo.config.auth.PrincipalDetail;
+import org.tourGo.service.community.review.ReviewInfoService;
 import org.tourGo.service.community.review.ReviewSaveService;
 import org.tourGo.services.file.FileUploadService;
 
 @Controller
-@RequestMapping("/community/review_register")
-public class ReviewRegisterController {	
+@RequestMapping("/community/review_update")
+public class ReviewUpdateController {
 	
 	@Autowired
-	private ReviewSaveService reviewService;
+	private ReviewInfoService reviewInfoService;
+	@Autowired
+	private ReviewSaveService reviewSaveService;
 	@Autowired
 	private FileUploadService uploadService;
-
-
+	
 	private String baseUrl = "community/review/";
 	
 	private void addCommons(Model model) {
@@ -43,53 +46,29 @@ public class ReviewRegisterController {
 	}
 
 	
-	//여행후기 작성페이지
-	@GetMapping
-	public String form(ReviewRequest reviewRequest, Model model){
-		
-		//공통데이터 model에 담기
+	//여행후기 수정페이지
+	@GetMapping("/{reviewNo}")
+	public String form(@PathVariable long reviewNo, Model model) {
 		addCommons(model);
-
-		//그룹아이디 설정
-		String gid = ""+System.currentTimeMillis();
-		model.addAttribute("gid", gid);
-
-		reviewRequest = new ReviewRequest();
+		ReviewRequest reviewRequest = reviewInfoService.getOneReviewList(reviewNo);
 		model.addAttribute("reviewRequest", reviewRequest);
-
-		return baseUrl + "review_register";
+		
+		return baseUrl + "review_update";
 	}
 	
-	//후기 등록
 	@PostMapping
 	public String process(@Valid ReviewRequest reviewRequest, Errors errors, 
-									@AuthenticationPrincipal PrincipalDetail principal,Model model) {		
-		
-		if (errors.hasErrors()) {
-			//공통데이터 model에 담기
-			addCommons(model);	
-			
-			return baseUrl + "review_register";
-		}		
-		
-		String user = principal.getUsername();
-
-		//내용 등록		
-		try {						
-			reviewRequest.setId(user);
-			reviewRequest = reviewService.process(reviewRequest);
-			
-			// 파일 업로드 완료 처리 
-			uploadService.updateSuccess(reviewRequest.getGid());
-			
-		} catch (Exception e) {
-			errors.reject("review_write_error", e.getMessage());
-			//공통데이터 model에 담기
-			addCommons(model);			
-			
-			return baseUrl + "review_register";
+									@AuthenticationPrincipal PrincipalDetail principal, Model model) {
+		if(errors.hasErrors()) {
+			addCommons(model);
+			return baseUrl + "review_update";
 		}
-				
+		
+		reviewRequest.setId(principal.getUsername());
+		reviewRequest = reviewSaveService.process(reviewRequest);
+		model.addAttribute("reviewRequest", reviewRequest);
+		// 파일 업로드 완료 처리 
+		uploadService.updateSuccess(reviewRequest.getGid());
 		return "redirect:/community/review_read/reviewNo_"+reviewRequest.getReviewNo();
 	}
 }

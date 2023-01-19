@@ -9,7 +9,8 @@ import lombok.*;
 
 @Entity
 @Table(name="reply")
-@Getter @Setter
+@Getter
+@NoArgsConstructor(access=AccessLevel.PACKAGE)
 public class ReplyEntity extends BaseEntity{
 
 	@Id @GeneratedValue
@@ -33,8 +34,23 @@ public class ReplyEntity extends BaseEntity{
 	@Column(nullable=false, columnDefinition="char(1) default 'N'", insertable=false)
 	private String deleteYn; 					// 삭제 여부
 
+	@Builder
+	public ReplyEntity(Long replyNo, ReviewEntity review, User user, String replyContent,
+								int depth, Long idParent, String listOrder, String deleteYn) {
+		this.replyNo = replyNo;
+		this.review = review;
+		this.user = user;
+		this.replyContent = replyContent;
+		this.depth = depth;
+		this.idParent = idParent;
+		this.listOrder = listOrder;
+		this.deleteYn = deleteYn;
+	}
+
 	@Override
 	public String toString() {
-		return "ReplyEntity [replyNo=" + replyNo + ", user=" + user + ", replyContent=" + replyContent + "]";
+		return "ReplyEntity [replyNo=" + replyNo + ", user=" + getUser() + ", review=" + getReview() + ", replyContent=" + replyContent + ", depth=" + depth + ", idParent="
+				+ idParent + ", listOrder=" + listOrder + ", deleteYn=" + deleteYn + "]";
 	}
+	
 }

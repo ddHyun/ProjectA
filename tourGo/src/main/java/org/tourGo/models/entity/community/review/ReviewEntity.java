@@ -11,8 +11,8 @@ import lombok.*;
 
 @Entity
 @Table(name="review")
-@Getter @Setter
-@NoArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class ReviewEntity extends BaseEntity {
 
 	@Id @GeneratedValue
@@ -44,21 +44,25 @@ public class ReviewEntity extends BaseEntity {
 	
 	@Column(columnDefinition = "int default '0'")
 	private int totalLikes; 	//좋아요 총 개수
+	
+	public void setDeleteYn(char deleteYn) {
+		this.deleteYn = deleteYn;
+	}
 
-//	@Builder
-//	public ReviewEntity(Long reviewNo, User user, String reviewTitle, String region, String period,
-//			String reviewContent, String gid, int reviewRead, List<ReplyEntity> replies, List<LikedEntity> likes,
-//			int totalLikes) {
-//		this.reviewNo = reviewNo;
-//		this.user = user;
-//		this.reviewTitle = reviewTitle;
-//		this.region = region;
-//		this.period = period;
-//		this.reviewContent = reviewContent;
-//		this.gid = gid;
-//		this.reviewRead = reviewRead;
-//		this.replies = replies;
-//		this.likes = likes;
-//		this.totalLikes = totalLikes;
-//	}	
+	@Builder
+	public ReviewEntity(Long reviewNo, User user, String reviewTitle, String region, String period,
+									String reviewContent, String gid, int reviewRead, List<ReplyEntity> replies,
+									int totalLikes, char deleteYn) {
+		this.reviewNo = reviewNo;
+		this.user = user;
+		this.reviewTitle = reviewTitle;
+		this.region = region;
+		this.period = period;
+		this.reviewContent = reviewContent;
+		this.gid = gid;
+		this.reviewRead = reviewRead;
+		this.totalLikes = totalLikes;
+		this.deleteYn = deleteYn;
+		this.replies = replies;
+	}	
 }

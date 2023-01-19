@@ -42,9 +42,7 @@
 			<div class="width80 marginAuto">
 				<div align="left">
 					<span class="liked">
- 						<!--<th:block th:if="${likes}" th:each="like : ${likes}">
-						</th:block> -->
-							<input th:if="${like}" type="hidden" id="uid" th:value="${like.uid}">
+						<input th:if="${like}" type="hidden" id="uid" th:value="${like.uid}">
 						<i class="fa-regular fa-heart toggleLiked" th:classappend="${user == null }? 'login_required' : ''"></i>
 					</span>
 					<span th:text="' '+#{review.like}"></span><span th:text="' '+${reviewRequest.totalLikes}" id="totalLikes"></span>&nbsp;
@@ -66,7 +64,8 @@
 					th:href="@{/report/review/{reviewNo}(reviewNo=${reviewRequest.reviewNo})}">신고</a>
 				</th:block>
 				<th:block th:if="${user==reviewRequest.id}">
-					<button class="btn1 width20" id="modifyBtn" type="button" th:text="#{community.modify}">수정</button>
+					<button class="btn1 width20" type="button" th:text="#{community.modify}"
+								th:onclick="|location.href='/community/review_update/*{reviewNo}'|">수정</button>
 					<button class="btn1 width20" id="deleteBtn" type="button" th:text="#{community.delete}">삭제</button>
 				</th:block>
 			</div>
