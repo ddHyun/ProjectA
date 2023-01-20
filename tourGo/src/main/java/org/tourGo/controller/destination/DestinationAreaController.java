@@ -51,7 +51,7 @@ public class DestinationAreaController {
 		
 		destinationService.responseList(areaCode, userId);
 		
-		return "redirect:/admin/index";
+		return "redirect:/admin/destination/destinationList";
 	}
 	
 }

@@ -68,7 +68,7 @@ public class DestinationService {
 			/** 1. 지역 1개에 존재하는 전체 관광 데이터 총량 */
 			jsonObj = (JSONObject) parser.parse(sb.toString());
 			
-			Integer totalCnt = 0;
+			Integer totalCnt = 200;
 			
 			JSONObject response = (JSONObject) jsonObj.get("response");
 			JSONObject body = (JSONObject) response.get("body");
@@ -78,7 +78,8 @@ public class DestinationService {
 				JSONObject object = (JSONObject) item.get(i);
 				
 				if(object.containsKey("totalCnt")) {
-					totalCnt = Integer.parseInt(object.get("totalCnt").toString());
+					totalCnt = Math.min(totalCnt, Integer.parseInt(object.get("totalCnt").toString()));
+					// totalCnt = Integer.parseInt(object.get("totalCnt").toString());
 					// System.out.println(totalCnt);
 				}
 			}
