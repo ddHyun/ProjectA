@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.tourGo.common.JsonResult;
 import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.service.destination.DestinationService;
 
@@ -23,7 +25,7 @@ public class DestinationAreaController {
 		model.addAttribute("addBootstrapCss", new String[] {"fontawesome-free/css/all", "datatables/dataTables.bootstrap4"});
 		
 		// 부트스트랩 관련 JS 추가
-		model.addAttribute("addScript", new String[] {});
+		model.addAttribute("addScript", new String[] {"admin/destinationList"});
 		model.addAttribute("addBootstrapJs", new String[] {"jquery/jquery.min", "jquery-easing/jquery.easing.min", "bootstrap/js/bootstrap.bundle.min", "bootstrap/js/bootstrap.min"});
 	}
 	
@@ -43,15 +45,16 @@ public class DestinationAreaController {
 	 * 각 지역의 관광 데이터 불러오기 목록 처리
 	 * 
 	 */
+	@ResponseBody
 	@GetMapping("/admin/destination/destinationCallBack/{areaCode}")
-	public String areaCodeCallBack(@AuthenticationPrincipal PrincipalDetail principal,
+	public JsonResult<?> areaCodeCallBack(@AuthenticationPrincipal PrincipalDetail principal,
 												@PathVariable(name="areaCode") int areaCode) throws IOException {
 		
 		String userId = principal.getUsername();
 		
 		destinationService.responseList(areaCode, userId);
 		
-		return "redirect:/admin/destination/destinationList";
+		return new JsonResult<>(true, "정상적으로 데이터가 추가되었습니다.", null);
 	}
 	
 }
