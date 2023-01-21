@@ -11,19 +11,21 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class MvcConfiguration implements WebMvcConfigurer{
-
+	/**
 	@Value("${file.uploadPath}")
 	private String fileUploadPath;
 	
 	@Override
 	    public void addResourceHandlers(final ResourceHandlerRegistry registry){
+			System.out.println("-----------------------------------test -----");
+			System.out.println(fileUploadPath);
 	        registry.addResourceHandler("/**")
 	                .addResourceLocations("classpath:/templates/", "classpath:/static/");
 
 	        registry.addResourceHandler("/uploads/**") //업로드 파일 경로 설정
 	        		.addResourceLocations("file:///"+fileUploadPath+"/");
 	    }	 
-	 
+	 */
 	//메시지식 설정
 		@Bean
 		public MessageSource messageSource() {
