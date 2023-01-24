@@ -154,8 +154,7 @@ public class PlannerService {
 		
 		
 		PlannerRq rq = PlannerRq.builder().day(day).sdate(sdate).edate(edate).image(planner.getImage()).memo(planner.getMemo()).planSize(planner.getPlanSize())
-				.planType(planner.getPlanType()).title(planner.getTitle()).plannerNo(planner.getPlannerNo()).heart(planner.getHeart())
-				.hit(planner.getHit()).open(planner.getOpen()).build();
+				.planType(planner.getPlanType()).title(planner.getTitle()).plannerNo(planner.getPlannerNo()).open(planner.getOpen()).build();
 		
 		return rq;
 	}

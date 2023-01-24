@@ -267,7 +267,6 @@ public class PlannerController {
 
 	Planner planner = plannerService.find(no);
 
-	planner.setHit(planner.getHit() + 1);
 	
 	model.addAttribute("planner", planner);
 	return "plan/plannerallView_page";
