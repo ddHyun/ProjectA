@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class PlanDetailsRq {//여행 세부일정을 담당하는 dto
 		
-		private Long DetailsNo; // pk
+		private Long detailsNo; // pk
 	    private Long plannerNo; // 관계매핑용
 	    @DateTimeFormat(pattern="HH : mm")
 	    private LocalTime stime; // 관광지 시작시간
