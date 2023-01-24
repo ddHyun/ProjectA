@@ -141,8 +141,8 @@ public class PlannerController {
 		}
 		
 		ArrayList<PlanDetailsRq> list = new ArrayList<>();
-		PlanDetailsRq rq1 = PlanDetailsRq.builder().DetailsNo(1l).name("관광지1").address("주소1").build();
-		PlanDetailsRq rq2 = PlanDetailsRq.builder().DetailsNo(2l).name("관광지2").address("주소2").build();
+		PlanDetailsRq rq1 = PlanDetailsRq.builder().detailsNo(1l).name("관광지1").address("주소1").build();
+		PlanDetailsRq rq2 = PlanDetailsRq.builder().detailsNo(2l).name("관광지2").address("주소2").build();
 		list.add(rq2);
 		list.add(rq1);
 		
