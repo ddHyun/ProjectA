@@ -6,6 +6,7 @@
       
     <link th:href="@{/css/plan/makePlan.css}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -39,8 +40,10 @@
 </button>
 </div>
 <div class="saveNclose"> 
-<form th:action="@{/plan}" method="post" name="frm">
-<input type="hidden" th:value="plannerNo" name="plannerNo" id="plannerNo">
+
+
+<form th:action="@{/plan/}+${plannerNo}" method="post" name="frm" id="frm">
+<input type="hidden" th:value="${plannerNo}" name="plannerNo" id="plannerNo">
 <button type="submit" class="save_btn">save</button>
 <a th:href="@{/plan}">
 <span class="material-symbols-outlined" style="font-size : 100px; float:right;">
@@ -69,7 +72,7 @@ close
 
 	<div th:if="${list != null}">
 	<div th:each="details : ${list}">
-	<input type="hidden" th:value="${details.detailsNo}">
+	<input type="hidden" th:value="${details.detailsNo}" name="detailsNo" id="detailsNo">
 	<span name="name" th:text="${details.name}"></span>
 
 	<span name="address" th:text="${details.address}"></span>
@@ -104,9 +107,12 @@ close
 <div class="api_list">
 
 </div>
-<div class="map_container"><div id="map"></div></div>
 
 </form>
+
+<div class="map_container"><div id="map"></div></div>
+
+
 </div>
 
 

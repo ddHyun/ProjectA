@@ -19,3 +19,24 @@ tp.ajaxLoader = function(url, isJson) {
 		xhr.send(null);
 	});
 };
+
+tp.postLoader = function(url, isJson,form) {
+	return new Promise(function(resolve, reject) {
+		const xhr = new XMLHttpRequest();
+		xhr.open("POST", url);
+		xhr.addEventListener("readystatechange", function() {
+			if (xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
+				let data = xhr.responseText;
+				if (isJson) {
+					data = JSON.parse(data);
+				}
+				resolve(data);	
+			}
+	
+		});
+		xhr.addEventListener("error", function() {
+			reject(xhr.responseText);
+		});
+		xhr.send(form);
+	});
+};

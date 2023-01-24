@@ -1,91 +1,41 @@
-const _URL = document.location.href;
-
-let map;
-
-
-const planner = {
-	/**관광지 선택시마다 db에 값 저장, 날짜 변경시에 ajax로 변경사항(stime,etime) db에 업데이트, 마지막에 save누를때도 동일하게 업데이트 */
-	loadSelection() {
-		try {
-			const dayEl = document.querySelector("input[name='day']:checked");
-			const day = dayEl.value || 1;
-			console.log(day);
-			if (!day || ""+ day.trim() == "") {
-				throw new Error("잘못된 접근입니다.");
-			}
-			const els = document.querySelectorAll(".selected_items");
-			for (const el of els) {
-				el.innerHTML = "";
-			}
-			var newURL = `/select/${day}`;
-			console.log(newURL	);			
-			tp.ajaxLoader(newURL, false);
-			
-			
-			}catch (err) {
-			alert(err.message);
-		}
-		
-		
-}
-
-}
-
-
-
-
+const plannerNo = document.getElementById(`plannerNo`).value;
 
 const tourGo = {
-	 
-	 search(){
+	
+	search(){
 		const keyword = document.getElementById(`keyword`).value;
 		if(!keyword){
 			alert("키워드를 입력해주세요");
 			return;
-			
 		}
-
+		
 			const url = `/tourList?keyword=${keyword}`;
-				const xhr = new XMLHttpRequest();
+			const xhr = new XMLHttpRequest();
+		
 		xhr.open("GET", url);
-				xhr.addEventListener("readystatechange", function() {
+		xhr.addEventListener("readystatechange", function() {
 			if (xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
 				const items = JSON.parse(xhr.responseText);
-				const parentEl = document.querySelector(".api_list");
-				if (!parentEl) {
-					return;
-				}
-				const selectedItemsEl = document.querySelector(".selected_items ul");
-				const tpl = document.getElementById("tpl_selectedItems").innerHTML;
-				const domParser = new DOMParser();
+					const parentEl = document.querySelector(".api_list");
+						const domParser = new DOMParser();
 				parentEl.innerHTML ="";	
-				for (const item of items) {
-					
+				
+			for (const item of items) {
 					const label = document.createElement("label");
 					label.dataset.xpos = item.mapx;
 					label.dataset.ypos = item.mapy;
-					let html = `<input type="checkbox" id="tourItem" value="${item}">  `;
-
-					if (item.firstimage) {
-						html += `<div><img src='${item.firstimage}' ></div>`;
-					}
-					html += `
-						<div>${item.title}</div>
-		 					<div>${item.addr1} ${item.addr2}</div>
-		    			<div >
-		     	
-					`;
-						
-					label.innerHTML = html;
+					
+					let html =`<div class="test" id="tourItem" > `;
+					html += `<input type="checkbox" id="clickItem" value="${item}">`;
+					html+=`<span>${item.title}</span>`;
+					html=+`</div>`;
+					label.innerHTML=html;
 					parentEl.appendChild(label);
-					const checkBoxEl = document.getElementById(`tourItem`);
-					label.addEventListener("click", function() {
-						const targetId = "contentId_" + item.contentid;
-						// 이미 선택 아이템이 있다면 추가 X
-						if (document.getElementById(targetId)) {
-							return;
-						}
-						const xpos = this.dataset.xpos;
+					
+					const tourItem = document.getElementById(`tourItem`);
+					const clickItem = document.getElementById(`clickItem`);
+					tourItem.addEventListener("click",function(){
+							const xpos = this.dataset.xpos;
 						const ypos = this.dataset.ypos;
 						if (kakao && map) {
 							const moveLatLon = new kakao.maps.LatLng(ypos, xpos);
@@ -96,51 +46,86 @@ const tourGo = {
 							});
 							marker.setMap(map);
 						}
-    					
-    					if (!selectedItemsEl) {
-							return;
-						}
+					});//touritem click이벤트 종료
+					clickItem.addEventListener("click",function(){
 						
-						let html = tpl;
-						const address = item.addr1 + " " + item.addr2;
-						
-						html = html.replace(/<%=firstimage>/g,item.firstimage)
-									.replace(/<%=title%>/g, item.title)
-									.replace(/<%=address%>/g, address)
-									.replace(/<%=id%>/g, item.contentid)
-									;
+						const xpos = this.dataset.xpos;
+						const ypos = this.dataset.ypos;
+						if (kakao && map) {
+							const moveLatLon = new kakao.maps.LatLng(ypos, xpos);
+							map.panTo(moveLatLon);  
+							const marker = new kakao.maps.Marker({
+								map:map,
+							    position: moveLatLon
+							});
+							marker.setMap(map);
 							
-									
-						const dom = domParser.parseFromString(html, "text/html");
-						const liEl = dom.querySelector("li");		
 						
-						selectedItemsEl.appendChild(liEl);
-					
-						const removeEl = liEl.querySelector(".remove");
-						removeEl.addEventListener("click", function() {
-							if (!confirm('정말 선택해제 하시겠습니까?')) {
-								return;
-							}
 							
-							liEl.parentElement.removeChild(liEl);
-						});          
-					});
+						};
+							const newUrl = `/testxml?plannerNo=${plannerNo}`;
+							const newXhr = new XMLHttpRequest();
+							var formdata = new FormData(frm);
+							
+							
+							formdata.append(`title`,item.title);
+							formdata.append(`address`,item.address);
+							consoloe.log(formdata);
+							newXhr.open("POST",newUrl,true);
+							newXhr.send(formdata);
+												
+						
+					});//click이벤트종료
 					
-				}
-				
+					
+					
 			}
-		});
-	
-	
-		xhr.onerror = function(err) {
-			console.log(err);
-		};
+				
+				
 		
-		xhr.send(null);
-	}
+		}//if끝
+		
 	
-};
+	});//xhr끝
+	xhr.send();
+	
+	
+	
+	
+	
+	
+	}//search()끝
+}//tourGo끝
 
+const planner = {
+	/**관광지 선택시마다 db에 값 저장, 날짜 변경시에 ajax로 변경사항(stime,etime) db에 업데이트, 마지막에 save누를때도 동일하게 업데이트 */
+	loadSelection(){
+		var day = $("input[name='day']:checked").val();
+		console.log(day);
+		var frm = $(`#frm`).serialize()+ `&day=${day}`;;
+		console.log(JSON.stringify(frm));
+		console.log(frm) // plannerNo=19&day=3&detailsNo=2&stime=&etime=&detailsNo=1&stime=&etime=
+	
+		 
+		$.ajax({
+			url : `/select`,
+			data : frm,
+			//dataType : 'json',
+			type : "POST",
+			cache : false,	
+			})//ajax끝
+		.done(function(fragment){
+			$("#selected_items").replaceWith(fragment);
+			
+			console.log(fragment);
+		})//done끝
+		.fail(function(jqXHR) {
+                console.log("에러");
+            });//fail끝
+            
+	}//함수끝
+};
+let map;
 
 window.addEventListener("DOMContentLoaded", function() {
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -180,3 +165,21 @@ geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function
     } 
 });    
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -63,14 +63,14 @@ const tourGo = {
 						
 							
 						};
-							const newUrl = `/testxml/${plannerNo}`;
+							const newUrl = `/testxml?plannerNo=${plannerNo}`;
 							const newXhr = new XMLHttpRequest();
 							var formdata = new FormData(frm);
-							consoloe.log(formdata);
 							
 							
 							formdata.append(`title`,item.title);
 							formdata.append(`address`,item.address);
+							consoloe.log(formdata);
 							newXhr.open("POST",newUrl,true);
 							newXhr.send(formdata);
 												
@@ -87,7 +87,7 @@ const tourGo = {
 		
 	
 	});//xhr끝
-	
+	xhr.send();
 	
 	
 	
@@ -97,32 +97,91 @@ const tourGo = {
 	}//search()끝
 }//tourGo끝
 
+
 const planner = {
 	/**관광지 선택시마다 db에 값 저장, 날짜 변경시에 ajax로 변경사항(stime,etime) db에 업데이트, 마지막에 save누를때도 동일하게 업데이트 */
-	loadSelection() {
-		try {
-			const dayEl = document.querySelector("input[name='day']:checked");
-			const day = dayEl.value || 1;
-			console.log(day);
-			if (!day || ""+ day.trim() == "") {
-				throw new Error("잘못된 접근입니다.");
-			}
-			const els = document.querySelectorAll(".selected_items");
-			for (const el of els) {
-				el.innerHTML = "";
-			}
-			var newURL = `/select/${day}`;
-			console.log(newURL	);			
-			tp.ajaxLoader(newURL, false);
+	loadSelection(){
+		const day = $("input[name='day']:checked").val();
+		console.log(day);
+		var detailsNo = document.getElementsByName("detailsNo");
+		var arrayNo = [];
+		detailsNo.forEach(function(i){
+			arrayNo.push(i.value);
 			
-			
-			}catch (err) {
-			alert(err.message);
-		}
+			console.log(arrayNo);
+		});
 		
+		var detailsStime = document.getElementsByName("stime");
+		var arrayStime = [];
 		
-}
-
+		detailsStime.forEach(function(i){
+			arrayStime.push(i.value);
+			console.log(arrayStime)
+		});
+		
+		var detailsEtime = document.getElementsByName("etime");
+		var arrayEtime = [];
+		
+		detailsEtime.forEach(function(i){
+			arrayEtime.push(i.value);
+			console.log(arrayEtime)
+		});
+		var detailsItem = {
+			"detailsNo" : arrayNo,
+			"stime" : arrayStime,
+			"etime" : arrayEtime,
+			"plannerNo" : plannerNo,
+			"day" : day
+		};
+		
+		// const formData = new FormData(document.frm);
+		var formData = new FormData();
+		
+		formData.append("day", day);
+		formData.append("plannerNo",plannerNo);
+		formData.append("detailsNo",arrayNo);
+		formData.append("stime",arrayStime);
+		formData.append("etime",arrayEtime);	
+		const xhr = new XMLHttpRequest();
+		
+		xhr.open("POST", '/select');
+		xhr.send(formData);
+		xhr.onreadystatechange = function() {
+			if (xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
+				$("#selected_items").replaceWith(xhr.responseText);
+			}
+		};
+		
+		xhr.onerror = function(err) {
+			console.error(err);
+		};
+		
+		// plannerNo=19&day=3&detailsNo=2&stime=&etime=&detailsNo=1&stime=&etime=
+		//const formData = new FormData(document.frm);
+		 
+	/*	$.ajax({
+			url : `/select`,
+			data : encodeURIComponent(frm),
+			//dataType : 'json',
+			type : "POST",
+			cache : false,	
+			})//ajax끝
+		.done(function(fragment){
+			$("#selected_items").replaceWith(fragment);
+			/*const domParser = new DOMParser();
+			const dom = domParser.parseFromString(fragment, "text/html");
+			const html = dom.getElementById("selected_items").innerHTML;
+			document.getElementById("selected_items").innerHTML = html;
+			console.log(html);
+				
+			console.log(fragment);
+		})//done끝
+		.fail(function(jqXHR) {
+                console.log("에러");
+            });//fail끝
+            */
+            
+	}//함수끝
 };
 let map;
 
@@ -164,9 +223,6 @@ geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function
     } 
 });    
 });
-
-
-
 
 
 

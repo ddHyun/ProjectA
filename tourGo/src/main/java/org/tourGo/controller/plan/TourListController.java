@@ -34,7 +34,7 @@ public class TourListController {
 	@GetMapping("/tourList")
 	public JsonResult<?> fetch(String keyword) throws Exception{
 	
-		    
+		    System.out.println(keyword);
 			return testService.fetch(keyword);
 	}
 }
