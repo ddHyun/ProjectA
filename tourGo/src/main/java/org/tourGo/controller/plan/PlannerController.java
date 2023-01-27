@@ -136,7 +136,7 @@ public class PlannerController {
 		
 		boolean check=	detailsService.checkPlanner(user, planner);
 		if(!check) {
-			model.addAttribute("scripts", " alert('유효하지않은 접근입니다'); location.replace('{page}/plan');");
+			model.addAttribute("scripts", " alert('유효하지않은 접근입니다'); location.replace('/plan');");
 			return "common/excution";
 		}
 		
