@@ -11,8 +11,9 @@ const tourGo = {
 		
 			const url = `/tourList?keyword=${keyword}`;
 			const xhr = new XMLHttpRequest();
-		
 		xhr.open("GET", url);
+			//xhr.responseType = 'json';
+			//xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 		xhr.addEventListener("readystatechange", function() {
 			if (xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
 				const items = JSON.parse(xhr.responseText);

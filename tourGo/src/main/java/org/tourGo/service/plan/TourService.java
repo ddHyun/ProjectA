@@ -40,7 +40,7 @@ public class TourService {
 		HttpURLConnection conn = null;
 		
 		try {
-			keyword = URLEncoder.encode(keyword, "UTF-8");
+			
 			String apiURL = getURL(keyword);
 			URL url = new URL(apiURL);
 			ignoreSsl();
@@ -99,7 +99,7 @@ public class TourService {
 		sb.append(serviceKey);
 		sb.append("&MobileOS=ETC&MobileApp=tourGo");
 		try {
-			sb.append(URLEncoder.encode("관광", "UTF-8"));
+			
 			sb.append("&keyword=");
 			sb.append(URLEncoder.encode(keyword, "UTF-8"));
 		} catch (Exception e) {}
