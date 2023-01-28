@@ -21,16 +21,16 @@ import org.tourGo.models.plan.details.PlanDetailsRq;
 public class DetailsController {
 	
 	
-	@RequestMapping("select")
+	@PostMapping("select")
 	public String selectDay(Model model,DetailsItems rqList){
 	Integer day = rqList.getDay();
 	System.out.println(rqList);
 	ArrayList<PlanDetailsRq> list = new ArrayList<>();
-	PlanDetailsRq rq1 = PlanDetailsRq.builder().detailsNo(10l).name("관광지3").address("주소1").day(1).build();
-	PlanDetailsRq rq2 = PlanDetailsRq.builder().detailsNo(20l).name("관광지4").address("주소2").day(2).build();
-	PlanDetailsRq rq3 = PlanDetailsRq.builder().detailsNo(20l).name("관광지5").address("주소3").day(3).build();
-	PlanDetailsRq rq4 = PlanDetailsRq.builder().detailsNo(20l).name("관광지6").address("주소4").day(4).build();
-	PlanDetailsRq rq5 = PlanDetailsRq.builder().detailsNo(20l).name("관광지7").address("주소6").day(5).build();
+	PlanDetailsRq rq1 = PlanDetailsRq.builder().detailsNo(10l).title("관광지3").address("주소1").day(1).build();
+	PlanDetailsRq rq2 = PlanDetailsRq.builder().detailsNo(20l).title("관광지4").address("주소2").day(2).build();
+	PlanDetailsRq rq3 = PlanDetailsRq.builder().detailsNo(20l).title("관광지5").address("주소3").day(3).build();
+	PlanDetailsRq rq4 = PlanDetailsRq.builder().detailsNo(20l).title("관광지6").address("주소4").day(4).build();
+	PlanDetailsRq rq5 = PlanDetailsRq.builder().detailsNo(20l).title("관광지7").address("주소6").day(5).build();
 	list.add(rq2);
 	list.add(rq1);
 	list.add(rq3);
@@ -44,10 +44,10 @@ public class DetailsController {
 	
 	}
 	
-	@ResponseBody
+	
 	@PostMapping("textxml")
-	public JsonResult<?> testxml(String plannerNo, Model model){
-		System.out.print(plannerNo);
+	public JsonResult<?> testxml(PlanDetailsRq rq,Model model){
+		
 		
 		
 		return new JsonResult<>(true, "성공", null);

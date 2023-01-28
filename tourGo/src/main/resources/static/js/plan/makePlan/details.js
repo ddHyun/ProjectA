@@ -10,6 +10,7 @@ const tourGo = {
 		}
 		
 			const url = `/tourList?keyword=${keyword}`;
+			
 			const xhr = new XMLHttpRequest();
 		xhr.open("GET", url);
 			//xhr.responseType = 'json';
@@ -22,6 +23,7 @@ const tourGo = {
 						const domParser = new DOMParser();
 				parentEl.innerHTML ="";	
 				
+				createItem(result,parentEl);
 			
 				
 				
@@ -41,26 +43,46 @@ const tourGo = {
 }//tourGo끝
 
 function createItem(result,parentEl){
-	if(!item || !parentEl){
+	if(!result || !parentEl){
 		return;
 	}
+	
+	const domParser = new DOMParser();
 	for (const item of result) {
+		console.log(item);
 					const label = document.createElement("label");
-					label.dataset.xpos = item.mapx;
-					label.dataset.ypos = item.mapy;
+					label.dataset.xpos = Number(item.mapx);
+					label.dataset.ypos = Number(item.mapy);
+					console.log(label);
+					let html = '<div class="test" id="tourItem" >';
+				
+				html += `<img src="${item.firstimage}" onerror="this.onerror=null; this.src='';"></img>`;
+					 html +=`
+								<div>${item.title}</div>
+								<div>${item.address}</div>
+								<button id="clickItem">선택</button>
+								</div>`;
+				
+					const dom = domParser.parseFromString(html, "text/html");
 					
-					let html =`<div class="test" id="tourItem" > `;
-					html += `<input type="checkbox" id="clickItem" value="${item}">`;
-					html+=`<span>${item.title}</span>`;
-					html=+`</div>`;
-					label.innerHTML=html;
+					
+					
+					const tourItem = dom.getElementById(`tourItem`);
+					const clickItem = dom.getElementById(`clickItem`);
+					label.appendChild(tourItem);
+					
 					parentEl.appendChild(label);
+					parentEl.appendChild(clickItem);
 					
-					const tourItem = document.getElementById(`tourItem`);
-					const clickItem = document.getElementById(`clickItem`);
-					tourItem.addEventListener("click",function(){
-							const xpos = this.dataset.xpos;
+					label.addEventListener("click",function(){
+						const xpos = this.dataset.xpos;
 						const ypos = this.dataset.ypos;
+						if(xpos==0 && ypos==0){
+						alert("이 관광지는 주소가존재하지않습니다");
+						return;
+						};
+						console.log(xpos);
+						console.log(ypos);
 						if (kakao && map) {
 							const moveLatLon = new kakao.maps.LatLng(ypos, xpos);
 							map.panTo(moveLatLon);  
@@ -73,20 +95,7 @@ function createItem(result,parentEl){
 					});//touritem click이벤트 종료
 					clickItem.addEventListener("click",function(){
 						
-						const xpos = this.dataset.xpos;
-						const ypos = this.dataset.ypos;
-						if (kakao && map) {
-							const moveLatLon = new kakao.maps.LatLng(ypos, xpos);
-							map.panTo(moveLatLon);  
-							const marker = new kakao.maps.Marker({
-								map:map,
-							    position: moveLatLon
-							});
-							marker.setMap(map);
-							
-						
-							
-						};
+							console.log(label.dataset.xpos);
 							const newUrl = `/testxml?plannerNo=${plannerNo}`;
 							const newXhr = new XMLHttpRequest();
 							var formdata = new FormData(frm);

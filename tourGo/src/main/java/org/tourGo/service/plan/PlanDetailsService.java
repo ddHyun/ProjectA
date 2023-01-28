@@ -45,7 +45,7 @@ public class PlanDetailsService {
 		List<PlanDetails> list = (List<PlanDetails>) detailsRepo.findAll(builder,sort);
 		
 		PlanDetails _details = list.get(0);
-		String image = _details.getImage();
+		String image = _details.getFirstimage();
 		return image;
 	}
 	
@@ -115,6 +115,7 @@ public class PlanDetailsService {
 				entity.setStime(etime);
 			}
 			
+		
 			
 			
 			
@@ -143,13 +144,13 @@ public class PlanDetailsService {
 	    			.plannerNo(entity.getPlannerNo().getPlannerNo())
 	    			.stime(entity.getStime())
 	    			.etime(entity.getEtime())
-	    			.name(entity.getName())
+	    			.title(entity.getTitle())
 	    			.address(entity.getAddress())
 	    			.day(entity.getDay())
-	    			.image(entity.getImage())
+	    			.firstimage(entity.getFirstimage())
 	    			.sigungu(entity.getSigungu())
-	    			.mapX(entity.getMapX())
-	    			.mapY(entity.getMapY())
+	    			.mapx(entity.getMapx())
+	    			.mapy(entity.getMapy())
 	    			.build();
 	    
 	    }
@@ -157,32 +158,32 @@ public class PlanDetailsService {
 	    public static PlanDetails toEntity(PlanDetailsRq planDetails) {
 
 	    	return PlanDetails.builder()
-	    			.DetailsNo(planDetails.getDetailsNo())
+	    			.detailsNo(planDetails.getDetailsNo())
 	    			.stime(planDetails.getStime())
 	    			.etime(planDetails.getEtime())
-	    			.name(planDetails.getName())
+	    			.title(planDetails.getTitle())
 	    			.address(planDetails.getAddress())
 	    			.day(planDetails.getDay())
-	    			.image(planDetails.getImage())
+	    			.firstimage(planDetails.getFirstimage())
 	    			.sigungu(planDetails.getSigungu())
-	    			.mapX(planDetails.getMapX())
-	    			.mapY(planDetails.getMapY())
+	    			.mapx(planDetails.getMapx())
+	    			.mapy(planDetails.getMapy())
 	    			.build();
 	    }
 	    public static PlanDetails toEntity(PlanDetailsRq planDetails,Planner planner) {
 
 	    	return PlanDetails.builder()
-	    			.DetailsNo(planDetails.getDetailsNo())
+	    			.detailsNo(planDetails.getDetailsNo())
 	    			.plannerNo(planner)
 	    			.stime(planDetails.getStime())
 	    			.etime(planDetails.getEtime())
-	    			.name(planDetails.getName())
+	    			.title(planDetails.getTitle())
 	    			.address(planDetails.getAddress())
 	    			.day(planDetails.getDay())
-	    			.image(planDetails.getImage())
+	    			.firstimage(planDetails.getFirstimage())
 	    			.sigungu(planDetails.getSigungu())
-	    			.mapX(planDetails.getMapX())
-	    			.mapY(planDetails.getMapY())
+	    			.mapx(planDetails.getMapx())
+	    			.mapy(planDetails.getMapy())
 	    			.build();
 	    }
 	    
