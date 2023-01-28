@@ -17,11 +17,34 @@ const tourGo = {
 		xhr.addEventListener("readystatechange", function() {
 			if (xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
 				const items = JSON.parse(xhr.responseText);
+				const result = items.data;
 					const parentEl = document.querySelector(".api_list");
 						const domParser = new DOMParser();
 				parentEl.innerHTML ="";	
 				
-			for (const item of items) {
+			
+				
+				
+		
+		}//if끝
+		
+	
+	});//xhr끝
+	xhr.send();
+	
+	
+	
+	
+	
+	
+	}//search()끝
+}//tourGo끝
+
+function createItem(result,parentEl){
+	if(!item || !parentEl){
+		return;
+	}
+	for (const item of result) {
 					const label = document.createElement("label");
 					label.dataset.xpos = item.mapx;
 					label.dataset.ypos = item.mapy;
@@ -81,23 +104,9 @@ const tourGo = {
 					
 					
 			}
-				
-				
-		
-		}//if끝
-		
-	
-	});//xhr끝
-	xhr.send();
 	
 	
-	
-	
-	
-	
-	}//search()끝
-}//tourGo끝
-
+}
 
 const planner = {
 	/**관광지 선택시마다 db에 값 저장, 날짜 변경시에 ajax로 변경사항(stime,etime) db에 업데이트, 마지막에 save누를때도 동일하게 업데이트 */

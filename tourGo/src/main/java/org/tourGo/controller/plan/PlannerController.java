@@ -272,9 +272,11 @@ public class PlannerController {
 	@GetMapping("/plannerallview_page/{no}")
 	@Transactional
 	public String planallview_page(Model model,@AuthenticationPrincipal PrincipalDetail principal, @PathVariable Long no ) {
-		
-	Planner planner = plannerService.find(no);
-
+		Planner planner=null;
+		try {
+	planner = plannerService.find(no);
+		}catch(Exception e) { throw new RuntimeException("잘못된 경로입니다.");
+			}
 	
 	Long userNo = null;
 	 

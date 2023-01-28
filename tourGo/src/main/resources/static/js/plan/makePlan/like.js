@@ -13,7 +13,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				const classList = this.classList;
 				if (classList.contains("login_required")) {
 					throw new Error("로그인 후 이용가능합니다.");	
-					console.log(classList);							
+										
 				}
 				
 				const planviewEl = document.getElementById("plannerNo");
@@ -58,7 +58,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					el.className = "fa-regular fa-heart";
 				}*/
 				} catch(err) {
-					console.log(err);
+					alert(err);
 				}
 				
 });

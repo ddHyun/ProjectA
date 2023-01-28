@@ -166,11 +166,11 @@ public class TestService {
 		
 		TourListDto dto = TourListDto.builder()
 				.title((String) item.get("title"))
-				.address((String)item.get("address"))
-				.areaCode((String)item.get("areaCode"))
-				.firstImage((String)item.get("firstImage"))
-				.mapX((String)item.get("mapX"))
-				.mapY((String)item.get("mapY"))
+				.address((String)item.get("addr1"))
+				.areacode((String)item.get("areacode"))
+				.firstimage((String)item.get("firstimage"))
+				.mapx((String)item.get("mapx"))
+				.mapy((String)item.get("mapy"))
 				.build();
 		
 		return dto;
