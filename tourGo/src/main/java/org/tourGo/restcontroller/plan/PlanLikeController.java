@@ -25,7 +25,7 @@ public class PlanLikeController {
 			@AuthenticationPrincipal PrincipalDetail principal){
 
 			int totalLikes = 0;
-			String field = "planlike";
+			String field = "liked";
 			
 			try {
 				uid = uid == "" ? PlanUidRequest.getUid(plannerNo,principal.getUser().getUserNo()) : uid;
