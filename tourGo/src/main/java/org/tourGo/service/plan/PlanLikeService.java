@@ -34,7 +34,7 @@ public class PlanLikeService {
 		
 		plannerRepository.updateTotalLikes(totalLikes,PlannerNo);
 		
-		return 0;
+		return totalLikes;
 		
 	}
 }

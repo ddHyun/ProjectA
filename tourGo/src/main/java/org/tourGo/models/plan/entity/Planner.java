@@ -37,7 +37,6 @@ public class Planner extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name="userNo")
 	private User user; //유저 pk값이랑 관계매핑
-	@Column(name= "hit", columnDefinition = "int default 0")
 	private Boolean open;//공개,비공개 여부
 	@Column(columnDefinition = "int default '0'", insertable=false, updatable=false)
 	private int PlannerRead; // 조회수

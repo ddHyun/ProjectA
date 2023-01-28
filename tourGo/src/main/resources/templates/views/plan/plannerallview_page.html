@@ -3,18 +3,26 @@
 	layout:decorate="~{layouts/main}">
 	<main layout:fragment="content">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-		
+			<link th:href="@{/css/plan/readwrite.css}" rel="stylesheet" type="text/css">
 		<script src="https://kit.fontawesome.com/fda51a19be.js" crossorigin="anonymous"></script>
 		
-		
-	<div class="form-group" style="margin-top: 30px;">
-
-	
+		<input type="hidden" id="plannerNo" th:value="${planner.plannerNo}">
+		<span th:text="${planner.plannerNo}"></span>
+		<div class="flex form-group">
+			<div class="width-30">
+				<span>여행제목</span>
+			</div>
+			<div class="width-70">
 				<span th:text="${planner.title}"> </span>
-
+			</div>
 		</div>
 
 
+		<div class="flex form-group">
+			<div class="width-30">
+				여행기간
+			</div>
+			<div class="width-70">
 				<span th:text="${planner.sdate}"></span> ~ <span th:text="${planner.edate}"> </span>
 			</div>
 		</div>
@@ -45,36 +53,59 @@
 				<span th:text="${planner.memo}"> </span>
 			</div>
 		</div>
-		
-							<label class=title>공개여부</label>	
-			<div th:if="${planner.open}">		
-			<input type="radio" name="open" value="true" checked="checked">공개
-			<input type="radio" name="open" value="false">비공개
-			</div>
 			
-			<div th:unless="${planner.open}">
-				<input type="radio" name="open" value="true">공개
-			<input type="radio" name="open" value="false"  checked="checked">비공개
+			
+					<div class="flex form-group">
+			<div class="width-30">
+				<label class=title>공개여부</label>
 			</div>
+			<div class="width-70">
+				<span th:if="${planner.open.toString().equals('true')}">	
+				공개
+			</span>
+			</div>
+		</div>
 		
 				<div class="flex form-group">
 			<div class="width-30">
 				조회수
 			</div>
 			<div class="width-70">
-				<span th:text="${planner.hit}"> </span>
+				<span th:text="${planner.PlannerRead}"> </span>
 			</div>
 		</div>
 		
 	</div>
-	<span>
-	<i class="fa-regular fa-heart"> 
-	</i>
-	<span>좋아요</span>
-	</span>
+			<span class="liked">
+				<input th:if="${like}" type="hidden" id="uid" value="${like.uid}">
+				<i class="fa-regular fa-heart toggleLiked" th:classappend="${user == null }? 'login_required' : ''"></i>
+			</span>
+			<span>좋아요</span> <span th:text="${planner.totalLikes}" id="totalLikes"></span>
+		
+				
+	
+			
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<script type="text/javascript" th:src="@{/js/plan/makePlan/like.js}"></script>
+
+
+
+
+
+
+
 
 	</main>
 	
-	
+
 </html>

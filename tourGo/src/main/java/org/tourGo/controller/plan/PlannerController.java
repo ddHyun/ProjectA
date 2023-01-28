@@ -36,10 +36,15 @@ import org.tourGo.models.plan.TourType;
 import org.tourGo.models.plan.details.PlanDetailsRq;
 import org.tourGo.models.plan.entity.PlanDetails;
 import org.tourGo.models.plan.entity.Planner;
+import org.tourGo.models.plan.entity.like.PlanUidEntity;
+import org.tourGo.models.plan.entity.like.PlanUidRequest;
 import org.tourGo.models.plan.entity.PlanDetails.PlanDetailsBuilder;
 import org.tourGo.models.user.UserRepository;
 import org.tourGo.service.plan.PlanDetailsRepository;
 import org.tourGo.service.plan.PlanDetailsService;
+import org.tourGo.service.plan.PlanLikeService;
+import org.tourGo.service.plan.PlanReadHitService;
+import org.tourGo.service.plan.PlanUidEntityRepository;
 import org.tourGo.service.plan.PlannerRepository;
 import org.tourGo.service.plan.PlannerService;
 
@@ -53,9 +58,15 @@ public class PlannerController {
 	private UserRepository userRepository;
 	@Autowired
 	private PlannerService plannerService;
+
+	@Autowired
+	private PlanUidEntityRepository planUidEntityRepository;
 	
 	@Autowired
 	private PlanDetailsService detailsService;
+	
+	@Autowired
+	private PlanReadHitService planReadHitService;
 	
 	@ModelAttribute("planTypes")
 	public TourType[] tourType() {
@@ -262,11 +273,22 @@ public class PlannerController {
 	@Transactional
 	public String planallview_page(Model model,@AuthenticationPrincipal PrincipalDetail principal, @PathVariable Long no ) {
 		
-
-
-
 	Planner planner = plannerService.find(no);
 
+	
+	Long userNo = null;
+	 
+	if(principal != null) { model.addAttribute("user",principal.getUsername());
+	userNo = principal.getUser().getUserNo();
+	 
+	 PlanUidEntity planUidEntity = planUidEntityRepository.findByNo("liked", no,userNo).orElse(null); 
+	 if(planUidEntity != null) { PlanUidRequest like = new
+	 PlanUidRequest(planUidEntity); model.addAttribute("like",like); } }
+	 
+	  String readUid = PlanUidRequest.getUid(no, userNo);
+	  planReadHitService.process(readUid, "readHit","plan");
+	 
+	
 	
 	model.addAttribute("planner", planner);
 	return "plan/plannerallView_page";
