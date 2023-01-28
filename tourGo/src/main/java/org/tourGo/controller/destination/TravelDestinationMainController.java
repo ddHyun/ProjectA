@@ -3,6 +3,7 @@ package org.tourGo.controller.destination;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.modelmapper.internal.Errors;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.tourGo.common.AlertException;
 import org.tourGo.common.JsonResult;
 import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.destination.DestinationDetailRequest;
@@ -36,43 +38,67 @@ public class TravelDestinationMainController {
 
 	@Autowired
 	private DestinationMainService destinationMainService;
-	
+
+	@Autowired
+	private DestinationDetailService destinationDetailService;
+
 	@GetMapping("/travel_destination_main")
-	public String ex(String destination,  @PageableDefault(page=0, size=3, sort="destinationNo", direction = Sort.Direction.DESC)
-    Pageable pageable, Model model, @RequestParam(name="destSearchKeyword",required=false)String keyword) {
-		
+	public String ex(String destination,
+			@PageableDefault(page = 0, size = 3, sort = "destinationNo", direction = Sort.Direction.DESC) Pageable pageable,
+			Model model, @RequestParam(name = "destSearchKeyword", required = false) String keyword) {
+
+		// css, js 추가
+				model.addAttribute("addCss", new String[] { "main/footer", "main/header", "destination/destination_main" });
+
 		
 		String[] addScript = new String[] { "destination/info" };
 		model.addAttribute("addScript", addScript);
-		
+
 		// 페이징 처리 바인딩
 		model.addAttribute("destination", destinationMainService.pageList(pageable));
-		
+
 //		if(keyword != null) {
 //			List<DestinationDetail> search = destinationMainService.dest_search(keyword);
 //			model.addAttribute("search", search);
 //		}
 		return "travel_destination/travel_destination_main";
 	}
-	
+
 	@ResponseBody
 	@GetMapping("/api/travel/{destination}")
-	public JsonResult<?> ex02(@PathVariable(name="destination", required=false) String destination
-								, Model model) {
-		
+	public JsonResult<?> ex02(@PathVariable(name = "destination", required = false) String destination, Model model) {
+
 		System.out.println("테스트 : " + destination);
 		List<DestinationDetail> list = destinationMainService.dest_mainList(destination);
-		if(list.isEmpty()) {
+		if (list.isEmpty()) {
 			return new JsonResult<>(false, "값이 없습니다.", null);
 		}
-		
-		return new JsonResult<>(true, "성공", list);
-	}		
 
-	@GetMapping("/destination_detail")
-	public String dstination_detail() {
+		return new JsonResult<>(true, "성공", list);
+	}
+
+	// 상세페이지 연결
+	@GetMapping("/destination_detail/{destinationNo}")
+	@Transactional
+	public String dsDetail(@PathVariable long destinationNo, Model model) {
+
+		// css, js 추가
+		model.addAttribute("addCss", new String[] { "/main/footer", "/main/header", "/destination/destination_main" });
+
+		String[] addScript = new String[] { "destination/info" };
+		model.addAttribute("addScript", addScript);
+
+		System.out.println("______________________test------");
+		System.out.println(destinationNo);
+		DestinationDetail test = null;
+		try {
+			test = destinationDetailService.dsDetailView(destinationNo);
+		} catch (Exception e) {
+			throw new AlertException("에러");
+		}
+		model.addAttribute("detail", test);
+
 		return "travel_destination/destination_detail";
 	}
 
-	
 }

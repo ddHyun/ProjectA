@@ -23,35 +23,37 @@ window.addEventListener("DOMContentLoaded", function() {
 
 				const allBoxEl = document.getElementById("allBox");
 				allBoxEl.innerHTML = "";
-				
+
 
 				for (const item of data) {
 
 					const divEl = document.createElement("div");
+					var h = item.destinationNo;
+					console.log(h);
 					let html = "";
-					html += 
-					`
-					<div class="subBox">
-					
-					<img src=' ${item.tourImg}'>
-					<span> ${item.tourTitle} </span>
-
+					html +=
+						`
+					<div class="subBox" id="subBox" onClick="location.href='/destination_detail/${item.destinationNo}'">
+						${item.destinationNo}				
+						<img src=' ${item.tourImg}'>
+						<span> ${item.tourTitle} </span>
 					<div>
 					`;
-					
-					divEl.innerHTML=html;
+
+					divEl.innerHTML = html;
 					allBoxEl.appendChild(divEl);
-
-
 
 				}
 
 			}
 		});
 	});
+
 });
 
 // db 값 불러온거 뿌려주기
 function appendHtml() {
 
 }
+
+// page 처리

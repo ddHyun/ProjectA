@@ -78,51 +78,6 @@ main {
 	opacity: 0.5;
 }
 
-.destination_detail_all {
-	margin: 30px auto;
-}
-
-.destination_detail_title {
-	margin: 30px 0;
-}
-
-.destination_detail_title h2 {
-	text-align: center;
-}
-
-.dest_detail_img {
-	text-align: center;
-}
-
-.dest_detail_img img {
-	width: 800px;
-	margin: 30px 0;
-}
-
-.dest_detail_info {
-	margin: 30px 0;
-}
-
-.dest_detail_txt {
-	margin: 0px 530px;
-}
-
-.dest_detail_txt2 {
-	margin: 0px 530px;
-	display: flex;
-}
-
-.detail_txt a {
-	text-decoration: none;
-}
-
-.dest_detail_map {
-	margin: 30px 0;
-}
-
-.dest_detail_map h2 {
-	margin: 30px 0;
-}
 
 .destination_content {
 	margin: 40px 0;

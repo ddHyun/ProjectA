@@ -1,0 +1,80 @@
+hr {
+	width: 58%;
+}
+
+.content_detail {
+	display: flex;
+	align-items:center;
+	justify-content: space-around;
+}
+
+.hits_heart {
+	display: flex;
+}
+
+.content_detail p {
+	margin : 3px 5px;
+}
+
+.destination_detail_all {
+	margin: 30px auto;
+}
+
+.destination_detail_title {
+	margin: 30px 0;
+}
+
+.destination_detail_title h2 {
+	text-align: center;
+}
+
+.dest_detail_img {
+	text-align: center;
+}
+
+.dest_detail_img img {
+	width: 800px;
+	margin: 30px 0;
+}
+
+.dest_detail_info {
+	margin: 30px 0;
+}
+
+.dest_detail_txt {
+	margin: 0px 530px;
+	width: auto;
+	height: auto;
+}
+
+.dest_detail_txt2 {
+	margin: 0px 530px;
+}
+
+.detail_txt2 {
+	display: flex;
+}
+
+.detail_txt a {
+	text-decoration: none;
+}
+
+.kakaoMap {
+	margin: 0px 530px;
+	width: auto;
+	height: auto;
+}
+
+.dest_detail_map {
+	margin: 30px 0;
+}
+
+.dest_detail_map h2 {
+	margin: 30px 0;
+}
+
+
+.detail_map{
+	 height: 600px;
+	 width: 800px;
+}
