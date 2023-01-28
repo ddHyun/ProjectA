@@ -25,11 +25,6 @@ public class MvcConfiguration implements WebMvcConfigurer{
 	        registry.addResourceHandler("/trip/uploads/**") //업로드 파일 경로 설정
 	        		.addResourceLocations("file:///"+fileUploadPath+"/");
 	    }	 
-<<<<<<< HEAD
-	
-=======
-	 
->>>>>>> merge
 	//메시지식 설정
 		@Bean
 		public MessageSource messageSource() {
