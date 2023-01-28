@@ -105,12 +105,11 @@ public class TestService {
 		 urlBuilder.append("&").append("keyword=").append(URLEncoder.encode(keyword,"UTF-8"));
 		 
 		 String makeUrl = urlBuilder.toString();
-		 System.out.println(makeUrl);
+	
 		
 		 URI uri = new URI(makeUrl);
 		 RestTemplate restTemplate = this.makeRestTemplate();
 		  String jsonString = restTemplate.getForObject(uri,String.class);
-		 System.out.println(jsonString);
 		
 			
 		 JSONParser jsonParser = new JSONParser();
@@ -132,7 +131,7 @@ public class TestService {
 		        JSONObject item = (JSONObject) o;
 		        result.add(makeLocationDto(item));
 		    }
-		    
+		    System.out.println(result);
 		 return result;
 	 }
 	 //restTemplate ssl인증 무시하는 메서드
