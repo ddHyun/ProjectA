@@ -36,10 +36,15 @@ import org.tourGo.models.plan.TourType;
 import org.tourGo.models.plan.details.PlanDetailsRq;
 import org.tourGo.models.plan.entity.PlanDetails;
 import org.tourGo.models.plan.entity.Planner;
+import org.tourGo.models.plan.entity.like.PlanUidEntity;
+import org.tourGo.models.plan.entity.like.PlanUidRequest;
 import org.tourGo.models.plan.entity.PlanDetails.PlanDetailsBuilder;
 import org.tourGo.models.user.UserRepository;
 import org.tourGo.service.plan.PlanDetailsRepository;
 import org.tourGo.service.plan.PlanDetailsService;
+import org.tourGo.service.plan.PlanLikeService;
+import org.tourGo.service.plan.PlanReadHitService;
+import org.tourGo.service.plan.PlanUidEntityRepository;
 import org.tourGo.service.plan.PlannerRepository;
 import org.tourGo.service.plan.PlannerService;
 
@@ -53,9 +58,15 @@ public class PlannerController {
 	private UserRepository userRepository;
 	@Autowired
 	private PlannerService plannerService;
+
+	@Autowired
+	private PlanUidEntityRepository planUidEntityRepository;
 	
 	@Autowired
 	private PlanDetailsService detailsService;
+	
+	@Autowired
+	private PlanReadHitService planReadHitService;
 	
 	@ModelAttribute("planTypes")
 	public TourType[] tourType() {
@@ -136,13 +147,13 @@ public class PlannerController {
 		
 		boolean check=	detailsService.checkPlanner(user, planner);
 		if(!check) {
-			model.addAttribute("scripts", " alert('유효하지않은 접근입니다'); location.replace('{page}/plan');");
+			model.addAttribute("scripts", " alert('유효하지않은 접근입니다'); location.replace('/plan');");
 			return "common/excution";
 		}
 		
 		ArrayList<PlanDetailsRq> list = new ArrayList<>();
-		PlanDetailsRq rq1 = PlanDetailsRq.builder().DetailsNo(1l).name("관광지1").address("주소1").build();
-		PlanDetailsRq rq2 = PlanDetailsRq.builder().DetailsNo(2l).name("관광지2").address("주소2").build();
+		PlanDetailsRq rq1 = PlanDetailsRq.builder().detailsNo(1l).name("관광지1").address("주소1").build();
+		PlanDetailsRq rq2 = PlanDetailsRq.builder().detailsNo(2l).name("관광지2").address("주소2").build();
 		list.add(rq2);
 		list.add(rq1);
 		
@@ -261,13 +272,25 @@ public class PlannerController {
 	@GetMapping("/plannerallview_page/{no}")
 	@Transactional
 	public String planallview_page(Model model,@AuthenticationPrincipal PrincipalDetail principal, @PathVariable Long no ) {
-		
-
-
-
-	Planner planner = plannerService.find(no);
-
-	planner.setHit(planner.getHit() + 1);
+		Planner planner=null;
+		try {
+	planner = plannerService.find(no);
+		}catch(Exception e) { throw new RuntimeException("잘못된 경로입니다.");
+			}
+	
+	Long userNo = null;
+	 
+	if(principal != null) { model.addAttribute("user",principal.getUsername());
+	userNo = principal.getUser().getUserNo();
+	 
+	 PlanUidEntity planUidEntity = planUidEntityRepository.findByNo("liked", no,userNo).orElse(null); 
+	 if(planUidEntity != null) { PlanUidRequest like = new
+	 PlanUidRequest(planUidEntity); model.addAttribute("like",like); } }
+	 
+	  String readUid = PlanUidRequest.getUid(no, userNo);
+	  planReadHitService.process(readUid, "readHit","plan");
+	 
+	
 	
 	model.addAttribute("planner", planner);
 	return "plan/plannerallView_page";

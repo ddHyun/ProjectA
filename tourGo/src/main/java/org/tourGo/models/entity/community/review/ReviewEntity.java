@@ -12,7 +12,7 @@ import lombok.*;
 @Entity
 @Table(name="review")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReviewEntity extends BaseEntity {
 
 	@Id @GeneratedValue
@@ -51,7 +51,7 @@ public class ReviewEntity extends BaseEntity {
 
 	@Builder
 	public ReviewEntity(Long reviewNo, User user, String reviewTitle, String region, String period,
-									String reviewContent, String gid, int reviewRead, List<ReplyEntity> replies,
+									String reviewContent, String gid, int reviewRead, 
 									int totalLikes, char deleteYn) {
 		this.reviewNo = reviewNo;
 		this.user = user;
@@ -63,6 +63,5 @@ public class ReviewEntity extends BaseEntity {
 		this.reviewRead = reviewRead;
 		this.totalLikes = totalLikes;
 		this.deleteYn = deleteYn;
-		this.replies = replies;
 	}	
 }

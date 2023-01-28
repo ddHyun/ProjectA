@@ -1,5 +1,7 @@
 package org.tourGo.models.community.review;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,4 +12,6 @@ public interface ReplyEntityRepository extends JpaRepository<ReplyEntity, Long>,
 
 	@Transactional
 	void deleteByListOrder(String listOrder);
+	
+	List<ReplyEntity> findByListOrder(String listOrder);
 }

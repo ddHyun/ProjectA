@@ -29,7 +29,7 @@ function fileUploadCallback(files) {
 		return;
 	}	
 	
-	let uploadURL = "/uploads";
+	let uploadURL = "/trip/uploads";
 	const pathname = location.pathname;
 	if (pathname.split("/").length >= 4) { // /가 3개 이상 포함되어 있다면 context path가 있는 경우로 판단
 		uploadURL = `../${uploadURL}`;

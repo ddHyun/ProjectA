@@ -45,6 +45,7 @@
 				<input type="hidden" id="replyNo" th:value="*{replyNo}">
 				<div class="innerRpl">
 					<ul class="flex">
+						<th:block th:if="*{deleteYn=='N'}">
 						<li class="item" th:utext="*{replyContent}">댓글내용</li>
 						<th:block th:if="${reviewRequest.id}==*{id}">
 							<li>
@@ -63,7 +64,12 @@
 						<th:block th:if="${user}==*{id}">
 							<li><button class="item" type="button" th:text="#{community.delete}" th:replyNo="*{replyNo}" 
 									th:onclick="deleteReply(this.getAttribute('replyNo'))">삭제</button></li>
-						</th:block>						
+						</th:block>	
+						</th:block>
+						<th:block th:unless="*{deleteYn=='N'}">
+							<li class="item" th:text="#{deletedReply}" style="color:#888">삭제된 댓글</li>
+							<li th:text="*{#temporals.format(modDt, 'yyyy-MM-dd HH:mm')}" style="color:#888"></li>
+						</th:block>					
 					</ul>
 				</div>
 				
@@ -82,14 +88,7 @@
 			</div>
 			</div>
 		</th:block>
-		<br>
-		
-		
+		<br>		
 	</th:block>
-	
-	
-	
-	
-	
 	
 </html>

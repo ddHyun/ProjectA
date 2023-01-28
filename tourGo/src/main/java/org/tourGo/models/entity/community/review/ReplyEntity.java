@@ -10,7 +10,7 @@ import lombok.*;
 @Entity
 @Table(name="reply")
 @Getter
-@NoArgsConstructor(access=AccessLevel.PACKAGE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
 public class ReplyEntity extends BaseEntity{
 
 	@Id @GeneratedValue
@@ -34,12 +34,27 @@ public class ReplyEntity extends BaseEntity{
 	@Column(nullable=false, columnDefinition="char(1) default 'N'", insertable=false)
 	private String deleteYn; 					// 삭제 여부
 
-	@Builder
-	public ReplyEntity(Long replyNo, ReviewEntity review, User user, String replyContent,
-								int depth, Long idParent, String listOrder, String deleteYn) {
-		this.replyNo = replyNo;
+	public void setDeleteYn(String deleteYn) {
+		this.deleteYn = deleteYn;
+	}
+	
+	//연관관계 편의메서드(한번에 양방향 관계를 설정하는 메서드)
+	public void setReview(ReviewEntity review) {
+		if(this.review != null) {	//기존 관계 제거하기
+			this.review.getReplies().remove(this);
+		}
 		this.review = review;
+		review.getReplies().add(this);
+	}
+	
+	@Builder
+	public ReplyEntity(Long replyNo, User user, String replyContent, 
+								ReviewEntity review, int depth, Long idParent, 
+								String listOrder, String deleteYn) {
+		this.replyNo = replyNo;
 		this.user = user;
+		setReview(review);
+		this.review = this.getReview();
 		this.replyContent = replyContent;
 		this.depth = depth;
 		this.idParent = idParent;

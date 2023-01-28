@@ -28,7 +28,7 @@ public class PlanDetails extends BaseEntity {
     private Planner plannerNo; // 관계매핑용
     @DateTimeFormat(pattern="HH : mm")
     private LocalTime stime; // 관광지 시작시간
-    @DateTimeFormat(pattern="HH : mm")
+    @DateTimeFormat(pattern="a KK : mm")
     private LocalTime etime;//관광지 종료시간
     private String name;//관광지이름
     private String address; //관광지 주소

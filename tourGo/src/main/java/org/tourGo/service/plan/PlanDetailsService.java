@@ -1,5 +1,7 @@
 package org.tourGo.service.plan;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.tourGo.common.AlertException;
 import org.tourGo.models.entity.user.User;
+import org.tourGo.models.plan.details.DetailsItems;
 import org.tourGo.models.plan.details.PlanDetailsRq;
 import org.tourGo.models.plan.entity.PlanDetails;
 import org.tourGo.models.plan.entity.Planner;
@@ -28,8 +33,6 @@ public class PlanDetailsService {
 	private PlannerService plannerService;
 		
 	public String getDetailsImage(Planner planner){
-		
-		//QPlanDetails qPlan = QPlanDetails.planDetails;
 		
 		List<Order> orders = new ArrayList<>();
 		orders.add(Order.asc("day"));
@@ -68,34 +71,66 @@ public class PlanDetailsService {
 		}
 		
 	}
-	public List<PlanDetailsRq> getPlanDetailsRqList(Planner planner){
+	public List<PlanDetails> getPlanDetailsRqList(Planner planner){//planner랑 매핑된 entity들 list형태로 반환
 		BooleanBuilder builder = new BooleanBuilder();
 		QPlanDetails details = QPlanDetails.planDetails;
 		builder.and(details.plannerNo.eq(planner));
-		List<PlanDetailsRq> list = null;
 		
-		List<PlanDetails> _list = (List<PlanDetails>) detailsRepo.findAll(builder,Sort.by(Sort.Direction.ASC, "detailsNo"));
 		
-		for(PlanDetails entity : _list) {
-			PlanDetailsRq rq = PlanDetailsService.toDto(entity);
-			list.add(rq);
-		}
+		List<PlanDetails> list = (List<PlanDetails>) detailsRepo.findAll(builder,Sort.by(Sort.Direction.ASC, "detailsNo"));
+		
+	
+		
+		return list;
+	}
+	public List<PlanDetails> getPlanDetailsByDay(Integer day){//지정한 날짜에있는 entity들을 찾아서 list로 반환
+		BooleanBuilder builder = new BooleanBuilder();
+		QPlanDetails details = QPlanDetails.planDetails;
+		builder.and(details.day.eq(day));
+		List<PlanDetails> list = (List<PlanDetails>) detailsRepo.findAll(builder,Sort.by(Sort.Direction.ASC, "detailsNo"));
+		
 		
 		
 		return list;
 	}
-	public List<PlanDetails> insertPlanDetails(List<PlanDetailsRq> _list,Planner planner){
-		List<PlanDetails> list = null;
+	@Transactional
+	public void updatePlanDetails(DetailsItems items) {//관광지 시작시간과 종료시간 업데이트
 		
-		for(PlanDetailsRq rq : _list) {
-			PlanDetails details = PlanDetailsService.toEntity(rq,planner);
-			details = detailsRepo.save(details);
-			list.add(details);
+		for(int i=0; i<=items.getDetailsNo().size();i++) {//ajax로 받은 detailsItems의 detailsNo만큼 반복
+			Optional<PlanDetails> details = detailsRepo.findById(items.getDetailsNo().get(i));
+			PlanDetails entity = details.orElse(null);
+			if(entity==null) {
+				throw new AlertException("일정을 찾을수없습니다.");
+			}
+			String _stime = items.getStime().get(i);
+			if(!_stime.isBlank()) {
+				LocalTime stime = LocalTime.parse(_stime,DateTimeFormatter.ofPattern("a KK : mm"));
+				entity.setStime(stime);
+				
+			}
+			
+			String _etime = items.getEtime().get(i);
+			if(!_etime.isBlank()) {
+				LocalTime etime = LocalTime.parse(_etime,DateTimeFormatter.ofPattern("a KK : mm"));
+				entity.setStime(etime);
+			}
+			
+			
+			
+			
+			
 		}
-		
-		
-		
-		return list;
+	
+	}
+	
+	public PlanDetails insertPlanDetails(PlanDetails entity,Long plannerNo){//db에 entity저장
+	
+		Planner planner = plannerService.find(plannerNo);
+		entity.setPlannerNo(planner);
+	
+			entity = detailsRepo.save(entity);
+
+		return entity;
 		
 	}
 	
@@ -104,7 +139,7 @@ public class PlanDetailsService {
 	   public static PlanDetailsRq toDto(PlanDetails entity) {
 
 	    	return PlanDetailsRq.builder()
-	    			.DetailsNo(entity.getDetailsNo())
+	    			.detailsNo(entity.getDetailsNo())
 	    			.plannerNo(entity.getPlannerNo().getPlannerNo())
 	    			.stime(entity.getStime())
 	    			.etime(entity.getEtime())

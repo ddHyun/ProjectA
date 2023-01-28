@@ -24,6 +24,7 @@ public class ReplyRequest {
 	private int depth;					
 	private Long idParent;			//모댓글의 글번호
 	private String listOrder;			//1차정렬
+	private String deleteYn;			//삭제여부
 	
 	
 	public ReplyRequest() {	}
@@ -39,6 +40,7 @@ public class ReplyRequest {
 		depth = entity.getDepth();
 		idParent = entity.getIdParent();
 		listOrder = entity.getListOrder();
+		deleteYn = entity.getDeleteYn();
 	}
 
 	@Override
