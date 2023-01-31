@@ -53,6 +53,8 @@ function createItem(result,parentEl){
 					const label = document.createElement("label");
 					label.dataset.xpos = Number(item.mapx);
 					label.dataset.ypos = Number(item.mapy);
+					
+					
 					console.log(label);
 					let html = '<div class="test" id="tourItem" >';
 				
@@ -60,17 +62,23 @@ function createItem(result,parentEl){
 					 html +=`
 								<div>${item.title}</div>
 								<div>${item.address}</div>
-								<button id="clickItem">선택</button>
+								<button type="button" id="clickItem">선택</button>
 								</div>`;
 				
 					const dom = domParser.parseFromString(html, "text/html");
 					
-					
+					const clickItem = dom.getElementById(`clickItem`);
+					clickItem.dataset.xpos = Number(item.mapx);
+					clickItem.dataset.ypos = Number(item.mapy);
+					clickItem.dataset.title = item.title;
+					clickItem.dataset.address = item.address;
+					clickItem.dataset.firstimage = item.firstimage;
 					
 					const tourItem = dom.getElementById(`tourItem`);
-					const clickItem = dom.getElementById(`clickItem`);
-					label.appendChild(tourItem);
-					
+				
+						
+						label.appendChild(tourItem);
+						
 					parentEl.appendChild(label);
 					parentEl.appendChild(clickItem);
 					
@@ -81,8 +89,7 @@ function createItem(result,parentEl){
 						alert("이 관광지는 주소가존재하지않습니다");
 						return;
 						};
-						console.log(xpos);
-						console.log(ypos);
+					
 						if (kakao && map) {
 							const moveLatLon = new kakao.maps.LatLng(ypos, xpos);
 							map.panTo(moveLatLon);  
@@ -93,23 +100,31 @@ function createItem(result,parentEl){
 							marker.setMap(map);
 						}
 					});//touritem click이벤트 종료
+					
+					
+					
 					clickItem.addEventListener("click",function(){
-						
-							console.log(label.dataset.xpos);
-							const newUrl = `/testxml?plannerNo=${plannerNo}`;
+						var mapx = this.dataset.xpos;
+						var mapy = this.dataset.ypos;
+						var title = this.dataset.title;
+						var address = this.dataset.address;
+						var firstimage = this.dataset.firstimage;
+						console.log(title);
+						console.log(address);
+						console.log(mapx);
+						console.log(mapy);
+						const newUrl = `/testxml?plannerNo=${plannerNo}`;
 							const newXhr = new XMLHttpRequest();
-							var formdata = new FormData(frm);
+							var formdata = new FormData();
+							
+							formdata.append("plannerNo",plannerNo);
 							
 							
-							formdata.append(`title`,item.title);
-							formdata.append(`address`,item.address);
-							consoloe.log(formdata);
 							newXhr.open("POST",newUrl,true);
 							newXhr.send(formdata);
 												
 						
 					});//click이벤트종료
-					
 					
 					
 			}
