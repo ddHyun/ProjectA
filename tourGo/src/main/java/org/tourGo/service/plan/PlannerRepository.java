@@ -20,7 +20,7 @@ import org.tourGo.models.plan.entity.Planner;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 
-@Repository
+
 public interface PlannerRepository extends JpaRepository<Planner, Long>, QuerydslPredicateExecutor{
 
 	
