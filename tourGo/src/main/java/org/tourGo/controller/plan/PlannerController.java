@@ -142,12 +142,9 @@ public class PlannerController {
 				return "common/excution";
 			}
 
-			ArrayList<PlanDetailsRq> list = new ArrayList<>();
-			PlanDetailsRq rq1 = PlanDetailsRq.builder().detailsNo(1l).title("관광지1").address("주소1").build();
-			PlanDetailsRq rq2 = PlanDetailsRq.builder().detailsNo(2l).title("관광지2").address("주소2").build();
-			list.add(rq2);
-			list.add(rq1);
+			List<PlanDetailsRq> list = detailsService.getPlanDetailsByDay(1, planner);
 
+			
 			PlannerRq plannerRq = plannerService.toDto(planner);
 			ArrayList<String> test = new ArrayList<>();
 			for (int i = 1; i <= plannerRq.getDay(); i++) {

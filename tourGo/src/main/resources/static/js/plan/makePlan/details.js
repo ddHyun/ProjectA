@@ -1,4 +1,4 @@
-const plannerNo = document.getElementById(`plannerNo`).value;
+
 
 const tourGo = {
 
@@ -111,18 +111,20 @@ function createItem(result, parentEl) {
 			var address = this.dataset.address;
 			var firstimage = this.dataset.firstimage;
 			var day = $("input[name='day']:checked").val();
+			var plannerNo = document.getElementById(`plannerNo`).value;
 			console.log(day);
 			console.log(title);
 			console.log(address);
 			console.log(mapx);
 			console.log(mapy);
 			console.log(firstimage);
-			const newUrl = `/testxml`;
+			console.log(plannerNo);
+			const newUrl = `/saveDetails`;
 			const newXhr = new XMLHttpRequest();
 			var formdata = new FormData();
 
 			formdata.append("plannerNo", plannerNo);
-			formdata.append("day", plannerNo);
+			
 			formdata.append("title", title);
 			formdata.append("address", address);
 			formdata.append("mapx", mapx);
@@ -153,6 +155,9 @@ const planner = {
 	/**관광지 선택시마다 db에 값 저장, 날짜 변경시에 ajax로 변경사항(stime,etime) db에 업데이트, 마지막에 save누를때도 동일하게 업데이트 */
 	loadSelection() {
 		const day = $("input[name='day']:checked").val();
+		var plannerNo = document.getElementById(`plannerNo`).value;
+		console.log("테스트");
+		console.log(plannerNo);
 		console.log(day);
 		var detailsNo = document.getElementsByName("detailsNo");
 		var arrayNo = [];
@@ -192,7 +197,8 @@ const planner = {
 		formData.append("plannerNo", plannerNo);
 		formData.append("detailsNo", arrayNo);
 		formData.append("stime", arrayStime);
-		formData.append("etime", arrayEtime);
+		formData.append("etime", arrayEtime); 
+		//formData.append("detailsItem",detailsItem);
 		const xhr = new XMLHttpRequest();
 
 		xhr.open("POST", '/select');
