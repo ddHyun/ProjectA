@@ -75,6 +75,7 @@ close
 	<div th:if="${list != null}">
 	<div th:each="details : ${list}">
 	<input type="hidden" th:value="${details.detailsNo}" name="detailsNo" id="detailsNo">
+	<img name="firstimage" th:src="${details.firstimage}" />
 	<span name="title" th:text="${details.title}"></span>
 
 	<span name="address" th:text="${details.address}"></span>

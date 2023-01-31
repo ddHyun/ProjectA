@@ -71,15 +71,15 @@ public class PlanDetailsService {
 		}
 		
 	}
-	public List<PlanDetails> getPlanDetailsRqList(Planner planner){//planner랑 매핑된 entity들 list형태로 반환
+	public List<PlanDetailsRq> getPlanDetailsRqList(Planner planner){//planner랑 매핑된 entity들 list형태로 반환
 		BooleanBuilder builder = new BooleanBuilder();
 		QPlanDetails details = QPlanDetails.planDetails;
 		builder.and(details.plannerNo.eq(planner));
 		
 		
-		List<PlanDetails> list = (List<PlanDetails>) detailsRepo.findAll(builder,Sort.by(Sort.Direction.ASC, "detailsNo"));
+		List<PlanDetails> _list = (List<PlanDetails>) detailsRepo.findAll(builder,Sort.by(Sort.Direction.ASC, "detailsNo"));
 		
-	
+		List<PlanDetailsRq> list = PlanDetailsService.toDtoList(_list);
 		
 		return list;
 	}
@@ -124,12 +124,12 @@ public class PlanDetailsService {
 	
 	}
 	
-	public PlanDetails insertPlanDetails(PlanDetails entity,Long plannerNo){//db에 entity저장
+	public PlanDetails insertPlanDetails(PlanDetailsRq dto,Planner planner){//db에 entity저장
 	
-		Planner planner = plannerService.find(plannerNo);
-		entity.setPlannerNo(planner);
-	
-			entity = detailsRepo.save(entity);
+		
+		PlanDetails entity = PlanDetailsService.toEntity(dto, planner);
+		entity= detailsRepo.save(entity);
+		
 
 		return entity;
 		
@@ -219,7 +219,7 @@ public class PlanDetailsService {
 	    
 	    public static List<PlanDetailsRq> toDtoList(List<PlanDetails> _list){
 	    	
-	    	List<PlanDetailsRq> list = null; 
+	    	List<PlanDetailsRq> list = new ArrayList<>();
 	    	
 	    	for(PlanDetails entity : _list) {
 	    		PlanDetailsRq dto = PlanDetailsService.toDto(entity);

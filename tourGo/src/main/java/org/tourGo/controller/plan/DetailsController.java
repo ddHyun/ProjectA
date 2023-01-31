@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +17,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.tourGo.common.JsonResult;
 import org.tourGo.models.plan.details.DetailsItems;
 import org.tourGo.models.plan.details.PlanDetailsRq;
+import org.tourGo.models.plan.entity.PlanDetails;
+import org.tourGo.models.plan.entity.Planner;
+import org.tourGo.service.plan.PlanDetailsService;
+import org.tourGo.service.plan.PlannerService;
 
 @Controller
 public class DetailsController {
 	
+	@Autowired
+	PlanDetailsService detailsService;
+	@Autowired
+	PlannerService plannerService;
 	
 	@PostMapping("select")
 	public String selectDay(Model model,DetailsItems rqList){
@@ -45,12 +54,21 @@ public class DetailsController {
 	}
 	
 	
-	@PostMapping("textxml")
-	public JsonResult<?> testxml(PlanDetailsRq rq,Model model){
+	@PostMapping("testxml")
+	public String testxml(PlanDetailsRq rq,Model model){
+		System.out.println("---post test-----");
+		System.out.println(rq);
+		Planner planner = plannerService.getPlanner(rq.getPlannerNo());
 		
+		PlanDetails entity = detailsService.insertPlanDetails(rq,planner);
+	
+		System.out.println(entity);
+		List<PlanDetailsRq> list = detailsService.getPlanDetailsRqList(planner);
+		System.out.println(list);
 		
+		model.addAttribute("list", list);
 		
-		return new JsonResult<>(true, "성공", null);
+		return "plan/makeDetails::#selected_items";
 	}
 	
 	

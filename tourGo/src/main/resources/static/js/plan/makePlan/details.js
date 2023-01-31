@@ -86,7 +86,7 @@ function createItem(result,parentEl){
 						const xpos = this.dataset.xpos;
 						const ypos = this.dataset.ypos;
 						if(xpos==0 && ypos==0){
-						alert("이 관광지는 주소가존재하지않습니다");
+						alert("이 관광지는 주소가 존재하지 않습니다");
 						return;
 						};
 					
@@ -109,20 +109,36 @@ function createItem(result,parentEl){
 						var title = this.dataset.title;
 						var address = this.dataset.address;
 						var firstimage = this.dataset.firstimage;
+						var day = $("input[name='day']:checked").val();	
+						console.log(day);
 						console.log(title);
 						console.log(address);
 						console.log(mapx);
 						console.log(mapy);
-						const newUrl = `/testxml?plannerNo=${plannerNo}`;
+						console.log(firstimage);
+						const newUrl = `/testxml`;
 							const newXhr = new XMLHttpRequest();
 							var formdata = new FormData();
 							
 							formdata.append("plannerNo",plannerNo);
-							
-							
+							formdata.append("day",plannerNo);
+							formdata.append("title",title);
+							formdata.append("address",address);
+							formdata.append("mapx",mapx);
+							formdata.append("mapy",mapy);
+							formdata.append("firstimage",firstimage);
+							formdata.append("day",day);
 							newXhr.open("POST",newUrl,true);
 							newXhr.send(formdata);
-												
+							newXhr.onreadystatechange = function() {
+							if (newXhr.status == 200 && newXhr.readyState == XMLHttpRequest.DONE) {
+							$("#selected_items").replaceWith(newXhr.responseText);
+							}
+							};
+		
+							newXhr	.onerror = function(err) {
+							console.error(err);
+								};					
 						
 					});//click이벤트종료
 					
