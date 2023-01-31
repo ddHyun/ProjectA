@@ -101,6 +101,7 @@ var WeatherslideIndex = 1;
 $.getJSON('https://api.openweathermap.org/data/2.5/weather?q=Chuncheon,KR&appid=46b55a9f61cc588200575a3dda8e3069&units=metric',
     function (ChuncheonWeather) {
         // 춘천 기온출력
+       
         $('.ChuncheonNowtemp').append(ChuncheonWeather.main.temp);
         $('.ChuncheonLowtemp').append(ChuncheonWeather.main.temp_min);
         $('.ChuncheonHightemp').append(ChuncheonWeather.main.temp_max);
