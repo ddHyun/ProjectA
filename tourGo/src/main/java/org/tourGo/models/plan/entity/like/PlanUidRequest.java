@@ -5,14 +5,20 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public class PlanUidRequest {
 	
 	private String uid; // 식별자
 	private String field; // 사용처
 	
 	public PlanUidRequest(PlanUidEntity planUidEntity) {
-		uid = planUidEntity.getUid();
-		field = planUidEntity.getField();
+		this.uid = planUidEntity.getUid();
+		this.field = planUidEntity.getField();
 	}
 	public static String getUid(Long boardNo, Long userNo) {
 		//Request서블릿객체 가져오기

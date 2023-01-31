@@ -25,7 +25,9 @@ window.addEventListener("DOMContentLoaded", function(){
 				const uidEl = document.getElementById("uid");
 				const uid = uidEl != null ? uidEl.value : "";
 				const liked = classList.contains("on") ? false : true;
-				const url = `/planlike?plannerNo=${plannerNo}&uid=${uid}`;
+				const url = `/planlike?plannerNo=${plannerNo}&uid=${uid} `;
+				
+				console.log(url);
 			
 				const xhr = new XMLHttpRequest();
 				xhr.open("GET", url);
