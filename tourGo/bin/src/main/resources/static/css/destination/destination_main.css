@@ -1,0 +1,240 @@
+html {
+	background: #f0f8ff;
+}
+
+main {
+	margin: 0px 20px;
+}
+
+.destination_search {
+	margin: 50px auto;
+	text-align: center;
+}
+
+.input_txt {
+	width: 800px;
+	height: 40px;
+	font-size: large;
+}
+
+.input_btn {
+	width: 60px;
+	height: 45px;
+}
+
+.destination_area {
+	margin: 50px auto;
+}
+
+.best_txt {
+	margin: 0px 400px;	
+}
+
+.dest_area_flex {
+	display: flex;
+	justify-content: center;
+}
+
+.area {
+	padding: 15px 30px;
+	font-size: 2rem;
+	color: white;
+	background: lightblue;
+	margin: 3px;
+}
+
+.area:hover {
+	background: dodgerblue;
+}
+
+.dest_area_flex a {
+	text-decoration: none;
+	text-align: center;
+}
+
+.destination_best {
+	margin: 40px 0;
+}
+
+.top_10 a {
+	text-decoration: none;
+	text-align: center;
+}
+
+.top10 {
+	display: flex;
+	justify-content: center;
+}
+
+.top10_inner {
+	background: dodgerblue;
+	color: white;
+	width: 180px;
+	height: 180px;
+	margin: 20px;
+}
+
+.top10_inner:hover {
+	opacity: 0.5;
+}
+
+.destination_detail_all {
+	margin: 30px auto;
+}
+
+.destination_detail_title {
+	margin: 30px 0;
+}
+
+.destination_detail_title h2 {
+	text-align: center;
+}
+
+.dest_detail_img {
+	text-align: center;
+}
+
+.dest_detail_img img {
+	width: 800px;
+	margin: 30px 0;
+}
+
+.dest_detail_info {
+	margin: 30px 0;
+}
+
+.dest_detail_txt {
+	margin: 0px 530px;
+}
+
+.dest_detail_txt2 {
+	margin: 0px 530px;
+	display: flex;
+}
+
+.detail_txt a {
+	text-decoration: none;
+}
+
+.dest_detail_map {
+	margin: 30px 0;
+}
+
+.dest_detail_map h2 {
+	margin: 30px 0;
+}
+
+.destination_content {
+	margin: 40px 0;
+}
+
+.dest_content {
+	display: flex;
+	justify-content: center;
+}
+
+.content_1 {
+	margin: 15px 30px;
+}
+
+.content_1 img {
+	width: 300px;
+	height: 260px;
+}
+
+.page_check {
+	text-align: center;
+}
+
+.page_check a {
+	text-decoration: none;
+	font-size: 1.5rem;
+	margin: 0 20px;
+}
+
+fieldset {
+	border: none;
+	width: 80%;
+	margin: 0 auto;
+    text-align: center;
+}
+
+input[type='radio'] {
+	display: none;
+}
+
+input[type='radio']+label {
+	display: inline-block;
+	padding : 25px 50px;
+	min-height: 20px;
+	background: url("../../images/common/radio-off.png") no-repeat center none;
+	background-color: #65a5c8;
+	line-height: 20px;
+	cursor: pointer;
+	margin: 5px 5px;
+	color:aliceblue;
+	font-size: x-large;
+}
+
+/* test background-color 작업 완료 후 변경해야함 608eb7 */
+input[type='radio']:checked+label {
+	background: url("../../images/common/radio-on.png") no-repeat  center none;
+	background-color: #fcc5df;
+	color:aliceblue;
+	font-weight: bold;
+}
+
+input[type='radio']+label.standalone {
+	padding: 0;
+	height: 20px;
+	width: 20px;
+}
+
+input[type='checkbox'] {
+	display: none;
+}
+
+input[type='checkbox']+label {
+	display: inline-block;
+	padding-left: 25px;
+	padding-right: 15px;
+	min-height: 20px;
+	background: url("../../images/common/chk-off.png") no-repeat left center;
+	background-size: 20px;
+	line-height: 20px;
+	cursor: pointer;
+	margin: 3px 0;
+}
+
+input[type='checkbox']:checked+label {
+	background: url("../../images/common/chk-on.png") no-repeat left center;
+	background-size: 20px;
+}
+
+input[type='checkbox']+label.standalone {
+	padding: 0;
+	height: 20px;
+	width: 20px;
+}
+
+#allBox {
+    display: grid;
+    grid-template-columns: repeat(4, 450px);
+    place-content: center;
+}
+
+#allBox div {
+	height: 350px;
+	width: 350px;
+	align-items: center;
+}
+
+#allBox img {
+	width: 350px;
+	height: 260px;
+	display: block;
+	text-align: center;
+}
+
+#allBox span {
+}

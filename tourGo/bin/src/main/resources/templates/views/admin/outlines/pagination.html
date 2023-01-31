@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	
+	<th:block th:fragment="pagination">
+				<div>
+           			<ul class="pagination" th:if="${!#lists.isEmpty(pagination)}" th:object="${pagination}">
+				        <li class="page-item" th:if="*{page > pageCnt}">
+				            <a class="page-link" th:href="@{{url}(url=*{baseUrl}, searchType=${searchRequest.searchType}, searchKeyword=${searchRequest.searchKeyword}, page=1)}" th:text="'<<'"></a>
+				        </li>
+				        
+				        <li class="page-item" th:if="*{page > pageCnt}">
+				            <a class="page-link" th:href="@{{url}(url=*{baseUrl}, searchType=${searchRequest.searchType}, searchKeyword=${searchRequest.searchKeyword}, page=*{prev})}" th:text="'<'"></a>
+				        </li>
+				
+				        <li class="page-item" th:classappend="${page == pagination.page} ? 'active'" th:each="page: *{pages}">
+				            <a class="page-link" th:href="@{{url}(url=*{baseUrl}, searchType=${searchRequest.searchType}, searchKeyword=${searchRequest.searchKeyword}, page=${page})}" th:text="${page}"></a>
+				        </li>
+				
+				        <li class="page-item" th:if="*{next > 0}">
+				            <a class="page-link" th:href="@{{url}(url=*{baseUrl}, searchType=${searchRequest.searchType}, searchKeyword=${searchRequest.searchKeyword}, page=*{next})}" th:text="'>'"></a>
+				        </li>
+				        
+				        <li class="page-item" th:if="*{page < lastPage}">
+				            <a class="page-link" th:href="@{{url}(url=*{baseUrl}, searchType=${searchRequest.searchType}, searchKeyword=${searchRequest.searchKeyword}, page=*{lastPage})}" th:text="'>>'"></a>
+				        </li>
+           			</ul>
+           		</div>
+	</th:block>
+</html>

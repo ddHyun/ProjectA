@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<head>
+		<title th:text="${siteTitle}">TourGO</title>
+		<link th:href="@{css/main/header.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{css/main/footer.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{css/main/mainPage.css}" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		<header th:replace="outlines/header::header"></header>
+		
+		<main layout:fragment="content"></main>
+		
+		<footer th:replace="outlines/footer::footer"></footer>
+	</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	layout:decorate="~{admin/main}">
+	
+	<main layout:fragment="content">
+		<!-- Begin Page Content -->
+        <div class="container-fluid">
+        	<!-- Page Heading -->
+            <h1 class="h3 mb-4 text-gray-800">메인 페이지</h1>
+        	
+        	<!-- 그래프(예시 사용) -->
+            <div class="row">
+        		<!-- Area Chart -->
+                        <div class="col-xl-8 col-lg-7">
+                            <!-- Bar Chart -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">여행 후기 등록수</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-bar">
+                                        <canvas id="myBarChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pie Chart -->
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">인기 검색어</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4 pb-2">
+                                        <canvas id="myPieChart"></canvas>
+                                    </div>
+                                    <div class="mt-4 text-center small">
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-primary"></i> Direct
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-success"></i> Social
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-info"></i> Referral
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        	</div>
+        	
+        	<!-- 문의사항 -->
+        	<div class="row">
+        		<div class="col-12">
+		            <div class="card shadow mb-4">
+		                <div class="question card-header py-3 justify-content-between">
+		                    <h6 class="m-0 font-weight-bold text-primary">최근 문의 내역</h6>
+		                    <a th:href="@{/admin/query/queryList}">자세히 보기 >></a>
+		                </div>
+		                <div class="card-body">
+		                	<table class="table table-bordered">
+		                		<colgroup>
+		                			<col style="width:85%; text-align: center;">
+		                			<col style="text-align: center;">
+		                		</colgroup>
+		                		<thead>
+			                		<tr class="text-center">
+			                			<th>문의 제목</th>
+			                			<th>등록 날짜</th>
+		                			</tr>
+		                		</thead>
+		                		<tbody>
+		                		<th:block th:if="${!#lists.isEmpty(list)}">
+		                			<tr th:each="list, index : ${list}" class="text-center">
+		                				<td>
+			                				<a th:href="@{/admin/query/queryView/{queryNo}(queryNo=${list.queryNo})}" th:name="${list.queryTitle}" th:text="${list.queryTitle}"></a>
+			                			</td>
+		                				<td th:text="${#temporals.format(list.regDt,'yyyy-MM-dd HH:mm')}"></td>
+		                			</tr>
+		                		</th:block>
+		                		<th:block th:unless="${!#lists.isEmpty(list)}">
+			                		<tr class="text-center"> <!-- th:each 사용 -->
+			                			<td colspan="2">데이터가 비어있습니다.</td>
+			                		</tr>
+		                		</th:block>
+		                		</tbody>
+		                	</table>
+		                </div>
+		            </div>
+        		</div>
+        	</div>
+        	
+		</div>
+	</main>
+	
+</html>

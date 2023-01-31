@@ -1,0 +1,51 @@
+.about_content {
+	display: flex;
+    justify-content: center;
+}
+
+.content_style1 {
+	width: 800px;
+}
+
+.content_style2 {
+	width: 550px;
+}
+
+.content_style3 {
+	width: 300px;
+}
+
+.footer_ul li {
+	list-style: none;
+}
+
+.a_link {
+	text-decoration: none;
+}
+
+.footer_all {
+	margin: 30px 20px;
+}
+
+.footer_about {
+	margin: 30px 20px;
+}
+
+.out_link {
+	display: flex;
+    justify-content: center;
+}
+
+.out_link a {
+	margin: 0px 10px;
+}
+
+.text-center p {
+	text-align: center;
+	margin: 10px 0;
+	font-size: 14px;
+}
+
+h3 {
+	text-align: center;
+}

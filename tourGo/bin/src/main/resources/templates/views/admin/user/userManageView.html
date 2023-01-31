@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+		layout:decorate="~{admin/main}">
+		
+		<main layout:fragment="content">
+			<div class="container-fluid">
+				<div class="board-title">회원 관리</div>
+				<div class="row">
+	        		<div class="col-12">
+			            <div class="card shadow mb-4">
+			                <div class="question card-header py-3">
+			                    <h6 class="m-0 font-weight-bold text-primary">회원 정보</h6>
+			                </div>
+			                <div class="card-body">
+			                	<form method="POST" id="userForm" name="userForm" th:action="@{/admin/user/userManageView/{userNo}(userNo=${user.userNo})}" th:object="${user}">
+				                	<div class="container">
+				                		<div class="row mb-4">
+				                			<div class="col">
+				                				<div class="mb-2">
+					                				<span class="font-weight-bold" th:text="#{user.userId}"></span>
+				                				</div>
+				                				<div class="w-100"></div>
+				                				<div class="border-bottom border-2">
+				                					<span th:text="*{userId}"></span>
+				                				</div>
+				                			</div>
+				                			<div class="col">
+				                				<div class="mb-2">
+					                				<span class="font-weight-bold"th:text="#{user.userNm}"></span>
+				                				</div>
+				                				<div class="w-100"></div>
+				                				<div class="border-bottom border-2">
+				                					<span th:text="*{userNm}"></span>
+				                				</div>
+				                			</div>
+				                		</div>
+				                		<div class="row mb-4">
+				                			<div class="col">
+				                				<div class="mb-2">
+					                				<span class="font-weight-bold" th:text="#{user.birth}"></span>
+				                				</div>
+				                				<div class="w-100"></div>
+				                				<div class="border-bottom border-2">
+				                					<span th:text="*{birth}"></span>
+				                				</div>
+				                			</div>
+				                			<div class="col">
+				                				<div class="mb-2">
+					                				<span class="font-weight-bold" th:text="#{user.email}"></span>
+				                				</div>
+				                				<div class="w-100"></div>
+				                				<div class="border-bottom border-2">
+				                					<span th:text="*{email}"></span>
+				                				</div>
+				                			</div>
+				                		</div>
+				                		<div class="row mb-4">
+				                			<div class="col">
+				                				<div class="mb-2">
+					                				<span class="font-weight-bold" th:text="#{user.mobile}"></span>
+				                				</div>
+				                				<div class="w-100"></div>
+				                				<div class="border-bottom border-2">
+				                					<span th:text="*{mobile}"></span>
+				                				</div>
+				                			</div>
+				                		</div>
+				                		<div class="row mb-4">
+				                			<div class="col">
+				                				<div class="mb-2">
+					                				<span class="font-weight-bold" th:text="#{user.intro}"></span>
+				                				</div>
+				                				<div class="w-100" ></div>
+				                				<div class="border-bottom border-2">
+					                				<span th:text="*{intro}"></span>
+				                				</div>
+				                			</div>
+				                		</div>
+				                		<div class="row mb-4">
+				                			<div class="col-md-10"></div>
+				                			<div class="col">
+				                				<button type="button" class="btn btn-secondary">취소</button>
+				                				<button type="button" data-toggle="modal" data-target="#activeModal" class="btn btn-danger">회원 정지</button>
+				                			</div>
+				                		</div>
+				                	</div>
+			                	</form>
+			                </div>
+			            </div>
+	        		</div>
+	        	</div>
+	        	
+	        	<div class="modal fade" id="activeModal" tabindex="-1" role="dialog" aria-labelledby="activeModalLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+				    <div class="modal-content">
+				
+				      <!-- Modal Header -->
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				      </div>
+				
+				      <!-- Modal body -->
+				      <div class="modal-body" id="modalBody">
+				      	<h3 class="fs-3 text-danger">주의! 해당 사용자를 정지시키겠습니까?</h3>
+				      </div>
+				
+				      <!-- Modal footer -->
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-danger" data-dismiss="modal">아니오</button>
+				        <button id="btn_change" type="button" class="btn btn-primary" onclick="changeModal1()">예</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			</div>
+		</main>
+</html>

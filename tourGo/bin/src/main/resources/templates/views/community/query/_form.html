@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	
+	<!-- 문의글 등록form -->
+	<th:block th:fragment="form">
+			<input type="hidden" id="user" th:field="*{user}">
+			<table class="communityT marginAuto">	
+				<tr>
+					<td colspan=2><!-- 제목 -->
+						<div class="errMsg" th:each="err : ${#fields.errors('queryTitle')}" th:text="${err}"></div>
+						<input class="width100 borderX clkBorderX font2" type="text" name="queryTitle" th:field="*{queryTitle}" placeholder="제목을 입력해 주세요">
+					</td>
+				</tr>
+				<tr>
+					<td class="borderND" align="left" th:text="'작성자 : '+*{user.userNm}"></td>
+					<!-- 회원일 경우 -->
+					<!-- <th:block sec:authorize="isAuthenticated()">
+						<td class="borderND" align="left" th:text="'작성자 : '+*{user.userNm}"></td>
+					</th:block> -->
+					<!-- 비회원일 경우 -->
+					<!-- <th:block sec:authorize="isAnonymous()">
+						<td class="borderND" align="left">
+							<div th:each="err : ${#fields.errors('user.userNm')}" th:text="${err}"></div>
+							<input type="text" placeholder="작성자" th:field="*{user.userNm}"> 
+							<div th:each="err : ${#fields.errors('user.userPw')}" th:text="${err}"></div>
+							<input type="password" placeholder="비밀번호" th:field="*{user.userPw}">
+						</td>
+					</th:block> -->
+					<td class="borderND" align="right">
+						<input type="checkbox" name="secretPost" id="secretPost" th:checked="*{secretPost}">
+						<label for="secretPost">비밀글로 작성하기</label>
+					</td> 
+				</tr>
+				<tr>
+					<td colspan=2> <!-- 내용 -->
+						<div class="errMsg" th:each="err : ${#fields.errors('queryContent')}" th:text="${err}"></div>
+						<textarea rows="10" name="queryContent" th:field="*{queryContent}" placeholder="내용을 입력해 주세요">
+						</textarea>
+					</td>
+				</tr>
+			</table>
+		
+	</th:block>
+</html>

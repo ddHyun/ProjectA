@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+		layout:decorate="~{admin/main}">
+		
+		<main layout:fragment="content">
+			<div class="container-fluid">
+					<div class="row">
+	        		<div class="col-12">
+			            <div class="card shadow mb-4">
+			                <div class="question card-header py-3 justify-content-between">
+			                    <h6 class="m-0 font-weight-bold text-primary">공지 사항</h6>
+			                    <form method="get"  class="form-inline bd-highlight justify-content-between" id="searchForm" name="searchForm" th:href="@{/admin/board/noticeList}" th:object="${searchRequest}">
+									<div></div>
+									<div>
+										<select id="selectBox" class="form-control" th:field="*{searchType}" >
+											<option value="">선택</option>
+											<option value="title">제목</option>
+											<option value="content">내용</option>
+											<option value="title_content">제목+내용</option>
+											<option value="userId">작성자</option>
+										</select>
+										<input type="text" name="searchKeyword" id="searchKeyword" class="form-control" placeholder="입력" th:value="*{searchKeyword}">
+										<button type="submit" id="searchBtn" class="btn btn-outline-success">
+											<i class="fa-solid fa-magnifying-glass"></i>검색
+										</button>
+									</div>
+								</form>
+			                </div>
+			                <div class="card-body">
+			                	<div class="row">
+				                	<table class="col table table-striped table-bordered table-hove">
+				                		<thead>
+					                		<tr class="text-center">
+					                			<th style="width: 10%;">번호</th>
+					                			<th>제목</th>
+					                			<th>공지 시작일</th>
+					                			<th>공지 종료일</th>
+					                			<th>작성자</th>
+					                			<th style="width: 10%;">생성일</th>
+					                			<th style="width: 10%;">수정일</th>
+					                		</tr>
+					                	</thead>
+					                	<tbody>
+					                		<th:block th:if="${!#lists.isEmpty(list)}" th:with="total=${pagination.total}, size=${pagination.pageCnt}, pageNum=${pagination.page - 1}">
+					                		<tr th:each="list, index : ${list}" class="text-center">
+					                			<td th:text="${total - (pageNum * size + index.index)}"></td>
+					                			<td>
+					                				<a th:href="@{/admin/board/noticeView/{noticeNo}(noticeNo=${list.noticeNo}, searchType=${searchRequest.searchType}, searchKeyword=${searchRequest.searchKeyword}, page=${pagination.page})}" th:name="${list.noticeTitle}" th:text="${list.noticeTitle}"></a>
+					                			</td>
+					                			<td th:text="${list.postStartDt}"></td>
+					                			<td th:text="${list.postEndDt}"></td>
+					                			<td th:text="${list.user.userNm}"></td>
+					                			<td th:text="${#temporals.format(list.regDt,'yyyy-MM-dd HH:mm')}"></td>
+					                			<td th:text="${#temporals.format(list.modDt,'yyyy-MM-dd HH:mm')}"></td>
+					                		</tr>
+					                		</th:block>
+					                		<th:block th:unless="${!#lists.isEmpty(list)}">
+					                		<tr>
+					                			<td colspan="7">데이터가 없습니다.</td>
+					                		</tr>
+					                		</th:block>
+					                	</tbody>
+				                	</table>
+			                	</div>
+			                	<div class="row">
+			                		<div class="col">
+			                			<th:block th:replace="admin/outlines/pagination::pagination"></th:block>
+			                		</div>
+			                	</div>
+			                	<div>
+		                			<a class="btn btn-primary float-right" th:href="@{/admin/board/noticeRegist}" role="button" >만들기</a>
+	                			</div>
+			                </div>
+			            </div>
+	        		</div>
+	        	</div>
+			</div>
+		</main>
+</html>

@@ -1,0 +1,87 @@
+	<!-- 
+	탬플릿 사용시
+	 
+	@get 쪽에서
+	no : 수정할 글번호,
+	replies : 댓글 목록
+	model에 담아 보내기 
+	
+	@post 쪽에서
+	no : 필요한 글번호 필드명으로 변경필요
+	 -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thylemleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	
+	<!-- 댓글 등록 -->
+	<th:block th:fragment="reply">
+		<th:block th:object="${replyRequest}">
+			<div class="rpl">
+				<form method="POST" th:action="@{/reply/register}" name="replyForm" target="ifrmProcess" autocomplete="off">
+					<input type="hidden" id="id" th:value="${user}">
+					<input type="hidden" name="no" th:value="${no}">
+					<div>
+						<th:block sec:authorize="isAuthenticated()">
+							<textarea rows="2" placeholder="댓글을 남겨보세요" name="content" id="content" th:field="*{replyContent}"></textarea>
+						</th:block>
+						<th:block sec:authorize="isAnonymous()">
+							<textarea rows="2" placeholder="댓글 작성은 로그인 후 이용 가능합니다"></textarea>
+						</th:block>
+						<div th:each="err : ${#fields.errors('replyContent')}" th:text="${err}"></div>
+					</div>
+					<div>
+						<button type="submit" id="registerReply" th:text="#{community.register}">등록</button>
+					</div>
+				</form>
+			</div>
+		</th:block>
+		<br>
+		
+		<!-- 목록 -->
+		<th:block th:if="${replies}" th:each="reply : ${replies}" th:object="${reply}">
+			<div class="rpl" th:id="*{'comment_' + replyNo}">
+				<input type="hidden" name="depth" id="depth" th:value="*{depth}">
+				<input type="hidden" id="replyNo" th:value="*{replyNo}">
+				<div class="innerRpl">
+					<ul class="flex">
+						<li class="item" th:utext="*{replyContent}">댓글내용</li>
+						<li><a th:href="@{/user/mypage/{id}(id=*{id})}" th:text="*{name}">작성자</a></li>
+						<li style="color:#888;" th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">작성일</li>
+						<th:block sec:authorize="isAuthenticated()" th:if="*{depth==0}">
+							<li><button class="item" type="button" th:text="#{reply}" th:replyNo="*{replyNo}" th:id="*{'dn'+replyNo}"
+										th:onclick="writeReply(this.getAttribute('replyNo'))">댓글쓰기</button></li>
+						</th:block>
+						<th:block th:if="${user}==*{id}">
+							<li><button class="item" type="button" th:text="#{community.delete}" th:replyNo="*{replyNo}" 
+									th:onclick="deleteReply(this.getAttribute('replyNo'))">삭제</button></li>
+						</th:block>						
+					</ul>
+				</div>
+				
+			<!-- 대댓글 -->
+			<div>
+				<form method='post' th:action='@{/reply/register}' name='reReplyForm'
+					 target='ifrmProcess' th:object='${replyRequest}'>
+					<input type='hidden' name='no' th:value='${no}'>
+					<input type="hidden" name="depth" th:value="${reply.depth}">
+					<input type="hidden" name="idParent" th:value="${reply.idParent}">
+					<input type="hidden" name="listOrder" th:value="${reply.listOrder}">
+					<input type='hidden' name='replyNo'  th:value='${reply.replyNo}'>
+					<div th:each="err : ${#fields.errors('replyContent')}" th:text='${err}'></div>
+					<div th:id="${'reRpl'+reply.replyNo}"></div>
+				</form>
+			</div>
+			</div>
+		</th:block>
+		<br>
+		
+		
+	</th:block>
+	
+	
+	
+	
+	
+	
+</html>

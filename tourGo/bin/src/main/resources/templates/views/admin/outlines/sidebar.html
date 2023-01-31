@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	<th:block th:fragment="sidebar">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/admin/index}">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">여행 플래너</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/index}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>메인 페이지</span></a>
+            </li>
+
+            <!-- Divider -->
+           <hr class="sidebar-divider my-0">
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
+                    <i class="fa-solid fa-users"></i>
+                    <span>회원 관리</span>
+                </a>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" th:href="@{/admin/user/userManage}">
+                        	<i class="fa-solid fa-person-circle-check"></i>
+                        	회원 관리
+                       	</a>
+                        <a class="collapse-item" th:href="@{/admin/user/userActiveManage}">
+                        	<i class="fa-solid fa-user-slash"></i>
+                        	정지/삭제 회원 관리
+                        </a>
+                        <a sec:authorize="hasRole('SUPERADMIN')" class="collapse-item" th:href="@{/admin/user/adminTypeManage}">
+                        	<i class="fa-solid fa-hammer"></i>
+                        	관리자 등급 변경
+                        </a>
+                    </div>
+                </div>
+            </li>
+			
+			<!-- Divider -->
+          	<hr class="sidebar-divider my-0">
+			
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                    <span>게시글 관리</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" th:href="@{/admin/board/noticeList}">
+                        	<i class="fa-solid fa-list-check"></i>
+                        	공지사항 관리
+                        </a>
+                        <a class="collapse-item" th:href="@{/admin/board/reportList}">
+                        	<i class="fa-regular fa-flag"></i>
+                        	신고 게시물 관리
+                        </a>
+                    </div>
+                </div>
+            </li>
+			
+			<!-- Divider -->
+           	<hr class="sidebar-divider my-0">
+			
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/admin/query/queryList}">
+                    <i class="fa-solid fa-circle-question"></i>
+                    <span>문의 관리</span>
+                </a>
+            </li>
+            
+			<!-- Divider -->
+           	<hr class="sidebar-divider my-0">
+			
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="true" aria-controls="collapseThree">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                    <span>지역 데이터 관리</span>
+                </a>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" th:href="@{/admin/destination/destinationList}">
+                        	<i class="fa-solid fa-list-check"></i>
+                        	지역 데이터 목록
+                        </a>
+                        <a class="collapse-item">
+                        	<i class="fa-regular fa-flag"></i>
+                        	지역 데이터 갖고오기
+                        </a>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+        <!-- End of Sidebar -->
+	</th:block>
+</html>

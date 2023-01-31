@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	layout:decorate="~{layouts/main}">
+	
+	<main layout:fragment="content">
+		<h2>마이페이지 수정</h2>
+		<form id="mypageForm" name="mypageForm" th:object="${user}">
+				<input type="hidden" id="gid" name="gid" th:value="${gid}">
+				<input type="hidden" name="userNo" th:value="*{userNo}" class="required">
+				<input type="hidden" name="userId" th:value="*{userId}" class="required">
+				
+				<div class="user-name">
+					<span th:text="*{userNm}"></span><span>(<span th:text="*{userId}"></span>)</span>
+				</div>
+				
+				<div class="user-profile mb-3">
+					<div class="profile-picture mb-3">
+						<img id="profile" name="profile" th:src="${profile}" class="profile">
+					</div>
+					<label for="files">
+						<span class="w-20 btn-gradient">프로필 사진 업로드</span>
+					</label>
+					<input type="file" name="files" id="files" value="프로필 사진 변경">
+				</div>
+				
+				<!--  
+				<label for="userPw" class="req" th:text="#{user.userPw}"></label>
+				<input type="password" name="userPw" th:field="*{userPw}" class="sign_input required" th:title="#{user.userPw}">
+				<div id="err_userPw" class="err"></div>
+				-->
+				<div class="form-input">
+					<div class="mb-2">
+						<label for="userPwNew" class="req" th:text="#{user.userPwNew}"></label>
+					</div>
+					<input type="password" name="userPwNew" id="userPwNew" class="form-control required" th:title="#{user.userPwNew}">
+					<div id="err_userPwNew" class="err err_close"></div>
+				</div>
+				
+				<div class="form-input">
+					<div class="mb-2">
+						<label for="nickNm" th:text="#{user.nickNm}"></label>
+					</div>
+					<input type="text" name="nickNm" id="nickNm" th:value="*{nickNm}" class="form-control" th:title="#{user.nickNm}">
+					<div id="err_userPwNew" class="err err_close"></div>
+				</div>
+				
+				<div class="form-input">
+					<div class="mb-2">
+						<label for="birth" class="req" th:text="#{user.birth}"></label>
+					</div>
+					<input type="text" name="birth" id="birth" th:value="*{birth}" class="form-control required" th:title="#{user.birth}">
+					<div id="err_birth" class="err err_close"></div>
+				</div>
+				
+				<div class="form-input">
+					<div class="mb-2">
+						<label for="email" class="req" th:text="#{user.email}"></label>
+					</div>
+					<input type="text" name="email" id="email" th:value="*{email}" class="form-control required" th:title="#{user.email}">
+					<div id="err_email" class="err err_close"></div>
+				</div>
+				
+				<div class="form-input">
+					<div class="mb-2">
+						<label for="mobile" class="req" th:text="#{user.mobile}"></label>
+					</div>
+					<input type="text" name="mobile" id="mobile" th:value="*{mobile}" class="form-control required" th:title="#{user.mobile}">
+					<div id="err_mobile" class="err err_close"></div>
+				</div>
+				
+				<div class="form-input">
+					<div class="mb-2">
+						<label for="intro" th:text="#{user.intro}"></label>
+					</div>
+					<textarea rows="15" name="intro" id="intro" th:text="*{intro}" class="form_textarea">
+					</textarea>
+				</div>
+				
+				<div class="btn_confirm">
+					<button th:onclick="'location.href=\'' + @{/user/login} + '\''" type="button">취소</button>
+					<button id="btn_update" type="button">확인</button>
+				</div>
+		</form>
+	</main>
+	
+</html>
