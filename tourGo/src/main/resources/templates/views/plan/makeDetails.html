@@ -73,16 +73,16 @@ close
 <div class="selected_items" id="selected_items">
 
 	<div th:if="${list != null}">
-	<div th:each="details : ${list}">
+	<div th:each="details : ${list}" class="abcdefg">
 	<input type="hidden" th:value="${details.detailsNo}" name="detailsNo" id="detailsNo">
 	<img name="firstimage" th:src="${details.firstimage}" />
-	<span name="title" th:text="${details.title}"></span>
+	<span name="title" th:text="${details.title}"></span> <br>
 
-	<span name="address" th:text="${details.address}"></span>
-	
+	<span name="address" th:text="${details.address}" class="add"></span>
+	<br>
 	<label for="checkST">시작</label>
 	<input type="time" name="stime" th:value="${details.stime}!=null ? ${details.stime} : null " id="checkST"> 
-	
+	<br>
 	<label for="checkET">종료</label>
 	<input type="time" name="etime" th:value="${details.etime}!=null ? ${details.etime} : null " id="checkET"> 
 	
