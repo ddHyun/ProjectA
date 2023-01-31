@@ -33,20 +33,14 @@ public class DetailsController {
 	@PostMapping("select")
 	public String selectDay(Model model,DetailsItems rqList){
 	Integer day = rqList.getDay();
-	System.out.println(rqList);
-	ArrayList<PlanDetailsRq> list = new ArrayList<>();
-	PlanDetailsRq rq1 = PlanDetailsRq.builder().detailsNo(10l).title("관광지3").address("주소1").day(1).build();
-	PlanDetailsRq rq2 = PlanDetailsRq.builder().detailsNo(20l).title("관광지4").address("주소2").day(2).build();
-	PlanDetailsRq rq3 = PlanDetailsRq.builder().detailsNo(20l).title("관광지5").address("주소3").day(3).build();
-	PlanDetailsRq rq4 = PlanDetailsRq.builder().detailsNo(20l).title("관광지6").address("주소4").day(4).build();
-	PlanDetailsRq rq5 = PlanDetailsRq.builder().detailsNo(20l).title("관광지7").address("주소6").day(5).build();
-	list.add(rq2);
-	list.add(rq1);
-	list.add(rq3);
-	list.add(rq4);
-	list.add(rq5);
 	
-	list.removeIf(num->num.getDay()!=day);
+	Planner planner = plannerService.getPlanner(rqList.getPlannerNo());
+
+	
+	List<PlanDetailsRq> list = detailsService.getPlanDetailsByDay(day, planner);
+
+	
+	
 	
 	model.addAttribute("list", list);
 	return "plan/makeDetails::#selected_items";
@@ -54,17 +48,15 @@ public class DetailsController {
 	}
 	
 	
-	@PostMapping("testxml")
+	@PostMapping("saveDetails")
 	public String testxml(PlanDetailsRq rq,Model model){
-		System.out.println("---post test-----");
-		System.out.println(rq);
+	
 		Planner planner = plannerService.getPlanner(rq.getPlannerNo());
 		
 		PlanDetails entity = detailsService.insertPlanDetails(rq,planner);
-	
-		System.out.println(entity);
+
 		List<PlanDetailsRq> list = detailsService.getPlanDetailsRqList(planner);
-		System.out.println(list);
+	
 		
 		model.addAttribute("list", list);
 		

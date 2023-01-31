@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.tourGo.common.JsonResult;
 import org.tourGo.models.plan.tourList.TourList;
 import org.tourGo.models.plan.tourList.TourListDto;
-import org.tourGo.service.plan.TestService;
+
 import org.tourGo.service.plan.TourService;
 
 
@@ -21,9 +21,8 @@ import org.tourGo.service.plan.TourService;
 public class TourListController {
 
 	@Autowired
-	TourService service;
-	@Autowired
-	TestService testService;
+	TourService tourService;
+	
 /**
 	@GetMapping("/tourList")
 	public List<TourList> tourList(String keyword){
@@ -36,7 +35,7 @@ public class TourListController {
 	
 	@GetMapping("/tourList")
 	public JsonResult<?> fetch(String keyword) throws Exception{
-			List<TourListDto> list = testService.test(keyword);
+			List<TourListDto> list = tourService.loadApi(keyword);
 			
 		    System.out.println(keyword);
 		    

@@ -83,12 +83,14 @@ public class PlanDetailsService {
 		
 		return list;
 	}
-	public List<PlanDetails> getPlanDetailsByDay(Integer day){//지정한 날짜에있는 entity들을 찾아서 list로 반환
+	public List<PlanDetailsRq> getPlanDetailsByDay(Integer day,Planner planner){//지정한 날짜에있는 entity들을 찾아서 list로 반환
 		BooleanBuilder builder = new BooleanBuilder();
 		QPlanDetails details = QPlanDetails.planDetails;
+		builder.and(details.plannerNo.eq(planner));
 		builder.and(details.day.eq(day));
-		List<PlanDetails> list = (List<PlanDetails>) detailsRepo.findAll(builder,Sort.by(Sort.Direction.ASC, "detailsNo"));
 		
+		List<PlanDetails> _list = (List<PlanDetails>) detailsRepo.findAll(builder,Sort.by(Sort.Direction.ASC, "detailsNo"));
+		List<PlanDetailsRq> list = PlanDetailsService.toDtoList(_list);
 		
 		
 		return list;
