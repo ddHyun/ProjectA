@@ -15,6 +15,14 @@
 	text-align:center;
 
 }
+#clickItem{
+	margin-bottom:20px;
+	margin-top:20px;
+	width:100px;
+	height:50px;
+	border-radius: 30px;
+	border:2px solid black;
+}
 
 .test > img{
     width: 460px;
@@ -39,7 +47,7 @@
 .container_bottom{display:flex; border: 1px solid black; width:100%; height:1000px;}
 .day{border: 1px solid black; height:1000px;width: 10%; display:flex;    flex-direction: column;}
 .list{border: 1px solid black; height:1000px;width: 20%; display:flex;    flex-direction: column;}
-.api_list{border: 1px solid black;  width:25%;display:flex;    flex-direction: column; 	overflow:auto; -ms-overflow-style: none;}
+.api_list{border: 1px solid black;  width:25%;display:flex;    flex-direction: column; 	overflow:auto; -ms-overflow-style: none;align-items: center;}
 .map_container{border: 1px solid black; height:1000px; width:45%; margin-left: auto; display:flex;}
 
 .api_list::-webkit-scrollbar{
