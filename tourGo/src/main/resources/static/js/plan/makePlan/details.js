@@ -164,7 +164,7 @@ const planner = {
 		detailsNo.forEach(function(i) {
 			arrayNo.push(i.value);
 
-			console.log(arrayNo);
+		
 		});
 
 		var detailsStime = document.getElementsByName("stime");
@@ -172,7 +172,7 @@ const planner = {
 
 		detailsStime.forEach(function(i) {
 			arrayStime.push(i.value);
-			console.log(arrayStime)
+			
 		});
 
 		var detailsEtime = document.getElementsByName("etime");
@@ -180,7 +180,7 @@ const planner = {
 
 		detailsEtime.forEach(function(i) {
 			arrayEtime.push(i.value);
-			console.log(arrayEtime)
+			
 		});
 		var detailsItem = {
 			"detailsNo": arrayNo,
@@ -198,6 +198,8 @@ const planner = {
 		formData.append("detailsNo", arrayNo);
 		formData.append("stime", arrayStime);
 		formData.append("etime", arrayEtime); 
+		console.log(arrayStime);
+		console.log(arrayEtime);
 		//formData.append("detailsItem",detailsItem);
 		const xhr = new XMLHttpRequest();
 

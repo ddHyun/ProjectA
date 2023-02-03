@@ -35,7 +35,8 @@ public class DetailsController {
 	Integer day = rqList.getDay();
 	
 	Planner planner = plannerService.getPlanner(rqList.getPlannerNo());
-
+	detailsService.updatePlanDetails(rqList);
+	
 	
 	List<PlanDetailsRq> list = detailsService.getPlanDetailsByDay(day, planner);
 
@@ -52,10 +53,10 @@ public class DetailsController {
 	public String testxml(PlanDetailsRq rq,Model model){
 	
 		Planner planner = plannerService.getPlanner(rq.getPlannerNo());
-		
+		Integer day = rq.getDay();
 		PlanDetails entity = detailsService.insertPlanDetails(rq,planner);
 
-		List<PlanDetailsRq> list = detailsService.getPlanDetailsRqList(planner);
+		List<PlanDetailsRq> list = detailsService.getPlanDetailsByDay(day, planner);
 	
 		
 		model.addAttribute("list", list);
