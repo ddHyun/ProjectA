@@ -106,14 +106,14 @@ public class PlanDetailsService {
 			}
 			String _stime = items.getStime().get(i);
 			if(!_stime.isBlank()) {
-				LocalTime stime = LocalTime.parse(_stime,DateTimeFormatter.ofPattern("a KK : mm"));
+				LocalTime stime = LocalTime.parse(_stime,DateTimeFormatter.ofPattern("a KK:mm"));
 				entity.setStime(stime);
 				
 			}
 			
 			String _etime = items.getEtime().get(i);
 			if(!_etime.isBlank()) {
-				LocalTime etime = LocalTime.parse(_etime,DateTimeFormatter.ofPattern("a KK : mm"));
+				LocalTime etime = LocalTime.parse(_etime,DateTimeFormatter.ofPattern("a KK:mm"));
 				entity.setStime(etime);
 			}
 			
