@@ -24,8 +24,8 @@
 
 		<div class="form-group">
 			<label class=title>여행제목</label>
-			<div class="input_title_box">
-				<input class="width-100" type="text" th:field="*{title}">
+			<div class="input_title_box"> 
+				<input class="width-90" type="text" th:field="*{title}">
 				<div class='error' th:each="err : ${#fields.errors('title')}" th:text="${err}"></div>
 			</div>
 		</div>
@@ -127,20 +127,23 @@
 
 
 		<div style="position: absolute; right: 0px; bottom: 0px;">
-			<button style=" margin: 0 30px;" type="submit">일정 만들기</button>
-			<button style=" margin: 0 30px;" onclick="close()">창닫기</button>
+			<button class="button123" style=" margin: 0 30px;" type="submit">일정 만들기</button>
+
 		</div>
 	</form>
 
-
-	<div>
-		<script>
-			function close() {
-
-			}
+ <script>
+		document.getElementById("button_test").onclick = function() {
+		
+			opener.location.reload();
+		    window.close();
+		};
 
 		</script>
 
-</body>
+	
+
+</body>	
+
 
 </html>

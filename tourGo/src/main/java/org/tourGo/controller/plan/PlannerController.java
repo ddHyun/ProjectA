@@ -201,11 +201,17 @@ public class PlannerController {
 
 	@GetMapping("/readplan/{no}")
 	public String read(Model model, @PathVariable Long no) {
-
-		PlannerRq plannerRq = PlannerService.toDto(plannerService.getPlanner(no)); // 플래너번호를 받아 dto객체로 변환
-
+		Planner planner = plannerService.getPlanner(no);
+		PlannerRq plannerRq = PlannerService.toDto(planner); // 플래너번호를 받아 dto객체로 변환
+		
+		List<PlanDetailsRq> list = detailsService.getPlanDetailsRqList(planner);
 		model.addAttribute("planner", plannerRq);
 		model.addAttribute("addScript", "layer");
+		model.addAttribute("list",list);
+		
+		
+		
+		
 		return "plan/read";
 	}
 
