@@ -97,32 +97,38 @@ public class PlanDetailsService {
 	}
 	@Transactional
 	public void updatePlanDetails(DetailsItems items) {//관광지 시작시간과 종료시간 업데이트
-		
-		for(int i=0; i<=items.getDetailsNo().size();i++) {//ajax로 받은 detailsItems의 detailsNo만큼 반복
+		try {
+		for(int i=0; i<items.getDetailsNo().size();i++) {//ajax로 받은 detailsItems의 detailsNo만큼 반복
 			Optional<PlanDetails> details = detailsRepo.findById(items.getDetailsNo().get(i));
+			
 			PlanDetails entity = details.orElse(null);
+		
 			if(entity==null) {
 				throw new AlertException("일정을 찾을수없습니다.");
 			}
-			String _stime = items.getStime().get(i);
-			if(!_stime.isBlank()) {
-				LocalTime stime = LocalTime.parse(_stime,DateTimeFormatter.ofPattern("a KK:mm"));
-				entity.setStime(stime);
-				
-			}
+			if(!items.getStime().isEmpty()) {
+				String _stime = items.getStime().get(i);
 			
-			String _etime = items.getEtime().get(i);
-			if(!_etime.isBlank()) {
-				LocalTime etime = LocalTime.parse(_etime,DateTimeFormatter.ofPattern("a KK:mm"));
-				entity.setStime(etime);
+				if(!_stime.isBlank()) {
+					LocalTime stime = LocalTime.parse(_stime,DateTimeFormatter.ofPattern("HH:mm"));
+					entity.setStime(stime);
+					
+				}
 			}
-			
 		
+			if(!items.getEtime().isEmpty()) {
+			String _etime = items.getEtime().get(i);
+		
+			if(!_etime.isBlank()) {
+				LocalTime etime = LocalTime.parse(_etime,DateTimeFormatter.ofPattern("HH:mm"));
+				entity.setEtime(etime);
+			}
 			
-			
-			
-			
+			}
 		}
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw new AlertException("세부일정 에러! 다시 시도해주세요.");}
 	
 	}
 	

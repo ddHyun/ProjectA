@@ -74,7 +74,9 @@ close
 
 	<div th:if="${list != null}">
 	<div th:each="details : ${list}" class="abcdefg">
-	<input type="hidden" th:value="${details.detailsNo}" name="detailsNo" id="detailsNo">
+	
+<button type="button" th:value="${details.detailsNo}" name="detailsNo" id="detailsNo" onClick="alert(`123`)">삭제하기</button>
+	
 	<img name="firstimage" th:src="${details.firstimage}" />
 	<span name="title" th:text="${details.title}"></span> <br>
 

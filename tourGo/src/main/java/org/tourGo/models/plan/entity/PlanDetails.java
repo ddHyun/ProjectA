@@ -26,9 +26,9 @@ public class PlanDetails extends BaseEntity {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="plannerNo")
     private Planner plannerNo; // 관계매핑용
-    @DateTimeFormat(pattern="HH:mm")
+	@DateTimeFormat(pattern="HH:mm")
     private LocalTime stime; // 관광지 시작시간
-    @DateTimeFormat(pattern="a KK:mm")
+    @DateTimeFormat(pattern="HH:mm")
     private LocalTime etime;//관광지 종료시간
     private String title;//관광지이름
     private String address; //관광지 주소

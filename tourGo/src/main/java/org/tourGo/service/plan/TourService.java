@@ -95,7 +95,7 @@ public class TourService {
 		 
 		 StringBuilder urlBuilder = new StringBuilder(BASE_URL);
 		 urlBuilder.append("?serviceKey=").append(serviceKey);
-		 urlBuilder.append("&").append("numOfRows=").append("10");
+		 urlBuilder.append("&").append("numOfRows=").append("30");
 		 urlBuilder.append("&").append("pageNo=").append("1");
 		 urlBuilder.append("&").append("MobileOS=").append("ETC");
 		 urlBuilder.append("&").append("MobileApp=").append("tourGo");

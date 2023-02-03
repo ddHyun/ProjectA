@@ -9,9 +9,9 @@ const tourGo = {
 			return;
 		}
 
-		const url = `/tourList?keyword=${keyword}`;
+		let url = `/tourList?keyword=${keyword}`;
 
-		const xhr = new XMLHttpRequest();
+		let xhr = new XMLHttpRequest();
 		xhr.open("GET", url);
 		//xhr.responseType = 'json';
 		//xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
@@ -119,8 +119,8 @@ function createItem(result, parentEl) {
 			console.log(mapy);
 			console.log(firstimage);
 			console.log(plannerNo);
-			const newUrl = `/saveDetails`;
-			const newXhr = new XMLHttpRequest();
+			let url = `/saveDetails`;
+			let xhr = new XMLHttpRequest();
 			var formdata = new FormData();
 
 			formdata.append("plannerNo", plannerNo);
@@ -131,15 +131,15 @@ function createItem(result, parentEl) {
 			formdata.append("mapy", mapy);
 			formdata.append("firstimage", firstimage);
 			formdata.append("day", day);
-			newXhr.open("POST", newUrl, true);
-			newXhr.send(formdata);
-			newXhr.onreadystatechange = function() {
-				if (newXhr.status == 200 && newXhr.readyState == XMLHttpRequest.DONE) {
-					$("#selected_items").replaceWith(newXhr.responseText);
+			xhr.open("POST", url, true);
+			xhr.send(formdata);
+			xhr.onreadystatechange = function() {
+				if (xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
+					$("#selected_items").replaceWith(xhr.responseText);
 				}
 			};
 
-			newXhr.onerror = function(err) {
+			xhr.onerror = function(err) {
 				console.error(err);
 			};
 
@@ -182,13 +182,7 @@ const planner = {
 			arrayEtime.push(i.value);
 			
 		});
-		var detailsItem = {
-			"detailsNo": arrayNo,
-			"stime": arrayStime,
-			"etime": arrayEtime,
-			"plannerNo": plannerNo,
-			"day": day
-		};
+	
 
 		// const formData = new FormData(document.frm);
 		var formData = new FormData();
@@ -201,7 +195,7 @@ const planner = {
 		console.log(arrayStime);
 		console.log(arrayEtime);
 		//formData.append("detailsItem",detailsItem);
-		const xhr = new XMLHttpRequest();
+		let xhr = new XMLHttpRequest();
 
 		xhr.open("POST", '/select');
 		xhr.send(formData);
@@ -242,6 +236,16 @@ const planner = {
 
 	}//함수끝
 };
+window.addEventListener("DOMContentLoaded",function(){
+	var detailsNo = document.getElementsByName("detailsNo");
+	detailsNo.forEach(i=> i.addEventListener("click",function(){
+		
+		
+		
+	}));//forEach, addEventListener 종료
+})//window.addEventListener 종료
+
+
 let map;
 
 window.addEventListener("DOMContentLoaded", function() {
