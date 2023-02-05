@@ -47,13 +47,15 @@ public class PlannerService {
 		BooleanBuilder builder = new BooleanBuilder();
 		QPlanDetails details = QPlanDetails.planDetails;
 		builder.and(details.plannerNo.eq(planner));
-		
+		String image = "";
 		
 		List<PlanDetails> list = (List<PlanDetails>) detailsRepo.findAll(builder,Sort.by(Sort.Direction.ASC, "day","stime","detailsNo"));
 		if(!list.isEmpty()) {
-		String image = list.get(0).getFirstimage();
+		 image = list.get(0).getFirstimage();
 		planner.setImage(image);
-		}		
+		}else {
+			planner.setImage(image);
+		}
 		
 		
 	}
