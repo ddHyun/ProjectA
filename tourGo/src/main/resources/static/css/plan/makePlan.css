@@ -32,13 +32,13 @@
     object-fit: cover;
 	
 }
-.abcdefg{
+.selected{
 	margin: 10px 0;
 	padding:5px;
 	border-bottom:1px solid black;
 	border-top:1px solid black;
 }
-.abcdefg > img{
+.selected > img{
     width: 355px;
     height: 300px;
     object-fit: cover;
@@ -89,6 +89,38 @@ font-size:14px;
   'opsz' 48
 }
 
+
+.daydiv {
+    padding: 15px 10px;
+}
+.daydiv input[type=radio]{
+    display: none;
+
+    
+}
+.daydiv input[type=radio]+label{
+    display: inline-block;
+    cursor: pointer;
+    height: 50px;
+    width:100%;
+    border: 1px solid #333;
+    line-height: 48px;
+    text-align: center;
+    font-weight:bold;
+    font-size:13px;
+    
+}
+.daydiv input[type=radio]+label{
+    background-color: #fff;
+    color: #333;
+    background: none;
+    padding: 0;
+}
+.daydiv input[type=radio]:checked+label{
+    background-color: #333;
+    color: #fff;
+    padding: 0;
+}
 
 
 
