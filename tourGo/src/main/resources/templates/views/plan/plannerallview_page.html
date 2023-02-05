@@ -81,9 +81,20 @@
 				<input th:if="${like}" type="hidden" id="uid" th:value="${like.uid}">
 				<i class="fa-regular fa-heart toggleLiked" th:classappend="${user == null }? 'login_required' : ''"></i>
 			</span>
-			<span>좋아요</span> <span th:text="${planner.totalLikes}" id="totalLikes"></span>
+			<span>좋아요</span> <span th:text="${planner.totalLikes}" id="totalLikes"></span> <br>
+			<br>
+			<br>
 		
-				
+				<th:block th:each="li,status : ${list}" th:object="${li}">
+		<span th:text="*{title}"></span> <br>
+		<img style="width:50px; height:50px"th:src=*{firstimage}>
+		<span th:text="*{stime}"></span> <br>
+		<span th:text="*{etime}"></span> <br>
+		<span th:text="*{address}"> </span> <br>
+		<span th:text="*{day}"> </span> <br>
+		------------------------------------------------------------<br>
+		
+		</th:block>
 	
 			
 	
