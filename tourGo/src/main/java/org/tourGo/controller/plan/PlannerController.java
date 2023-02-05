@@ -258,7 +258,8 @@ public class PlannerController {
 	@Transactional
 	public String planallview_page(Model model, @AuthenticationPrincipal PrincipalDetail principal,
 			@PathVariable Long no) {
-		Planner planner = null;
+		Planner planner = plannerService.getPlanner(no);
+		List<PlanDetailsRq> list = detailsService.getPlanDetailsRqList(planner);
 		try {
 			planner = plannerService.find(no);
 		} catch (Exception e) {
@@ -283,6 +284,7 @@ public class PlannerController {
 		planReadHitService.process(readUid, "readHit", "plan");
 
 		model.addAttribute("planner", planner);
+		model.addAttribute("list", list);
 		return "plan/plannerallView_page";
 	}
 
