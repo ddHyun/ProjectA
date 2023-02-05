@@ -24,7 +24,6 @@
 
 .Weather{
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -87,4 +86,49 @@
     border-radius: 10px;
     padding: 5px;
     margin: 5%;
+}
+.textcenter{
+	text-align: center;
+}
+.weatherview{
+	border: 1px solid red;
+	text-align:right;
+}
+.view {
+	border: 1px solid blue; 
+	display: grid; 
+	grid-template-columns: repeat(3,450px); 
+	place-content: center;
+	grid-column-gap: 100px;
+}
+.buttons{
+	border:1px solid green; 
+	cursor: pointer;
+	margin-top:70px;
+}
+.searchbarview {
+	margin-top:70px;
+	
+}
+.bold{
+	color:red;
+}
+.viewimg{
+	max-width: 450px;
+}
+#button2{
+	padding : 5px;
+	margin-right:10px;
+	margin-bottom:10px;
+	font-size:15px;
+}
+.searchbar{
+	width:200px;
+	height:25px;
+	
+}
+.seachbutton{
+	width:50px;
+	height:25px;
+	line-height: 1.3;
 }

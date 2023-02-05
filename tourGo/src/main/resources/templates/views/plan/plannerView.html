@@ -3,6 +3,7 @@
 	layout:decorate="~{layouts/main}">
 
 <main layout:fragment="content">
+
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 	<link th:href="@{/css/plan/weather.css}" rel="stylesheet" type="text/css">
 
@@ -52,12 +53,9 @@
 		});
 	</script>
 
-	<div style="border: 1px solid red; text-align:right;">
+	<div class="weatherview">
 		 <div class="Weather">
         <div class="Weather-slideshow-container">
-            <div>
-                <!--<a class="Weather-prev" onclick='WeatherPlusSlides(-1)'>&#10094;</a>-->
-            </div>
 
             <div class="align-Colum1 align-Center">
                 <div class="BorderRound Tmoney-fontsize-150">
@@ -203,13 +201,10 @@
                 
             </div>
 
-            <div>
-             <!--   <a class="Weather-next" onclick='WeatherPlusSlides(1)'>&#10095;</a>-->
-            </div>
-
         </div>
+        
         <br>
-        <div style='text-align: center;'>
+        <div class="textcenter">
             <span class="Weather-dot" onclick='WeatherCurrentSlide(1)'></span>
             <span class="Weather-dot" onclick='WeatherCurrentSlide(2)'></span>
             <span class="Weather-dot" onclick='WeatherCurrentSlide(3)'></span>
@@ -230,23 +225,24 @@
             <span class="Weather-dot" onclick='WeatherCurrentSlide(18)'></span>
             
         </div>
+        
     </div>
 		
 <!--		날씨 api-->
+		<button type="button" id="button2">새 일정 만들기</button>
 		
 		
 		
-		<button type="button" id="button2">버튼</button>
 	</div>
 
-	<div
-		style="border: 1px solid blue; display: grid; grid-template-columns: repeat(3,450px); place-content: center;grid-column-gap: 100px;">
+	<div class="view">
 		<th:block th:each="li,status : ${list}" th:object="${li}">
 
-			<!--    <div th:id="'ex'+${status.count}" style="border:1px solid green;">-->
-			<div th:class="buttons" style="border:1px solid green; cursor: pointer;margin-top:70px"
+		
+			<div th:class="buttons"
 				th:data-no="*{plannerNo}">
-				<img style="max-width: 450px;" th:src="@{/images/main_test/sub4.jpg}"> <br>
+				
+				<img class="viewimg" th:src="@{/images/main_test/sub4.jpg}">
 				<span th:text="*{plannerNo}"> </span>
 				<span th:text="*{title}"> </span>
 				<input type="hidden" th:name="test" th:value="*{plannerNo}" />
@@ -255,36 +251,22 @@
 		</th:block>
 	</div>
 
-	<div style="text-align: center;">
+	<div class="textcenter">
 		<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
 		<a th:if="${page != nowPage and page>0}" th:href="@{/plan/(page = ${page - 1})}" th:text="${page}"></a>
-		<strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
+		<strong class="bold" th:if="${page == nowPage}" th:text="${page}"></strong>
 	
 	</th:block>
 	</div>
 
 
-	<form th:action="@{/plan/}" method="get">
-	
-	<input type="text" name="searchKeyword">
-	<button type="submit">검색</button>
+	<form th:action="@{/plan/}" method="get" class="textcenter searchbarview">
+
+	<input type="text" name="searchKeyword" class="searchbar">
+	<button type="submit" class="seachbutton">검색</button>
+
 	</form>
-<nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-    <li class="page-item th:classappend=disabled">
-      <a class="page-link" href="#" tabindex="-1">Previous</a>
-    </li>
-    <li class="page-item">
-    <a class="page-link" th:href="@{plan/plannerallview}">1</a></li>
-    <li class="page-item">
-    <a class="page-link" href="#">2</a></li>
-    <li class="page-item">
-    <a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#">Next</a>
-    </li>
-  </ul>
-</nav>
+
 
 
 
