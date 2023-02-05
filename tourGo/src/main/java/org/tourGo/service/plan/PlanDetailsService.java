@@ -29,8 +29,7 @@ public class PlanDetailsService {
 	@Autowired
 	private PlanDetailsRepository detailsRepo;
 		
-	@Autowired
-	private PlannerService plannerService;
+
 		
 	public String getDetailsImage(Planner planner){
 		
@@ -80,11 +79,23 @@ public class PlanDetailsService {
 		builder.and(details.plannerNo.eq(planner));
 		
 		
-		List<PlanDetails> _list = (List<PlanDetails>) detailsRepo.findAll(builder,Sort.by(Sort.Direction.ASC, "detailsNo"));
+		List<PlanDetails> _list = (List<PlanDetails>) detailsRepo.findAll(builder,Sort.by(Sort.Direction.ASC, "day","stime","detailsNo"));
 		
 		List<PlanDetailsRq> list = PlanDetailsService.toDtoList(_list);
 		
 		return list;
+	}
+	public void deleteAllDetailsByPlanner(Planner planner) {
+		BooleanBuilder builder = new BooleanBuilder();
+		QPlanDetails details = QPlanDetails.planDetails;
+		builder.and(details.plannerNo.eq(planner));
+		List<PlanDetails> list = (List<PlanDetails>) detailsRepo.findAll(builder);
+		
+		for(PlanDetails entity : list) {
+			detailsRepo.delete(entity);
+		}
+		
+		
 	}
 	public List<PlanDetailsRq> getPlanDetailsByDay(Integer day,Planner planner){//지정한 날짜에있는 entity들을 찾아서 list로 반환
 		BooleanBuilder builder = new BooleanBuilder();
@@ -92,7 +103,7 @@ public class PlanDetailsService {
 		builder.and(details.plannerNo.eq(planner));
 		builder.and(details.day.eq(day));
 		
-		List<PlanDetails> _list = (List<PlanDetails>) detailsRepo.findAll(builder,Sort.by(Sort.Direction.ASC, "detailsNo"));
+		List<PlanDetails> _list = (List<PlanDetails>) detailsRepo.findAll(builder,Sort.by(Sort.Direction.ASC, "stime","detailsNo"));
 		List<PlanDetailsRq> list = PlanDetailsService.toDtoList(_list);
 		
 		
@@ -101,6 +112,7 @@ public class PlanDetailsService {
 	@Transactional
 	public void updatePlanDetails(DetailsItems items) {//관광지 시작시간과 종료시간 업데이트
 		try {
+			if(!items.getDetailsNo().isEmpty()) {
 		for(int i=0; i<items.getDetailsNo().size();i++) {//ajax로 받은 detailsItems의 detailsNo만큼 반복
 			Optional<PlanDetails> details = detailsRepo.findById(items.getDetailsNo().get(i));
 			
@@ -129,9 +141,10 @@ public class PlanDetailsService {
 			
 			}
 		}
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			throw new AlertException("세부일정 에러! 다시 시도해주세요.");}
+			throw new AlertException("세부일정 에러! 다시 시도해주세요.","/plan");}
 	
 	}
 	

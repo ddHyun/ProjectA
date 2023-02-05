@@ -30,6 +30,7 @@ import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.plan.PlannerRq;
 import org.tourGo.models.plan.TourType;
+import org.tourGo.models.plan.details.DetailsItems;
 import org.tourGo.models.plan.details.PlanDetailsRq;
 import org.tourGo.models.plan.entity.PlanDetails;
 import org.tourGo.models.plan.entity.Planner;
@@ -163,10 +164,16 @@ public class PlannerController {
 		return "plan/makeDetails";
 	}
 
-	@PostMapping()
-	public String makeDetailsPs(PlannerRq plannerRq, PlanDetailsRq planDetailsRq, Model model) {
-
-		return null;
+	@PostMapping("/{plannerNo}")
+	public String makeDetailsPs(@PathVariable Long plannerNo,DetailsItems items, Model model) {
+	
+		Planner planner = plannerService.find(plannerNo);
+		plannerService.updateImage(planner);
+		if(items.getDetailsNo()!=null) {
+		detailsService.updatePlanDetails(items);
+		}
+		model.addAttribute("scripts", " alert('저장되었습니다!'); location.replace('/plan');");
+		return "common/excution";
 	}
 
 	@GetMapping("/makeplan2")
@@ -247,7 +254,8 @@ public class PlannerController {
 	public String deletePs(Model model, @PathVariable Long no) {
 
 		Planner planner = plannerService.getPlanner(no);
-
+		detailsService.deleteAllDetailsByPlanner(planner);
+		
 		plannerService.deletePlanner(planner);
 
 		model.addAttribute("scripts", " alert('처리가 완료되었습니다'); parent.location.replace('/plan/');");

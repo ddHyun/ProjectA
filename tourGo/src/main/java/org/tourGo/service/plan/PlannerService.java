@@ -16,7 +16,9 @@ import org.springframework.ui.Model;
 import org.tourGo.common.AlertException;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.plan.PlannerRq;
+import org.tourGo.models.plan.entity.PlanDetails;
 import org.tourGo.models.plan.entity.Planner;
+import org.tourGo.models.plan.entity.QPlanDetails;
 import org.tourGo.models.plan.entity.QPlanner;
 import org.tourGo.models.user.UserRepository;
 
@@ -30,6 +32,8 @@ public class PlannerService {
 	@Autowired
 	private PlannerRepository plannerRepo; // 여기서 선언해서 그런건가요?
 	@Autowired
+	private PlanDetailsRepository detailsRepo;
+	@Autowired
 	private UserRepository userRepo;
 	
 	public Planner find(Long no) {
@@ -37,6 +41,23 @@ public class PlannerService {
 		Planner planner = _planner.orElse(null);
 		return planner;
 	}
+	
+	@Transactional
+	public void updateImage(Planner planner) {
+		BooleanBuilder builder = new BooleanBuilder();
+		QPlanDetails details = QPlanDetails.planDetails;
+		builder.and(details.plannerNo.eq(planner));
+		
+		
+		List<PlanDetails> list = (List<PlanDetails>) detailsRepo.findAll(builder,Sort.by(Sort.Direction.ASC, "day","stime","detailsNo"));
+		if(!list.isEmpty()) {
+		String image = list.get(0).getFirstimage();
+		planner.setImage(image);
+		}		
+		
+		
+	}
+	
 	
 	public List<PlannerRq> userPlanner(User user)	{ //db로부터 플래너 번호를 내림차순하여 planner List형태로 변환하는 메서드
 

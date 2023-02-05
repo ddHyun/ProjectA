@@ -27,7 +27,7 @@ const tourGo = {
 				}catch(err){
 					console.log(err);
 					alert("키워드가 유효 하지 않습니다.");
-					location.reload();
+					
 				}
 
 			}//if끝
@@ -46,7 +46,10 @@ const tourGo = {
 }//tourGo끝
 
 function selectedItem(){
-	const moveLatLon = new kakao.maps.LatLng(ypos, xpos);
+	const ex = document.getElementById("select").value;
+	console.log(ex);
+	
+	/*const moveLatLon = new kakao.maps.LatLng(ypos, xpos);
 				map.panTo(moveLatLon);
 				
 				const marker = new kakao.maps.Marker({
@@ -70,12 +73,12 @@ var infowindow = new kakao.maps.InfoWindow({
 kakao.maps.event.addListener(marker, 'click', function() {
       // 마커 위에 인포윈도우를 표시합니다
       infowindow.open(map, marker);  
-});
-}
+});*/
+}//selectedItem함수종료
 
 
 //관광지 삭제함수
-function deleteNo(){
+function deleteDetails(){
 	
 var detailsNo = document.getElementsByName("detailsNo");
 	detailsNo.forEach(i=> i.addEventListener("click",function(){
@@ -117,7 +120,9 @@ function createItem(result, parentEl) {
 		label.dataset.ypos = Number(item.mapy);
 		label.dataset.title=item.title;
 		label.dataset.firstimage = item.firstimage;
-		console.log(label);
+		
+ 
+		console.log(label.dataset.firstimage);
 		let html = '<div class="test" id="tourItem" >';
 
 
