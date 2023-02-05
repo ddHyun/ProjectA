@@ -45,6 +45,34 @@ const tourGo = {
 	}//search()끝
 }//tourGo끝
 
+function selectedItem(){
+	const moveLatLon = new kakao.maps.LatLng(ypos, xpos);
+				map.panTo(moveLatLon);
+				
+				const marker = new kakao.maps.Marker({
+					map: map,
+					position: moveLatLon
+				});
+				marker.setMap(map);
+				// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
+				var iwContent = `<div style="padding:5px;">${infoTitle}</div>
+				<img src="${infoImg}" onerror="this.onerror=null; this.src='../../../../images/noimg.jpg';"></img>`
+								, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+   				 iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+// 인포윈도우를 생성합니다
+var infowindow = new kakao.maps.InfoWindow({
+    content : iwContent,
+    removable : iwRemoveable
+});
+
+// 마커에 클릭이벤트를 등록합니다
+kakao.maps.event.addListener(marker, 'click', function() {
+      // 마커 위에 인포윈도우를 표시합니다
+      infowindow.open(map, marker);  
+});
+}
+
 
 //관광지 삭제함수
 function deleteNo(){
@@ -87,8 +115,8 @@ function createItem(result, parentEl) {
 		const label = document.createElement("label");
 		label.dataset.xpos = Number(item.mapx);
 		label.dataset.ypos = Number(item.mapy);
-
-
+		label.dataset.title=item.title;
+		label.dataset.firstimage = item.firstimage;
 		console.log(label);
 		let html = '<div class="test" id="tourItem" >';
 
@@ -120,6 +148,8 @@ function createItem(result, parentEl) {
 		label.addEventListener("click", function() {
 			const xpos = this.dataset.xpos;
 			const ypos = this.dataset.ypos;
+			const infoTitle = this.dataset.title;
+			const infoImg = this.dataset.firstimage;
 			if (xpos == 0 && ypos == 0) {
 				alert("이 관광지는 주소가 존재하지 않습니다");
 				return;
@@ -134,7 +164,23 @@ function createItem(result, parentEl) {
 					position: moveLatLon
 				});
 				marker.setMap(map);
-				
+				// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
+				var iwContent = `<div style="padding:5px;">${infoTitle}</div>
+				<img src="${infoImg}" onerror="this.onerror=null; this.src='../../../../images/noimg.jpg';"></img>`
+								, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+   				 iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+// 인포윈도우를 생성합니다
+var infowindow = new kakao.maps.InfoWindow({
+    content : iwContent,
+    removable : iwRemoveable
+});
+
+// 마커에 클릭이벤트를 등록합니다
+kakao.maps.event.addListener(marker, 'click', function() {
+      // 마커 위에 인포윈도우를 표시합니다
+      infowindow.open(map, marker);  
+});
 
 			}
 			/*moveMap(xpos,ypos);
