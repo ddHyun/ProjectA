@@ -1,7 +1,6 @@
-
-
+let map;
 const tourGo = {
-
+	//관광api 호출 함수
 	search() {
 		const keyword = document.getElementById(`keyword`).value;
 		if (!keyword) {
@@ -13,25 +12,29 @@ const tourGo = {
 
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", url);
-		//xhr.responseType = 'json';
-		//xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+		//키워드를 비동기적으로 컨트롤러에 전송
 		xhr.addEventListener("readystatechange", function() {
 			if (xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
+				try{
 				const items = JSON.parse(xhr.responseText);
+	
 				const result = items.data;
 				const parentEl = document.querySelector(".api_list");
 				const domParser = new DOMParser();
 				parentEl.innerHTML = "";
 
 				createItem(result, parentEl);
-
-
-
+				}catch(err){
+					console.log(err);
+					alert("키워드가 유효 하지 않습니다.");
+					location.reload();
+				}
 
 			}//if끝
 
 
 		});//xhr끝
+	
 		xhr.send();
 
 
@@ -42,6 +45,37 @@ const tourGo = {
 	}//search()끝
 }//tourGo끝
 
+
+//관광지 삭제함수
+function deleteNo(){
+	
+var detailsNo = document.getElementsByName("detailsNo");
+	detailsNo.forEach(i=> i.addEventListener("click",function(){
+		if(confirm('정말 이 관광지를 삭제하시겠습니까?')){
+		
+		let xhr = new XMLHttpRequest();
+		var details = i.value;
+		console.log("테스트"+details);
+		xhr.open("GET", `/delteDetails?detailsNo=${details}`);
+		//클릭한 관광지에 db PK를 비동기적으로 전송함(람다식)
+		xhr.onreadystatechange = function() {
+			if (xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
+				$("#selected_items").replaceWith(xhr.responseText);
+			}
+		
+		};
+		xhr.onerror = function(err) {
+				alert("다시 시도해주시기 바랍니다.");
+					location.reload();
+			};
+	
+	xhr.send();
+	}//confirm끝
+	})//forEach끝
+	
+)}//function끝
+
+//관광공사 api호출후 데이터 뿌려주는 함수
 function createItem(result, parentEl) {
 	if (!result || !parentEl) {
 		return;
@@ -94,12 +128,18 @@ function createItem(result, parentEl) {
 			if (kakao && map) {
 				const moveLatLon = new kakao.maps.LatLng(ypos, xpos);
 				map.panTo(moveLatLon);
+				
 				const marker = new kakao.maps.Marker({
 					map: map,
 					position: moveLatLon
 				});
 				marker.setMap(map);
+				
+
 			}
+			/*moveMap(xpos,ypos);
+			console.log(moveMap);
+			console.log(xpos,ypos);*/
 		});//touritem click이벤트 종료
 
 
@@ -119,8 +159,7 @@ function createItem(result, parentEl) {
 			console.log(mapy);
 			console.log(firstimage);
 			console.log(plannerNo);
-			let url = `/saveDetails`;
-			let xhr = new XMLHttpRequest();
+		
 			var formdata = new FormData();
 
 			formdata.append("plannerNo", plannerNo);
@@ -131,6 +170,8 @@ function createItem(result, parentEl) {
 			formdata.append("mapy", mapy);
 			formdata.append("firstimage", firstimage);
 			formdata.append("day", day);
+			let url = `/saveDetails`;
+			let xhr = new XMLHttpRequest();
 			xhr.open("POST", url, true);
 			xhr.send(formdata);
 			xhr.onreadystatechange = function() {
@@ -138,10 +179,11 @@ function createItem(result, parentEl) {
 					$("#selected_items").replaceWith(xhr.responseText);
 				}
 			};
-
 			xhr.onerror = function(err) {
-				console.error(err);
+			alert("다시 시도해주시기 바랍니다.");
+				window.location.reload();
 			};
+			
 
 		});//click이벤트종료
 
@@ -203,92 +245,78 @@ const planner = {
 			if (xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
 				$("#selected_items").replaceWith(xhr.responseText);
 			}
+		
+		
 		};
 
 		xhr.onerror = function(err) {
 			console.error(err);
+			location.reload();
 		};
 
-		// plannerNo=19&day=3&detailsNo=2&stime=&etime=&detailsNo=1&stime=&etime=
-		//const formData = new FormData(document.frm);
-
-		/*	$.ajax({
-				url : `/select`,
-				data : encodeURIComponent(frm),
-				//dataType : 'json',
-				type : "POST",
-				cache : false,	
-				})//ajax끝
-			.done(function(fragment){
-				$("#selected_items").replaceWith(fragment);
-				/*const domParser = new DOMParser();
-				const dom = domParser.parseFromString(fragment, "text/html");
-				const html = dom.getElementById("selected_items").innerHTML;
-				document.getElementById("selected_items").innerHTML = html;
-				console.log(html);
-					
-				console.log(fragment);
-			})//done끝
-			.fail(function(jqXHR) {
-					console.log("에러");
-				});//fail끝
-				*/
+		
 
 	}//함수끝
 };
-window.addEventListener("DOMContentLoaded",function(){
-	var detailsNo = document.getElementsByName("detailsNo");
-	detailsNo.forEach(i=> i.addEventListener("click",function(){
-		
-		
-		
-	}));//forEach, addEventListener 종료
-})//window.addEventListener 종료
 
 
-let map;
 
+
+window.addEventListener("DOMContentLoaded", function() {
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 5 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+map = new kakao.maps.Map(mapContainer, mapOption); 
+});//카카오 지도끝
+
+function moveMap(xpos,ypos){
+	var markerPosition  = new kakao.maps.LatLng(xpos,ypos); 
+
+// 이미지 지도에 표시할 마커입니다
+// 이미지 지도에 표시할 마커는 Object 형태입니다
+var marker = {
+    position: markerPosition
+};
+
+var mapContainer  = document.getElementById('map'), // 이미지 지도를 표시할 div  
+    mapOption = { 
+        center: new kakao.maps.LatLng(xpos,ypos), // 이미지 지도의 중심좌표
+        level: 5, // 이미지 지도의 확대 레벨
+        marker: marker // 이미지 지도에 표시할 마커 
+    };    
+
+// 이미지 지도를 생성합니다
+	 map = new kakao.maps.StaticMap(mapContainer, mapOption);
+
+}
+
+/*
 window.addEventListener("DOMContentLoaded", function() {
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-		mapOption = {
-			center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-			level: 5 // 지도의 확대 레벨
-		};
+	// 이미지 지도에서 마커가 표시될 위치입니다 
+var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
 
-	// 지도를 생성합니다    
-	map = new kakao.maps.Map(mapContainer, mapOption);
+// 이미지 지도에 표시할 마커입니다
+// 이미지 지도에 표시할 마커는 Object 형태입니다
+var marker = {
+    position: markerPosition
+};
 
-	// 주소-좌표 변환 객체를 생성합니다
-	var geocoder = new kakao.maps.services.Geocoder();
+var mapContainer  = document.getElementById('map'), // 이미지 지도를 표시할 div  
+    mapOption = { 
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 이미지 지도의 중심좌표
+        level: 3, // 이미지 지도의 확대 레벨
+        marker: marker // 이미지 지도에 표시할 마커 
+    };    
 
-	// 주소로 좌표를 검색합니다
-	geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
-
-		// 정상적으로 검색이 완료됐으면 
-		if (status === kakao.maps.services.Status.OK) {
-
-			var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-			// 결과값으로 받은 위치를 마커로 표시합니다
-			var marker = new kakao.maps.Marker({
-				map: map,
-				position: coords
-			});
-
-			// 인포윈도우로 장소에 대한 설명을 표시합니다
-			var infowindow = new kakao.maps.InfoWindow({
-				content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-			});
-			infowindow.open(map, marker);
-
-			// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-			map.setCenter(coords);
-		}
-	});
-});
+// 이미지 지도를 생성합니다
+	 map = new kakao.maps.StaticMap(mapContainer, mapOption);
 
 
-
+});//카카오 지도끝*/
 
 
 

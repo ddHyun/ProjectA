@@ -66,6 +66,19 @@ public class DetailsController {
 		return "plan/makeDetails::#selected_items";
 	}
 	
+	@GetMapping("delteDetails")
+	public String delete(Long detailsNo,Model model) {
+		System.out.println(detailsNo);
+		
+		PlanDetails entity =  detailsService.deleteDetails(detailsNo);
+		
+		List<PlanDetailsRq> list = detailsService.getPlanDetailsByDay(entity.getDay(), entity.getPlannerNo());
+	
+	
+		model.addAttribute("list", list);
+		
+		return "plan/makeDetails::#selected_items";
+	}
 	
 	
 }

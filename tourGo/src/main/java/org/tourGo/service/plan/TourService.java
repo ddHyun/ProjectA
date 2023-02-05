@@ -110,7 +110,7 @@ public class TourService {
 		 URI uri = new URI(makeUrl);
 		 RestTemplate restTemplate = this.makeRestTemplate();
 		  String jsonString = restTemplate.getForObject(uri,String.class);
-		
+		  
 			
 		 JSONParser jsonParser = new JSONParser();
 		 JSONObject jsonObject = (JSONObject) jsonParser.parse(jsonString);

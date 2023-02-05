@@ -49,7 +49,11 @@ public class PlanDetailsService {
 		return image;
 	}
 	
-	
+	public PlanDetails test(Long no) {
+		Optional<PlanDetails> _entity = detailsRepo.findById(no);
+		PlanDetails entity = _entity.orElse(null);
+		return entity;
+	}
 	
 	public boolean checkPlanner(User user,Planner planner) {
 
@@ -60,15 +64,14 @@ public class PlanDetailsService {
 		return true;
 	}
 	
-	public void deleteDetails(Long no) {
-		try {
+	public PlanDetails deleteDetails(Long no) {
+		
 		Optional<PlanDetails> _details = detailsRepo.findById(no);
 		PlanDetails details = _details.orElse(null);
 		
 		detailsRepo.delete(details);
-		}catch (Exception e) {
-			// TODO: handle exception
-		}
+		
+		return details;
 		
 	}
 	public List<PlanDetailsRq> getPlanDetailsRqList(Planner planner){//planner랑 매핑된 entity들 list형태로 반환
