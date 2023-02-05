@@ -124,8 +124,9 @@ font-size:14px;
 .searchbar{
 	text-align:cetner
 }
-.map> img {
-	width:200px;
+.imgview{
+	width: 100%;
+    height: 300px;
 }
 
 
