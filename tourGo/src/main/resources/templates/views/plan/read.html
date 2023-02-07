@@ -119,12 +119,15 @@
 <!--	<a th:href="@{plan/makeDmakeDetails/}+${planner.plannerNo}">테스트입니다</a>-->
 	<div>
 <th:block th:each="li,status : ${list}" th:object="${li}">
-		<span th:text="*{title}"></span> <br>
-		<img style="width:50px; height:50px"th:src=*{firstimage}>
-		<span th:text="*{stime}"></span> <br>
-		<span th:text="*{etime}"></span> <br>
-		<span th:text="*{address}"> </span> <br>
-		<span th:text="*{day}"> </span> <br>
+	<span th:text="*{title}"></span> <br>
+		<span th:text="|주소 : *{address}|"> </span> <br>
+		<span name="tel" th:text="|Tel : *{tel}|"></span> <br>
+		<img style="width:50px; height:50px"th:src=*{firstimage}> <br>
+		<span th:text="*{stime}? |시작시간 : *{stime}| : '시작시간 : 시작시간을 지정하지않았습니다.'"></span> <br>
+		
+		<span th:text="*{etime}? |종료시간 : *{etime}| : '종료시간 : 종료시간을 지정하지않았습니다.'"></span> <br>
+		
+		<span th:text="|DAY : *{day}|"> </span> <br>
 		------------------------------------------------------------<br>
 		
 		</th:block>

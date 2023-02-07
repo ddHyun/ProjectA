@@ -38,5 +38,6 @@ public class PlanDetails extends BaseEntity {
     private String sigungu;//시,군,구
 	private Double mapx;
 	private Double mapy;
+	private String tel;//전화번호
 }
 
