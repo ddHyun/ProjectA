@@ -80,7 +80,9 @@ close
 	<img name="firstimage" th:src="${details.firstimage}" />
 	<span name="title" th:text="${details.title}"></span> <br>
 
-	<span name="address" th:text="${details.address}" class="add"></span>
+	<span name="address" th:text="|주소 : ${details.address}|" class="add"></span>
+	<br>
+	<span name="tel" th:text="|Tel : ${details.tel}|"></span>
 	<br>
 	<label for="checkST">시작</label>
 	<input type="time" name="stime" th:value="${details.stime}!=null ? ${details.stime} : null " id="checkST"> 

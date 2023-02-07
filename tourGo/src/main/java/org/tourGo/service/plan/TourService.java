@@ -124,14 +124,14 @@ public class TourService {
 
 		    // items는 JSON임, 이제 그걸 또 배열로 가져온다
 		    JSONArray jsonItemList = (JSONArray) jsonItems.get("item");
-		    
+		    System.out.println(jsonItemList);
 		    List<TourListDto> result = new ArrayList<>();
 		    
 		    for (Object o : jsonItemList) {
 		        JSONObject item = (JSONObject) o;
 		        result.add(makeLocationDto(item));
 		    }
-		    System.out.println(result);
+		   
 		 return result;
 	 }
 	 //restTemplate ssl인증 무시하는 메서드
@@ -170,6 +170,7 @@ public class TourService {
 				.firstimage((String)item.get("firstimage"))
 				.mapx((String)item.get("mapx"))
 				.mapy((String)item.get("mapy"))
+				.tel((String)item.get("tel"))
 				.build();
 		
 		return dto;

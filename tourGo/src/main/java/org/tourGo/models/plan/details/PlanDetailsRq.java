@@ -35,6 +35,7 @@ public class PlanDetailsRq {//여행 세부일정을 담당하는 dto
 	    private String sigungu;//시,군,구
 		private Double mapx;
 		private Double mapy;
+		private String tel;
 	    
 	    
 	 

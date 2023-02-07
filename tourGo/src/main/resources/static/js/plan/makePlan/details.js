@@ -122,15 +122,19 @@ function createItem(result, parentEl) {
 		label.dataset.firstimage = item.firstimage;
 		
  
-		console.log(label.dataset.firstimage);
+		
 		let html = '<div class="test" id="tourItem" >';
 
 
 		html += `<img src="${item.firstimage}" onerror="this.onerror=null; this.src='../../../../images/noimg.jpg';"></img>`;
 		html += `
 								<div>${item.title}</div>
-								<div>${item.address}</div>
-								<button type="button" id="clickItem">선택</button>
+								<div> 주소 : ${item.address}</div>`;
+		if(!item.tel){
+			item.tel="전화번호가 존재하지 않습니다";
+		}
+		html+=						`<div>Tel : ${item.tel}</div>`;						
+		html+=						`<button type="button" id="clickItem">선택</button>
 								</div>`;
 
 		const dom = domParser.parseFromString(html, "text/html");
@@ -141,7 +145,7 @@ function createItem(result, parentEl) {
 		clickItem.dataset.title = item.title;
 		clickItem.dataset.address = item.address;
 		clickItem.dataset.firstimage = item.firstimage;
-
+		clickItem.dataset.tel = item.tel;
 		const tourItem = dom.getElementById(`tourItem`);
 
 
@@ -156,7 +160,7 @@ function createItem(result, parentEl) {
 			const infoTitle = this.dataset.title;
 			const infoImg = this.dataset.firstimage;
 			if (xpos == 0 && ypos == 0) {
-				alert("이 관광지는 주소가 존재하지 않습니다");
+				alert("이 관광지는 좌표가 존재하지 않습니다");
 				return;
 			};
 
@@ -201,15 +205,11 @@ kakao.maps.event.addListener(marker, 'click', function() {
 			var title = this.dataset.title;
 			var address = this.dataset.address;
 			var firstimage = this.dataset.firstimage;
+			var tel = this.dataset.tel;
+		
 			var day = $("input[name='day']:checked").val();
 			var plannerNo = document.getElementById(`plannerNo`).value;
-			console.log(day);
-			console.log(title);
-			console.log(address);
-			console.log(mapx);
-			console.log(mapy);
-			console.log(firstimage);
-			console.log(plannerNo);
+		
 		
 			var formdata = new FormData();
 
@@ -221,6 +221,7 @@ kakao.maps.event.addListener(marker, 'click', function() {
 			formdata.append("mapy", mapy);
 			formdata.append("firstimage", firstimage);
 			formdata.append("day", day);
+			formdata.append("tel",tel);
 			let url = `/saveDetails`;
 			let xhr = new XMLHttpRequest();
 			xhr.open("POST", url, true);
@@ -245,7 +246,7 @@ kakao.maps.event.addListener(marker, 'click', function() {
 }
 
 const planner = {
-	/**관광지 선택시마다 db에 값 저장, 날짜 변경시에 ajax로 변경사항(stime,etime) db에 업데이트, 마지막에 save누를때도 동일하게 업데이트 */
+	/**날짜를 변경할때마다 변경된사항 db에 업데이트 */
 	loadSelection() {
 		const day = $("input[name='day']:checked").val();
 		var plannerNo = document.getElementById(`plannerNo`).value;

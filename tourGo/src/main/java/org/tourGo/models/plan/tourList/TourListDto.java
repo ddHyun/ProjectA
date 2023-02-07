@@ -21,4 +21,5 @@ public class TourListDto {
     private String firstimage;
     private String mapx;
     private String mapy;
+    private String tel;
 }

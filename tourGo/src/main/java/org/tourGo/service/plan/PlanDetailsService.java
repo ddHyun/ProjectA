@@ -175,6 +175,7 @@ public class PlanDetailsService {
 	    			.sigungu(entity.getSigungu())
 	    			.mapx(entity.getMapx())
 	    			.mapy(entity.getMapy())
+	    			.tel(entity.getTel())
 	    			.build();
 	    
 	    }
@@ -192,6 +193,7 @@ public class PlanDetailsService {
 	    			.sigungu(planDetails.getSigungu())
 	    			.mapx(planDetails.getMapx())
 	    			.mapy(planDetails.getMapy())
+	    			.tel(planDetails.getTel())
 	    			.build();
 	    }
 	    public static PlanDetails toEntity(PlanDetailsRq planDetails,Planner planner) {
@@ -208,6 +210,7 @@ public class PlanDetailsService {
 	    			.sigungu(planDetails.getSigungu())
 	    			.mapx(planDetails.getMapx())
 	    			.mapy(planDetails.getMapy())
+	    			.tel(planDetails.getTel())
 	    			.build();
 	    }
 	    
