@@ -112,15 +112,25 @@ public class PlannerController {
 
 	@GetMapping("/plannerallview")
 	public String planallview(Model model,
-			@PageableDefault(page = 0, size = 3, sort = "plannerNo", direction = Direction.DESC) Pageable pageable) {
+			@PageableDefault(page = 0, size = 3, sort = "plannerNo", direction = Direction.DESC) Pageable pageable,
+			String searchKeyword) {
+		
+		Page<Planner> list = null;
 
-		Page<Planner> list = plannerService.plannerList2(pageable);
+		if (searchKeyword == null) {
+			list = plannerService.plannerList2(pageable);
+		} else {
+			list = plannerService.plannerSearchList2(searchKeyword, pageable);
+		}
+		
+		
+		
 
 		int nowPage = list.getPageable().getPageNumber() + 1;
 		int startPage = Math.max(nowPage - 4, 1);
 		int endPage = Math.min(nowPage + 5, list.getTotalPages());
 
-		model.addAttribute("list", plannerService.plannerList2(pageable));
+		model.addAttribute("list", list);
 		model.addAttribute("nowPage", nowPage);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);

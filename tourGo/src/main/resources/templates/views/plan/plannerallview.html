@@ -9,6 +9,9 @@
 <head>
 <script type="text/javascript" th:src="@{/js/plan/makePlan/weather.js}"></script>
 <style>
+
+
+
 </style>
 
 ﻿
@@ -222,6 +225,13 @@
 		<strong class="bold" th:if="${page == nowPage}" th:text="${page}"></strong>
 	</th:block>
 </div>
+
+<form th:action="@{/plan/plannerallview/}" method="get" class="textcenter searchbarview">
+
+	<input type="text" name="searchKeyword" class="searchbar">
+	<button type="submit" class="seachbutton">검색</button>
+
+	</form>
 </main>
 
 </html>

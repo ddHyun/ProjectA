@@ -138,7 +138,16 @@ public class PlannerService {
 		builder.and(planner.user.eq(user));
 		builder.and(planner.title.contains(searchKeyword));
 		Page<Planner> list = plannerRepo.findAll(builder,pageable);
-		return list; // plannerRepo 왜 이거인지??
+		return list; 
+	}
+	
+	public Page<Planner> plannerSearchList2(String searchKeyword, Pageable pageable) {
+		
+		BooleanBuilder builder = new BooleanBuilder();
+		QPlanner planner = QPlanner.planner;
+		builder.and(planner.title.contains(searchKeyword));
+		Page<Planner> list = plannerRepo.findAll(builder,pageable);
+		return list; 
 	}
 	
 	
