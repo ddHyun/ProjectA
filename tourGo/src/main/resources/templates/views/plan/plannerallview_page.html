@@ -8,7 +8,109 @@
 		
 		<input type="hidden" id="plannerNo" th:value="${planner.plannerNo}">
 		
+		
+		<div style="display:flex;justify-content: center;">
+		<div>
 		<div class="flex form-group">
+			<div class="width-30">
+				<span>여행제목</span>
+			</div>
+			<div class="width-70">
+				<span th:text="${planner.title}"> </span>
+			</div>
+		</div>
+
+
+		<div class="flex form-group">
+			<div class="width-30">
+				여행 시작일
+			</div>
+			<div class="width-70">
+				<span th:text="${planner.sdate}"></span>
+			</div>
+		</div>
+		<div class="flex form-group">
+			<div class="width-30">
+				여행 종료일
+			</div>
+			<div class="width-70">
+				<span th:text="${planner.edate}"> </span>
+			</div>
+		</div>
+
+		<div class="flex form-group">
+			<div class="width-30">
+				여행타입
+			</div>
+			<div class="width-70">
+				<span th:text="${planner.planType}"> </span>
+			</div>
+		</div>
+
+		<div class="flex form-group">
+			<div class="width-30">
+				여행인원
+			</div>
+			<div class="width-70">
+				<span th:text="${planner.planSize}"> </span>
+			</div>
+		</div>
+
+		<div class="flex form-group">
+			<div class="width-30">
+				메모
+			</div>
+			<div class="width-70">
+				<span th:text="${planner.memo}"> </span>
+			</div>
+		</div>
+			
+			
+					<div class="flex form-group">
+			<div class="width-30">
+				<label class=title>공개여부</label>
+			</div>
+			<div class="width-70">
+				<span th:if="${planner.open.toString().equals('true')}">	
+				공개
+			</span>
+			</div>
+		</div>
+		
+				<div class="flex form-group">
+			<div class="width-30">
+				조회수
+			</div>
+			<div class="width-70">
+				<span th:text="${planner.PlannerRead}"> </span>
+				
+			</div>
+		</div>
+		</div>
+		<div>
+		<div class="plannerview">
+				<th:block th:each="li,status : ${list}" th:object="${li}">
+				<div class="plannercontent">
+				<img style="width:200px; height:150px"th:src=*{firstimage}> <br>
+		<span class="plantitle" th:text="*{title}"></span> <br>
+		<span th:text="*{address}"> </span> <br>
+		<span name="tel" th:text="|Tel : *{tel}|"></span> <br>
+		
+		<span th:text="*{stime}? |시작시간 : *{stime}| : '시작시간 : 시작시간을 지정하지않았습니다.'"></span> <br>
+		
+		<span th:text="*{etime}? |종료시간 : *{etime}| : '종료시간 : 종료시간을 지정하지않았습니다.'"></span> <br>
+		
+		<span th:text="|DAY : *{day}|"> </span> <br>
+		</div>
+		</th:block>
+		</div>
+		</div>
+		</div>
+		
+		
+		
+		
+		<!-- <div class="flex form-group">
 			<div class="width-30">
 				<span>여행제목</span>
 			</div>
@@ -84,21 +186,21 @@
 			<span>좋아요</span> <span th:text="${planner.totalLikes}" id="totalLikes"></span> <br>
 			<br>
 			<br>
-		
+		<div class="plannerview">
 				<th:block th:each="li,status : ${list}" th:object="${li}">
-		<span th:text="*{title}"></span> <br>
-		<span th:text="|주소 : *{address}|"> </span> <br>
+				<img style="width:200px; height:150px"th:src=*{firstimage}> <br>
+		<span class="plantitle" th:text="*{title}"></span> <br>
+		<span th:text="*{address}"> </span> <br>
 		<span name="tel" th:text="|Tel : *{tel}|"></span> <br>
-		<img style="width:50px; height:50px"th:src=*{firstimage}> <br>
+		
 		<span th:text="*{stime}? |시작시간 : *{stime}| : '시작시간 : 시작시간을 지정하지않았습니다.'"></span> <br>
 		
 		<span th:text="*{etime}? |종료시간 : *{etime}| : '종료시간 : 종료시간을 지정하지않았습니다.'"></span> <br>
 		
 		<span th:text="|DAY : *{day}|"> </span> <br>
 		------------------------------------------------------------<br>
-		
 		</th:block>
-	
+		</div> -->
 			
 	
 	

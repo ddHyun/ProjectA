@@ -6,7 +6,7 @@
 
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 	<link th:href="@{/css/plan/weather.css}" rel="stylesheet" type="text/css">
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 	<head>
 		<style>
 
@@ -243,7 +243,6 @@
 				th:data-no="*{plannerNo}">
 				
 				<img class="viewimg" th:src="*{image}" onerror="this.onerror=null; this.src='../../../../images/noimg.jpg';">
-				<span th:text="*{plannerNo}"> </span>
 				<span th:text="*{title}"> </span>
 				<input type="hidden" th:name="test" th:value="*{plannerNo}" />
 			</div>
@@ -260,11 +259,11 @@
 	</div>
 
 
-	<form th:action="@{/plan/}" method="get" class="textcenter searchbarview">
-
-	<input type="text" name="searchKeyword" class="searchbar">
+	<form th:action="@{/plan/}" method="get" class="textcenter formview">
+	<div class="searchbarview">
+	<input type="text" name="searchKeyword" class="searchbar" placeholder="검색어 입력">
 	<button type="submit" class="seachbutton">검색</button>
-
+</div>
 	</form>
 
 
