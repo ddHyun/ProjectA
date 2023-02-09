@@ -178,8 +178,10 @@ public class PlannerController {
 	public String makeDetailsPs(@PathVariable Long plannerNo,DetailsItems items, Model model) {
 	
 		Planner planner = plannerService.find(plannerNo);
+	
 		plannerService.updateImage(planner);
-		if(!items.getDetailsNo().isEmpty()&&items.getDetailsNo()!=null) {
+		if(items.getDetailsNo()!=null) {
+		
 		detailsService.updatePlanDetails(items);
 		}
 		model.addAttribute("scripts", " alert('저장되었습니다!'); location.replace('/plan');");

@@ -36,7 +36,7 @@ public class DetailsController {
 	
 	
 	Planner planner = plannerService.getPlanner(rqList.getPlannerNo());
-	if(!rqList.getDetailsNo().isEmpty()&&rqList.getDetailsNo()!=null) {
+	if(rqList.getDetailsNo()!=null) {
 	detailsService.updatePlanDetails(rqList);
 	}
 	

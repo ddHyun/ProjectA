@@ -112,11 +112,8 @@ public class PlanDetailsService {
 	@Transactional
 	public void updatePlanDetails(DetailsItems items) {//관광지 시작시간과 종료시간 업데이트
 		try {
-			if(!items.getDetailsNo().isEmpty()&&items.getDetailsNo()!=null) {
-		System.out.println("테스트 디테일");
-				System.out.println(items);
-				System.out.println(items.getDetailsNo().size());
-				System.out.println(items.getDetailsNo());
+			if((!items.getDetailsNo().isEmpty())&&items.getDetailsNo()!=null) {
+		
 			for(int i=0; i<items.getDetailsNo().size();i++) {//ajax로 받은 detailsItems의 detailsNo만큼 반복
 			Optional<PlanDetails> details = detailsRepo.findById(items.getDetailsNo().get(i));
 			
@@ -127,7 +124,7 @@ public class PlanDetailsService {
 			}
 			if(!items.getStime().isEmpty()&&items.getStime()!=null) {
 				String _stime = items.getStime().get(i);
-				System.out.println(_stime);
+				
 				if(!_stime.isBlank()) {
 					LocalTime stime = LocalTime.parse(_stime,DateTimeFormatter.ofPattern("HH:mm"));
 					entity.setStime(stime);
