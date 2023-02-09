@@ -112,8 +112,12 @@ public class PlanDetailsService {
 	@Transactional
 	public void updatePlanDetails(DetailsItems items) {//관광지 시작시간과 종료시간 업데이트
 		try {
-			if(!items.getDetailsNo().isEmpty()) {
-		for(int i=0; i<items.getDetailsNo().size();i++) {//ajax로 받은 detailsItems의 detailsNo만큼 반복
+			if(!items.getDetailsNo().isEmpty()&&items.getDetailsNo()!=null) {
+		System.out.println("테스트 디테일");
+				System.out.println(items);
+				System.out.println(items.getDetailsNo().size());
+				System.out.println(items.getDetailsNo());
+			for(int i=0; i<items.getDetailsNo().size();i++) {//ajax로 받은 detailsItems의 detailsNo만큼 반복
 			Optional<PlanDetails> details = detailsRepo.findById(items.getDetailsNo().get(i));
 			
 			PlanDetails entity = details.orElse(null);
@@ -121,9 +125,9 @@ public class PlanDetailsService {
 			if(entity==null) {
 				throw new AlertException("일정을 찾을수없습니다.");
 			}
-			if(!items.getStime().isEmpty()) {
+			if(!items.getStime().isEmpty()&&items.getStime()!=null) {
 				String _stime = items.getStime().get(i);
-			
+				System.out.println(_stime);
 				if(!_stime.isBlank()) {
 					LocalTime stime = LocalTime.parse(_stime,DateTimeFormatter.ofPattern("HH:mm"));
 					entity.setStime(stime);
@@ -131,7 +135,7 @@ public class PlanDetailsService {
 				}
 			}
 		
-			if(!items.getEtime().isEmpty()) {
+			if(!items.getEtime().isEmpty()&&items.getEtime()!=null) {
 			String _etime = items.getEtime().get(i);
 		
 			if(!_etime.isBlank()) {
@@ -144,8 +148,10 @@ public class PlanDetailsService {
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			throw new AlertException("세부일정 에러! 다시 시도해주세요.","/plan");}
-	
+			
+			throw new AlertException("세부일정 에러! 다시 시도해주세요.");
+			}
+	//,"/plan"
 	}
 	
 	public PlanDetails insertPlanDetails(PlanDetailsRq dto,Planner planner){//db에 entity저장

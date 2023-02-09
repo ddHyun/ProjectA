@@ -94,7 +94,7 @@ public class PlannerController {
 
 		/* Page<Planner> list = plannerService.plannerList(pageable,user); */
 
-		System.out.println(list);
+		
 
 		int nowPage = list.getPageable().getPageNumber() + 1; // pageable 0부터 시작하기때문에 +1 해준다
 		int startPage = Math.max(nowPage - 4, 1); // 둘중 큰거 반환함.
@@ -157,16 +157,16 @@ public class PlannerController {
 
 			
 			PlannerRq plannerRq = plannerService.toDto(planner);
-			ArrayList<String> test = new ArrayList<>();
+			ArrayList<String> dayList = new ArrayList<>();
 			for (int i = 1; i <= plannerRq.getDay(); i++) {
 				String d = "day" + i;
-				test.add(d);
+				dayList.add(d);
 			}
-			model.addAttribute("test", test);
+			model.addAttribute("dayList", dayList);
 			model.addAttribute("list", list);
 			model.addAttribute("plannerRq", plannerRq);
 			model.addAttribute("plannerNo", planner.getPlannerNo());
-			System.out.println(planner);
+			
 		} catch (Exception e) {
 			throw new AlertException("없는 플래너입니다!!", "/plan");
 		}
@@ -179,7 +179,7 @@ public class PlannerController {
 	
 		Planner planner = plannerService.find(plannerNo);
 		plannerService.updateImage(planner);
-		if(items.getDetailsNo()!=null) {
+		if(!items.getDetailsNo().isEmpty()&&items.getDetailsNo()!=null) {
 		detailsService.updatePlanDetails(items);
 		}
 		model.addAttribute("scripts", " alert('저장되었습니다!'); location.replace('/plan');");
@@ -293,7 +293,7 @@ public class PlannerController {
 			PlanUidEntity planUidEntity = planUidEntityRepository.findByNo("liked", no, userNo).orElse(null);
 			if (planUidEntity != null) {
 				PlanUidRequest like = new PlanUidRequest(planUidEntity);
-				System.out.println(like);
+			
 				model.addAttribute("like", like);
 			}
 		}
