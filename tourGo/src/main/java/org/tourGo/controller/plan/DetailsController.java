@@ -33,10 +33,10 @@ public class DetailsController {
 	@PostMapping("select")
 	public String selectDay(Model model,DetailsItems rqList){
 	Integer day = rqList.getDay();
-
+	
 	
 	Planner planner = plannerService.getPlanner(rqList.getPlannerNo());
-	if(rqList.getDetailsNo().size()!=0) {
+	if(!rqList.getDetailsNo().isEmpty()&&rqList.getDetailsNo()!=null) {
 	detailsService.updatePlanDetails(rqList);
 	}
 	

@@ -26,7 +26,7 @@ const tourGo = {
 				createItem(result, parentEl);
 				}catch(err){
 					console.log(err);
-					alert("키워드가 유효 하지 않습니다.");
+					alert("타임 오버!! 다시 검색해주세요.");
 					
 				}
 
@@ -47,7 +47,7 @@ const tourGo = {
 
 function selectedItem(){
 	const ex = document.getElementById("select").value;
-	console.log(ex);
+
 	
 	/*const moveLatLon = new kakao.maps.LatLng(ypos, xpos);
 				map.panTo(moveLatLon);
@@ -86,7 +86,7 @@ var detailsNo = document.getElementsByName("detailsNo");
 		
 		let xhr = new XMLHttpRequest();
 		var details = i.value;
-		console.log("테스트"+details);
+		
 		xhr.open("GET", `/delteDetails?detailsNo=${details}`);
 		//클릭한 관광지에 db PK를 비동기적으로 전송함(람다식)
 		xhr.onreadystatechange = function() {
@@ -114,7 +114,7 @@ function createItem(result, parentEl) {
 
 	const domParser = new DOMParser();
 	for (const item of result) {
-		console.log(item);
+	
 		const label = document.createElement("label");
 		label.dataset.xpos = Number(item.mapx);
 		label.dataset.ypos = Number(item.mapy);
@@ -250,9 +250,8 @@ const planner = {
 	loadSelection() {
 		const day = $("input[name='day']:checked").val();
 		var plannerNo = document.getElementById(`plannerNo`).value;
-		console.log("테스트");
-		console.log(plannerNo);
-		console.log(day);
+		
+	
 		var detailsNo = document.getElementsByName("detailsNo");
 		var arrayNo = [];
 		detailsNo.forEach(function(i) {
@@ -288,6 +287,7 @@ const planner = {
 		formData.append("etime", arrayEtime); 
 		console.log(arrayStime);
 		console.log(arrayEtime);
+		console.log(formData);
 		//formData.append("detailsItem",detailsItem);
 		let xhr = new XMLHttpRequest();
 
