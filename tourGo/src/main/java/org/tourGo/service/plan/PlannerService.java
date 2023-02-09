@@ -145,6 +145,7 @@ public class PlannerService {
 		
 		BooleanBuilder builder = new BooleanBuilder();
 		QPlanner planner = QPlanner.planner;
+		builder.and(planner.open.eq(true));
 		builder.and(planner.title.contains(searchKeyword));
 		Page<Planner> list = plannerRepo.findAll(builder,pageable);
 		return list; 

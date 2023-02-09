@@ -208,8 +208,7 @@
 			<div th:class="buttons" th:data-no="*{plannerNo}">
 				<img class="viewimg"
 					th:src="*{image}"onerror="this.onerror=null; this.src='../../../../images/noimg.jpg';"> <br> 
-					<span
-					th:text="*{plannerNo}"> </span> <span th:text="*{title}"> </span> <input
+					<span th:text="*{title}"> </span> <input
 					type="hidden" th:name="test" th:value="*{plannerNo}" />
 			</div>
 
@@ -226,10 +225,12 @@
 	</th:block>
 </div>
 
-<form th:action="@{/plan/plannerallview/}" method="get" class="textcenter searchbarview">
+<form th:action="@{/plan/plannerallview/}" method="get" class="textcenter formview">
 
-	<input type="text" name="searchKeyword" class="searchbar">
+	<div class="searchbarview">
+	<input type="text" name="searchKeyword" class="searchbar" placeholder="검색어 입력">
 	<button type="submit" class="seachbutton">검색</button>
+</div>
 
 	</form>
 </main>
