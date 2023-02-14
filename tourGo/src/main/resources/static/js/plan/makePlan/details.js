@@ -126,7 +126,10 @@ function createItem(result, parentEl) {
 		let html = '<div class="test" id="tourItem" >';
 
 
-		html += `<img src="${item.firstimage}" onerror="this.onerror=null; this.src='../../../../images/noimg.jpg';"></img>`;
+		html += `<div class="forImage">
+		<img src="${item.firstimage}" onerror="this.onerror=null; this.src='../../../../images/noimg.jpg';"></img>
+		</div>
+		`;
 		html += `
 								<div>${item.title}</div>
 								<div> 주소 : ${item.address}</div>`;
