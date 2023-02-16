@@ -14,7 +14,7 @@
 		<fieldset>
 			<div class="destination_area">
 				<div class="destination_radio">
-					<input type="radio" name="destination" id="all" value="전체" checked>
+					<input type="radio" name="destination" id="all" value="전체">
 					<label for='all'>전체</label>
 
 					<input type="radio" name="destination" id="seoul" value="서울">
@@ -41,36 +41,33 @@
 
 					<input type="radio" name="destination" id="gwangju" value="광주">
 					<label for="gwangju">광주</label>
-
+					
 					<input type="radio" name="destination" id="gyeonggi" value="경기">
 					<label for="gyeonggi">경기</label>
 
 					<input type="radio" name="destination" id="gangwong" value="강원">
 					<label for="gangwong">강원</label>
 
-
+					
 				</div>
 			</div>
 		</fieldset>
-
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 		<div class="destination_content">
-			<div id="allBox">
-				<div class="each" th:each="data : ${list}">
-					<a class="subBox" id="subBox" th:href="@{|/destination_detail/${data.destinationNo}|}">
-						<img th:src="${data.tourImg}">
-						<span>
-							<p th:text="${data.destinationNo}"></p>
-							<p th:text="${data.tourTitle}"></p>
-						</span>
-					</a>
-				</div>
-				<ul class="pagination">
-				</ul>
+			<div class="allBox"  id="allBox">
+				<!-- 
+				<th:block th:each="destination,status : ${list}">
+					<span th:text="${destination.tourDestination}"></span>
+					<span th:text="${destination.tourTitle}"></span>
+					<img style="max-width: 300px;" th:src="@{/images/main_test/sub4.jpg}">
+				</th:block>
+				-->
 			</div>
 		</div>
-
+		<div class="pagination justify-content-center">
+	        <a href="?page={{previous}}" role="button" class="btn btn-lg bi bi-caret-left-square-fill"></a>
+	        <a href="?page={{next}}" role="button" class="btn btn-lg bi bi-caret-right-square-fill"></a>
+	    </div>
+		
 	</div>
 </main>
 

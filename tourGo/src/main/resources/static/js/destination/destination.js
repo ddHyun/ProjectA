@@ -6,46 +6,29 @@ window.addEventListener("DOMContentLoaded", function() {
 
 	destination.forEach(radio => {
 		radio.addEventListener("click", function() {
-			value = radio.value;
-			console.log(value);
-
-			const url = '/api/travel/' + value;
-			const xhr = new XMLHttpRequest();
-
-			xhr.open("GET", url);
-			xhr.responseType = 'json';
-			xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-			xhr.send();
-			xhr.onload = () => {
-				const data = xhr.response.data;
-				console.log("데이터 : " + JSON.stringify(data));
-
-
-				const allBoxEl = document.getElementById("allBox");
-				allBoxEl.innerHTML = "";
-
-
-				for (const item of data) {
-
-					const divEl = document.createElement("div");
-					var h = item.destinationNo;
-					console.log(h);
-					let html = "";
-					html +=
-						`
-					<div class="subBox" id="subBox" onClick="location.href='/destination_detail/${item.destinationNo}'">
-						${item.destinationNo}				
-						<img src=' ${item.tourImg}'>
-						<span> ${item.tourTitle} </span>
-					<div>
-					`;
-
-					divEl.innerHTML = html;
-					allBoxEl.appendChild(divEl);
-
-				}
-
+		const keyword = radio.value;	
+		
+		const url = `/api/travel?keyword=${keyword}`;
+		console.log(url);
+		
+		const xhr = new XMLHttpRequest();
+		xhr.open("GET", url);
+		xhr.send();
+		xhr.onreadystatechange = function() {
+			if (xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
+				$("#allBox").replaceWith(xhr.responseText);
 			}
+		
+		
+		};
+
+		xhr.onerror = function(err) {
+			console.error(err);
+			location.reload();
+		};
+
+		
+		
 		});
 	});
 

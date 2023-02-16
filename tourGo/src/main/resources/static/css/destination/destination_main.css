@@ -178,18 +178,23 @@ input[type='checkbox']+label.standalone {
     place-content: center;
 }
 
-#allBox div {
-	height: 350px;
-	width: 350px;
-	align-items: center;
-}
+
 
 #allBox img {
-	width: 350px;
-	height: 260px;
-	display: block;
-	text-align: center;
+	width: 440px;
+    height: 320px;
+    display: block;
+    text-align: center;
+    margin: 10px;
 }
 
-#allBox span {
+.subBox {
+	margin: 50px 10px;
+}
+
+#subBox span {
+	font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 15px;
 }

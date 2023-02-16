@@ -44,7 +44,6 @@ public class TravelDestinationMainController {
 
 	@GetMapping("/travel_destination_main")
 	public String ex(String destination,
-			@PageableDefault(page = 0, size = 3, sort = "destinationNo", direction = Sort.Direction.DESC) Pageable pageable,
 			Model model, @RequestParam(name = "destSearchKeyword", required = false) String keyword) {
 
 		// css, js 추가
@@ -55,7 +54,7 @@ public class TravelDestinationMainController {
 		model.addAttribute("addScript", addScript);
 
 		// 페이징 처리 바인딩
-		model.addAttribute("destination", destinationMainService.pageList(pageable));
+		model.addAttribute("list", destinationMainService.dest_mainList("전체"));
 
 //		if(keyword != null) {
 //			List<DestinationDetail> search = destinationMainService.dest_search(keyword);
@@ -64,18 +63,18 @@ public class TravelDestinationMainController {
 		return "travel_destination/travel_destination_main";
 	}
 
-	@ResponseBody
-	@GetMapping("/api/travel/{destination}")
-	public JsonResult<?> ex02(@PathVariable(name = "destination", required = false) String destination, Model model) {
-
-		System.out.println("테스트 : " + destination);
-		List<DestinationDetail> list = destinationMainService.dest_mainList(destination);
-		if (list.isEmpty()) {
-			return new JsonResult<>(false, "값이 없습니다.", null);
-		}
-
-		return new JsonResult<>(true, "성공", list);
-	}
+//	@ResponseBody
+//	@GetMapping("/api/travel/{destination}")
+//	public JsonResult<?> ex02(@PathVariable(name = "destination", required = false) String destination, Model model) {
+//
+//		System.out.println("테스트 : " + destination);
+//		List<DestinationDetail> list = destinationMainService.dest_mainList(destination);
+//		if (list.isEmpty()) {
+//			return new JsonResult<>(false, "값이 없습니다.", null);
+//		}
+//
+//		return new JsonResult<>(true, "성공", list);
+//	}
 
 	// 상세페이지 연결
 	@GetMapping("/destination_detail/{destinationNo}")
