@@ -5,12 +5,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.tourGo.models.destination.entity.DestinationDetail;
 import org.tourGo.models.destination.entity.QDestinationDetail;
+import org.tourGo.models.entity.user.User;
+import org.tourGo.models.plan.entity.Planner;
+import org.tourGo.models.plan.entity.QPlanner;
 
 import com.querydsl.core.BooleanBuilder;
 
@@ -20,11 +24,9 @@ public class DestinationMainService {
 	@Autowired
 	private DestinationMainRepository destinationMainRepository;
 	
-	private String serviceKey = "ORm3mQovRB97uz6GfTJJNBR/2egRn2vglLUfbXCP+2pblHvBggwbP1wMwnl/RvFZfHqob4GRBHbQDNn6IZP/Fg==";
-	
 	
 	// DB에서 값 가져 오기
-	public List<DestinationDetail> dest_mainList(String destination) {
+	public Page<DestinationDetail> dest_mainList(String destination, Pageable pageable) {
 		
 		BooleanBuilder builder = new BooleanBuilder();
 		QDestinationDetail destinationdetail = QDestinationDetail.destinationDetail;
@@ -33,10 +35,13 @@ public class DestinationMainService {
 			builder.and(destinationdetail.tourDestination.eq(destination));
 		}
 		
-		List<DestinationDetail> list = (List<DestinationDetail>) destinationMainRepository.findAll(builder);
+		//List<DestinationDetail> list = (List<DestinationDetail>) destinationMainRepository.findAll(builder);
 		
+		Page<DestinationDetail> page = (Page<DestinationDetail>) destinationMainRepository.findAll(builder, pageable);
+		System.out.println("Pageable 페이징"+ page);
+		System.out.println(page.getSize());
 		
-		return list;
+		return page;
 	}
 	
 	// 여행지 검색
@@ -53,11 +58,18 @@ public class DestinationMainService {
 	}
 	
 	// 페이징 처리
-//	@Transactional(readOnly = true)
-	public Page<DestinationDetail> pageList(Pageable pageable) {
-		
-		return destinationMainRepository.findAll(pageable);
-	}
+//	public Page<DestinationDetail> dest_pageList(String destination, Pageable pageable) {
+//		BooleanBuilder builder = new BooleanBuilder();
+//		QDestinationDetail destinationdetail = QDestinationDetail.destinationDetail;
+//		
+//		if(!destination.equals("전체")) {
+//			builder.and(destinationdetail.tourDestination.eq(destination));
+//		}
+//		
+//		Page<DestinationDetail> page = (Page<DestinationDetail>) destinationMainRepository.findAll(builder, pageable);
+//		
+//		return page;
+//	}
 	
 	
 	// 검색 기능

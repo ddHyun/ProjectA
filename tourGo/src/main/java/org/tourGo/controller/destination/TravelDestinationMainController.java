@@ -42,39 +42,32 @@ public class TravelDestinationMainController {
 	@Autowired
 	private DestinationDetailService destinationDetailService;
 
-	@GetMapping("/travel_destination_main")
+	@GetMapping("/travel_destination_main/{destination}")
 	public String ex(String destination,
-			Model model, @RequestParam(name = "destSearchKeyword", required = false) String keyword) {
+			@PageableDefault(page=0, size=10, sort="destinationNo", direction=Sort.Direction.DESC) Pageable pageable,
+			Model model) {
 
 		// css, js 추가
-				model.addAttribute("addCss", new String[] { "main/footer", "main/header", "destination/destination_main" });
-
-		
+		model.addAttribute("addCss", new String[] { "main/footer", "main/header", "destination/destination_main" });	
 		String[] addScript = new String[] { "destination/info" };
 		model.addAttribute("addScript", addScript);
 
-		// 페이징 처리 바인딩
-		model.addAttribute("list", destinationMainService.dest_mainList("전체"));
-
-//		if(keyword != null) {
-//			List<DestinationDetail> search = destinationMainService.dest_search(keyword);
-//			model.addAttribute("search", search);
-//		}
+		Page<DestinationDetail> page = destinationMainService.dest_mainList("전체", pageable);
+		int nowPage = page.getPageable().getPageNumber() + 1;
+        //-1값이 들어가는 것을 막기 위해서 max값으로 두 개의 값을 넣고 더 큰 값을 넣어주게 된다.
+        int startPage =  Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage+9, page.getTotalPages());
+		
+		// 목록 바인딩 처리
+        model.addAttribute("destination", destination);
+		model.addAttribute("page", destinationMainService.dest_mainList("전체", pageable));	
+		model.addAttribute("nowPage",nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+		
 		return "travel_destination/travel_destination_main";
 	}
 
-//	@ResponseBody
-//	@GetMapping("/api/travel/{destination}")
-//	public JsonResult<?> ex02(@PathVariable(name = "destination", required = false) String destination, Model model) {
-//
-//		System.out.println("테스트 : " + destination);
-//		List<DestinationDetail> list = destinationMainService.dest_mainList(destination);
-//		if (list.isEmpty()) {
-//			return new JsonResult<>(false, "값이 없습니다.", null);
-//		}
-//
-//		return new JsonResult<>(true, "성공", list);
-//	}
 
 	// 상세페이지 연결
 	@GetMapping("/destination_detail/{destinationNo}")
@@ -99,5 +92,6 @@ public class TravelDestinationMainController {
 
 		return "travel_destination/destination_detail";
 	}
+	
 
 }

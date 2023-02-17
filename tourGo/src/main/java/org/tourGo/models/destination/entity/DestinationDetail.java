@@ -38,6 +38,8 @@ public class DestinationDetail extends BaseEntity {
 	private String tourHoliday;			// 관광지 휴무일
 	private String tourCharges;			// 관광지 이용요금
 	private String tourNumber;			// 관광지 문의 연락처
+	
+	@Column(columnDefinition = "int default '0'", insertable=false)
 	private Integer tourHits;			// 관광지 조회수
 	private Integer tourHeart;			// 관광지 좋아요
 }

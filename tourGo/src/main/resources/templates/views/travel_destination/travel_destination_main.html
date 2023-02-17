@@ -57,7 +57,7 @@
 
 		<div class="destination_content">
 			<div id="allBox">
-				<div class="each" th:each="data : ${list}">
+				<div class="each" th:each="data : ${page}">
 					<a class="subBox" id="subBox" th:href="@{|/destination_detail/${data.destinationNo}|}">
 						<img th:src="${data.tourImg}">
 						<span>
@@ -66,9 +66,16 @@
 						</span>
 					</a>
 				</div>
-				<ul class="pagination">
-				</ul>
+				<div class="pagination">
+					<th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+						<a th:if="${page != nowPage}"
+							th:href="@{/travel_destination_main/{destination}/(page=${page-1})}" 
+							th:text="${page}"></a>
+						<strong th:if="${page==nowPage}" th:text="${page}" style="color:red"></strong>
+					</th:block>
+				</div>
 			</div>
+
 		</div>
 
 	</div>
