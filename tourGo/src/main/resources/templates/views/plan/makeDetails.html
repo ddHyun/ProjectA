@@ -25,13 +25,13 @@
 </div>
 </div>
 <div class="search_button">
-<button type="button" onclick="tourGo.search()" style="width:100%; height: 100%;">
+<button type="button" onclick="tourGo.search()" style="width:100%; height: 100%;" class="button-event">
 <span class="material-symbols-outlined" style="font-size: 50px;">search</span>
 </button>
 </div>
 
 <div class="bookmark">
-<button type="submit">
+<button type="submit" class="button-event">
 <span class="material-symbols-outlined" style="font-size: 50px;">star</span>
 </button>
 </div>
@@ -40,9 +40,9 @@
 
 <form th:action="@{/plan/}+${plannerNo}" method="post" name="frm" id="frm">
 <input type="hidden" th:value="${plannerNo}" name="plannerNo" id="plannerNo">
-<button type="submit" class="save_btn font_size_2rem">save</button>
+<button type="submit" class="save_btn font_size_2rem button-event">save</button>
 <a th:href="@{/plan}">
-<button type="button" class="close_btn font_size_2rem">
+<button type="button" class="close_btn font_size_2rem button-event">
 close	
 </button>
 </div>
@@ -69,10 +69,10 @@ close
 	<div th:if="${list != null}">
 	<div th:each="details : ${list}" class="selected" th:value="${details}" id="select" onclick="selectedItem()">
 	
-<button type="button" th:value="${details.detailsNo}" id="detailsNo" name="detailsNo" onclick="deleteDetails()" class="width100">삭제하기</button>
+<button type="button" th:value="${details.detailsNo}" id="detailsNo" name="detailsNo" onclick="deleteDetails()" class="width100 button-event">삭제하기</button>
 	
 <div class="forImage">
-	<img name="firstimage" th:src="${details.firstimage}" />
+	<img name="firstimage" th:src="${details.firstimage}" class="img-event"/>
 </div>	
 	<span name="title" th:text="${details.title}"></span> <br>
 
