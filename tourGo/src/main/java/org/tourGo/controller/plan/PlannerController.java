@@ -92,9 +92,7 @@ public class PlannerController {
 			list = plannerService.plannerSearchList(searchKeyword, pageable, user);
 		}
 
-		/* Page<Planner> list = plannerService.plannerList(pageable,user); */
-
-		
+	
 
 		int nowPage = list.getPageable().getPageNumber() + 1; // pageable 0부터 시작하기때문에 +1 해준다
 		int startPage = Math.max(nowPage - 4, 1); // 둘중 큰거 반환함.
@@ -168,7 +166,7 @@ public class PlannerController {
 			model.addAttribute("plannerNo", planner.getPlannerNo());
 			
 		} catch (Exception e) {
-			throw new AlertException("없는 플래너입니다!!", "/plan");
+			throw new AlertException("유효하지 않은 접근입니다.", "/plan");
 		}
 
 		return "plan/makeDetails";

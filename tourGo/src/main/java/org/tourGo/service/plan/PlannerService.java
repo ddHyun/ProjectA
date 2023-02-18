@@ -41,6 +41,11 @@ public class PlannerService {
 		Planner planner = _planner.orElse(null);
 		return planner;
 	}
+	/**1.현재 플래너 넘버를 추출하고 거기서 유저넘버를 추출한다
+	   2.유저 넘버로 유저 객체를 생성
+	   3.관광지에 유저 넘버랑 유저 객체에 넘버를 비교한다
+	   4.일치할경우 관광지에 넘버를 추출해서 관광지 객체를 	
+	 * */
 	
 	@Transactional
 	public void updateImage(Planner planner) {
@@ -129,7 +134,13 @@ public class PlannerService {
 		
 
 	}
-	
+	//좋아요 탑3 추출
+	public List<Planner> topLikedPlanner(){
+		Sort sort = Sort.by(Sort.Order.desc("totalLikes"),Sort.Order.asc("plannerNo"));
+		List<Planner> list = plannerRepo.findTop3ByOpen(true,sort);
+		
+		return list;
+	}
 	
 	public Page<Planner> plannerSearchList(String searchKeyword, Pageable pageable,User user) {
 		
