@@ -14,38 +14,38 @@
 		<fieldset>
 			<div class="destination_area">
 				<div class="destination_radio">
-					<input type="radio" name="destination" id="all" value="전체" checked>
+					<input type="radio" name="destination" id="all" value="전체" th:checked="${(keyword==null)||keyword=='전체'}">
 					<label for='all'>전체</label>
 
-					<input type="radio" name="destination" id="seoul" value="서울">
+					<input type="radio" name="destination" id="seoul" value="서울" th:checked="${keyword=='서울'}">
 					<label for="seoul">서울</label>
 
-					<input type="radio" name="destination" id="inchen" value="인천">
+					<input type="radio" name="destination" id="inchen" value="인천" th:checked="${keyword=='인천'}">
 					<label for="inchen">인천</label>
 
-					<input type="radio" name="destination" id="daejun" value="대전">
+					<input type="radio" name="destination" id="daejun" value="대전" th:checked="${keyword=='대전'}">
 					<label for="daejun">대전</label>
 
-					<input type="radio" name="destination" id="sejong" value="세종">
+					<input type="radio" name="destination" id="sejong" value="세종" th:checked="${keyword=='세종'}">
 					<label for="sejong">세종</label>
 
-					<input type="radio" name="destination" id="daegu" value="대구">
+					<input type="radio" name="destination" id="daegu" value="대구" th:checked="${keyword=='대구'}">
 					<label for="daegu">대구</label>
 				</div>
 				<div class="destination_radio">
-					<input type="radio" name="destination" id="busan" value="부산">
+					<input type="radio" name="destination" id="busan" value="부산"th:checked="${keyword=='부산'}">
 					<label for="busan">부산</label>
 
-					<input type="radio" name="destination" id="wolsan" value="울산">
+					<input type="radio" name="destination" id="wolsan" value="울산" th:checked="${keyword=='울산'}">
 					<label for="wolsan">울산</label>
 
-					<input type="radio" name="destination" id="gwangju" value="광주">
+					<input type="radio" name="destination" id="gwangju" value="광주" th:checked="${keyword=='광주'}">
 					<label for="gwangju">광주</label>
 
-					<input type="radio" name="destination" id="gyeonggi" value="경기">
+					<input type="radio" name="destination" id="gyeonggi" value="경기" th:checked="${keyword=='경기'}">
 					<label for="gyeonggi">경기</label>
 
-					<input type="radio" name="destination" id="gangwong" value="강원">
+					<input type="radio" name="destination" id="gangwong" value="강원" th:checked="${keyword=='강원'}">
 					<label for="gangwong">강원</label>
 
 
@@ -69,7 +69,7 @@
 				<div class="pagination">
 					<th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
 						<a th:if="${page != nowPage}"
-							th:href="@{/travel_destination_main/{destination}/(page=${page-1})}" 
+							th:href="@{|/travel_destination_main?keyword=${keyword}&page=${page-1}|}" 
 							th:text="${page}"></a>
 						<strong th:if="${page==nowPage}" th:text="${page}" style="color:red"></strong>
 					</th:block>

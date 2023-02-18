@@ -4,6 +4,8 @@ window.addEventListener("DOMContentLoaded", function() {
 	// const inputValue = document.querySelectorAll("input[name=destination]:checked");
 	const destination = document.querySelectorAll("input[name=destination]");
 
+	
+
 	destination.forEach(radio => {
 		radio.addEventListener("click", function() {
 		const keyword = radio.value;	

@@ -42,26 +42,34 @@ public class TravelDestinationMainController {
 	@Autowired
 	private DestinationDetailService destinationDetailService;
 
-	@GetMapping("/travel_destination_main/{destination}")
-	public String ex(String destination,
+	@GetMapping(path={"/travel_destination_main"})
+	public String ex(@RequestParam(name="keyword", defaultValue = "전체") String keyword,
 			@PageableDefault(page=0, size=10, sort="destinationNo", direction=Sort.Direction.DESC) Pageable pageable,
 			Model model) {
-
+		
+		System.out.println("==============currPage==============");
+//		if(keyword==null) {
+//			keyword="전체";
+//		}
+			
+		System.out.println(keyword);
 		// css, js 추가
 		model.addAttribute("addCss", new String[] { "main/footer", "main/header", "destination/destination_main" });	
 		String[] addScript = new String[] { "destination/info" };
 		model.addAttribute("addScript", addScript);
 
-		Page<DestinationDetail> page = destinationMainService.dest_mainList("전체", pageable);
+		Page<DestinationDetail> page = destinationMainService.dest_mainList(keyword, pageable);
+		
 		int nowPage = page.getPageable().getPageNumber() + 1;
         //-1값이 들어가는 것을 막기 위해서 max값으로 두 개의 값을 넣고 더 큰 값을 넣어주게 된다.
         int startPage =  Math.max(nowPage - 4, 1);
         int endPage = Math.min(nowPage+9, page.getTotalPages());
 		
 		// 목록 바인딩 처리
-        model.addAttribute("destination", destination);
-		model.addAttribute("page", destinationMainService.dest_mainList("전체", pageable));	
-		model.addAttribute("nowPage",nowPage);
+        model.addAttribute("keyword", keyword);
+		model.addAttribute("page", destinationMainService.dest_mainList(keyword, pageable));	
+		model.addAttribute(
+				"nowPage",nowPage);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 		

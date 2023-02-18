@@ -11,8 +11,6 @@ public class MainViewController {
 	@GetMapping("/main_view")
 	public String main_view(Model model) {
 		
-		model.addAttribute("destination","전체");
-		
 		return "main/main_view";
 	}
 	
