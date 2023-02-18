@@ -20,6 +20,7 @@ import org.tourGo.models.plan.entity.PlanDetails;
 import org.tourGo.models.plan.entity.Planner;
 import org.tourGo.models.plan.entity.QPlanDetails;
 import org.tourGo.models.plan.entity.QPlanner;
+import org.tourGo.models.plan.entity.like.PlanUidEntity;
 import org.tourGo.models.user.UserRepository;
 
 import com.querydsl.core.BooleanBuilder;
@@ -35,6 +36,10 @@ public class PlannerService {
 	private PlanDetailsRepository detailsRepo;
 	@Autowired
 	private UserRepository userRepo;
+	@Autowired
+	private PlanUidEntityRepository uidRepo;
+	
+	
 	
 	public Planner find(Long no) {
 		Optional<Planner> _planner = plannerRepo.findById(no);
@@ -64,7 +69,27 @@ public class PlannerService {
 		
 		
 	}
-	
+	/**사용자가 좋아요한 플래너 추출하는 메서드*/
+	public List<Planner> getPlannerLiked(Long userNo){
+		//Optional<PlanUidEntity> wrapEntity = uidRepo.findByUserNo(userNo);
+		//List<PlanUidEntity> uidEntity = (List<PlanUidEntity>) wrapEntity.orElse(null);
+		List<PlanUidEntity> uidEntity = uidRepo.findByUserNo(userNo);
+		System.out.println("유아이디");
+		System.out.println(userNo);
+		System.out.println(uidEntity);
+		List<Planner> list = new ArrayList<>();
+		for(PlanUidEntity _uid : uidEntity) {
+			String uid = _uid.getUid();
+			Long plannerNo = Long.parseLong(uid.split("_")[0]);
+			System.out.println(plannerNo);
+			Optional<Planner> _plannerEntity = plannerRepo.findById(plannerNo);
+			Planner plannerEntity = _plannerEntity.orElse(null);
+			list.add(plannerEntity);
+			
+		}
+		
+		return list;
+	}
 	
 	public List<PlannerRq> userPlanner(User user)	{ //db로부터 플래너 번호를 내림차순하여 planner List형태로 변환하는 메서드
 
