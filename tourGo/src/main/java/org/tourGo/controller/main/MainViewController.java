@@ -14,4 +14,10 @@ public class MainViewController {
 		return "main/main_view";
 	}
 	
+	@GetMapping("/main_view2")
+	public String main_view2(Model model) {
+		
+		return "main/main_view2";
+	}
+	
 }

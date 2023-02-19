@@ -45,34 +45,19 @@ public class DestinationMainService {
 	}
 	
 	// 여행지 검색
-	public List<DestinationDetail> dest_search(String title) {
+	public Page<DestinationDetail> dest_search(String searchKeyword, Pageable pageable) {
 		
 		BooleanBuilder builder = new BooleanBuilder();
 		QDestinationDetail destinationDetail = QDestinationDetail.destinationDetail;
 		
-		builder.and(destinationDetail.tourTitle.contains(title));
+		builder.and(destinationDetail.tourTitle.contains(searchKeyword));
 		
-		List<DestinationDetail> search = (List<DestinationDetail>) destinationMainRepository.findAll(builder, Sort.by(Sort.Direction.DESC,"destinationNo"));
+		Page<DestinationDetail> search = destinationMainRepository.findAll(builder, pageable);
 		
 		return search;
 	}
 	
-	// 페이징 처리
-//	public Page<DestinationDetail> dest_pageList(String destination, Pageable pageable) {
-//		BooleanBuilder builder = new BooleanBuilder();
-//		QDestinationDetail destinationdetail = QDestinationDetail.destinationDetail;
-//		
-//		if(!destination.equals("전체")) {
-//			builder.and(destinationdetail.tourDestination.eq(destination));
-//		}
-//		
-//		Page<DestinationDetail> page = (Page<DestinationDetail>) destinationMainRepository.findAll(builder, pageable);
-//		
-//		return page;
-//	}
-	
-	
-	// 검색 기능
+
 
 
 	

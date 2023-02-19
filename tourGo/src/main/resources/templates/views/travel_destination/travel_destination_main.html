@@ -6,8 +6,8 @@
 		<form th:action="@{/travel_destination_main}" method="get">
 			<div class="destination_search">
 				<div class="search_input">
-					<input type="text" class="input_txt" name="destSearchKeyword" placeholder="여행지 검색">
-					<input type="button" class="input_btn" value="검색">
+					<input type="text" class="input_txt" name="searchKeyword" placeholder="여행지 검색">
+					<button type="submit" class="input_btn">검색</button>
 				</div>
 			</div>
 		</form>
@@ -47,8 +47,6 @@
 
 					<input type="radio" name="destination" id="gangwong" value="강원" th:checked="${keyword=='강원'}">
 					<label for="gangwong">강원</label>
-
-
 				</div>
 			</div>
 		</fieldset>

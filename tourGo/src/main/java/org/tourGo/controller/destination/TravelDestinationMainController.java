@@ -27,12 +27,11 @@ import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.destination.DestinationDetailRequest;
 
 import org.tourGo.models.destination.entity.DestinationDetail;
-import org.tourGo.models.destination.like.DestinationUidRequest;
+
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.user.UserRepository;
 import org.tourGo.service.destination.DestinationDetailService;
 import org.tourGo.service.destination.DestinationMainService;
-import org.tourGo.service.destination.DestinationReadHitService;
 
 @Controller
 public class TravelDestinationMainController {
@@ -42,12 +41,10 @@ public class TravelDestinationMainController {
 
 	@Autowired
 	private DestinationDetailService destinationDetailService;
-	
-	@Autowired
-	private DestinationReadHitService destinationReadHitService;
 
 	@GetMapping(path={"/travel_destination_main"})
 	public String ex(@RequestParam(name="keyword", defaultValue = "전체") String keyword,
+			String searchKeyword,
 			@PageableDefault(page=0, size=12, sort="destinationNo", direction=Sort.Direction.DESC) Pageable pageable,
 			Model model) {
 		
@@ -62,8 +59,16 @@ public class TravelDestinationMainController {
 		String[] addScript = new String[] { "destination/info" };
 		model.addAttribute("addScript", addScript);
 
-		Page<DestinationDetail> page = destinationMainService.dest_mainList(keyword, pageable);
+		Page<DestinationDetail> page = null;
 		
+		if(searchKeyword == null) {			
+			page = destinationMainService.dest_mainList(keyword, pageable);
+		}
+		else {
+			page = destinationMainService.dest_search(searchKeyword, pageable);
+			System.out.println("=========================searchKeyword===================");
+			System.out.println(searchKeyword);
+		}
 		int nowPage = page.getPageable().getPageNumber() + 1;
         //-1값이 들어가는 것을 막기 위해서 max값으로 두 개의 값을 넣고 더 큰 값을 넣어주게 된다.
         int startPage =  Math.max(nowPage - 4, 1);
@@ -71,7 +76,7 @@ public class TravelDestinationMainController {
 		
 		// 목록 바인딩 처리
         model.addAttribute("keyword", keyword);
-		model.addAttribute("page", destinationMainService.dest_mainList(keyword, pageable));	
+		model.addAttribute("page", page);	
 		model.addAttribute(
 				"nowPage",nowPage);
         model.addAttribute("startPage", startPage);
@@ -84,7 +89,7 @@ public class TravelDestinationMainController {
 	// 상세페이지 연결
 	@GetMapping("/destination_detail/{destinationNo}")
 	@Transactional
-	public String dsDetail(@PathVariable long destinationNo, Model model,@AuthenticationPrincipal PrincipalDetail principal) {
+	public String dsDetail(@PathVariable long destinationNo, Model model) {
 
 		// css, js 추가
 		model.addAttribute("addCss", new String[] { "/main/footer", "/main/header", "/destination/destination_main" });
@@ -100,19 +105,6 @@ public class TravelDestinationMainController {
 		} catch (Exception e) {
 			throw new AlertException("에러");
 		}
-		Long userNo = null;
-		
-		if (principal != null) {
-			model.addAttribute("user", principal.getUsername());
-			userNo = principal.getUser().getUserNo();
-		}
-		
-
-		String readUid = DestinationUidRequest.getUid(destinationNo, userNo);
-		destinationReadHitService.process(readUid, "readHit", "destination");
-		
-		System.out.println("테스트입니다"+readUid);
-		
 		model.addAttribute("detail", test);
 
 		return "travel_destination/destination_detail";

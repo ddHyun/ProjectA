@@ -8,11 +8,11 @@
 
 .nav_all a{
 	text-decoration: none;
-	color:dodgerblue;
+	color:black;
 }
 
 .nav_all a:hover {
-	color:lightblue;
+	color:gray;
 }
 
 .nav_home {
