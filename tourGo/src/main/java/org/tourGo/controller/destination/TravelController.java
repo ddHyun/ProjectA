@@ -24,7 +24,7 @@ public class TravelController {
 	@GetMapping("/api/travel")
 	public String js(String keyword, Model model,
 			@PathVariable(required = false, value = "page") String currPage,
-			@PageableDefault(page = 0, size = 10, sort = "destinationNo", direction = Direction.DESC) Pageable pageable) {
+			@PageableDefault(page = 0, size = 12, sort = "destinationNo", direction = Direction.DESC) Pageable pageable) {
 		System.out.println("테스트 키워드");
 		System.out.println(keyword);
 

@@ -57,14 +57,16 @@
 
 		<div class="destination_content">
 			<div id="allBox">
-				<div class="each" th:each="data : ${page}">
-					<a class="subBox" id="subBox" th:href="@{|/destination_detail/${data.destinationNo}|}">
-						<img th:src="${data.tourImg}">
-						<span>
-							<p th:text="${data.destinationNo}"></p>
-							<p th:text="${data.tourTitle}"></p>
-						</span>
-					</a>
+				<div class="data_style">
+					<div class="each" th:each="data : ${page}">
+						<a class="subBox" id="subBox" th:href="@{|/destination_detail/${data.destinationNo}|}">
+							<img th:src="${data.tourImg}">
+							<span>
+								<p th:text="${data.destinationNo}"></p>
+								<p th:text="${data.tourTitle}"></p>
+							</span>
+						</a>
+					</div>
 				</div>
 				<div class="pagination">
 					<th:block th:each="page:${#numbers.sequence(startPage,endPage)}">

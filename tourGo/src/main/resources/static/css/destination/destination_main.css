@@ -173,12 +173,7 @@ input[type='checkbox']+label.standalone {
 }
 
 #allBox {
-    display: grid;
-    grid-template-columns: repeat(4, 450px);
-    place-content: center;
 }
-
-
 
 #allBox img {
 	width: 440px;
@@ -186,6 +181,12 @@ input[type='checkbox']+label.standalone {
     display: block;
     text-align: center;
     margin: 10px;
+}
+
+.data_style {	
+    display: grid;
+    grid-template-columns: repeat(4, 450px);
+    place-content: center;
 }
 
 .subBox {
@@ -197,4 +198,10 @@ input[type='checkbox']+label.standalone {
     display: flex;
     justify-content: space-between;
     margin: 0px 15px;
+}
+
+.pagination {
+	position: static;
+	text-align: center;
+	width: 100%;
 }

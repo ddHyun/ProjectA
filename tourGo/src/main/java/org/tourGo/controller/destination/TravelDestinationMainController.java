@@ -44,7 +44,7 @@ public class TravelDestinationMainController {
 
 	@GetMapping(path={"/travel_destination_main"})
 	public String ex(@RequestParam(name="keyword", defaultValue = "전체") String keyword,
-			@PageableDefault(page=0, size=10, sort="destinationNo", direction=Sort.Direction.DESC) Pageable pageable,
+			@PageableDefault(page=0, size=12, sort="destinationNo", direction=Sort.Direction.DESC) Pageable pageable,
 			Model model) {
 		
 		System.out.println("==============currPage==============");
