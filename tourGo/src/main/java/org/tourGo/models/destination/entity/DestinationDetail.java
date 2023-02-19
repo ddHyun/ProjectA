@@ -39,7 +39,7 @@ public class DestinationDetail extends BaseEntity {
 	private String tourCharges;			// 관광지 이용요금
 	private String tourNumber;			// 관광지 문의 연락처
 	
-	@Column(columnDefinition = "int default '0'", insertable=false)
-	private Integer tourHits;			// 관광지 조회수
+	@Column(columnDefinition = "int default '0'", insertable=false, updatable=false)
+	private int tourHits;			// 관광지 조회수
 	private Integer tourHeart;			// 관광지 좋아요
 }

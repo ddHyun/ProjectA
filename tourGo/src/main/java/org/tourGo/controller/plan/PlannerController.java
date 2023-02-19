@@ -92,8 +92,6 @@ public class PlannerController {
 			list = plannerService.plannerSearchList(searchKeyword, pageable, user);
 		}
 
-	
-
 		int nowPage = list.getPageable().getPageNumber() + 1; // pageable 0부터 시작하기때문에 +1 해준다
 		int startPage = Math.max(nowPage - 4, 1); // 둘중 큰거 반환함.
 		int endPage = Math.min(nowPage + 5, list.getTotalPages());

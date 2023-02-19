@@ -1,5 +1,6 @@
 package org.tourGo.service.plan;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,4 +21,10 @@ public interface PlanUidEntityRepository extends JpaRepository<PlanUidEntity, Pl
 		Optional<PlanUidEntity> findByNo(@Param("field") String field, @Param("plannerNo") long boardNo, @Param("userNo") long userNo);
 
 		Optional<PlanUidEntity> findByFieldAndUid(String field, String uid);
+		
+		@Query ("select u from PlanUidEntity u where u.field='liked' and u.uid like concat('%', '\\_', :userNo)")
+		List<PlanUidEntity> findByUserNo(@Param("userNo") long userNo);
+ 
+		
+		
 }
