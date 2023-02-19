@@ -10,6 +10,14 @@ input[type='checkbox']+label.standalone { padding: 0; height: 20px; width: 20px;
 
 .dn { display: none !important; }
 
+
+
+*{font-family: 'Noto Sans KR', sans-serif !important;}
+body{ background-color: #fff;}
+button{background-color: #98dde3; color: #fff;}
+
+
+
 .err {
 	display: block;
 	width: 100%;
