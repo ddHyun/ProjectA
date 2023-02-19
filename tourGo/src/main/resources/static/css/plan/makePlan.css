@@ -1,5 +1,6 @@
 *{
 	box-sizing: border-box;
+	font-family: 'Noto Sans KR', sans-serif !important;;
 }
 
 .button-event{ display:block;
@@ -23,6 +24,7 @@
   
 }
 #frm{ display: flex; height: 100%; justify-content: flex-end; box-sizing: border-box;}
+#frm a{text-decoration: none;}
 .api_list label{width: 100%; }    
 .forImage{width: 100%;overflow: hidden; height: 300px;}
 
