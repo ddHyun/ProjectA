@@ -2,11 +2,6 @@
 	margin: 0; padding: 0;
 }
 
-html{
-	font-size: 15px;
-	background-color: #f0f8ff;
-}
-
 /* 폰트크기 1.5배 */
 .font2{
 	font-size: 1.5rem;
@@ -129,25 +124,28 @@ a{
 
 /* 하얀 버튼 */
 .btn0{
-	border: 1px solid #09c;
+	border: 1px solid #7cd5dc;
 	background-color: #fff;
-	color: #09c;
-	border-radius: 12px;
+	color: #7cd5dc;
+	border-radius: 8px;
 	padding: 7px;
 	margin-bottom: 15px;
+	font-weight: bold;
 	font-size: 1rem;
 	cursor: pointer;
 }
 
 .btn0:hover{
-	font-weight: bold;
+	color: #fff;
+	background-color: #66ccd4;
 }
 
 /* 색상 버튼 */
 .btn1{
-	background-color: #09c;
+	background-color: #98dde3;
 	color: #fff;
-	border-radius: 12px;
+	font-weight: bold;
+	border-radius: 8px;
 	padding: 7px;
 	margin-bottom: 15px;
 	border: 0;
@@ -156,14 +154,14 @@ a{
 	cursor: pointer;
 }
 .btn1:hover{
-	background-color: #0c83ab;
+	background-color: #66ccd4;
 }
 
 /* 신고 버튼 */
 .btn2{
 	background-color: #e74a3b;
 	color: #fff;
-	border-radius: 12px;
+	border-radius: 8px;
 	padding: 7px;
 	margin-bottom: 15px;
 	border: 0;
