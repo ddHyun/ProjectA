@@ -1,0 +1,13 @@
+html {
+    overflow-x: hidden;
+    font-size: 15px;
+    line-height: 1.5;
+    box-sizing: border-box;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+*{font-family: 'Noto Sans KR', sans-serif !important;}
+body{ background-color: #fff;}
+button{background-color: #98dde3; color: #fff;}
+
