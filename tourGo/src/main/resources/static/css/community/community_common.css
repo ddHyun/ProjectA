@@ -123,7 +123,7 @@ a{
 }
 
 /* 하얀 버튼 */
-.btn0{
+/* .btn0{
 	border: 1px solid #7cd5dc;
 	background-color: #fff;
 	color: #7cd5dc;
@@ -138,10 +138,10 @@ a{
 .btn0:hover{
 	color: #fff;
 	background-color: #66ccd4;
-}
+} */
 
 /* 색상 버튼 */
-.btn1{
+/* .btn1{
 	background-color: #98dde3;
 	color: #fff;
 	font-weight: bold;
@@ -155,7 +155,7 @@ a{
 }
 .btn1:hover{
 	background-color: #66ccd4;
-}
+} */
 
 /* 신고 버튼 */
 .btn2{

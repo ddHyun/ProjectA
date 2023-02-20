@@ -64,9 +64,9 @@
 					th:href="@{/report/review/{reviewNo}(reviewNo=${reviewRequest.reviewNo})}">신고</a>
 				</th:block>
 				<th:block th:if="${user==reviewRequest.id}">
-					<button class="btn1 width20" type="button" th:text="#{community.modify}"
+					<button class="width20" type="button" th:text="#{community.modify}"
 								th:onclick="|location.href='/community/review_update/*{reviewNo}'|">수정</button>
-					<button class="btn1 width20" id="deleteBtn" type="button" th:text="#{community.delete}">삭제</button>
+					<button class="width20" id="deleteBtn" type="button" th:text="#{community.delete}">삭제</button>
 				</th:block>
 			</div>
 			

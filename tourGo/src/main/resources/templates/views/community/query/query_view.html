@@ -42,9 +42,9 @@
 				<button class="btn0 width20" type="button" th:text="#{community.list}"
 					th:onclick="|location.href='/community/query_main?page=${page}'|">목록</button>
 				<th:block th:if="${user}==*{user.userId}">
-					<button class="btn1 width20" type="button" th:text="#{community.modify}"
+					<button class="width20" type="button" th:text="#{community.modify}"
 						th:onclick="|location.href='/community/query_update/*{queryNo}'|">수정</button>
-					<button class="btn1 width20" type="button" th:text="#{community.delete}"
+					<button class="width20" type="button" th:text="#{community.delete}"
 						th:onclick="|confirm('정말 삭제하시겠습니까?'); location.href='/community/query_delete/*{queryNo}'|">삭제</button>
 				</th:block>
 			</div>

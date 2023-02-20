@@ -25,7 +25,7 @@
 				<!-- 여행지 검색 -->
 				<div class="m_item search">
 						<input type="text" placeholder="여행지 검색" name="keyword" th:value="${keyword}">
-						<button class="btn1" type="submit">
+						<button type="submit">
 							<i class="fa-solid fa-magnifying-glass"><span th:text="#{review.search}"></span></i>
 						</button>
 				</div>
@@ -75,7 +75,7 @@
 		<th:block th:replace="outlines/pagination::pagination"></th:block>
 		
 		<!-- 등록 -->
-		<button class="floatR btn1 width20 marginR3" type="submit" th:text="#{review.write}" 
+		<button class="floatR width20 marginR3" type="submit" th:text="#{review.write}" 
 				th:onclick="|location.href='@{/community/review_register}'|"></button>
 		</div>
 	
