@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Modal</title>
+    <head>
+<style>
+   .hihi2::-webkit-scrollbar {display: none;}
+
+.hihi2{scrollbar-width: none; -ms-overflow-style:none;}
+
+.autosize::-webkit-scrollbar {display: none;}
+.autosize{scrollbar-width: none; -ms-overflow-style:none;}
+
+
+ </style>   
+    </head>
+  </head>
+  <body style="margin:0;">
+
+    <div style="overflow: hidden;">
+
+    <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
+      <div style="border: 1px solid green; width:60%;">
+        사용자가 정의한 제목
+      </div>
+      <div class="update" style="border: 1px solid blue; width:20%;text-align:center;">
+        
+        <input type="button"value="취소" onclick = location.href="readplan" style="border-radius: 50%;height: 50px; width: 50px;cursor: pointer; "></input>
+      </div>
+      <div class="delete" style="border: 1px solid blue; width:20%;text-align:center;">
+      <form th:action="@{/plan/readplan}" th:object="${planner}" method="post">
+      
+       <button type="submit" style="border-radius: 50%;height: 50px; width: 50px;cursor: pointer; ">완료</input>
+     
+      
+     
+      </div>
+      </div>
+
+
+    
+
+		<div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
+      <div style="border: 1px solid green; width:50%; height: 50%;">
+        여행 제목
+      </div>
+      <div style="border: 1px solid blue; width:50%; height: 50%; overflow:hidden; ">
+         <input type="text" style="width:99%;" th:field="${planner.title}">
+      </div>
+		</div>
+    <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
+      <div style="border: 1px solid green; width:50%; height: 50%;">
+        여행 기간
+      </div>
+      <div style="border: 1px solid blue; width:50%; height: 50%;">
+       <label><input type="date" th:value="${planner.sdate}" name="sdate"></label>
+       <select name="day" th:field="${planner.day}">
+
+    <option value="1">1일</option>
+    <option value="2">2일</option>
+    <option value="3">3일</option>
+    <option value="4">4일</option>
+    <option value="5">5일</option>
+    <option value="6">6일</option>
+    <option value="7">7일</option>
+    <option value="8">8일</option>
+    <option value="9">9일</option>
+
+</select>
+      </div>
+		</div>
+    <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
+      <div style="border: 1px solid green; width:50%;">
+        <label>여행타입</label>
+      </div>
+          <div th:each="type : ${planTypes}">
+    <input type="radio" th:field="${planner.planType}" th:value="${type.name()}"
+           class="form-check-input">
+    <label th:for="${#ids.prev('planType')}" th:text="${type.name}"
+           class="form-check-label">
+        
+    </label>
+</div>
+		</div>
+    <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
+      <div style="border: 1px solid green; width:50%; height: 50%;">
+        여행 인원수
+      </div>
+      <div style="border: 1px solid blue; width:50%; height: 50%;">
+         <select th:field="${planner.planSize}">
+    
+    <option value="1">1명</option>
+    <option value="2">2명</option>
+    <option value="3">3명</option>
+    <option value="4">4명</option>
+    <option value="5">5명</option>
+    <option value="6">6명</option>
+    <option value="7">7명</option>
+    <option value="8">8명</option>
+    <option value="9">9명</option>
+
+</select>
+      </div>
+		</div>
+    <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
+      <div style="border: 1px solid green; width:50%;">
+        사용자 정의 메모
+      </div>
+      <div style="border: 1px solid blue; width:50%; overflow:hidden;">
+     <textarea class="autosize" maxlength="250"placeholder="추가 바람" style="resize: none;vertical-align: middle; width: 100%; "th:field="${planner.memo}"></textarea>
+
+      </div>
+		</div>
+  </div>
+  <div style=" display:flex; border: 1px solid red;  margin: 0;overflow: auto;">  
+
+   Day1
+    </div>
+    <div style="padding: 20px 20px;
+    text-align: center;
+    word-break: keep-all;
+    line-height: 1.2;">
+  
+  </div>
+</form>
+
+
+  </body>
+
+</html>

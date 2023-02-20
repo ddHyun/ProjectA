@@ -78,51 +78,6 @@ main {
 	opacity: 0.5;
 }
 
-.destination_detail_all {
-	margin: 30px auto;
-}
-
-.destination_detail_title {
-	margin: 30px 0;
-}
-
-.destination_detail_title h2 {
-	text-align: center;
-}
-
-.dest_detail_img {
-	text-align: center;
-}
-
-.dest_detail_img img {
-	width: 800px;
-	margin: 30px 0;
-}
-
-.dest_detail_info {
-	margin: 30px 0;
-}
-
-.dest_detail_txt {
-	margin: 0px 530px;
-}
-
-.dest_detail_txt2 {
-	margin: 0px 530px;
-	display: flex;
-}
-
-.detail_txt a {
-	text-decoration: none;
-}
-
-.dest_detail_map {
-	margin: 30px 0;
-}
-
-.dest_detail_map h2 {
-	margin: 30px 0;
-}
 
 .destination_content {
 	margin: 40px 0;
@@ -218,23 +173,35 @@ input[type='checkbox']+label.standalone {
 }
 
 #allBox {
+}
+
+#allBox img {
+	width: 440px;
+    height: 320px;
+    display: block;
+    text-align: center;
+    margin: 10px;
+}
+
+.data_style {	
     display: grid;
     grid-template-columns: repeat(4, 450px);
     place-content: center;
 }
 
-#allBox div {
-	height: 350px;
-	width: 350px;
-	align-items: center;
+.subBox {
+	margin: 50px 10px;
 }
 
-#allBox img {
-	width: 350px;
-	height: 260px;
-	display: block;
+#subBox span {
+	font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 15px;
+}
+
+.pagination {
+	position: static;
 	text-align: center;
-}
-
-#allBox span {
+	width: 100%;
 }

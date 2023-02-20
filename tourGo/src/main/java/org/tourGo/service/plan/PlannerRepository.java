@@ -20,7 +20,7 @@ import org.tourGo.models.plan.entity.Planner;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 
-@Repository
+
 public interface PlannerRepository extends JpaRepository<Planner, Long>, QuerydslPredicateExecutor{
 
 	
@@ -39,6 +39,8 @@ public interface PlannerRepository extends JpaRepository<Planner, Long>, Queryds
 	@Transactional
 	@Query("update Planner p set p.totalLikes=:totalLikes where p.plannerNo=:plannerNo")
 	int updateTotalLikes(int totalLikes, long plannerNo);
-		
+	//좋아요 탑3
+	List<Planner> findTop3ByOpen(Boolean open,Sort sort);
+	
 
 }

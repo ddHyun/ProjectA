@@ -4,54 +4,41 @@ window.addEventListener("DOMContentLoaded", function() {
 	// const inputValue = document.querySelectorAll("input[name=destination]:checked");
 	const destination = document.querySelectorAll("input[name=destination]");
 
+	
+
 	destination.forEach(radio => {
 		radio.addEventListener("click", function() {
-			value = radio.value;
-			console.log(value);
-
-			const url = '/api/travel/' + value;
-			const xhr = new XMLHttpRequest();
-
-			xhr.open("GET", url);
-			xhr.responseType = 'json';
-			xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-			xhr.send();
-			xhr.onload = () => {
-				const data = xhr.response.data;
-				console.log("데이터 : " + JSON.stringify(data));
-
-
-				const allBoxEl = document.getElementById("allBox");
-				allBoxEl.innerHTML = "";
-				
-
-				for (const item of data) {
-
-					const divEl = document.createElement("div");
-					let html = "";
-					html += 
-					`
-					<div class="subBox">
-					
-					<img src=' ${item.tourImg}'>
-					<span> ${item.tourTitle} </span>
-
-					<div>
-					`;
-					
-					divEl.innerHTML=html;
-					allBoxEl.appendChild(divEl);
-
-
-
-				}
-
+		const keyword = radio.value;	
+		
+		const url = `/api/travel?keyword=${keyword}`;
+		console.log(url);
+		
+		const xhr = new XMLHttpRequest();
+		xhr.open("GET", url);
+		xhr.send();
+		xhr.onreadystatechange = function() {
+			if (xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
+				$("#allBox").replaceWith(xhr.responseText);
 			}
+		
+		
+		};
+
+		xhr.onerror = function(err) {
+			console.error(err);
+			location.reload();
+		};
+
+		
+		
 		});
 	});
+
 });
 
 // db 값 불러온거 뿌려주기
 function appendHtml() {
 
 }
+
+// page 처리

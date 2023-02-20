@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+		layout:decorate="~{admin/main}">
+		
+		<main layout:fragment="content">
+			<div class="container-fluid">
+				<div class="row">
+	        		<div class="col-12">
+			            <div class="card shadow mb-4">
+			                <div class="question card-header py-3">
+			                    <h6 class="m-0 font-weight-bold text-primary">등급 변경 여부 회원 목록</h6>
+			                </div>
+			                <div class="card-body">
+			                	<div class="row">
+				                	<table class="col table table-striped table-bordered table-hove">
+				                		<thead>
+					                		<tr class="text-center">
+					                			<th>번호</th>
+					                			<th>아이디</th>
+					                			<th>이름</th>
+					                			<th>생성일</th>
+					                			<th>수정일</th>
+					                			<th>관리등급</th>
+					                		</tr>
+					                	</thead>
+					                	<tbody>
+					                		<th:block th:if="${!#lists.isEmpty(list)}" th:with="total=${pagination.total}, size=${pagination.pageCnt}, pageNum=${pagination.page - 1}">
+					                		<tr th:each="list, index : ${list}" class="text-center">
+					                			<td th:text="${total - (pageNum * size + index.index) }"></td>
+					                			<td>
+					                				<a href="#" th:name="${list.userId}" th:text="${list.userId}"
+					                				data-toggle="modal" data-target="#activeModal" 
+					                				th:userNo="${list.userNo}" th:type="${list.adminType}" th:userNm="${list.userNm}"
+					                				th:onclick="changeModal3(this.getAttribute('userNo'), this.getAttribute('userNm'), this.getAttribute('type'))"></a>
+					                			</td>
+					                			<td th:text="${list.userNm}"></td>
+					                			<td th:text="${#temporals.format(list.regDt,'yyyy-MM-dd HH:mm')}"></td>
+					                			<td th:text="${#temporals.format(list.modDt,'yyyy-MM-dd HH:mm')}"></td>
+			                					<td th:if="${#strings.equals(list.adminType, 'USER')}" th:text="#{userType.user}"></td>
+			                					<td th:if="${#strings.equals(list.adminType, 'ADMIN')}" th:text="#{userType.admin}"></td>
+					                		</tr>
+					                		</th:block>
+					                		<th:block th:unless="${!#lists.isEmpty(list)}">
+					                		<tr>
+					                			<td colspan="9">데이터가 없습니다.</td>
+					                		</tr>
+					                		</th:block>
+					                	</tbody>
+				                	</table>
+			                	</div>
+			                	<th:block th:replace="admin/outlines/pagination::pagination"></th:block>
+			                </div>
+			            </div>
+	        		</div>
+	        	</div>
+	        	
+	        	<div class="modal fade" id="activeModal" tabindex="-1" role="dialog" aria-labelledby="activeModalLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+				    <div class="modal-content">
+				
+				      <!-- Modal Header -->
+				      <div class="modal-header">
+				        <h4 class="modal-title" id="modalTitle">사용자 등급 변경</h4>
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				      </div>
+				
+				      <!-- Modal body -->
+				      <div class="modal-body" id="modalBody">
+				      </div>
+				
+				      <!-- Modal footer -->
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-danger" data-dismiss="modal" th:onclick="modalClose()">아니오</button>
+				        <button id="btn_change" type="button" class="btn btn-primary" th:onclick="changeAdmin()">예</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			</div>
+		</main>
+</html>

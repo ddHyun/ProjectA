@@ -3,6 +3,7 @@ package org.tourGo.restcontroller.plan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.tourGo.common.JsonException;
@@ -20,12 +21,12 @@ public class PlanLikeController {
 	@Autowired
 	private PlanUidEntityRepository planUidEntityRepository;
 	
-	@RequestMapping("/planlike")
+	@GetMapping("/planlike")
 	public JsonResult<Object> process(Long plannerNo,String uid , Model model,
 			@AuthenticationPrincipal PrincipalDetail principal){
 
 			int totalLikes = 0;
-			String field = "planlike";
+			String field = "liked";
 			
 			try {
 				uid = uid == "" ? PlanUidRequest.getUid(plannerNo,principal.getUser().getUserNo()) : uid;

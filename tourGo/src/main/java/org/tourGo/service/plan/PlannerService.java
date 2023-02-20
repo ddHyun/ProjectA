@@ -16,8 +16,11 @@ import org.springframework.ui.Model;
 import org.tourGo.common.AlertException;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.plan.PlannerRq;
+import org.tourGo.models.plan.entity.PlanDetails;
 import org.tourGo.models.plan.entity.Planner;
+import org.tourGo.models.plan.entity.QPlanDetails;
 import org.tourGo.models.plan.entity.QPlanner;
+import org.tourGo.models.plan.entity.like.PlanUidEntity;
 import org.tourGo.models.user.UserRepository;
 
 import com.querydsl.core.BooleanBuilder;
@@ -30,12 +33,62 @@ public class PlannerService {
 	@Autowired
 	private PlannerRepository plannerRepo; // 여기서 선언해서 그런건가요?
 	@Autowired
+	private PlanDetailsRepository detailsRepo;
+	@Autowired
 	private UserRepository userRepo;
+	@Autowired
+	private PlanUidEntityRepository uidRepo;
+	
+	
 	
 	public Planner find(Long no) {
 		Optional<Planner> _planner = plannerRepo.findById(no);
 		Planner planner = _planner.orElse(null);
 		return planner;
+	}
+	/**1.현재 플래너 넘버를 추출하고 거기서 유저넘버를 추출한다
+	   2.유저 넘버로 유저 객체를 생성
+	   3.관광지에 유저 넘버랑 유저 객체에 넘버를 비교한다
+	   4.일치할경우 관광지에 넘버를 추출해서 관광지 객체를 	
+	 * */
+	
+	@Transactional
+	public void updateImage(Planner planner) {
+		BooleanBuilder builder = new BooleanBuilder();
+		QPlanDetails details = QPlanDetails.planDetails;
+		builder.and(details.plannerNo.eq(planner));
+		String image = "";
+		
+		List<PlanDetails> list = (List<PlanDetails>) detailsRepo.findAll(builder,Sort.by(Sort.Direction.ASC, "day","stime","detailsNo"));
+		if(!list.isEmpty()) {
+		 image = list.get(0).getFirstimage();
+		planner.setImage(image);
+		}else {
+			planner.setImage(image);
+		}
+		
+		
+	}
+	/**사용자가 좋아요한 플래너 추출하는 메서드*/
+	public List<Planner> getPlannerLiked(Long userNo){
+		//Optional<PlanUidEntity> wrapEntity = uidRepo.findByUserNo(userNo);
+		//List<PlanUidEntity> uidEntity = (List<PlanUidEntity>) wrapEntity.orElse(null);
+		List<PlanUidEntity> uidEntity = uidRepo.findByUserNo(userNo);
+		System.out.println("유아이디");
+		System.out.println(userNo);
+		System.out.println(uidEntity);
+		List<Planner> list = new ArrayList<>();
+		for(PlanUidEntity _uid : uidEntity) {
+			String uid = _uid.getUid();
+			Long plannerNo = Long.parseLong(uid.split("_")[0]);
+			System.out.println(plannerNo);
+			Optional<Planner> _plannerEntity = plannerRepo.findById(plannerNo);
+			Planner plannerEntity = _plannerEntity.orElse(null);
+			list.add(plannerEntity);
+			
+		}
+		
+		return list;
 	}
 	
 	public List<PlannerRq> userPlanner(User user)	{ //db로부터 플래너 번호를 내림차순하여 planner List형태로 변환하는 메서드
@@ -106,7 +159,13 @@ public class PlannerService {
 		
 
 	}
-	
+	//좋아요 탑3 추출
+	public List<Planner> topLikedPlanner(){
+		Sort sort = Sort.by(Sort.Order.desc("totalLikes"),Sort.Order.asc("plannerNo"));
+		List<Planner> list = plannerRepo.findTop3ByOpen(true,sort);
+		
+		return list;
+	}
 	
 	public Page<Planner> plannerSearchList(String searchKeyword, Pageable pageable,User user) {
 		
@@ -115,7 +174,17 @@ public class PlannerService {
 		builder.and(planner.user.eq(user));
 		builder.and(planner.title.contains(searchKeyword));
 		Page<Planner> list = plannerRepo.findAll(builder,pageable);
-		return list; // plannerRepo 왜 이거인지??
+		return list; 
+	}
+	
+	public Page<Planner> plannerSearchList2(String searchKeyword, Pageable pageable) {
+		
+		BooleanBuilder builder = new BooleanBuilder();
+		QPlanner planner = QPlanner.planner;
+		builder.and(planner.open.eq(true));
+		builder.and(planner.title.contains(searchKeyword));
+		Page<Planner> list = plannerRepo.findAll(builder,pageable);
+		return list; 
 	}
 	
 	

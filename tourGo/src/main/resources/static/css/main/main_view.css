@@ -1,0 +1,47 @@
+body {
+	background-color: #fff;
+}
+
+.start_content {
+	display: flex;
+}
+
+.left_video {
+	float: right;
+	width: 70%;
+}
+
+video {
+	width: 100%;
+}
+
+.right_text {
+	width: 20%;
+	position: relative;	
+}
+
+.all_text {
+	position: absolute;
+	top: 35%;
+	left: 40%;
+	text-align: center;
+}
+
+.first_text {
+	width: 300px;
+	font-size: 2rem;
+}
+
+.center_text {
+	font-size: 6rem;
+	font-weight: bolder;
+}
+
+.last_text {
+	margin : 10px 0;
+}
+
+.last_text button {
+	padding: 20px 80px;
+	font-size: 0.5rem;
+}

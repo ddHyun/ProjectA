@@ -1,81 +1,115 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{travel_destination/travel_destination_main_layout}">
-	<main layout:fragment="content">
-		<div class="destination">
+<main layout:fragment="content">
+	<div class="destination">
+		<form th:action="@{/travel_destination_main}" method="get">
 			<div class="destination_search">
 				<div class="search_input">
-					<input type="text" class="input_txt" placeholder="여행지 검색">
+					<input type="text" class="input_txt" name="destSearchKeyword" placeholder="여행지 검색">
 					<input type="button" class="input_btn" value="검색">
 				</div>
 			</div>
-			<div class="destination_detail_all">
+		</form>
+		<hr>
+		<div class="content_detail">
+			<p th:text="'No. ' + ${detail.destinationNo}"></p>
+			<div class="hits_heart">
+				<p th:text="'조회수 ' + ${detail.tourHits}"></p>
+				<p th:text="'좋아요 ' + ${detail.tourHeart}"></p>
+			</div>
+		</div>
+		<hr>
+		<div class="destination_detail_all">
+			<div th:if="${detail != null}">
 				<div class="destination_detail_title">
-					<h2>경복궁</h2>
-					<h3>서울</h3>
+
+					<h2 th:text="${detail.tourTitle}"></h2>
+					<h3 th:text="${detail.tourDestination}"></h3>
 				</div>
-				<div class="destination_detail_main">
-					<div class="dest_detail_img">
-						<img th:src="@{/images/destination/gyeongbokgung.jpg}">
+			</div>
+			<div class="destination_detail_main">
+				<div class="dest_detail_img">
+					<img th:src="${detail.tourImg}">
+				</div>
+				<div class="dest_detail_info">
+					<div class="dest_detail_txt">
+						<h2>관광지정보</h2>
+						<p th:text="'' + ${detail.tourDetaiIinfo}"></p>
 					</div>
-					<div class="dest_detail_info">
-						<div class="dest_detail_txt">
-							<h2>상세정보</h2>
-							<p>
-								경복궁은 대한민국 서울특별시 청와대로에 있는 조선 왕조의 법궁이다.<br>
-								태조 4년인 1395년 창건되어 1592년 임진왜란으로 전소되었고, 1868년 흥선대원군의 주도로 중건되었다.<br>
-								일제강점기에 훼손되어 현재 복원사업이 진행중이다.<br>
-								《주례》 〈고공기〉에 입각하여 건축되었다.
-							</p>
-							
-							
-							<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5cf0f012351259a60d2d7388a32df3af"></script>
-							<script th:src="@{/js/destination/info.js}"></script>
-							<div class="dest_detail_map">
-								<h2>지도</h2>
-								<div class="detail_map">
-									<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3161.9575625499933!2d126.9748523157079!3d37.579616979795674!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca2c74aeddea1%3A0x8b3046532cc715f6!2z6rK967O16raB!5e0!3m2!1sko!2skr!4v1671520445074!5m2!1sko!2skr"
-									width="800" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-									</iframe>
-								</div>
+					<div class="dest_detail_txt2">
+						<h2>상세정보</h2>
+						<div class="detail_txt2">
+							<div class="detail_txt">
+								<ul>
+									<li th:text="'주소 : ' + ${detail.tourAddr}">
+									</li>
+									<li th:text="'영업시간 : ' + ${detail.tourOperatingHour}">
+									</li>
+									<li th:text="'휴일 : ' + ${detail.tourHoliday}">
+									</li>
+								</ul>
+							</div>
+							<div class="detail_txt">
+								<ul>
+									<li th:text="'홈페이지 : ' + ${detail.tourHomepage}">
+									</li>
+									<li th:text="'이용요금 : ' + ${detail.tourCharges}">
+									</li>
+									<li th:text="'문의 : ' + ${detail.tourNumber}">
+									</li>
+								</ul>
 							</div>
 						</div>
-						<div class="dest_detail_txt2">
-							<div class="detail_txt">
-								<ul>
-									<li>
-										주소 : 서울특별시 종로구 사직로 161
-									</li>
-									<li>
-										영업시간 : 매일 9:00 ~ 오후 6:00<br>
-										   &emsp;&emsp;&emsp;&emsp;(크리스마스) 오전 9:00~오후 6:00<br>										   
-										   &emsp;&emsp;&emsp;&emsp;* 시간이 달라질 수 있음<br>		
-									</li>
-									<li>
-										휴일 : 화
-									</li>									
-								</ul>								
-							</div>
-							<div class="detail_txt">
-								<ul>
-									<li>
-										홈페이지 : <a th:href="@{http://www.royalpalace.go.kr/}">http://www.royalpalace.go.kr/</a>
-									</li>
-									<li>
-										이용요금 : 대인(만25세~만64세) 3,000원<br>
-										&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;만24세 이하 만65세 이상 무료<br>
-										&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;장애인, 유공자, 한복을 착용한 자 무료<br>
-										&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;외국인(만7세~64세) 3,000원<br>
-									</li>
-									<li>
-										문의 및 안내 : 02-3700-3900
-									</li>
-								</ul>								
+					</div>
+					<div class="kakaoMap">
+						<script type="text/javascript"
+							src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5cf0f012351259a60d2d7388a32df3af"></script>
+
+						<div class="dest_detail_map">
+							<h2>지도</h2>
+							<div class="detail_map" id="map">
+								<input type="hidden" th:value="${detail.mapX}" id="Lat">
+								<input type="hidden" th:value="${detail.mapY}" id="Lng">
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</main>
+
+	</div>
+
+	<script>
+		//좌표 값 가져오기
+		const mapX = document.getElementById('Lng').value;
+		const mapY = document.getElementById('Lat').value;
+		console.log(mapX);
+		console.log(mapY);
+
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+			mapOption = {
+				center: new kakao.maps.LatLng(mapX, mapY), // 지도의 중심좌표
+				level: 5 // 지도의 확대 레벨
+			};
+
+		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+		// 마커가 표시될 위치입니다 
+		var markerPosition = new kakao.maps.LatLng(mapX, mapY);
+
+		// 마커를 생성합니다
+		var marker = new kakao.maps.Marker({
+			position: markerPosition
+		});
+
+		// 마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(map);
+
+		// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+		// marker.setMap(null);    
+	</script>
+
+</main>
+
 </html>

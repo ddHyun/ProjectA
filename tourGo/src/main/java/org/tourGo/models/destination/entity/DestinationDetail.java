@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.tourGo.common.BaseEntity;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DestinationDetail {
+public class DestinationDetail extends BaseEntity {
 	
 	@Id 
 	@GeneratedValue
@@ -36,6 +38,8 @@ public class DestinationDetail {
 	private String tourHoliday;			// 관광지 휴무일
 	private String tourCharges;			// 관광지 이용요금
 	private String tourNumber;			// 관광지 문의 연락처
-	private Integer tourHits;			// 관광지 조회수
+	
+	@Column(columnDefinition = "int default '0'", insertable=false, updatable=false)
+	private int tourHits;			// 관광지 조회수
 	private Integer tourHeart;			// 관광지 좋아요
 }

@@ -1,0 +1,41 @@
+#reportForm {
+	max-width: 1000px; margin: 50px auto 0; padding: 70px 40px;
+	background: #fff; border: 1px solid #d8d9de;
+}
+
+.form_title {
+	width: 100%;
+	padding: 0.375rem 0.75rem;
+	text-align: center;
+}
+
+.form_textarea {
+	width: 100%;
+	resize: none;
+	border: 0.25px solid #d1d3e2;
+	border-radius: 0.35rem;
+	padding: 0.5rem 0.75rem;
+}
+
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #6e707e;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 0px;
+  border-bottom: 1px solid #d1d3e2;
+  margin-right: 0.5rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+  outline: 0;
+  border-bottom: 1.5px solid black;
+}

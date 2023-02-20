@@ -1,5 +1,7 @@
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/main}">
 <head>
     <meta charset="utf-8">
     <title>지도 생성하기</title>
@@ -10,16 +12,10 @@
 </head>
 <body>
 
-
+<main layout:fragment="content">
 
 <div class="container_top">
-<div class="whether">
-<div style="width: 100% ; height: 100%; text-align : center">
-<span>
-날씨배너
-</span>
-</div>
-</div>
+
 
 <div class="search">
 
@@ -29,13 +25,13 @@
 </div>
 </div>
 <div class="search_button">
-<button type="button" onclick="tourGo.search()" style="width:100%; height: 100%;">
+<button type="button" onclick="tourGo.search()" style="width:100%; height: 100%;" class="button-event">
 <span class="material-symbols-outlined" style="font-size: 50px;">search</span>
 </button>
 </div>
 
 <div class="bookmark">
-<button type="submit" style="width:100%; height: 100%;">
+<button type="submit" class="button-event">
 <span class="material-symbols-outlined" style="font-size: 50px;">star</span>
 </button>
 </div>
@@ -44,11 +40,11 @@
 
 <form th:action="@{/plan/}+${plannerNo}" method="post" name="frm" id="frm">
 <input type="hidden" th:value="${plannerNo}" name="plannerNo" id="plannerNo">
-<button type="submit" class="save_btn">save</button>
+<button type="submit" class="save_btn font_size_2rem button-event">save</button>
 <a th:href="@{/plan}">
-<span class="material-symbols-outlined" style="font-size : 100px; float:right;">
+<button type="button" class="close_btn font_size_2rem button-event">
 close	
-</span>
+</button>
 </div>
 </a>
 </div>
@@ -58,9 +54,9 @@ close
 <div class="day">
 
 
-<div th:each =" day,status : ${test}">
+<div class= "daydiv" th:each =" day,status : ${dayList}">
 <input type="radio" th:id ="${day}" th:value="${status.count}" name="day" th:checked="${status.index == 0 ? 'true':'false'}" onclick="planner.loadSelection()">
-<label th:for="${day}" th:text="${day}">
+<label th:for="${day}" th:text="${day}"></label>
 </div>
 
 
@@ -71,15 +67,22 @@ close
 <div class="selected_items" id="selected_items">
 
 	<div th:if="${list != null}">
-	<div th:each="details : ${list}">
-	<input type="hidden" th:value="${details.detailsNo}" name="detailsNo" id="detailsNo">
-	<span name="name" th:text="${details.name}"></span>
-
-	<span name="address" th:text="${details.address}"></span>
+	<div th:each="details : ${list}" class="selected" th:value="${details}" id="select" onclick="selectedItem()">
 	
+<button type="button" th:value="${details.detailsNo}" id="detailsNo" name="detailsNo" onclick="deleteDetails()" class="width100 button-event">삭제하기</button>
+	
+<div class="forImage">
+	<img name="firstimage" th:src="${details.firstimage}" class="img-event"/>
+</div>	
+	<span name="title" th:text="${details.title}"></span> <br>
+
+	<span name="address" th:text="|주소 : ${details.address}|" class="add"></span>
+	<br>
+	<span name="tel" th:text="|Tel : ${details.tel}|"></span>
+	<br>
 	<label for="checkST">시작</label>
 	<input type="time" name="stime" th:value="${details.stime}!=null ? ${details.stime} : null " id="checkST"> 
-	
+	<br>
 	<label for="checkET">종료</label>
 	<input type="time" name="etime" th:value="${details.etime}!=null ? ${details.etime} : null " id="checkET"> 
 	
@@ -129,21 +132,7 @@ close
 <script type="text/javascript" th:src="@{/js/plan/makePlan/ajax_loader.js}"></script>
 <script type="text/javascript" th:src="@{/js/plan/makePlan/details.js}"></script>
 
-<script type="text/html" id='tpl_selectedItems'>
-	<li id='contentId_<%=id%>'>
-		
-		<img src="<%=firstimage>"></img>
-		<div><%=title%></div>
-		<div><%=address%></div>
-		
-		<button type="button" class="remove">[삭제]</button>
-			
-		          
-		      	
-		      		  	
-	</li>
-	
-</script>
-
+</main>
 </body>
+
 </html>

@@ -31,10 +31,11 @@ public class PlanLikeService {
 		
 		long PlannerNo = Long.parseLong(uid.split("_")[0]);
 		int totalLikes = planLikeRepository.countByUid(field, PlannerNo);
+		System.out.println("카운트21231123");
 		
 		plannerRepository.updateTotalLikes(totalLikes,PlannerNo);
 		
-		return 0;
+		return totalLikes;
 		
 	}
 }

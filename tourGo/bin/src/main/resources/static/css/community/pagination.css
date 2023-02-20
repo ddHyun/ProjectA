@@ -1,0 +1,18 @@
+.pagination{
+	display: flex;
+	justify-content: center;
+}
+
+.page{
+	list-style: none;
+	padding-left: 0;
+}
+
+.page a{
+	margin-right: 10px;
+	padding: 5px;
+}
+
+.on{
+	font-weight: bold;
+}

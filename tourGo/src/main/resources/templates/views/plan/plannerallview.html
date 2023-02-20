@@ -1,38 +1,238 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/main}">
 
 <main layout:fragment="content">
+<link th:href="@{/css/plan/weather.css}" rel="stylesheet"
+	type="text/css">
+<head>
+<script type="text/javascript" th:src="@{/js/plan/makePlan/weather.js}"></script>
+<style>
 
-	<head>
-		<style>
 
-		</style>
-<div
-		style="border: 1px solid blue; display: grid; grid-template-columns: repeat(3,450px); place-content: center;grid-column-gap: 100px;">
-		
-		
-		<th:block th:each="li,status : ${list}" th:object="${li}">
 
-			<!--    <div th:id="'ex'+${status.count}" style="border:1px solid green;">-->
-			<a th:href="@{/plan/plannerallview_page/}+*{plannerNo}" style="text-decoration: none;">
-			<div th:class="buttons" style="border:1px solid green; cursor: pointer;margin-top:70px"
-				th:data-no="*{plannerNo}">
-				<img style="max-width: 450px;" th:src="@{/images/main_test/sub4.jpg}"> <br>
-				<span th:text="*{plannerNo}"> </span>
-				<span th:text="*{title}"> </span>
-				<input type="hidden" th:name="test" th:value="*{plannerNo}" />
+</style>
+
+﻿
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<div>
+<div class="weatherview">
+	<div class="Weather">
+		<div class="Weather-slideshow-container">
+
+			<div class="align-Colum1 align-Center">
+				<div class="BorderRound Tmoney-fontsize-150">
+					<span class="nowtime"></span> <span class="marginLeft-5">현재날씨</span>
+				</div>
+
+				<div class="Weather-Slides Weather-fade">
+					<div class="align-Center align-Colum paddingTop-10">
+						<span class="Tmoney-fontsize-150 color-blue">춘천</span> <span
+							class="ChuncheonIcon"></span> <span
+							class="ChuncheonNowtemp KOTRA-fontsize-100">현재기온:</span>
+					</div>
+				</div>
+
+				<div class="Weather-Slides Weather-fade">
+					<div class="align-Center align-Colum paddingTop-10">
+						<span class="Tmoney-fontsize-150 color-blue">강릉</span> <span
+							class="GangneungIcon"></span> <span
+							class="GangneungNowtemp KOTRA-fontsize-100">현재기온:</span>
+					</div>
+				</div>
+
+				<div class="Weather-Slides Weather-fade">
+					<div class="align-Center align-Colum paddingTop-10">
+						<span class="Tmoney-fontsize-150 color-blue">원주</span> <span
+							class="WonjuIcon"></span> <span
+							class="WonjuNowtemp KOTRA-fontsize-100">현재기온:</span>
+					</div>
+				</div>
+
+				<div class="Weather-Slides Weather-fade">
+					<div class="align-Center align-Colum paddingTop-10">
+						<span class="Tmoney-fontsize-150 color-blue">서울</span> <span
+							class="SeoulIcon"></span> <span
+							class="SeoulNowtemp KOTRA-fontsize-100">현재기온:</span>
+					</div>
+				</div>
+
+				<div class="Weather-Slides Weather-fade">
+					<div class="align-Center align-Colum paddingTop-10">
+						<span class="Tmoney-fontsize-150 color-blue">인천</span> <span
+							class="IncheonIcon"></span> <span
+							class="IncheonNowtemp KOTRA-fontsize-100">현재기온:</span>
+					</div>
+				</div>
+
+				<div class="Weather-Slides Weather-fade">
+					<div class="align-Center align-Colum paddingTop-10">
+						<span class="Tmoney-fontsize-150 color-blue">청주</span> <span
+							class="CheongjuIcon"></span> <span
+							class="CheongjuNowtemp KOTRA-fontsize-100">현재기온:</span>
+					</div>
+				</div>
+
+				<div class="Weather-Slides Weather-fade">
+					<div class="align-Center align-Colum paddingTop-10">
+						<span class="Tmoney-fontsize-150 color-blue">대전</span> <span
+							class="DaejeonIcon"></span> <span
+							class="DaejeonNowtemp KOTRA-fontsize-100">현재기온:</span>
+					</div>
+				</div>
+
+				<div class="Weather-Slides Weather-fade">
+					<div class="align-Center align-Colum paddingTop-10">
+						<span class="Tmoney-fontsize-150 color-blue">안동</span> <span
+							class="AndongIcon"></span> <span
+							class="AndongNowtemp KOTRA-fontsize-100">현재기온:</span>
+					</div>
+				</div>
+
+				<div class="Weather-Slides Weather-fade">
+					<div class="align-Center align-Colum paddingTop-10">
+						<span class="Tmoney-fontsize-150 color-blue">대구</span> <span
+							class="DaeguIcon"></span> <span
+							class="DaeguNowtemp KOTRA-fontsize-100">현재기온:</span>
+					</div>
+				</div>
+
+				<div class="Weather-Slides Weather-fade">
+					<div class="align-Center align-Colum paddingTop-10">
+						<span class="Tmoney-fontsize-150 color-blue">울산</span> <span
+							class="UlsanIcon"></span> <span
+							class="UlsanNowtemp KOTRA-fontsize-100">현재기온:</span>
+					</div>
+				</div>
+
+				<div class="Weather-Slides Weather-fade">
+					<div class="align-Center align-Colum paddingTop-10">
+						<span class="Tmoney-fontsize-150 color-blue">창원</span> <span
+							class="ChangwonIcon"></span> <span
+							class="ChangwonNowtemp KOTRA-fontsize-100">현재기온:</span>
+					</div>
+				</div>
+
+				<div class="Weather-Slides Weather-fade">
+					<div class="align-Center align-Colum paddingTop-10">
+						<span class="Tmoney-fontsize-150 color-blue">부산</span> <span
+							class="BusanIcon"></span> <span
+							class="BusanNowtemp KOTRA-fontsize-100">현재기온:</span>
+					</div>
+				</div>
+
+				<div class="Weather-Slides Weather-fade">
+					<div class="align-Center align-Colum paddingTop-10">
+						<span class="Tmoney-fontsize-150 color-blue">전주</span> <span
+							class="JeonjuIcon"></span> <span
+							class="JeonjuNowtemp KOTRA-fontsize-100">현재기온:</span>
+					</div>
+				</div>
+
+				<div class="Weather-Slides Weather-fade">
+					<div class="align-Center align-Colum paddingTop-10">
+						<span class="Tmoney-fontsize-150 color-blue">목포</span> <span
+							class="MokpoIcon"></span> <span
+							class="MokpoNowtemp KOTRA-fontsize-100">현재기온:</span>
+					</div>
+				</div>
+
+				<div class="Weather-Slides Weather-fade">
+					<div class="align-Center align-Colum paddingTop-10">
+						<span class="Tmoney-fontsize-150 color-blue">광주</span> <span
+							class="GwangjuIcon"></span> <span
+							class="GwangjuNowtemp KOTRA-fontsize-100">현재기온:</span>
+					</div>
+				</div>
+
+				<div class="Weather-Slides Weather-fade">
+					<div class="align-Center align-Colum paddingTop-10">
+						<span class="Tmoney-fontsize-150 color-blue">여수</span> <span
+							class="YeosuIcon"></span> <span
+							class="YeosuNowtemp KOTRA-fontsize-100">현재기온:</span>
+					</div>
+				</div>
+
+				<div class="Weather-Slides Weather-fade">
+					<div class="align-Center align-Colum paddingTop-10">
+						<span class="Tmoney-fontsize-150 color-blue">제주</span> <span
+							class="JejuIcon"></span> <span
+							class="JejuNowtemp KOTRA-fontsize-100">현재기온:</span>
+					</div>
+				</div>
+
 			</div>
-			
-</a>
-		</th:block>
-	</div>
-		<div style="text-align: center;">
-		<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-		<a th:if="${page != nowPage and page>0}" th:href="@{/plan/plannerallview/(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
-		<strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
-	</th:block>
+
+
 		</div>
+		<br>
+		<div class="textcenter">
+			<span class="Weather-dot" onclick='WeatherCurrentSlide(1)'></span> <span
+				class="Weather-dot" onclick='WeatherCurrentSlide(2)'></span> <span
+				class="Weather-dot" onclick='WeatherCurrentSlide(3)'></span> <span
+				class="Weather-dot" onclick='WeatherCurrentSlide(4)'></span> <span
+				class="Weather-dot" onclick='WeatherCurrentSlide(5)'></span> <span
+				class="Weather-dot" onclick='WeatherCurrentSlide(6)'></span> <span
+				class="Weather-dot" onclick='WeatherCurrentSlide(7)'></span> <span
+				class="Weather-dot" onclick='WeatherCurrentSlide(8)'></span> <span
+				class="Weather-dot" onclick='WeatherCurrentSlide(9)'></span> <span
+				class="Weather-dot" onclick='WeatherCurrentSlide(10)'></span> <span
+				class="Weather-dot" onclick='WeatherCurrentSlide(11)'></span> <span
+				class="Weather-dot" onclick='WeatherCurrentSlide(12)'></span> <span
+				class="Weather-dot" onclick='WeatherCurrentSlide(13)'></span> <span
+				class="Weather-dot" onclick='WeatherCurrentSlide(14)'></span> <span
+				class="Weather-dot" onclick='WeatherCurrentSlide(15)'></span> <span
+				class="Weather-dot" onclick='WeatherCurrentSlide(16)'></span> <span
+				class="Weather-dot" onclick='WeatherCurrentSlide(17)'></span> <span
+				class="Weather-dot" onclick='WeatherCurrentSlide(18)'></span>
+
+		</div>
+	</div>
+
+	<!--		날씨 api-->
+
+
+
+</div>
+
+<div class="view">
+
+
+	<th:block th:each="li,status : ${list}" th:object="${li}">
+
+
+		<a th:href="@{/plan/plannerallview_page/}+*{plannerNo}"
+			style="text-decoration: none;">
+			<div th:class="buttons" th:data-no="*{plannerNo}">
+				<img class="viewimg"
+					th:src="*{image}"onerror="this.onerror=null; this.src='../../../../images/noimg.jpg';"> <br> 
+					<span th:text="*{title}"> </span> <input
+					type="hidden" th:name="test" th:value="*{plannerNo}" />
+			</div>
+
+
+		</a>
+	</th:block>
+</div>
+<div class="textcenter">
+	<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+		<a th:if="${page != nowPage and page>0}"
+			th:href="@{/plan/plannerallview/(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}"
+			th:text="${page}"></a>
+		<strong class="bold" th:if="${page == nowPage}" th:text="${page}"></strong>
+	</th:block>
+</div>
+
+<form th:action="@{/plan/plannerallview/}" method="get" class="textcenter formview">
+
+	<div class="searchbarview">
+	<input type="text" name="searchKeyword" class="searchbar" placeholder="검색어 입력">
+	<button type="submit" class="seachbutton">검색</button>
+</div>
+
+	</form>
 </main>
 
 </html>

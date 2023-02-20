@@ -17,9 +17,9 @@ import lombok.NoArgsConstructor;
 public class DetailsItems {//ajax로 요청받기위한 dto객체
 
 
-	// @DateTimeFormat(pattern="HH : mm")
+	// @DateTimeFormat(pattern="a KK:mm")
 	private List<String> stime;
-	// @DateTimeFormat(pattern="HH : mm")
+	// @DateTimeFormat(pattern="a KK:mm")
 	private List<String> etime;
 
 	private List<Long> detailsNo;

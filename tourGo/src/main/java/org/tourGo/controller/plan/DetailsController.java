@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,43 +17,68 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.tourGo.common.JsonResult;
 import org.tourGo.models.plan.details.DetailsItems;
 import org.tourGo.models.plan.details.PlanDetailsRq;
+import org.tourGo.models.plan.entity.PlanDetails;
+import org.tourGo.models.plan.entity.Planner;
+import org.tourGo.service.plan.PlanDetailsService;
+import org.tourGo.service.plan.PlannerService;
 
 @Controller
 public class DetailsController {
 	
+	@Autowired
+	PlanDetailsService detailsService;
+	@Autowired
+	PlannerService plannerService;
 	
-	@RequestMapping("select")
+	@PostMapping("select")
 	public String selectDay(Model model,DetailsItems rqList){
 	Integer day = rqList.getDay();
-	System.out.println(rqList);
-	ArrayList<PlanDetailsRq> list = new ArrayList<>();
-	PlanDetailsRq rq1 = PlanDetailsRq.builder().detailsNo(10l).name("관광지3").address("주소1").day(1).build();
-	PlanDetailsRq rq2 = PlanDetailsRq.builder().detailsNo(20l).name("관광지4").address("주소2").day(2).build();
-	PlanDetailsRq rq3 = PlanDetailsRq.builder().detailsNo(20l).name("관광지5").address("주소3").day(3).build();
-	PlanDetailsRq rq4 = PlanDetailsRq.builder().detailsNo(20l).name("관광지6").address("주소4").day(4).build();
-	PlanDetailsRq rq5 = PlanDetailsRq.builder().detailsNo(20l).name("관광지7").address("주소6").day(5).build();
-	list.add(rq2);
-	list.add(rq1);
-	list.add(rq3);
-	list.add(rq4);
-	list.add(rq5);
 	
-	list.removeIf(num->num.getDay()!=day);
+	
+	Planner planner = plannerService.getPlanner(rqList.getPlannerNo());
+	if(rqList.getDetailsNo()!=null) {
+	detailsService.updatePlanDetails(rqList);
+	}
+	
+	List<PlanDetailsRq> list = detailsService.getPlanDetailsByDay(day, planner);
+
+	
+	
 	
 	model.addAttribute("list", list);
 	return "plan/makeDetails::#selected_items";
 	
 	}
 	
-	@ResponseBody
-	@PostMapping("textxml")
-	public JsonResult<?> testxml(String plannerNo, Model model){
-		System.out.print(plannerNo);
+	
+	@PostMapping("saveDetails")
+	public String testxml(PlanDetailsRq rq,Model model){
+	
+		Planner planner = plannerService.getPlanner(rq.getPlannerNo());
+		Integer day = rq.getDay();
+		PlanDetails entity = detailsService.insertPlanDetails(rq,planner);
+
+		List<PlanDetailsRq> list = detailsService.getPlanDetailsByDay(day, planner);
+	
 		
+		model.addAttribute("list", list);
 		
-		return new JsonResult<>(true, "성공", null);
+		return "plan/makeDetails::#selected_items";
 	}
 	
+	@GetMapping("delteDetails")
+	public String delete(Long detailsNo,Model model) {
+		System.out.println(detailsNo);
+		
+		PlanDetails entity =  detailsService.deleteDetails(detailsNo);
+		
+		List<PlanDetailsRq> list = detailsService.getPlanDetailsByDay(entity.getDay(), entity.getPlannerNo());
+	
+	
+		model.addAttribute("list", list);
+		
+		return "plan/makeDetails::#selected_items";
+	}
 	
 	
 }
