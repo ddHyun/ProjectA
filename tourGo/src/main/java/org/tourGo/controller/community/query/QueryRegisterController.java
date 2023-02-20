@@ -43,7 +43,8 @@ public class QueryRegisterController {
 	}
 	
 	@PostMapping
-	public String process(@Valid QueryRequest queryRequest, Errors errors, Model model) {
+	public String process(@Valid QueryRequest queryRequest, Errors errors, 
+									@AuthenticationPrincipal PrincipalDetail principal, Model model) {
 		if(errors.hasErrors()) {
 			//static & board명 추가
 			model.addAttribute("board", "query");
@@ -52,6 +53,7 @@ public class QueryRegisterController {
 			return "community/query/query_register";
 		}
 		
+		queryRequest.setUser(principal.getUser());
 		queryRequest = service.process(queryRequest);
 		model.addAttribute("queryRequest", queryRequest);
 		

@@ -125,13 +125,13 @@ public class AdminQueryController {
 	
 	@PostMapping("/admin/query/queryReplyRegister")
 	public String queryReplyRegister(Model model,
-										@AuthenticationPrincipal PrincipalDetail principal,
+//										@AuthenticationPrincipal PrincipalDetail principal,
 										QueryRequest queryRequest,
 										@Valid QueryReplyRequest queryReplyRequest,
 										AdminSearchRequest searchRequest,
 										Errors errors) {
 		
-		User user = userService.findByUserId(principal.getUsername()).orElseThrow();
+//		User user = userService.findByUserId(principal.getUsername()).orElseThrow();
 		
 		QueryEntity query = queryService.findById(queryReplyRequest.getQueryNo()).orElse(null);
 		queryRequest = new QueryRequest(query);
@@ -144,7 +144,7 @@ public class AdminQueryController {
 		}
 		
 		try {
-			queryReplyRequest.setUser(user);
+//			queryReplyRequest.setUser(user);
 			queryReplyService.registerQueryReply(queryReplyRequest);
 			queryService.isSolvedSuccess(queryReplyRequest.getQueryNo());
 		} catch(Exception e) {

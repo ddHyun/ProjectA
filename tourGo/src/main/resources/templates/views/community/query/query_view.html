@@ -29,7 +29,7 @@
 			<div th:if="${queryReply}" class="wrap centerW" th:object="${queryReply}">
 				<table class="rplT marginAuto">
 					<tr>
-						<td align="right" class="borderND" th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">
+						<td align="right" class="borderND" th:text="#{admin}+'   '+*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}"></td>
 					</tr>
 					<tr>
 						<td align="left" th:utext="*{queryReplyContent}"></td>

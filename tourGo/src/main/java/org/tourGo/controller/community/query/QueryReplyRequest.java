@@ -20,8 +20,6 @@ public class QueryReplyRequest {
 	
 	private Long queryNo;
 	
-	private User user;
-	
 	private LocalDateTime regDt;
 	
 	private LocalDateTime modDt;
@@ -31,7 +29,6 @@ public class QueryReplyRequest {
 		queryReplyNo = entity.getQueryReplyNo();
 		queryReplyContent = entity.getQueryReplyContent();
 		queryNo = entity.getQuery().getQueryNo();
-		user = entity.getUser();
 		regDt = entity.getRegDt();
 		modDt = entity.getModDt();
 	}
