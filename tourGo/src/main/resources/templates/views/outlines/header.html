@@ -13,9 +13,14 @@
 				<a th:href="@{/travel_destination_main}">국내여행지</a>
 				<a th:href="@{/plan?page=0}">여행만들기</a>
 				<a th:href="@{/plan/plannerallview}">여행모두보기</a>
-				<a th:href="@{/community/notice_main}">공지사항</a>
-				<a th:href="@{/community/query_main}">문의사항</a>
-				<a th:href="@{/community/review_main}">이용후기</a>
+				<div class="nav_dropdown">
+					<span class="dropbtn">커뮤니티</span>
+					<div class="dropdown-content">
+						<a th:href="@{/community/notice_main}">공지사항</a>
+						<a th:href="@{/community/query_main}">문의사항</a>
+						<a th:href="@{/community/review_main}">이용후기</a>
+					</div>
+				</div>
 			</div>
 		</th:block>
 		<!-- test login join -->

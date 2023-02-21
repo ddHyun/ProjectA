@@ -1,3 +1,47 @@
+.nav_all {
+	margin: 0px 10px;
+	display: flex;
+	justify-content: space-between;
+	text-align : center;
+	padding : 30px 0;
+}
+
+.nav_all a{
+	text-decoration: none;
+	color:black;
+}
+
+.nav_all a:hover {
+	color:gray;
+}
+
+.nav_home {
+    margin: 0px 10px;
+	font-size: 250%;
+}
+
+.nav_items {
+	font-size: 150%;
+	display: flex;
+	align-items:center;
+}
+
+.nav_items a {
+	margin: 0px 20px;
+}
+
+.nav_log {
+	font-size: 150%;
+	display: flex;
+	align-items:center;
+}
+
+.nav_log a {
+	margin: 0px 10px;
+}
+
+
+
 body {
 	background-color: #fff;
 }
@@ -77,3 +121,4 @@ video {
 .last_text button:hover {
 	background-color: #98d0e3;
 }
+

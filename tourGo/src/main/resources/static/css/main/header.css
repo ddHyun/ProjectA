@@ -8,11 +8,11 @@
 
 .nav_all a{
 	text-decoration: none;
-	color:black;
+	color:dodgerblue;
 }
 
 .nav_all a:hover {
-	color:gray;
+	color:lightblue;
 }
 
 .nav_home {
@@ -39,3 +39,22 @@
 	margin: 0px 10px;
 }
 
+.nav_dropdown{
+  position : relative;
+  display : inline-block;
+}
+
+.dropdown-content{
+  display : none;
+  position : absolute;
+  width: 100%;
+  z-index : 1; /*다른 요소들보다 앞에 배치*/
+}
+
+.dropdown-content a{
+  display : block;
+}
+
+.nav_dropdown:hover .dropdown-content {
+  display: block;
+}
