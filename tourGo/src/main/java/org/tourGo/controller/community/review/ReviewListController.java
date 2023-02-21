@@ -30,7 +30,7 @@ public class ReviewListController{
 		model.addAttribute("addCss", new String[] {"community/community_common", "community/pagination"});
 		model.addAttribute("addScript", new String[] {"community/review/index"});
 		
-		page = page == null? 1 : page;
+		page = page == null || page == 0 ? 1 : page;
 
 		Page<ReviewEntity> results = reviewService.getAllReviewList(page, 10, order, keyword);
 		//Page<엔티티>->List<엔티티>->Stream<엔티티>->Stream<커맨드>->List<커맨드>

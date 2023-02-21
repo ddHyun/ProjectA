@@ -14,9 +14,9 @@
 			<form method="post" th:action="@{/community/query_register}" th:object="${queryRequest}" autocomplete=off>
 				<th:block th:replace="community/query/_form::form"></th:block>
 				<div class="marginTop30"></div>
-				<button class="btn0 width25" type="button" th:text="#{community.cancel}"
+				<button class="btn0 width20" type="button" th:text="#{community.cancel}"
 						th:onclick="|location.href='@{/community/query_main}'|">취소</button>
-				<button class="btn1 width25" type="submit" th:text="#{community.register}">등록</button>
+				<button class="width20" type="submit" th:text="#{community.register}">등록</button>
 			</form>
 		</div>
 	</main>

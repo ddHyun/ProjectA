@@ -8,7 +8,7 @@ import lombok.*;
 @Table(name="uid")
 @Getter @ToString
 @IdClass(MyUid.class)
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UidEntity {
 
 	@Id

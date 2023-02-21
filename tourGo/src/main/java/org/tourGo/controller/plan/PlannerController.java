@@ -162,6 +162,11 @@ public class PlannerController {
 			model.addAttribute("list", list);
 			model.addAttribute("plannerRq", plannerRq);
 			model.addAttribute("plannerNo", planner.getPlannerNo());
+	
+			 model.addAttribute("addCss", new String[] {"plan/makePlan", "newCommon"});
+			 model.addAttribute("addScript", new String[] {"plan/makePlan/details"}); 
+			  
+			
 			
 		} catch (Exception e) {
 			throw new AlertException("유효하지 않은 접근입니다.", "/plan");

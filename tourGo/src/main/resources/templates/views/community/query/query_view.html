@@ -29,7 +29,7 @@
 			<div th:if="${queryReply}" class="wrap centerW" th:object="${queryReply}">
 				<table class="rplT marginAuto">
 					<tr>
-						<td align="right" class="borderND" th:text="*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}">
+						<td align="right" class="borderND" th:text="#{admin}+'   '+*{#temporals.format(regDt, 'yyyy-MM-dd HH:mm')}"></td>
 					</tr>
 					<tr>
 						<td align="left" th:utext="*{queryReplyContent}"></td>
@@ -39,12 +39,12 @@
 			<div class="marginTop30"></div>	
 			
 			<div>
-				<button class="btn0 width25" type="button" th:text="#{community.list}"
+				<button class="btn0 width20" type="button" th:text="#{community.list}"
 					th:onclick="|location.href='/community/query_main?page=${page}'|">목록</button>
 				<th:block th:if="${user}==*{user.userId}">
-					<button class="btn1 width20" type="button" th:text="#{community.modify}"
+					<button class="width20" type="button" th:text="#{community.modify}"
 						th:onclick="|location.href='/community/query_update/*{queryNo}'|">수정</button>
-					<button class="btn1 width20" type="button" th:text="#{community.delete}"
+					<button class="width20" type="button" th:text="#{community.delete}"
 						th:onclick="|confirm('정말 삭제하시겠습니까?'); location.href='/community/query_delete/*{queryNo}'|">삭제</button>
 				</th:block>
 			</div>

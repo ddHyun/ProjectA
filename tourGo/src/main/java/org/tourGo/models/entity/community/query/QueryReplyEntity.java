@@ -3,7 +3,6 @@ package org.tourGo.models.entity.community.query;
 import javax.persistence.*;
 
 import org.tourGo.common.BaseEntity;
-import org.tourGo.models.entity.user.User;
 
 import lombok.*;
 
@@ -24,15 +23,10 @@ public class QueryReplyEntity extends BaseEntity {
 	@JoinColumn(name="queryNo")
 	private QueryEntity query;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="userNo")
-	private User user;
-	
 	@Builder
-	public QueryReplyEntity(Long queryNo, String queryReplyContent, QueryEntity query, User user) {
+	public QueryReplyEntity(Long queryNo, String queryReplyContent, QueryEntity query) {
 		this.queryReplyNo = queryNo;
 		this.queryReplyContent = queryReplyContent;
 		this.query = query;
-		this.user = user;
 	}
 }

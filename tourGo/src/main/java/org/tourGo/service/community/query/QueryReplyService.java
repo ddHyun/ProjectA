@@ -36,7 +36,6 @@ public class QueryReplyService {
 																.queryNo(queryReplyRequest.getQueryReplyNo())
 																.queryReplyContent(queryReplyRequest.getQueryReplyContent())
 																.query(query)
-																.user(queryReplyRequest.getUser())
 																.build();
 		
 		replyRepository.save(queryReplyEntity);

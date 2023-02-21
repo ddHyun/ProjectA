@@ -20,7 +20,6 @@ public class LikedService {
 	public int process(String uid, String field) {
 		//기존 uid가 있다면 삭제, 없다면 등록
 		UidEntity uidEntity = uidRepository.findByFieldAndUid(field, uid).orElse(null);
-		System.out.println("====uid일치 조회 : "+uidEntity);
 		try {
 			if(uidEntity==null) {//uid 조회결과가 없다면 추가
 				uidEntity = UidEntity.builder().uid(uid).field(field).build();

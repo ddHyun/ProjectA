@@ -57,16 +57,16 @@
 			<th:block th:replace="community/reply::reply"></th:block>
 
 			<div>
-				<button class="btn0 width25" type="button" th:text="#{community.list}"							
+				<button class="btn0 width20" type="button" th:text="#{community.list}"							
 							th:onclick="'location.href=\''+@{${url}}+'\''">목록</button>
 				<th:block sec:authorize="isAuthenticated()">
-				<a class="btn2 width25" type="button" th:text="#{report}"
+				<a class="btn2 width20" type="button" th:text="#{report}"
 					th:href="@{/report/review/{reviewNo}(reviewNo=${reviewRequest.reviewNo})}">신고</a>
 				</th:block>
 				<th:block th:if="${user==reviewRequest.id}">
-					<button class="btn1 width20" type="button" th:text="#{community.modify}"
+					<button class="width20" type="button" th:text="#{community.modify}"
 								th:onclick="|location.href='/community/review_update/*{reviewNo}'|">수정</button>
-					<button class="btn1 width20" id="deleteBtn" type="button" th:text="#{community.delete}">삭제</button>
+					<button class="width20" id="deleteBtn" type="button" th:text="#{community.delete}">삭제</button>
 				</th:block>
 			</div>
 			
