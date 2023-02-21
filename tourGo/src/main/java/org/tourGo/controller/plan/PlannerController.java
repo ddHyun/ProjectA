@@ -163,7 +163,7 @@ public class PlannerController {
 			model.addAttribute("plannerRq", plannerRq);
 			model.addAttribute("plannerNo", planner.getPlannerNo());
 	
-			 model.addAttribute("addCss", new String[] {"plan/makePlan", "newCommon"});
+			 model.addAttribute("addCss", new String[] {"plan/makePlan"});
 			 model.addAttribute("addScript", new String[] {"plan/makePlan/details"}); 
 			  
 			
