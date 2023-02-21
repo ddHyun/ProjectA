@@ -20,4 +20,10 @@ public class MainViewController {
 		return "main/main_view2";
 	}
 	
+	@GetMapping("/main_view3")
+	public String main_view3(Model model) {
+		
+		return "main/main_view3";
+	}
+	
 }
