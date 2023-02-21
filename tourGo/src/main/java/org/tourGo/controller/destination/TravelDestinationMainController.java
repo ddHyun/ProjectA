@@ -27,16 +27,21 @@ import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.destination.DestinationDetailRequest;
 
 import org.tourGo.models.destination.entity.DestinationDetail;
+import org.tourGo.models.destination.like.DestinationUidEntity;
 import org.tourGo.models.destination.like.DestinationUidRequest;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.user.UserRepository;
 import org.tourGo.service.destination.DestinationDetailService;
 import org.tourGo.service.destination.DestinationMainService;
 import org.tourGo.service.destination.DestinationReadHitService;
+import org.tourGo.service.destination.DestinationUidEntityRepository;
 
 @Controller
 public class TravelDestinationMainController {
 
+	@Autowired
+	private DestinationUidEntityRepository destinationUidEntityRepository;
+	
 	@Autowired
 	private DestinationMainService destinationMainService;
 
@@ -115,8 +120,16 @@ public class TravelDestinationMainController {
 	      if (principal != null) {
 	         model.addAttribute("user", principal.getUsername());
 	         userNo = principal.getUser().getUserNo();
+	         
+	         DestinationUidEntity destinationUidEntity = destinationUidEntityRepository.findByNo("liked", destinationNo, userNo).orElse(null);
+				if (destinationUidEntity != null) {
+					DestinationUidRequest like = new DestinationUidRequest(destinationUidEntity);
+				
+					model.addAttribute("like", like);
 	      }
 	      
+
+}
 
 	      String readUid = DestinationUidRequest.getUid(destinationNo, userNo);
 	      destinationReadHitService.process(readUid, "readHit", "destination");
@@ -126,9 +139,10 @@ public class TravelDestinationMainController {
 	      model.addAttribute("detail", test);
 
 	      return "travel_destination/destination_detail";
+	  	
 		
 
 	}
-	
+	     
 
 }

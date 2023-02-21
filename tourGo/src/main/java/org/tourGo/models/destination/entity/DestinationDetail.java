@@ -41,5 +41,6 @@ public class DestinationDetail extends BaseEntity {
 	
 	@Column(columnDefinition = "int default '0'", insertable=false, updatable=false)
 	private int tourHits;			// 관광지 조회수
-	private Integer tourHeart;			// 관광지 좋아요
+	@Column(columnDefinition = "int default '0'", insertable=false, updatable=false)
+	private int tourHeart;			// 관광지 좋아요
 }
