@@ -1,24 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-	<header th:fragment="header">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<header id="header" th:fragment="header">
 	<div class="nav_all">
-  		<th:block>
-  			<div class="nav_home">
-				<a th:href="@{/main_view}">TourGO</a>  		
-  			</div>
-  		</th:block>
-		<th:block >
+		<th:block>
+			<div class="nav_home">
+				<a th:href="@{/main_view}">TourGO</a>
+			</div>
+		</th:block>
+		<th:block>
 			<div class="nav_items">
-				<a th:href="@{/travel_destination_main}">국내여행지</a>
-				<a th:href="@{/plan?page=0}">여행만들기</a>
-				<a th:href="@{/plan/plannerallview}">여행모두보기</a>
-				<div class="nav_dropdown">
-					<span class="dropbtn">커뮤니티</span>
-					<div class="dropdown-content">
-						<a th:href="@{/community/notice_main}">공지사항</a>
-						<a th:href="@{/community/query_main}">문의사항</a>
-						<a th:href="@{/community/review_main}">이용후기</a>
+				<a class="nav_content" th:href="@{/travel_destination_main}">국내여행지</a>
+				<a class="nav_content" th:href="@{/plan?page=0}">여행만들기</a>
+				<a class="nav_content" th:href="@{/plan/plannerallview}">여행모두보기</a>
+				<div class="nav_content">
+					<div class="nav_dropdown">
+						<span class="dropbtn">커뮤니티</span>
+						<div class="dropdown-content">
+							<a th:href="@{/community/notice_main}">공지사항</a>
+							<a th:href="@{/community/query_main}">문의사항</a>
+							<a th:href="@{/community/review_main}">이용후기</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -38,8 +39,8 @@
 		</th:block>
 		<!-- test login join -->
 	</div>
-	</header>
-	
+</header>
+
 <!-- 
 	Spring Security 잠시 주석처리 (문경민) 
 	<header th:fragment="header">
@@ -53,4 +54,5 @@
 		</th:block>
 	</header>
 -->
+
 </html>
