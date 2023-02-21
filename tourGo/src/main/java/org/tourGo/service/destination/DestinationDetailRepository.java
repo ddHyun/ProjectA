@@ -20,5 +20,11 @@ public interface DestinationDetailRepository extends JpaRepository<DestinationDe
 	@Transactional
 	@Query("update DestinationDetail d set d.tourHits=( d.tourHits + 1 ) where d.destinationNo=:destinationNo")
 	int updateTourHits(@Param("destinationNo") Long destinationNo);
+	
+	//좋아요 업데이트
+	@Modifying
+	@Transactional
+	@Query("update DestinationDetail d set d.tourHeart=:tourHeart where d.destinationNo=:destinationNo")
+	int updateTotalLikes(int tourHeart, long destinationNo);
 
 }
