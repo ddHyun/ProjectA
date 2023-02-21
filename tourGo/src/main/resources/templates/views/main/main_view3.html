@@ -2,6 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{main/main_layout}">
 <main layout:fragment="content">
+<script type="text/javascript" th:src="@{/js/layer.js}"></script>
+<script>
+		window.addEventListener("DOMContentLoaded", function () {
+
+			const button1El = document.getElementById("button2");
+			button1El.addEventListener("click", function () {
+				codefty.popup.open("/plan/makeplan2", "새 일정 만들기", 600, 500, true);
+			});
+			
+
+		
+			
+			
+		});
+		
+		function btn(){
+		    alert('로그인 후 이용가능합니다.');
+		}
+		
+	</script>
+
+
+
 	<div class="main_view">
 		<div class="start_content">
 			<div class="right_text">
@@ -13,7 +36,12 @@
 						TourGo
 					</div>
 					<div class="last_text">
-						<button>일정 선택하기</button>
+							<div th:if="${user}!=null">
+						<button type="button" id="button2">새 일정 만들기</button>
+						</div>
+						<div th:unless="${user}!=null">
+						<button type="button" onclick="btn()">새 일정 만들기</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -32,6 +60,8 @@
 			</div>
 		</div>
 	</div>
+	
+
 </main>
 
 </html>
