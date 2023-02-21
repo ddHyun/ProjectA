@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.tourGo.common.AlertException;
 import org.tourGo.common.JsonResult;
+import org.tourGo.models.entity.user.User;
+import org.tourGo.models.plan.entity.Planner;
 import org.tourGo.models.plan.tourList.TourList;
 import org.tourGo.models.plan.tourList.TourListDto;
-
+import org.tourGo.service.plan.PlannerService;
 import org.tourGo.service.plan.TourService;
 
 
@@ -23,7 +25,7 @@ public class TourListController {
 
 	@Autowired
 	TourService tourService;
-	
+	@Autowired PlannerService plannerService;
 
 	
  /* @throws Exception */
@@ -41,4 +43,29 @@ public class TourListController {
 		    
 			return new JsonResult<>(true, "성공", list);
 	}
+	
+	@GetMapping("/likedList")
+	public JsonResult<?> getLikedList(Long plannerNo){
+		
+		User user = plannerService.getUserByPlannerNo(plannerNo);
+		
+		
+		
+		
+		
+		return new JsonResult<>(true,"성공",null);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
