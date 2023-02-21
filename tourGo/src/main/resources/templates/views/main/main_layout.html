@@ -7,10 +7,11 @@
 		<link th:href="@{css/main/footer.css}" rel="stylesheet" type="text/css">
 		<link th:href="@{css/main/mainPage.css}" rel="stylesheet" type="text/css">
 		<link th:href="@{css/main/main_view.css}" rel="stylesheet" type="text/css">
-		<!--<script src="https://cdn.tailwindcss.com"></script>-->
+		<link th:href="@{css/newCommon.css}" rel="stylesheet" type="text/css">
+		<script th:src="@{/js/header.js}"></script>
 	</head>
 	<body>
-		<header th:replace="outlines/header::header"></header>
+		<header id="header" th:replace="outlines/header::header"></header>
 		
 		<main layout:fragment="content"></main>
 		

@@ -8,7 +8,9 @@ html {
 }
 
 *{font-family: 'Noto Sans KR', sans-serif;}
-body{ background-color: #fff;}
+body{ 
+	background-color: #fff;
+}
 
 button{
 	background-color: #7cd5dc;

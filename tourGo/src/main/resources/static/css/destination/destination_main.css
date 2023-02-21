@@ -1,9 +1,18 @@
-html {
-	background: #f0f8ff;
+
+body {
+	background-color: #fff;
+	margin: 0;
+	line-height: inherit;
 }
 
 main {
-	margin: 0px 20px;
+	position: relative;
+	height: 100%;
+	margin: 0;
+}
+
+.destination {
+    margin-top: 150px;
 }
 
 .destination_search {
