@@ -4,12 +4,9 @@
 }
 
 .button-event{ display:block;
-        border:1px #333 solid;      
-        background-color:#333;         
-        cursor: pointer;  
-        color:#fff; 
-        transition:all 0.9s, color 0.5s;   
-    	 height: 100%;}
+      		  cursor: pointer;      
+      		  transition:all 0.9s, color 0.5s;   
+    			 height: 100%;}
     
 .button-event:hover, .daydiv input[type=radio]+label:hover{color:#ddd; box-shadow: 200px 0 0 0 rgba(255,255,255,0.25) inset, 
                    -200px 0 0 0 rgba(255,255,255,0.25) inset; }
@@ -150,8 +147,8 @@ font-size:14px;
 }
 
 .daydiv input[type=radio]:checked+label{
-    background-color: #333;
-    color: #ddd;
+    background-color: #98dde3;;
+    color: #fff;
     padding: 0;
 }
 .searchbar{
