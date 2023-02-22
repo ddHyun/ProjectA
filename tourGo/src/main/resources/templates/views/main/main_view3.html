@@ -2,25 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{main/main_layout}">
 <main layout:fragment="content">
-<script type="text/javascript" th:src="@{/js/layer.js}"></script>
-<script>
+	<script type="text/javascript" th:src="@{/js/layer.js}"></script>
+	<script>
 		window.addEventListener("DOMContentLoaded", function () {
 
 			const button1El = document.getElementById("button2");
 			button1El.addEventListener("click", function () {
 				codefty.popup.open("/plan/makeplan2", "새 일정 만들기", 600, 500, true);
 			});
-			
 
-		
-			
-			
 		});
-		
-		function btn(){
-		    alert('로그인 후 이용가능합니다.');
+
+		function btn() {
+			alert('로그인 후 이용가능합니다.');
 		}
-		
 	</script>
 
 
@@ -28,6 +23,10 @@
 	<div class="main_view">
 		<div class="start_content">
 			<div class="right_text">
+				<!-- 날씨(위치 조정은 내가 할께!! 일단 둔거라) -->
+				<div class="weather">
+					weather
+				</div>
 				<div class="all_text">
 					<div class="first_text">
 						국내 여행 스케줄 플래너
@@ -36,11 +35,11 @@
 						TourGo
 					</div>
 					<div class="last_text">
-							<div th:if="${user}!=null">
-						<button type="button" id="button2">새 일정 만들기</button>
+						<div th:if="${user}!=null">
+							<button type="button" id="button2">새 일정 만들기</button>
 						</div>
 						<div th:unless="${user}!=null">
-						<button type="button" onclick="btn()">새 일정 만들기</button>
+							<button type="button" onclick="btn()">새 일정 만들기</button>
 						</div>
 					</div>
 				</div>
@@ -56,11 +55,11 @@
 		</div>
 		<div class="destination_content">
 			<div class="destination_top3">
-				
+
 			</div>
 		</div>
 	</div>
-	
+
 
 </main>
 
