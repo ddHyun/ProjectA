@@ -1,6 +1,6 @@
 *{
 	box-sizing: border-box;
-	font-family: 'Noto Sans KR', sans-serif !important;;
+
 }
 
 .button-event{ display:block;
@@ -111,7 +111,6 @@ font-size:14px;
 
 
 .material-symbols-outlined {
-	
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
