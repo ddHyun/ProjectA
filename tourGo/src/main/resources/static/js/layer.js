@@ -107,8 +107,9 @@ codefty.popup = {
         /** 팝업 내용 영역 E */
 
         /** 팝업 닫기 버튼 S */
-        var layerClose = document.createElement("i");
-        layerClose.className = "xi-close-thin layer_close";
+        var layerClose = document.createElement("span");
+        layerClose.className = "material-symbols-outlined layer_close";
+        layerClose.innerText="close";
         layerPopup.appendChild(layerClose);
         layerClose.addEventListener("click", codefty.popup.close);
         /** 팝업 닫기 버튼 E */

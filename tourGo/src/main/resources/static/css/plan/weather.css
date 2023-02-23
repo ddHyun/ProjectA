@@ -99,15 +99,16 @@
 .view {
 
 	display: grid; 
-	grid-template-columns: repeat(3,450px); 
+	grid-template-columns: repeat(3,400px); 
 	place-content: center;
-	grid-column-gap: 100px;
+	justify-items: center;
+	margin-bottom:40px;
 }
 .buttons{
 	border:1px solid green; 
 	margin-top:70px;
-	width:450px;
-	height:400px;
+	width:338px;
+	height:300px;
 }
 .formview {
 	margin-top:70px;
@@ -136,13 +137,13 @@
 	cursor: pointer;
 }
 .searchbar{
-font-size: 16px;
+font-size: 15px;
 width: 325px;
 padding: 10px;
 border: 0px;
 outline: none;
 float: left;
-	
+
 	
 }
 .seachbutton{
@@ -155,14 +156,14 @@ outline: none;
 float: right;
 color: #ffffff;
 cursor: pointer;
+	border-radius: 0px;
 }
 .view a{
 color:black;
+
 }
 
 .buttons:hover{
-  	filter: brightness(0.5);
-  	background-color:rgba(0,0,0,0.5);
   	 -webkit-transform: scale(1.07);
   transform: scale(1.07);
 }
