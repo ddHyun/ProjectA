@@ -42,7 +42,46 @@ const tourGo = {
 
 
 
-	}//search()끝
+	},//search()끝
+	
+	likedList(){
+		var plannerNo = document.getElementById(`plannerNo`).value;
+		
+		let url = `/likedList?plannerNo=${plannerNo}`;
+		console.log(url);
+		let xhr = new XMLHttpRequest();
+		xhr.open("GET", url);
+		xhr.addEventListener("readystatechange", function() {
+			if (xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
+				try{
+				const items = JSON.parse(xhr.responseText);
+	
+				const result = items.data;
+				const parentEl = document.querySelector(".api_list");
+				const domParser = new DOMParser();
+				parentEl.innerHTML = "";
+
+				createItem(result, parentEl);
+				}catch(err){
+					console.log(err);
+					alert("타임 오버!! 다시 시도해주세요.");
+					
+				}
+
+			}//if끝
+
+
+		});//xhr끝
+	
+		xhr.send();
+		
+	}
+	
+	
+	
+	
+	
+	
 }//tourGo끝
 
 function selectedItem(){
