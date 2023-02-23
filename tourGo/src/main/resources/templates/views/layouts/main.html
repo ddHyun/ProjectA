@@ -10,7 +10,9 @@
 		<link th:href="@{/css/main/mainPage.css}" rel="stylesheet" type="text/css">
 		<link th:href="@{/css/main/footer.css}" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" type="text/css" th:each="css:${addCss}" th:href="@{/css/{css}.css(css=${css})}">
-		
+		<!--google icon-->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	
 		<script th:src="@{/js/common.js}"></script>
 		<script th:each="script : ${addScript}" th:src="@{/js/{js}.js(js=${script})}"></script>
 		<!-- added by Hyun -->
