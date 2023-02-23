@@ -1,5 +1,6 @@
 package org.tourGo.service.destination;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,4 +24,7 @@ public interface DestinationUidEntityRepository extends JpaRepository<Destinatio
 
 	
 		Optional<DestinationUidEntity> findByFieldAndUid(String field, String uid);
+		//사용자가 좋아요한 목록
+		@Query ("select u from DestinationUidEntity u where u.field='liked' and u.uid like concat('%', '\\_', :userNo)")
+		List<DestinationUidEntity> findByUserNo(@Param("userNo") long userNo);	
 }

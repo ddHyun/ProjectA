@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.tourGo.common.AlertException;
+import org.tourGo.models.destination.entity.DestinationDetail;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.plan.PlannerRq;
 import org.tourGo.models.plan.entity.PlanDetails;
@@ -21,6 +22,7 @@ import org.tourGo.models.plan.entity.Planner;
 import org.tourGo.models.plan.entity.QPlanDetails;
 import org.tourGo.models.plan.entity.QPlanner;
 import org.tourGo.models.plan.entity.like.PlanUidEntity;
+import org.tourGo.models.plan.tourList.TourListDto;
 import org.tourGo.models.user.UserRepository;
 import org.tourGo.service.destination.DestinationDetailService;
 
@@ -40,8 +42,7 @@ public class PlannerService {
 	@Autowired
 	private PlanUidEntityRepository uidRepo;
 	
-	@Autowired
-	private DestinationDetailService destinationDetailService;
+
 	
 	
 	public Planner find(Long no) {
@@ -56,11 +57,7 @@ public class PlannerService {
 		User user = planner.getUser();
 		return user;
 	}
-	/**1.현재 플래너 넘버를 추출하고 거기서 유저넘버를 추출한다
-	   2.유저 넘버로 유저 객체를 생성
-	   3.관광지에 유저 넘버랑 유저 객체에 넘버를 비교한다
-	   4.일치할경우 관광지에 넘버를 추출해서 관광지 객체를 		   
-	 * */
+
 	
 	
 	

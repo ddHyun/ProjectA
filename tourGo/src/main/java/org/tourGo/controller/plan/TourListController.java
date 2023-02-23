@@ -37,7 +37,7 @@ public class TourListController {
 					list = tourService.loadApi(keyword);
 				} catch (Exception e) {
 					e.printStackTrace();
-				throw new AlertException("다시 시도해주세요.");
+				throw new AlertException("오류 발생! 담당자에게 문의부탁드립니다.");
 				}
 			
 		    
@@ -48,12 +48,17 @@ public class TourListController {
 	public JsonResult<?> getLikedList(Long plannerNo){
 		
 		User user = plannerService.getUserByPlannerNo(plannerNo);
+		List<TourListDto> list = null;
+		try {
+			list = tourService.getLikedList(user);
+		}catch (Exception e) {
+			throw new AlertException("오류 발생! 담당자에게 문의부탁드립니다.");
+		}
 		
+		System.out.println("테스트 찜");
+		System.out.println(list);
 		
-		
-		
-		
-		return new JsonResult<>(true,"성공",null);
+		return new JsonResult<>(true,"성공",list);
 	}
 	
 	
