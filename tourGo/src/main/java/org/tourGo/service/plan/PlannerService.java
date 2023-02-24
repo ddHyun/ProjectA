@@ -233,6 +233,17 @@ public class PlannerService {
 			
 		return true;
 	}
+	//공개설정 체크여부 (비공개 플래너 접근 불가)
+	public boolean checkPlannerNo(Planner planner) {
+
+		if(planner.getOpen() != true) {
+			return false;
+		}
+			
+		return true;
+	}
+	
+	
 	public Planner getPlanner(Long id) {
 		
 		Planner planner = plannerRepo.findById(id).orElse(null);

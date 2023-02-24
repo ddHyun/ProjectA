@@ -155,7 +155,7 @@ public class PlannerController {
 			PlannerRq plannerRq = plannerService.toDto(planner);
 			ArrayList<String> dayList = new ArrayList<>();
 			for (int i = 1; i <= plannerRq.getDay(); i++) {
-				String d = "day" + i;
+				String d = "DAYl" + i;
 				dayList.add(d);
 			}
 			model.addAttribute("dayList", dayList);
@@ -271,7 +271,7 @@ public class PlannerController {
 		
 		plannerService.deletePlanner(planner);
 
-		model.addAttribute("scripts", " alert('처리가 완료되었습니다'); parent.location.replace('/plan/');");
+		model.addAttribute("scripts", " alert('처리가 완료되었습니다'); parent.location.replace('/plan');");
 		return "common/excution";
 	}
 
@@ -282,10 +282,14 @@ public class PlannerController {
 		Planner planner = plannerService.getPlanner(no);
 		List<PlanDetailsRq> list = detailsService.getPlanDetailsRqList(planner);
 		try {
-			planner = plannerService.find(no);
-		} catch (Exception e) {
-			throw new RuntimeException("잘못된 경로입니다.");
-		}
+
+			planner = plannerService.getPlanner(no);
+
+			boolean check = plannerService.checkPlannerNo(planner);
+			if (!check) {
+				model.addAttribute("scripts", " alert('유효하지않은 접근입니다'); location.replace('/plan/plannerallview');");
+				return "common/excution";
+			}
 
 		Long userNo = null;
 
@@ -306,6 +310,12 @@ public class PlannerController {
 
 		model.addAttribute("planner", planner);
 		model.addAttribute("list", list);
+		
+		} catch (Exception e) {
+			throw new AlertException("유효하지 않은 접근입니다.", "/plan");
+		}
+		
+		
 		return "plan/plannerallView_page";
 	}
 
@@ -337,10 +347,15 @@ public class PlannerController {
 		Planner planner = plannerService.getPlanner(no);
 		List<PlanDetailsRq> list = detailsService.getPlanDetailsRqList(planner);
 		try {
-			planner = plannerService.find(no);
-		} catch (Exception e) {
-			throw new RuntimeException("잘못된 경로입니다.");
-		}
+
+			Optional<User> _user = userRepository.findByUserId(principal.getUser().getUserId());
+			User user = _user.orElse(null);
+
+			boolean check = plannerService.checkPlanner(user,planner);
+			if (!check) {
+				model.addAttribute("scripts", " alert('유효하지않은 접근입니다'); location.replace('/plan');");
+				return "common/excution";
+			}
 
 		Long userNo = null;
 
@@ -360,6 +375,10 @@ public class PlannerController {
 
 				model.addAttribute("planner", planner);
 				model.addAttribute("list", list);
+				
+		} catch (Exception e) {
+			throw new AlertException("유효하지 않은 접근입니다.", "/plan");
+		}
 		return "plan/plannerview_private";
 }
 }
