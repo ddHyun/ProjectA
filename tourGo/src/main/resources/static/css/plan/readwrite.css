@@ -32,11 +32,7 @@
 }
 
 .plannercontent {
-	width: 400px;
 	padding: 20px;
-	margin-bottom: 40px;
-	border: 1px solid aqua;
-	border-radius: 20%;
 	display: inline-block;
 }
 
@@ -71,6 +67,6 @@
 }
 
 .plannercontent img {
-	width: 200px;
-	height: 150px;
+	width: 300px;
+	height: 225px;
 }
