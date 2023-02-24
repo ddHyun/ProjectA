@@ -27,20 +27,30 @@ import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.destination.DestinationDetailRequest;
 
 import org.tourGo.models.destination.entity.DestinationDetail;
-
+import org.tourGo.models.destination.like.DestinationUidEntity;
+import org.tourGo.models.destination.like.DestinationUidRequest;
 import org.tourGo.models.entity.user.User;
 import org.tourGo.models.user.UserRepository;
 import org.tourGo.service.destination.DestinationDetailService;
 import org.tourGo.service.destination.DestinationMainService;
+import org.tourGo.service.destination.DestinationReadHitService;
+import org.tourGo.service.destination.DestinationUidEntityRepository;
 
 @Controller
 public class TravelDestinationMainController {
 
 	@Autowired
+	private DestinationUidEntityRepository destinationUidEntityRepository;
+	
+	@Autowired
 	private DestinationMainService destinationMainService;
 
 	@Autowired
 	private DestinationDetailService destinationDetailService;
+	
+	@Autowired
+	private DestinationReadHitService destinationReadHitService;
+	
 
 	@GetMapping(path={"/travel_destination_main"})
 	public String ex(@RequestParam(name="keyword", defaultValue = "전체") String keyword,
@@ -89,7 +99,7 @@ public class TravelDestinationMainController {
 	// 상세페이지 연결
 	@GetMapping("/destination_detail/{destinationNo}")
 	@Transactional
-	public String dsDetail(@PathVariable long destinationNo, Model model) {
+	public String dsDetail(@PathVariable long destinationNo, Model model,@AuthenticationPrincipal PrincipalDetail principal) {
 
 		// css, js 추가
 		model.addAttribute("addCss", new String[] { "/main/footer", "/main/header", "/destination/destination_main" });
@@ -105,10 +115,34 @@ public class TravelDestinationMainController {
 		} catch (Exception e) {
 			throw new AlertException("에러");
 		}
-		model.addAttribute("detail", test);
+		 Long userNo = null;
+	      
+	      if (principal != null) {
+	         model.addAttribute("user", principal.getUsername());
+	         userNo = principal.getUser().getUserNo();
+	         
+	         DestinationUidEntity destinationUidEntity = destinationUidEntityRepository.findByNo("liked", destinationNo, userNo).orElse(null);
+				if (destinationUidEntity != null) {
+					DestinationUidRequest like = new DestinationUidRequest(destinationUidEntity);
+				
+					model.addAttribute("like", like);
+	      }
+	      
 
-		return "travel_destination/destination_detail";
+}
+
+	      String readUid = DestinationUidRequest.getUid(destinationNo, userNo);
+	      destinationReadHitService.process(readUid, "readHit", "destination");
+	      
+	      System.out.println("테스트입니다"+readUid);
+	      
+	      model.addAttribute("detail", test);
+
+	      return "travel_destination/destination_detail";
+	  	
+		
+
 	}
-	
+	     
 
 }

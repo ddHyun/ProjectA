@@ -162,6 +162,11 @@ public class PlannerController {
 			model.addAttribute("list", list);
 			model.addAttribute("plannerRq", plannerRq);
 			model.addAttribute("plannerNo", planner.getPlannerNo());
+	
+			 model.addAttribute("addCss", new String[] {"plan/makePlan"});
+			 model.addAttribute("addScript", new String[] {"plan/makePlan/details"}); 
+			  
+			
 			
 		} catch (Exception e) {
 			throw new AlertException("유효하지 않은 접근입니다.", "/plan");
@@ -316,4 +321,19 @@ public class PlannerController {
 		model.addAttribute("scripts", "parent.location.replace('../makeDetails/" + no + "');");
 		return "common/excution";
 	}
+	
+	
+	
+	@GetMapping("/go_plannerview_private/{no}")
+	public String go_plannerview_private(Model model, @PathVariable Long no) {
+
+		model.addAttribute("scripts", "parent.location.replace('/plan/plannerview_private/" + no + "');");
+		return "common/excution";
+	}
+	
+	@GetMapping("/plannerview_private/{no}")
+	public String planneview_private(@PathVariable Long no) {
+System.out.println(no);
+		return "plan/plannerview_private";
+}
 }

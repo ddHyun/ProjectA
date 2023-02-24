@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{travel_destination/travel_destination_main_layout}">
+
 <main layout:fragment="content">
+	<script src="https://kit.fontawesome.com/fda51a19be.js"
+	crossorigin="anonymous"></script>
+	
+	<input type="hidden" id="destinationNo" th:value="${detail.destinationNo}">
+	
 	<div class="destination">
 		<form th:action="@{/travel_destination_main}" method="get">
 			<div class="destination_search">
@@ -16,7 +22,12 @@
 			<p th:text="'No. ' + ${detail.destinationNo}"></p>
 			<div class="hits_heart">
 				<p th:text="'조회수 ' + ${detail.tourHits}"></p>
-				<p th:text="'좋아요 ' + ${detail.tourHeart}"></p>
+				<span class="liked"> <input th:if="${like}" type="hidden"
+					id="uid" th:value="${like.uid}"> <i
+					class="fa-regular fa-heart toggleLiked"
+					th:classappend="${user == null }? 'login_required' : ''"></i>
+				</span>
+				<span>좋아요</span>
 			</div>
 		</div>
 		<hr>
@@ -109,7 +120,7 @@
 		// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
 		// marker.setMap(null);    
 	</script>
-
+<script type="text/javascript" th:src="@{/js/destination/like.js}"></script>
 </main>
 
 </html>

@@ -58,14 +58,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.tourGo.common.HttpRequest;
 import org.tourGo.common.JsonResult;
+import org.tourGo.models.destination.entity.DestinationDetail;
+import org.tourGo.models.entity.user.User;
 import org.tourGo.models.plan.tourList.TourList;
 import org.tourGo.models.plan.tourList.TourListDto;
+import org.tourGo.service.destination.DestinationDetailService;
 
 @Service
 public class TourService {
 	
 	@Autowired
 	private RestTemplate restTemplate;
+	@Autowired
+	private DestinationDetailService destinationDetailService;
 	
 	/**
 	 * 
@@ -166,7 +171,6 @@ public class TourService {
 		TourListDto dto = TourListDto.builder()
 				.title((String) item.get("title"))
 				.address((String)item.get("addr1"))
-				.areacode((String)item.get("areacode"))
 				.firstimage((String)item.get("firstimage"))
 				.mapx((String)item.get("mapx"))
 				.mapy((String)item.get("mapy"))
@@ -178,50 +182,40 @@ public class TourService {
 	
 	
 	
+	/**1.현재 플래너 넘버를 추출하고 거기서 유저넘버를 추출한다
+	   2.유저 넘버로 유저 객체를 생성
+	   3.관광지에 유저 넘버랑 유저 객체에 넘버를 비교한다
+	   4.일치할경우 관광지에 넘버를 추출해서 관광지 객체를 
+	   			tourTitle
+	   		   tourImg
+	   		   mapx
+	   		   mapy
+	   		   tourAddr
+	   		   tourNumber
+	 * */
+	public List<TourListDto> getLikedList(User user){
+		List<DestinationDetail> destinationList = destinationDetailService.getDetailListByUserNo(user.getUserNo());
+		
+		List<TourListDto> list = new ArrayList<>();
+		for(DestinationDetail detail: destinationList) {
+			TourListDto dto = TourListDto.builder()
+					.title(detail.getTourTitle())
+					.address(detail.getTourAddr())
+					.firstimage(detail.getTourImg())
+					.mapx(Double.toString(detail.getMapX()))
+					.mapy(Double.toString(detail.getMapY()))
+					.tel(detail.getTourNumber())
+					.build();
+			list.add(dto);
+		}
+		
+		return list;
+	}
 	
-	public static void ignoreSsl() throws Exception{
-        HostnameVerifier hv = new HostnameVerifier() {
-        public boolean verify(String urlHostName, SSLSession session) {
-                return true;
-            }
-        };
-        trustAllHttpsCertificates();
-        HttpsURLConnection.setDefaultHostnameVerifier(hv);
-    }
+	
+	
+	
 
-	
-	private static void trustAllHttpsCertificates() throws Exception {
-        TrustManager[] trustAllCerts = new TrustManager[1];
-        TrustManager tm = new miTM();
-        trustAllCerts[0] = tm;
-        SSLContext sc = SSLContext.getInstance("SSL");
-        sc.init(null, trustAllCerts, null);
-        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-    }
- 
-    static class miTM implements TrustManager,X509TrustManager {
-        public X509Certificate[] getAcceptedIssuers() {
-            return null;
-        }
- 
-        public boolean isServerTrusted(X509Certificate[] certs) {
-            return true;
-        }
- 
-        public boolean isClientTrusted(X509Certificate[] certs) {
-            return true;
-        }
- 
-        public void checkServerTrusted(X509Certificate[] certs, String authType)
-                throws CertificateException {
-            return;
-        }
- 
-        public void checkClientTrusted(X509Certificate[] certs, String authType)
-                throws CertificateException {
-            return;
-        }
-    }
 	
 	
 	

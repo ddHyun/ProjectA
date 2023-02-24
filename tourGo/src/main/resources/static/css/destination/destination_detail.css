@@ -1,3 +1,9 @@
+body {
+	background-color: #fff;
+	margin: 0;
+	line-height: inherit;
+}
+
 hr {
 	width: 58%;
 }

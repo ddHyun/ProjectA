@@ -8,7 +8,9 @@ html {
 }
 
 *{font-family: 'Noto Sans KR', sans-serif;}
-body{ background-color: #fff;}
+body{ 
+	background-color: #fff;
+}
 
 button{
 	background-color: #7cd5dc;
@@ -44,5 +46,16 @@ button:hover{background-color: #66ccd4;}
 	color: #fff;
 	background-color: #66ccd4;
 }
+/*이미지 호버시 확대 이벤트*/
+/*부모영역에 overflow : hidden 넣어주기*/
+.img-event{  transform: scale(1); transition: .3s ease-in-out;}                   
+.img-event:hover{  transform: scale(1.3);}  
 
 
+
+/** 레이어 팝업 S */
+#layer_dim { background:rgba(0,0,0, 0.7); position: fixed; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer; z-index: 10; }
+#layer_popup { background: #ffffff; position: fixed; z-index: 11; border-radius: 30px; overflow-x: hidden; overflow-y: auto; padding: 20px; }
+#layer_popup .popup_title { border-bottom: 1px solid #000000;  margin-bottom: 20px; font-size: 1.15rem; font-weight: bold; padding: 0 5px 13px; }
+#layer_popup .layer_close { cursor: pointer; position: absolute; right: 25px; top: 15px; font-size: 1.8rem; }
+/** 레이어 팝업 E */

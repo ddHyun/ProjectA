@@ -16,8 +16,6 @@ import lombok.NoArgsConstructor;
 public class TourListDto {
     private String title;
     private String address;
-    private String areacode;
-    //private Long contentTypeId;
     private String firstimage;
     private String mapx;
     private String mapy;
