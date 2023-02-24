@@ -80,7 +80,7 @@ public class PlannerController {
 		try {
 			_user = userRepository.findByUserId(principal.getUser().getUserId());
 		} catch (Exception e) {
-			throw new RuntimeException("로그인후 이용가능한 페이지입니다");
+			throw new AlertException("로그인후에 이용가능한 페이지입니다.", "/user/login");
 		}
 		User user = _user.orElse(null);
 
@@ -143,7 +143,7 @@ public class PlannerController {
 
 			Planner planner = plannerService.getPlanner(no);
 
-			boolean check = detailsService.checkPlanner(user, planner);
+			boolean check = plannerService.checkPlanner(user, planner);
 			if (!check) {
 				model.addAttribute("scripts", " alert('유효하지않은 접근입니다'); location.replace('/plan');");
 				return "common/excution";
@@ -256,7 +256,7 @@ public class PlannerController {
 
 		User user = _user.orElse(null);
 		plannerRq.setPlannerNo(no);
-		Planner planner = plannerService.updatePlanner(plannerRq, user);
+		Planner planner = plannerService.updatePlanner(plannerRq);
 		model.addAttribute("scripts", "location.replace('/plan/readplan/" + planner.getPlannerNo() + "');");
 
 		return "common/excution";

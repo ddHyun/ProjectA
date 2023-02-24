@@ -115,13 +115,21 @@ public class PlannerService {
 		
 		return list2;
 	}
-	
-	public Planner updatePlanner(PlannerRq request,User user) {
-		
-	
-		Planner planner = PlannerService.toEntity(request, user);
-		plannerRepo.save(planner);
-		
+	@Transactional
+	public Planner updatePlanner(PlannerRq request) {
+		System.out.println(request);
+		Optional<Planner> _planner = plannerRepo.findById(request.getPlannerNo());
+		LocalDate sdate = request.getSdate();		
+		LocalDate edate = sdate.plusDays(request.getDay());
+		Planner planner = _planner.orElse(null);
+		planner.setTitle(request.getTitle());
+		planner.setPlanSize(request.getPlanSize());
+		planner.setPlanType(request.getPlanType());
+		planner.setSdate(sdate);
+		planner.setEdate(edate);
+		planner.setMemo(request.getMemo());
+		planner.setDay(request.getDay());
+		planner.setOpen(request.getOpen());
 		return planner;
 
 	}
@@ -216,7 +224,15 @@ public class PlannerService {
 		return planner;
 		
 	}
-	
+	//시큐리티 세션에 저장되어있는 유저정보랑 planner엔티티가 갖고있는 유저객체랑 일치하는지 체크
+	public boolean checkPlanner(User user,Planner planner) {
+
+		if(planner.getUser() != user) {
+			return false;
+		}
+			
+		return true;
+	}
 	public Planner getPlanner(Long id) {
 		
 		Planner planner = plannerRepo.findById(id).orElse(null);
@@ -241,6 +257,7 @@ public class PlannerService {
 	public static Planner toEntity(PlannerRq rq,User user) {
 		int day = rq.getDay();
 		LocalDate sdate = rq.getSdate();
+		
 		LocalDate edate = sdate.plusDays(day);
 		Planner planner = Planner.builder().plannerNo(rq.getPlannerNo()).day(day).sdate(sdate).edate(edate).image(rq.getImage()).memo(rq.getMemo()).planSize(rq.getPlanSize())
 				.planType(rq.getPlanType()).title(rq.getTitle()).user(user).open(rq.getOpen()).build();

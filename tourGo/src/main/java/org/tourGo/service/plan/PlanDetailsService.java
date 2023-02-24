@@ -54,14 +54,7 @@ public class PlanDetailsService {
 		return entity;
 	}
 	
-	public boolean checkPlanner(User user,Planner planner) {
 
-		if(planner.getUser() != user) {
-			return false;
-		}
-			
-		return true;
-	}
 	
 	public PlanDetails deleteDetails(Long no) {
 		
