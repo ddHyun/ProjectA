@@ -332,8 +332,35 @@ public class PlannerController {
 	}
 	
 	@GetMapping("/plannerview_private/{no}")
-	public String planneview_private(@PathVariable Long no) {
-System.out.println(no);
+	public String planneview_private(Model model, @AuthenticationPrincipal PrincipalDetail principal,
+			@PathVariable Long no) {
+		Planner planner = plannerService.getPlanner(no);
+		List<PlanDetailsRq> list = detailsService.getPlanDetailsRqList(planner);
+		try {
+			planner = plannerService.find(no);
+		} catch (Exception e) {
+			throw new RuntimeException("잘못된 경로입니다.");
+		}
+
+		Long userNo = null;
+
+		if (principal != null) {
+			model.addAttribute("user", principal.getUsername());
+			userNo = principal.getUser().getUserNo();
+
+			PlanUidEntity planUidEntity = planUidEntityRepository.findByNo("liked", no, userNo).orElse(null);
+			if (planUidEntity != null) {
+				PlanUidRequest like = new PlanUidRequest(planUidEntity);
+			
+				model.addAttribute("like", like);
+			}
+		}
+				String readUid = PlanUidRequest.getUid(no, userNo);
+				planReadHitService.process(readUid, "readHit", "plan");
+
+				model.addAttribute("planner", planner);
+				model.addAttribute("list", list);
 		return "plan/plannerview_private";
 }
 }
+	
