@@ -1,0 +1,72 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+.b_input {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.flex {
+	display: flex;
+}
+
+.width-30 {
+	width: 200px;
+	text-align: right;
+	font-weight: bold;
+	font-size: 20px;
+	padding-right: 10px;
+}
+
+.plannerview {
+	text-align: center;
+	overflow: scroll;
+	height: 600px;
+	-ms-overflow-style: none;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.plannercontent {
+	padding: 20px;
+	display: inline-block;
+}
+
+.plannerview::-webkit-scrollbar {
+	display: none;
+}
+
+.width-70 {
+	width: 70%;
+	font-size: 20px;
+}
+
+.b_click {
+	height: 50px;
+	width: 50px;
+	cursor: pointer;
+	margin-right: 20px;
+}
+
+.form-group {
+	margin-bottom: 15px;
+}
+
+.plantitle {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.allviewpage {
+	display: flex;
+	justify-content: center;
+}
+
+.plannercontent img {
+	width: 300px;
+	height: 225px;
+}
