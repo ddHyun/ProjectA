@@ -45,7 +45,7 @@
 			</div>
 		</fieldset>
 		
-		<form th:action="@{/travel_destination_main}" method="get">
+		<form th:action="@{/travel_destination_main}" method="get" class="searchbar">
 			<div class="destination_search">
 				<div class="search_input">
 					<input type="text" class="input_txt" name="searchKeyword" placeholder="여행지 검색">
@@ -61,7 +61,7 @@
 				<div class="data_style">
 					<div class="each" th:each="data : ${page}">
 						<a class="subBox" id="subBox" th:href="@{|/destination_detail/${data.destinationNo}|}">
-							<img th:src="${data.tourImg}">
+							<img th:src="${data.tourImg}" onerror="this.onerror=null; this.src='../../../../images/noimg.jpg';">
 							<span>
 								<p th:text="${data.destinationNo}"></p>
 								<p th:text="${data.tourTitle}"></p>
