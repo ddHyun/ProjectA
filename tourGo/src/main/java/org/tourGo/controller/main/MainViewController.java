@@ -31,19 +31,8 @@ public class MainViewController {
 	@Autowired
 	private DestinationMainService destinationMainService;
 
+
 	@GetMapping("/main_view")
-	public String main_view(Model model) {
-
-		return "main/main_view";
-	}
-
-	@GetMapping("/main_view2")
-	public String main_view2(Model model) {
-
-		return "main/main_view2";
-	}
-
-	@GetMapping("/main_view3")
 	public String main_view3(Model model, @AuthenticationPrincipal PrincipalDetail principal) {
 		Optional<User> _user = null;
 
@@ -70,10 +59,10 @@ public class MainViewController {
 			System.out.println("안녕하세요" + user);
 
 			model.addAttribute("addScript", "layer");
-			return "main/main_view3";
+			return "main/main_view";
 
 		} catch (Exception e) {
-			return "main/main_view3";
+			return "main/main_view";
 		}
 
 	}

@@ -1,4 +1,4 @@
-
+	
 body {
 	background-color: #fff;
 	margin: 0;
@@ -11,18 +11,31 @@ main {
 	margin-top: 150px;
 }
 
+.searchbar {
+	display: flex;
+	justify-content: center;
+}
+
 
 .destination_search {
 	margin: 50px auto;
 	text-align: center;
 }
 
+.search_input {
+	height: 50px;
+	border: 1px solid #7cd5dc;
+	background: #ffffff;
+}
+
 .input_txt {
 	width: 800px;
-	height: 50px;
-	font-size: large;
-	border-color: #98d0e3;
-
+	height: 30px;
+	font-size: 14px;
+	padding: 10px;
+	border: 0px;
+	outline: none;
+	float: left;
 }
 
 .input_txt:focus {
@@ -30,13 +43,15 @@ main {
 	} /* outline 테두리 속성 수정 */
 
 .input_btn {
-	padding: 20px 30px;
+	width: 100px;
+	height: 100%;
 	font-size: 0.5rem;
 	border: none;
 	background-color: #98dde3;
 	color: #fff;
-	font-size: medium;
-	border-radius: 5px;
+	outline: none;
+	float: right;
+	cursor: pointer;
 }
 
 .input_btn:hover {
@@ -212,25 +227,31 @@ input[type='checkbox']+label.standalone {
     display: grid;
     grid-template-columns: repeat(4, 340px);
     place-content: center;
-    gap: 10px;
+    gap: 50px;
 }
 
 .each {
-	border: 1px solid black;
+	box-shadow: rgb(31 38 135 / 20%) 0px 8px 32px 0px !important;
 }
 
-.subBox {
-	margin: 50px 10px;
+.each:hover {
+	font-weight: bold;
+	opacity: 0.5;
+}
+
+.each a {
+	text-decoration-line: none;
+	color: #3f3f3f;
 }
 
 #subBox span {
-	font-weight: bold;
     display: flex;
     justify-content: space-between;
     margin: 0px 15px;
 }
 
 .pagination {
+	margin: 100px 0;
 	position: static;
 	text-align: center;
 	width: 100%;
