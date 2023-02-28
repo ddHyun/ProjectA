@@ -2,9 +2,15 @@
 	margin: 0; padding: 0;
 }
 
+/*폰트크기 0.8배*/
+.font0{
+	font-size: 0.8rem;
+}
+
 /* 폰트크기 1.5배 */
 .font2{
 	font-size: 1.5rem;
+	font-weight: bold;
 }
 
 /* 폰트크기 3배 */
@@ -223,8 +229,10 @@ main.content{
 	border-bottom : 1px solid rgba(0,153,204,0.3);
 }
 
-.communityT th{
-	background-color: rgba(124,213,220,0.65);
+/* 테이블 내 제목칸 */
+.communityT tr:first-child td{
+	padding-bottom: 0;
+	padding-left: 0;
 }
 
 /* 테이블 내 textarea */
