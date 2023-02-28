@@ -251,11 +251,26 @@
 		</div>
 		<div class="plan_content">
 			<h2>여행기</h2>
+			<div class="makeplan_top3">
+				<div class="plan_top3" th:each="list : ${list}">
+					<a class="divBox" id="divBox" th:href="">
+						<img th:src="${list.image}">
+						<span>
+							<p th:text="${list.memo}"></p>
+							<p th:text="${list.totalLikes}"></p>
+						</span>
+					</a>
+				</div>
+			</div>
 		</div>
 		<div class="destination_content">
 			<h2>국내여행지</h2>
 			<div class="destination_top3">
-
+				<div class="dest_top3" th:each="top3 : ${page}">
+<!--					<a class="top3_all" id="top3_all" th:href="@{|/destination_detail/${top3.destinationNo}|}">
+						
+					</a>-->
+				</div>
 			</div>
 		</div>
 	</div>
