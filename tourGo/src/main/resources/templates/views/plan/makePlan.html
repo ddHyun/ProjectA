@@ -15,7 +15,7 @@
 		<div class="form-group">
 			<label class=title>여행제목</label>
 			<div class="input_title_box">
-				<input class="width-90" type="text" th:field="*{title}">
+				<input class="width-90" type="text" th:field="*{title}" maxlength='12'>
 				<div class='error' th:each="err : ${#fields.errors('title')}"
 					th:text="${err}"></div>
 			</div>

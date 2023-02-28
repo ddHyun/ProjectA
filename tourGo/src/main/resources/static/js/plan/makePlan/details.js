@@ -175,8 +175,11 @@ function createItem(result, parentEl) {
 		if(!item.tel){
 			item.tel="전화번호가 존재하지 않습니다";
 		}
-		html+=						`<div>Tel : ${item.tel}</div>`;						
-		html+=						`<button type="button" id="clickItem" class="button-event">선택</button>
+		html+=						`<div>Tel : ${item.tel}</div>`;	
+							
+		html+=						`
+										<button type="button" id="clickItem" class="button-event">선택</button>
+									
 								</div>`;
 
 		const dom = domParser.parseFromString(html, "text/html");
