@@ -252,15 +252,17 @@
 		<div class="plan_content">
 			<h2>여행기</h2>
 			<div class="makeplan_top3">
-				<div class="plan_top3" th:each="list : ${list}">
-					<a class="divBox" id="divBox" th:href="">
-						<img th:src="${list.image}">
+				
+				<div th:if="${plannerTop3List != null}" class="plan_top3" th:each="planner : ${plannerTop3List}">
+					<a class="divBox" id="divBox">
+						<img th:src="${planner.image}" onerror="this.onerror=null; this.src='../../../../images/noimg.jpg';">
 						<span>
-							<p th:text="${list.memo}"></p>
-							<p th:text="${list.totalLikes}"></p>
+							<p th:text="${planner.memo}"></p>
+							<p th:text="${planner.totalLikes}"></p>
 						</span>
 					</a>
 				</div>
+				
 			</div>
 		</div>
 		<div class="destination_content">

@@ -1,5 +1,6 @@
 package org.tourGo.controller.main;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,17 +40,17 @@ public class MainViewController {
 	}
 	
 	@GetMapping("/main_view3")
-	public String main_view3(Model model,@AuthenticationPrincipal PrincipalDetail principal,
-			String totalLikes) {
+	public String main_view3(Model model,@AuthenticationPrincipal PrincipalDetail principal
+			) {
 		Optional<User> _user = null;
 		
-		List<Planner> top3 = null;
-		
-		if(totalLikes != null) {
+			List<Planner> top3 = new ArrayList<>();	
+			try {
 			top3 = plannerService.topLikedPlanner();
-			System.out.println("--------------top3 확인----------------");
-			System.out.println(top3);
-		}
+			}catch(Exception e){
+				top3=null;
+			}
+			model.addAttribute("plannerTop3List", top3);
 		
 		
 		try {
