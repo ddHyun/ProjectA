@@ -163,7 +163,7 @@ main.content{
 /* 와이드 이미지 들어가는 곳 */
 .wide{
 	width: 2000px; 
-	height: 24rem;
+	height: 32rem;
 	overflow: hidden;
 	margin-left : -400px !important;
 }
@@ -173,7 +173,6 @@ main.content{
 }
 
 .top_nav{
-	background-color: #09c;
 	height: 50px;
 	line-height: 50px;
 }
@@ -199,10 +198,11 @@ main.content{
 
 /* 상단바 쪽 와이드이미지 */
 .wide .wideImg{
+	margin-top: 100px;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	object-position: center 75%;
+	object-position: center 85%;
 }
 
 /*게시판명*/

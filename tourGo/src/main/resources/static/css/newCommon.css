@@ -59,3 +59,37 @@ button:hover{background-color: #66ccd4;}
 #layer_popup .popup_title { border-bottom: 1px solid #000000;  margin-bottom: 20px; font-size: 1.15rem; font-weight: bold; padding: 0 5px 13px; }
 #layer_popup .layer_close { cursor: pointer; position: absolute; right: 25px; top: 15px; font-size: 1.8rem; }
 /** 레이어 팝업 E */
+
+/*iframe 안보이게 하기*/
+.dn { display: none !important; }
+
+/*로그인창*/
+.login{
+	position: relative;
+	width: 100%;
+	height: 800px;
+	margin: 0;
+}
+
+.center{
+	position: absolute;
+	top: 50%; left: 50%;
+	margin: -150px 0 0 -150px;
+}
+
+.center div{
+	margin-bottom: 8px;
+}
+
+.center div:nth-child(-n+2) input{
+	width: 370px;
+	height: 30px;
+}
+
+/* 너비100% */
+.btnWidth{
+	width: 380px;
+	padding: 1rem;
+	box-sizing: border-box;
+	margin: auto;
+}
