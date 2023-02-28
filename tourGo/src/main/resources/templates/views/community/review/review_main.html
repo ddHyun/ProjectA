@@ -8,7 +8,14 @@
 		<!-- 커뮤니티 공통 상단 네비바 -->
 		<th:block th:replace="outlines/community_top::community_top"></th:block>
 		<!-- 게시판명 -->
-		<div class="wrap font3 centerW marginTop60" th:text="#{community.review}"></div>
+		<div class="boardTitle" th:text="#{community.review}">
+		</div>
+		<hr>
+		<div class="centerW width100">
+			<i>
+				<q>목적지에 닿아야 행복해지는 것이 아니라 여행하는 과정에서 행복을 느낀다.</q><br>-Andrew Matthews-
+			</i>
+		</div>
 		<div class="marginTop60"></div>
 		
 		<div class="width80 marginAuto">
@@ -35,12 +42,22 @@
 		<!-- 여행후기(테이블) -->
 		<div class="wrap centerW">
 			<table class="communityT marginAuto">
+	<!-- 			<colgroup>
+					<col style="width: 10%" />
+					<col style="width: 10%" />
+					<col style="width: 10%" />
+					<col style="width: 30%" />
+					<col style="width: 10%" />
+					<col style="width: 10%" />
+					<col style="width: 10%" />
+					<col style="width: 10%" />
+				</colgroup> -->
 				<thead>				
 					<tr>
 						<th th:text="#{community.index}">글번호</th>
-						<th th:text="#{community.title}">제목</th>
 						<th th:text="#{common.region}">여행지</th>
 						<th th:text="#{review.period}">기간</th>
+						<th th:text="#{community.title}" style="width:40%">제목</th>
 						<th th:text="#{common.userName}">작성자</th>
 						<th th:text="#{community.regDt}">작성일</th>
 						<th th:text="#{community.readHit}">조회수</th>
@@ -51,14 +68,14 @@
 					<th:block>
 						<tr th:each="list, status:${lists}" th:object="${list}">
 							<td th:text="${(pagination.total%10)+((pagination.lastPage-pagination.page)*10)-status.index}">글번호</td>
+							<td th:text="*{region}">여행지</td>
+							<td th:text="*{period}">기간</td>
 							<td>
 								<a th:href="@{/community/review_read/reviewNo_{reviewNo}(reviewNo=*{reviewNo}, 
  										keyword=${keyword}, order=${order}, page=${pagination.page})}" th:text="*{reviewTitle}">								
 								제목</a>
 								<span th:if="*{replies != null && replies.size() != 0}" th:text="*{' ['+replies.size()+']'}"></span>
 							</td>
-							<td th:text="*{region}">여행지</td>
-							<td th:text="*{period}">기간</td>
 							<td th:text="*{name}">작성자</td>
 							<td th:text="*{#temporals.format(regDt,'yyyy-MM-dd HH:mm')}">작성일</td>
 							<td th:text="*{reviewRead}">조회수</td>

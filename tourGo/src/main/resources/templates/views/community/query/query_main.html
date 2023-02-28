@@ -9,7 +9,8 @@
 		<th:block th:replace="outlines/community_top::community_top"></th:block>
 		
 		<!-- 게시판명 -->
-		<div class="wrap font3 centerW marginTop60" th:text="#{community.query}"></div>
+		<div class="boardTitle" th:text="#{community.query}"></div>
+		<hr>
 		<div class="marginTop60"></div>
 		
 		<!-- 테이블 -->
@@ -18,7 +19,7 @@
 				<thead>
 					<tr>
 						<th th:text="#{community.index}">글번호</th>
-						<th th:text="#{community.title}">제목</th>
+						<th th:text="#{community.title}" style="width: 40%">제목</th>
 						<th th:text="#{common.userName}">작성자</th>
 						<th th:text="#{community.regDt}">작성일</th>
 						<th th:text="#{community.readHit}">조회수</th>
