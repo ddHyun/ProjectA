@@ -41,9 +41,7 @@ public class QuerySaveService {
 							.build();
 		
 		queryEntity = queryRepository.save(queryEntity);
-		ModelMapper mapper = new ModelMapper();
-		queryRequest = mapper.map(queryEntity, QueryRequest.class);
-		
-		return queryRequest;
+
+		return new ModelMapper().map(queryEntity, QueryRequest.class);
 	}
 }
