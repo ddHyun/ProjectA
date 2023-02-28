@@ -1,7 +1,4 @@
-*{
-	box-sizing: border-box;
 
-}
 button label{font-family: 'Montserrat', sans-serif;}
 .button-event{ display:block;
       		  cursor: pointer;      
