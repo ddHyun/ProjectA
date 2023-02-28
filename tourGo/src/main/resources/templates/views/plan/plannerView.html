@@ -44,10 +44,7 @@
 
 
 
-			const button2El = document.getElementById("button2");
-			button2El.addEventListener("click", function () {
-				codefty.popup.open("/plan/makeplan2", "새 일정 만들기", 600, 500, true);
-			});
+
 		});
 	</script>
 
@@ -58,8 +55,6 @@
 
 
 	</div>
-
-	<button type="button" id="button2">새 일정 만들기</button>
 
 	<div class="view">
 		<th:block th:each="li,status : ${list}" th:object="${li}">

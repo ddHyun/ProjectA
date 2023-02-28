@@ -51,19 +51,19 @@
 
 <div class="flex-col">
 		<div class="flex form-group">
-			<div class="width-30">
+			<div class="width-30_w">
 				<span>여행제목</span>
 			</div>
-			<div class="width-70">
+			<div class="width-70_w">
 				<input type="text" th:field="${planner.title}" maxlength='12' class="titleinput">
 			</div>
 		</div>
 
 		<div class="flex form-group">
-			<div class="width-30">
+			<div class="width-30_w">
 				여행기간
 			</div>
-			<div class="width-70">
+			<div class="width-70_w">
 				<input type="date" th:value="${planner.sdate}" name="sdate" class="titleinput">
 				<select name="day" th:field="${planner.day}" class="titleinput">
 
@@ -82,10 +82,10 @@
 		</div>
 
 		<div class="flex form-group">
-			<div class="width-30">
-				여행타입
+			<div class="width-30_w">
+				<label>여행타입</label>
 			</div>
-			<div class="width-70">
+			<div class="width-70_w">
 
 			<div class="radiobox">
 				<div th:each="type : ${planTypes}" class="daydiv2">
@@ -101,10 +101,10 @@
 		</div>
 
 		<div class="flex form-group">
-			<div class="width-30">
-				여행인원
+			<div class="width-30_w">
+				<label>여행인원</label>
 			</div>
-			<div class="width-70">
+			<div class="width-70_w">
 				<select th:field="${planner.planSize}" class="titleinput">
 
 					<option value="1">1명</option>
@@ -122,20 +122,22 @@
 		</div>
 
 		<div class="flex form-group">
-			<div class="width-30">
-				메모
+			<div class="width-30_w">
+			<label>메모</label>
 			</div>
-			<div class="width-70">
-				<textarea class="autosize titleinput" maxlength="250" placeholder="추가 바람"
-					style="resize: none;vertical-align: middle; width: 100%;height: 150px; " th:field="${planner.memo}"></textarea>
+			<div class="width-70_w">
+				<textarea class="titleinput" maxlength="250" placeholder="내용을 입력해주세요."
+					th:field="${planner.memo}"></textarea>
 
 			</div>
 			</div>
 			<div class="flex form-group">
+			<div class=width-30_w>
+			<label>공개여부</label>	
+			</div>
 			
-			
-						<label class="title width-30">공개여부</label>	
-						<div class="width-70">
+						
+						<div class="width-70_w">
 			<div th:if="${planner.open}" class="radiobox">		
 			<div class= "daydiv">
 			<input type="radio" name="open" id="1"  value="true" checked="checked">

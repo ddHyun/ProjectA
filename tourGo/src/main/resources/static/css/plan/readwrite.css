@@ -9,21 +9,6 @@
 	justify-content: flex-end;
 }
 
-.flex {
-
-}
-
-.width-30 {
-	width: 200px;
-	text-align: center;
-	font-weight: bold;
-	font-size: 20px;
-	padding-right: 10px;
-	background-color: #f0f0f0;
-	line-height: 2.3;
-	    padding: 2rem;
-}
-
 .plannerview {
 	text-align: center;
 	overflow: scroll;
@@ -63,13 +48,44 @@
 .popuppplannerview::-webkit-scrollbar {
 	display: none;
 }
-
-.width-70 {
-	width: 70%;
-	font-size: 20px;
+.width-30_w {
+	width: 200px;
 	text-align: center;
+	font-weight: bold;
+	font-size: 20px;
+	padding-right: 10px;
 	background-color: #f0f0f0;
 	line-height: 2.3;
+
+
+}
+.width-70_w {
+	width: 70%;
+	font-size: 20px;
+	background-color: #f0f0f0;
+	line-height: 2.3;
+
+
+}
+
+.width-30 {
+	width: 200px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 20px;
+	padding-right: 10px;
+	background-color: #f0f0f0;
+	line-height: 2.3;
+	padding:0.5rem;
+
+}
+.width-70{
+	width: 70%;
+	font-size: 20px;
+	background-color: #f0f0f0;
+	line-height: 2.3;
+	padding:0.5rem;
+
 }
 
 .b_click {
@@ -80,7 +96,7 @@
 }
 
 .form-group {
-	margin-bottom: 3rem;
+	margin-bottom: 2rem;
 	border-radius: 6px;
 	border:1px solid #f0f0f0;
 	background: #f0f0f0;
@@ -186,4 +202,17 @@
     padding: 1rem;
     font-size:1.5rem;
     background-color:#f8f8f8;
+}
+.top_left{
+	position: absolute;
+    top: 0px;
+    left: 0;
+}
+.btn_click{
+		height: 50px;
+	cursor: pointer;
+	margin-right: 20px;
+}
+.width-70_w >textarea{
+	resize: none;vertical-align: middle; width: 100%;height: 150px;
 }
