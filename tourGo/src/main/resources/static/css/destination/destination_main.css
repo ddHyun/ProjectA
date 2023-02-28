@@ -201,17 +201,22 @@ input[type='checkbox']+label.standalone {
 }
 
 #allBox img {
-	width: 320px;
-    height: 250px;
+    width: 338px;
+    height: 400px;
     display: block;
     text-align: center;
-    margin: 10px;
+
 }
 
 .data_style {	
     display: grid;
-    grid-template-columns: repeat(4, 330px);
+    grid-template-columns: repeat(4, 340px);
     place-content: center;
+    gap: 10px;
+}
+
+.each {
+	border: 1px solid black;
 }
 
 .subBox {
