@@ -129,7 +129,7 @@ input[type='radio']+label {
 	padding : 25px 50px;
 	min-height: 20px;
 	background: url("../../images/common/radio-off.png") no-repeat center none;
-	background-color: #65a5c8;
+	background-color: #98dde3;
 	line-height: 20px;
 	cursor: pointer;
 	margin: 5px 5px;
@@ -140,7 +140,7 @@ input[type='radio']+label {
 /* test background-color 작업 완료 후 변경해야함 608eb7 */
 input[type='radio']:checked+label {
 	background: url("../../images/common/radio-on.png") no-repeat  center none;
-	background-color: #fcc5df;
+	background-color: #98d0e3;
 	color:aliceblue;
 	font-weight: bold;
 }
