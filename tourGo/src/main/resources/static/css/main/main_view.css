@@ -91,3 +91,58 @@ video {
 .Weather-slideshow-container {
 	
 }
+
+.link_page {
+	margin: 5rem;
+}
+
+.link_page a {
+	text-decoration: none;
+	color: #3f3f3f;
+}
+
+.plan_content {
+	text-align: center;	
+	margin: 20px;
+}
+
+.makeplan_top3 {
+	display: flex;
+	margin: 50px 0px;
+	justify-content: center;
+}
+
+.plan_top3 {
+	width: 340px;
+	height: 480px;
+	margin: 0px 5rem;
+	box-shadow: rgb(31 38 135 / 20%) 0px 8px 32px 0px !important;
+}
+
+.plan_top3 img {
+	width: 340px;
+	height: 400px;
+}
+
+.destination_content {
+	text-align: center;
+	margin: 20px;
+}
+
+.destination_top3 {
+	display: flex;
+	margin: 50px 0px;
+	justify-content: center;
+}
+
+.dest_top3 {
+	width: 340px;
+	height: 480px;
+	margin: 0px 5rem;
+	box-shadow: rgb(31 38 135 / 20%) 0px 8px 32px 0px !important;
+}
+
+.dest_top3 img {
+	width: 340px;
+	height: 400px;
+}

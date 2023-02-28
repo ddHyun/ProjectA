@@ -205,7 +205,7 @@ input[type='checkbox']+label.standalone {
     height: 400px;
     display: block;
     text-align: center;
-
+	border: none;
 }
 
 .data_style {	
