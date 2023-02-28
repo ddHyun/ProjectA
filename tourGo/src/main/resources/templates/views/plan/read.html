@@ -30,6 +30,15 @@
 
 
 		<div class="b_input">
+		
+		<div class="top_left">
+		<a th:href="@{/plan/go_plannerview_private/}+${planner.plannerNo}">
+		<button type="submit" class="btn_click">
+						상세 일정 보기 
+					</button>
+					</a>
+		</div>
+		
 			<div class="update">
 
 
@@ -115,7 +124,7 @@
 	
 
 	
-<a th:href="@{/plan/go_plannerview_private/}+${planner.plannerNo}">상세 일정 보기 </a>
+
 
 <!--	<a th:href="@{plan/makeDmakeDetails/}+${planner.plannerNo}">테스트입니다</a>-->
 	<div class="popupplannerview" >

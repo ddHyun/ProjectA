@@ -19,21 +19,33 @@
 	font-weight: bold;
 	font-size: 20px;
 	padding-right: 10px;
+	background-color: #f0f0f0;
+	line-height: 2.3;
+	padding: 0.5rem;
 }
 
 .plannerview {
+	width: 600px;
 	text-align: center;
 	overflow: scroll;
-	height: 600px;
+	height: 700px;
 	-ms-overflow-style: none;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	background-color: #f5f5f5f5;
+}
+.titleview { 
+	background: #f5f5f5;
+	padding-left: 100px;
 }
 
 .plannercontent {
+	width:400px;
 	padding: 20px;
 	display: inline-block;
+	border:1px solid #f0f0f0;
+	background-color: #f0f0f0;
 }
 
 .plannerview::-webkit-scrollbar {
@@ -43,6 +55,9 @@
 .width-70 {
 	width: 70%;
 	font-size: 20px;
+	background-color: #f0f0f0;
+	line-height: 2.3;
+	padding: 0.5rem;
 }
 
 .b_click {
