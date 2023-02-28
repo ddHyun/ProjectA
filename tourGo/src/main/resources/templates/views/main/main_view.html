@@ -13,7 +13,7 @@
 	<script>
 		window.addEventListener("DOMContentLoaded", function () {
 
-			const button1El = document.getElementById("button2");
+			const button1El = document.getElementById("btn1");
 			button1El.addEventListener("click", function () {
 				codefty.popup.open("/plan/makeplan2", "새 일정 만들기", 600, 500, true);
 			});
@@ -40,7 +40,7 @@
 					</div>
 					<div class="last_text">
 						<div th:if="${user}!=null">
-							<button type="button">새 일정 만들기</button>
+							<button type="button" id="btn1">새 일정 만들기</button>
 						</div>
 						<div th:unless="${user}!=null">
 							<button type="button" onclick="btn()">새 일정 만들기</button>
