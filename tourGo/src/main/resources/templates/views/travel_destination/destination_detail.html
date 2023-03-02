@@ -9,14 +9,6 @@
 	<input type="hidden" id="destinationNo" th:value="${detail.destinationNo}">
 	
 	<div class="destination">
-		<form th:action="@{/travel_destination_main}" method="get">
-			<div class="destination_search">
-				<div class="search_input">
-					<input type="text" class="input_txt" name="destSearchKeyword" placeholder="여행지 검색">
-					<input type="button" class="input_btn" value="검색">
-				</div>
-			</div>
-		</form>
 		<hr>
 		<div class="content_detail">
 			<p th:text="'No. ' + ${detail.destinationNo}"></p>
