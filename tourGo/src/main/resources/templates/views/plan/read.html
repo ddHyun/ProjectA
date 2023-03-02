@@ -44,7 +44,7 @@
 
 
 				<a th:href="@{/plan/writeplan/}+${planner.plannerNo}">
-					<button type="submit" class="b_click">
+					<button type="submit" class="w_click">
 						수정
 					</button>
 				</a>
@@ -54,7 +54,7 @@
 
 			<div class="delete">
 				<a th:href="@{/plan/deleteplan/}+${planner.plannerNo}">
-					<button type="submit" class="b_click">
+					<button type="submit" class="d_click">
 						삭제
 					</button>
 				</a>
@@ -64,7 +64,7 @@
 
 
 	<div>
-
+<div class="flex-col">
 		<div class="flex form-group">
 			<div class="width-30">
 				<span>여행제목</span>
@@ -76,7 +76,7 @@
 
 		<div class="flex form-group">
 			<div class="width-30">
-				여행기간
+				<span>여행기간</span>
 			</div>
 			<div class="width-70">
 				<span th:text="${planner.sdate}"></span> ~ <span th:text="${planner.edate}"> </span>
@@ -85,7 +85,7 @@
 
 		<div class="flex form-group">
 			<div class="width-30">
-				여행타입
+				<span>여행제목</span>
 			</div>
 			<div class="width-70">
 				<span th:text="${planner.planType}"> </span>
@@ -94,7 +94,7 @@
 
 		<div class="flex form-group">
 			<div class="width-30">
-				여행인원
+				<span>여행타입</span>
 			</div>
 			<div class="width-70">
 				<span th:text="${planner.planSize}"> </span>
@@ -103,16 +103,16 @@
 
 		<div class="flex form-group">
 			<div class="width-30">
-				메모
+				<span>메모</span>
 			</div>
 			<div class="width-70">
 				<span th:text="${planner.memo}"> </span>
 			</div>
 		</div>
 		<div class="flex form-group">
-			
-			
-						<label class="title width-30">공개여부</label>	
+						<div class="width-30">
+				<span>공개여부</span>
+			</div>
 				<div class="width-70">
 				<span th:if="${planner.open}==true">공개 </span>
 				<span th:if="${planner.open}!=true">비공개 </span>
