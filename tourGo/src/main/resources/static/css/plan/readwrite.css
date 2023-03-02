@@ -37,9 +37,9 @@
 	margin-bottom:20px;
 	width:400px;
 	display: inline-block;
-	background-color: #f0f0f0;
+	background-color:#ffffff;
 	border-radius: 6px;
-	border:1px solid #f0f0f0;
+	border: 1px solid #33ccd4;
 }
 
 .plannerview::-webkit-scrollbar {
@@ -54,15 +54,17 @@
 	font-weight: bold;
 	font-size: 20px;
 	padding-right: 10px;
-	background-color: #f0f0f0;
+	background-color: #66ccd4;
 	line-height: 2.3;
+	padding:0.5rem;
+	color:#ffffff;
 
 
 }
 .width-70_w {
-	width: 70%;
+	width:100%;
 	font-size: 20px;
-	background-color: #f0f0f0;
+	background-color: #ffffff;
 	line-height: 2.3;
 
 
@@ -74,32 +76,29 @@
 	font-weight: bold;
 	font-size: 20px;
 	padding-right: 10px;
-	background-color: #f0f0f0;
+	background-color: #66ccd4;
 	line-height: 2.3;
 	padding:0.5rem;
+	color:#ffffff;
 
 }
 .width-70{
-	width: 70%;
+	width:100%;
 	font-size: 20px;
-	background-color: #f0f0f0;
+	background-color: #ffffff;
 	line-height: 2.3;
 	padding:0.5rem;
 
 }
 
-.b_click {
-	height: 50px;
-	width: 50px;
-	cursor: pointer;
-	margin-right: 20px;
-}
+
 
 .form-group {
+	width: 100%;
 	margin-bottom: 2rem;
 	border-radius: 6px;
-	border:1px solid #f0f0f0;
-	background: #f0f0f0;
+	border:1px solid #66ccd4;
+	background: #ffffff;
 		display: flex;
 	align-items: center;
 	
@@ -114,6 +113,7 @@
 .allviewpage {
 	display: flex;
 	justify-content: center;
+
 	
 }
 
@@ -138,17 +138,14 @@
 	 transition:all 0.9s, color 0.5s; 
     display: inline-block;
     cursor: pointer;
-    height: 50px;
+    height: 61px;
     width:100%;
-    line-height: 48px;
+    line-height: 61px;
     text-align: center;
     font-weight:bold;
-    font-size:13px;
     background-color: #98dde3;
     color: #fff;
   	font-size: 1.5rem;
-  	padding: 0.5rem;
-    padding: 0;
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -172,17 +169,14 @@
 	 transition:all 0.9s, color 0.5s; 
     display: inline-block;
     cursor: pointer;
-    height: 50px;
-    width:100%;
-    line-height: 48px;
+    height: 61px;
+    width: 100%;
+    line-height: 61px;
     text-align: center;
     font-weight:bold;
-    font-size:13px;
     background-color: #98dde3;
     color: #fff;
   	font-size: 1.5rem;
-  	padding: 0.5rem;
-    padding: 0;
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -196,12 +190,20 @@
     display: none; 
 }
 .titleinput{
+	width:100%;
+    height: 100%;
+    padding: 1rem;
+    border:none;
+    font-size:1.5rem;
+    background-color:#ffffff;
+}
+.dateinput{
     height: 100%;
     border-radius: 10px;
     border: 1px solid #e5e5e5;
     padding: 1rem;
-    font-size:1.5rem;
-    background-color:#f8f8f8;
+    font-size: 1.3rem;
+    background-color:#ffffff;
 }
 .top_left{
 	position: absolute;
@@ -210,9 +212,21 @@
 }
 .btn_click{
 		height: 50px;
-	cursor: pointer;
 	margin-right: 20px;
 }
+.w_click {
+	height: 50px;
+	width: 50px;
+	margin-right: 20px;
+
+}
+.d_click {
+	height: 50px;
+	width: 50px;
+
+}
+
+
 .width-70_w >textarea{
-	resize: none;vertical-align: middle; width: 100%;height: 150px;
+	resize: none;vertical-align: middle; width: 100%;height: 61px;
 }
