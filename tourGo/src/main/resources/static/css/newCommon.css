@@ -7,9 +7,11 @@ html {
     -webkit-text-size-adjust: 100%;
 }
 
-*{font-family: 'Noto Sans KR', sans-serif; box-sizing: border-box;}
+*{ box-sizing: border-box;}
+header{}
 body{ 
 	background-color: #fff;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 button{
