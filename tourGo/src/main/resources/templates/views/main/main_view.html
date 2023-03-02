@@ -246,7 +246,7 @@
 				<div th:if="${plannerTop3List != null}" class="plan_top3" th:each="planner : ${plannerTop3List}">
 					<a class="divBox" id="divBox" th:href="@{/plan/plannerallview_page/}+*{planner.plannerNo}">
 						<img th:src="${planner.image}"
-							onerror="this.onerror=null; this.src='../../../../images/ex.jpg';">
+							onerror="this.onerror=null; this.src='../../../../images/ReplaceImg.jpg';">
 						<span>
 							<p th:text="${planner.title}"></p>
 							<p th:text="${planner.totalLikes}"></p>
@@ -261,7 +261,7 @@
 				<div th:if="${destTop3List != null}" class="dest_top3" th:each="destination : ${destTop3List}">
 					<a class="top3_all" id="top3_all" th:href="@{|/destination_detail/${destination.destinationNo}|}">
 						<img th:src="${destination.tourImg}"
-							onerror="this.onerror=null; this.src='../../../../images/ex.jpg';">
+							onerror="this.onerror=null; this.src='../../../../images/ReplaceImg.jpg';">
 						<span>
 							<p th:text="${destination.tourDestination}"></p>
 							<p th:text="${destination.tourTitle}"></p>
