@@ -15,17 +15,18 @@
 
 .width-30 {
 	width: 200px;
-	text-align: right;
+	text-align: center;
 	font-weight: bold;
 	font-size: 20px;
 	padding-right: 10px;
-	background-color: #f0f0f0;
 	line-height: 2.3;
 	padding: 0.5rem;
+	background-color:#66ccd4;
+
+	
 }
 
 .plannerview {
-	width: 600px;
 	text-align: center;
 	overflow: scroll;
 	height: 700px;
@@ -33,19 +34,34 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background-color: #f5f5f5f5;
+	background-color: #ffffff;
+
+}
+.plannerviewborder{
+	border-right:1px solid #66ccd4;
+	border-bottom:1px solid #66ccd4;
+	border-top:1px solid #66ccd4;
+	    padding: 40px;
 }
 .titleview { 
-	background: #f5f5f5;
+	background: #ffffff;
 	padding-left: 100px;
+		height: 800px;
+		border-left:1px solid #66ccd4;
+	border-bottom:1px solid #66ccd4;
+	border-top:1px solid #66ccd4;
+	padding: 50px;
 }
 
 .plannercontent {
 	width:400px;
-	padding: 20px;
 	display: inline-block;
-	border:1px solid #f0f0f0;
-	background-color: #f0f0f0;
+	border: 1px solid #33ccd4;
+	border-radius: 6px;
+	background-color:#ffffff;
+    margin: 5px;
+    padding: 10px;
+
 }
 
 .plannerview::-webkit-scrollbar {
@@ -55,9 +71,9 @@
 .width-70 {
 	width: 70%;
 	font-size: 20px;
-	background-color: #f0f0f0;
 	line-height: 2.3;
 	padding: 0.5rem;
+	text-align:center;
 }
 
 .b_click {
@@ -69,6 +85,7 @@
 
 .form-group {
 	margin-bottom: 15px;
+	border: 1px solid #66ccd4;
 }
 
 .plantitle {
@@ -79,9 +96,10 @@
 .allviewpage {
 	display: flex;
 	justify-content: center;
+		margin-top:150px;
 }
 
 .plannercontent img {
-	width: 300px;
-	height: 225px;
+	width: 380px;
+    height: 250px;
 }
