@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.tourGo.common.AlertException;
@@ -22,7 +23,11 @@ public class QueryRegisterController {
 	@Autowired
 	private QuerySaveService service;
 	
-	
+	@ModelAttribute("siteTitle")
+	public String getSiteTitle() {
+		
+		return "TourGo-문의사항";
+	}
 	@GetMapping
 	public String form(Model model, @AuthenticationPrincipal PrincipalDetail principal) {
 		//static & board명 추가

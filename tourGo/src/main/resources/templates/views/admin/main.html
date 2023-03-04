@@ -5,7 +5,7 @@
 	
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title th:text="${siteTitle}"></title>
 		
 		<link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
 		<link rel="stylesheet" type="text/css" th:each="boot:${addBootstrapCss}" th:href="@{/vendor/{css}.css(css=${boot})}">

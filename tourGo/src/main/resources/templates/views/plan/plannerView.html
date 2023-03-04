@@ -3,16 +3,7 @@
 	layout:decorate="~{layouts/main}">
 
 <main layout:fragment="content">
-
-	<!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"> -->
-	<link th:href="@{/css/plan/weather.css}" rel="stylesheet" type="text/css">
-	<link rel="stylesheet"
-		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-	<script src="https://kit.fontawesome.com/fda51a19be.js" crossorigin="anonymous"></script>
-	﻿
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script type="text/javascript" th:src="@{/js/plan/makePlan/weather.js}"></script>
-
+	<link th:href="@{/css/plan/weather.css}" rel="stylesheet" type="text/css">﻿
 	<script>
 		window.addEventListener("DOMContentLoaded", function () {
 
@@ -25,36 +16,10 @@
 					codefty.popup.open(`/plan/readplan/` + v, "", 500, 700, true);
 				});
 			}
-			/**
-				button1El.addEventListener("click", function() {
-				
-				console.log(button1El);
-			
-		codefty.popup.open("plan/readplan", "", 600, 800, true);
-		//	codefty.popup
-		//		.setCallback(function() {
-///
-		//		})
-			//	.open("../ex02", "제목!", 500, 400);
-						
-		});
-		*/
-
-
-
-
-
 
 		});
 	</script>
 
-	<div class="weatherview">
-
-
-
-
-
-	</div>
 
 	<div class="view">
 		<th:block th:each="li,status : ${list}" th:object="${li}">
@@ -63,7 +28,7 @@
 					<img class="img-event" th:src="*{image}"
 						onerror="this.onerror=null; this.src='../../../../images/noimg.jpg';">
 				</div>
-				<div class="textcenter">
+				<div class="textcenter btn0 padding-1">
 					<span th:text="*{title}" style="font-size:1.5rem"> </span>
 				</div>
 				<input type="hidden" th:name="test" th:value="*{plannerNo}" />

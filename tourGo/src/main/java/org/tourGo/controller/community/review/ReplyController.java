@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tourGo.config.auth.PrincipalDetail;
@@ -18,7 +19,12 @@ public class ReplyController {
 	
 	@Autowired
 	private ReplyService replyService;
-	
+	@ModelAttribute("siteTitle")
+	public String getSiteTitle() {
+		
+		return "TourGo-여행후기";
+	}
+
 	//댓글 등록
 	@PostMapping("/reply/register")
 	public String register(@RequestParam("no") Long reviewNo, @Valid ReplyRequest request, Errors errors,

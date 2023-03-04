@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.tourGo.common.AlertException;
 import org.tourGo.config.auth.PrincipalDetail;
@@ -30,6 +31,11 @@ public class ReviewViewController {
 
 	private String baseUrl = "community/review/";
 	
+	@ModelAttribute("siteTitle")
+	public String getSiteTitle() {
+		
+		return "TourGo-여행후기";
+	}
 		
 	//제목 클릭시 후기읽기 페이지
 	@GetMapping("/community/review_read/reviewNo_{reviewNo}")

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tourGo.common.Pagination;
 import org.tourGo.models.entity.community.review.ReviewEntity;
@@ -19,6 +20,11 @@ public class ReviewListController{
 	private ReviewInfoService reviewService;
 
 	private String baseUrl = "community/review/";
+	@ModelAttribute("siteTitle")
+	public String getSiteTitle() {
+		
+		return "TourGo-여행후기";
+	}
 
 	
 	//여행후기 메인페이지

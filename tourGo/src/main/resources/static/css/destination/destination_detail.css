@@ -16,6 +16,7 @@ hr {
 
 .hits_heart {
 	display: flex;
+	align-items: center;
 }
 
 .hits {
@@ -25,7 +26,9 @@ hr {
 .content_detail p {
 	margin : 3px 5px;
 }
-
+.destination {
+	margin-top:150px;
+}
 .destination_detail_all {
 	margin: 30px auto;
 }

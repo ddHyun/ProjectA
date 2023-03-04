@@ -1,37 +1,23 @@
 ﻿<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/main}">
 
 <main layout:fragment="content">
-<link th:href="@{/css/plan/weather.css}" rel="stylesheet"
-	type="text/css">
-<head>
-<script type="text/javascript" th:src="@{/js/plan/makePlan/weather.js}"></script>
-<style>
+	<link th:href="@{/css/plan/weather.css}" rel="stylesheet" type="text/css">﻿
 
 
 
-</style>
-
-﻿
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-
-
-<div>
 <div class="view">
 	<th:block th:each="li,status : ${list}" th:object="${li}">
 
 
-		<a th:href="@{/plan/plannerallview_page/}+*{plannerNo}"
-			style="text-decoration: none;">
+		<a th:href="@{/plan/plannerallview_page/}+*{plannerNo}">
 			<div th:class="buttons" th:data-no="*{plannerNo}">
 			<div class="overflow">
 				<img class="img-event"
 					th:src="*{image}"onerror="this.onerror=null; this.src='../../../../images/noimg.jpg';">
 					</div>
-					<div class="textcenter">
+					<div class="textcenter btn0 padding-1">
 					<span th:text="*{title}" style="font-size:1.5rem"> </span> 
 					</div>
 					<input type="hidden" th:name="test" th:value="*{plannerNo}" />
@@ -42,7 +28,7 @@
 	</th:block>
 </div>
 
-<div class="textcenter">
+	<div class="textcenter">
 
 	<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
 		<a th:if="${page != nowPage and page>0}"
@@ -59,7 +45,7 @@
 	<button type="submit" class="seachbutton">검색</button>
 </div>
 
-</div>
+
 	</form>
 </main>
 
