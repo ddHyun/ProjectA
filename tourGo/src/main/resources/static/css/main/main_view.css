@@ -7,31 +7,13 @@ body {
 main {
 	position: relative;
 	height: 100%;
-	margin: 0;
+
 }
 
 .start_content {
 	display: flex;
 }
 
-/* 이미지 왼쪽
-.left_video {
-	float: right;
-	width: 70%;
-}
-
-video {
-	width: 100%;
-}
-
-.right_text {
-	width: 20%;
-	position: relative;	
-} 
-*/
-
-
-/*이미지 오른쪽*/
 .left_video {
 	overflow: hidden;
 	height: 910px;
