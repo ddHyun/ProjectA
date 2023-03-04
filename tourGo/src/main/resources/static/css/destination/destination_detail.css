@@ -18,6 +18,10 @@ hr {
 	display: flex;
 }
 
+.hits {
+	margin: 0px 10px;
+}
+
 .content_detail p {
 	margin : 3px 5px;
 }

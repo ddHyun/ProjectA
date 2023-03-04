@@ -11,15 +11,15 @@
 	<div class="destination">
 		<hr>
 		<div class="content_detail">
-			<p th:text="'No. ' + ${detail.destinationNo}"></p>
+			<span th:text="'No. ' + ${detail.destinationNo}"></span>
 			<div class="hits_heart">
-				<p th:text="'조회수 ' + ${detail.tourHits}"></p>
-				<span class="liked"> <input th:if="${like}" type="hidden"
-					id="uid" th:value="${like.uid}"> <i
-					class="fa-regular fa-heart toggleLiked"
+				<span class="hits" th:text="'조회수 ' + ${detail.tourHits}"></span>
+				<span class="liked">
+					<input th:if="${like}" type="hidden" id="uid" th:value="${like.uid}">
+					<i class="fa-regular fa-heart toggleLiked"
 					th:classappend="${user == null }? 'login_required' : ''"></i>
 				</span>
-				<span>좋아요</span>
+				<span>&nbsp;좋아요</span>
 			</div>
 		</div>
 		<hr>
