@@ -16,6 +16,7 @@ hr {
 
 .hits_heart {
 	display: flex;
+	align-items: center;
 }
 
 .content_detail p {

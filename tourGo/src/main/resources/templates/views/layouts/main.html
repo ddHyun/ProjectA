@@ -9,6 +9,10 @@
 		<link th:href="@{/css/main/header.css}" rel="stylesheet" type="text/css">
 		<link th:href="@{/css/main/mainPage.css}" rel="stylesheet" type="text/css">
 		<link th:href="@{/css/main/footer.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{css/main/main_view.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{/css/destination/destination_main.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{/css/destination/destination_detail.css}" rel="stylesheet" type="text/css">
+		
 		<link rel="stylesheet" type="text/css" th:each="css:${addCss}" th:href="@{/css/{css}.css(css=${css})}">
 		<!--google icon-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
@@ -22,6 +26,7 @@
 		<!-- added by Hyun -->
 		<script src="https://kit.fontawesome.com/c89215f053.js" crossorigin="anonymous"></script>
 		<script th:src="@{/js/header.js}"></script>
+		<script th:src="@{/js/destination/destination.js}"></script>
 
 	</head>
 	<body>
