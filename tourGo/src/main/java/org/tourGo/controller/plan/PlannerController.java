@@ -70,6 +70,12 @@ public class PlannerController {
 	public TourType[] tourType() {
 		return TourType.values();
 	}
+	@ModelAttribute("siteTitle")
+	public String getSiteTitle() {
+		
+		return "TourGo-여행플래너";
+	}
+	
 
 	@GetMapping() // 여행 상세 일정 보는 화면
 	public String plan(Model model, @AuthenticationPrincipal PrincipalDetail principal,
@@ -162,7 +168,7 @@ public class PlannerController {
 			model.addAttribute("list", list);
 			model.addAttribute("plannerRq", plannerRq);
 			model.addAttribute("plannerNo", planner.getPlannerNo());
-	
+			model.addAttribute("siteTitle", "TourGo-상세일정");
 			 model.addAttribute("addCss", new String[] {"plan/makePlan"});
 			 model.addAttribute("addScript", new String[] {"plan/makePlan/details"}); 
 			  

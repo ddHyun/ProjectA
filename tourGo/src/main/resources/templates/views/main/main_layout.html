@@ -2,7 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	<head>
-		<title th:text="${siteTitle}">TourGO</title>
+		
+		<title th:if="${siteTitle}" th:text="${siteTitle}">TourGO</title>
+		<title>TourGO</title>
 		<link th:href="@{css/main/header.css}" rel="stylesheet" type="text/css">
 		<link th:href="@{css/main/footer.css}" rel="stylesheet" type="text/css">
 		<link th:href="@{css/main/main_view.css}" rel="stylesheet" type="text/css">

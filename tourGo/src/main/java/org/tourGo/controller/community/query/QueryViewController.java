@@ -5,6 +5,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.tourGo.common.AlertException;
 import org.tourGo.config.auth.PrincipalDetail;
@@ -21,7 +22,12 @@ public class QueryViewController {
 	private QueryInfoService service;
 	@Autowired
 	private ReadHitService readService;
-
+	
+	@ModelAttribute("siteTitle")
+	public String getSiteTitle() {
+		
+		return "TourGo-문의사항";
+	}
 	
 	@GetMapping("/community/query_view/{queryNo}")
 	public String view(@PathVariable Long queryNo, Model model, Integer page,

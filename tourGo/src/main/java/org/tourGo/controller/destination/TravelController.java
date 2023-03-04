@@ -10,6 +10,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.tourGo.models.destination.entity.DestinationDetail;
 import org.tourGo.service.destination.DestinationMainService;
@@ -19,6 +20,11 @@ public class TravelController {
 
 	@Autowired
 	private DestinationMainService destinationMainService;
+	@ModelAttribute("siteTitle")
+	public String getSiteTitle() {
+		
+		return "TourGo-국내여행지";
+	}
 
 	// 비동기적 page 목록 뿌려주기
 	@GetMapping("/api/travel")
