@@ -14,24 +14,6 @@ main {
 	display: flex;
 }
 
-/* 이미지 왼쪽
-.left_video {
-	float: right;
-	width: 70%;
-}
-
-video {
-	width: 100%;
-}
-
-.right_text {
-	width: 20%;
-	position: relative;	
-} 
-*/
-
-
-/*이미지 오른쪽*/
 .left_video {
 	overflow: hidden;
 	height: 910px;
@@ -49,8 +31,6 @@ video {
 	width: 35%;
 	position: relative;
 }
-
-/*이미지 오른쪽*/
 
 .all_text {
 	height: 910px;
@@ -90,9 +70,10 @@ video {
 	background-color: #98d0e3;
 }
 
-/*.Weather-slideshow-container {
-	position: relative;
-}*/
+.Weather-slideshow-container {
+	justify-content: center;
+	margin: 20px 0 0 0;
+}
 
 .link_page {
 	margin: 5rem;
