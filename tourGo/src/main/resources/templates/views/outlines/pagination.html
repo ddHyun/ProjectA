@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<th:block th:fragment="pagination" th:if="${pagination != null}" th:object="${pagination}">
-		<ul class="pagination">
+		<ul class="_pagination">
 			<th:block th:if="*{page > pageCnt}">
 				<li class="page first"><!-- 처음 -->
 					<a th:href="@{{url}(url=*{baseUrl}, keyword=${keyword}, order=${order}, page=1)}">
