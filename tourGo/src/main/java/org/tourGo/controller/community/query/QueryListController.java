@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tourGo.common.Pagination;
 import org.tourGo.models.entity.community.query.QueryEntity;
@@ -18,6 +19,11 @@ public class QueryListController {
 	@Autowired
 	private QueryListService service;
 	
+	@ModelAttribute("siteTitle")
+	public String getSiteTitle() {
+		
+		return "TourGo-문의사항";
+	}
 	@GetMapping("/community/query_main")
 	public String index(@RequestParam(name="page", required=false) Integer page, Model model) {
 		

@@ -25,13 +25,20 @@
 
 <body>
 
+<div class="b_input">
 
-
-		<div class="b_input">
+		<div class="top_left">
+				<a th:href="@{/plan/makeDetails_move/}+${planner.plannerNo}">
+					<button class="btn_click">
+						상세 일정 변경
+						</button>
+						</a>
+						</div>
+					
 			<div class="delete">
 
 				<a th:href="@{/plan/readplan/}+${planner.plannerNo}">
-					<button class="b_click">
+					<button class="w_click">
 						취소
 					</button>
 				</a>
@@ -42,17 +49,17 @@
 			<div class="update">
 				<form th:action="@{/plan/readplan/}+${planner.plannerNo}" th:object="${planner}" method="post">
 
-					<button type="submit" class="b_click">완료</input>
+					<button type="submit" class="d_click">완료</input>
 			</div>
 		</div>
 
-
+	</div>
 
 
 <div class="flex-col">
 		<div class="flex form-group">
 			<div class="width-30_w">
-				<span>여행제목</span>
+				<label>여행제목</label>
 			</div>
 			<div class="width-70_w">
 				<input type="text" th:field="${planner.title}" maxlength='12' class="titleinput">
@@ -61,11 +68,11 @@
 
 		<div class="flex form-group">
 			<div class="width-30_w">
-				여행기간
+		<label>여행기간</label>
 			</div>
 			<div class="width-70_w">
-				<input type="date" th:value="${planner.sdate}" name="sdate" class="titleinput">
-				<select name="day" th:field="${planner.day}" class="titleinput">
+				<input type="date" th:value="${planner.sdate}" name="sdate" class="dateinput">
+				<select name="day" th:field="${planner.day}" class="dateinput">
 
 					<option value="1">1일</option>
 					<option value="2">2일</option>
@@ -149,7 +156,7 @@
 			</div>
 		
 </div>
-			</div>
+			
 			
 			<div th:unless="${planner.open}" class="radiobox">
 			<div class= "daydiv">
@@ -163,11 +170,7 @@
 			</div>
 			</div>
 			</div>
-		</div>
-
-		<a th:href="@{/plan/makeDetails_move/}+${planner.plannerNo}">누르면 makeDmakeDetails 넘어갑니다 </a>
-<!-- <a th:href="@{/planneview_private/}+${planner.plannerNo}">누르면 makeDmakeDetails 넘어갑니다 </a> -->
-
+			</div>
 
 
 	</form>

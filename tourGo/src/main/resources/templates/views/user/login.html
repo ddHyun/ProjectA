@@ -4,6 +4,7 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	layout:decorate="~{layouts/main}">
 	
+<<<<<<< HEAD
 	<main layout:fragment="content" class="login">
 		<div class="center">
 			<th:block sec:authorize="isAnonymous()">
@@ -29,5 +30,33 @@
 			</form>
 			</th:block>
 		</div>
+=======
+	<main layout:fragment="content" class="flex">
+		<th:block sec:authorize="isAnonymous()">
+		<div class="bold">로그인</div>
+		<div class="alert alert-error" th:if="${param.error}">
+			<span th:text="${exception}"></span>
+		</div>
+		<form method="post" id="loginForm" name="loginForm" th:action="@{/user/loginProc}" autocomplete="off">
+			<div>
+				<!--<div th:text="#{user.userId}"></div>-->
+				<label for="userId" th:text="#{user.userId}" class="block"> </label>
+				<input type="text" name="userId" id="userId">
+				
+			</div>
+			<div>
+				
+				<label for="userPw" th:text="#{user.userPw}" class="block"></label>
+				<input type="password" name="userPw" id="userPw">
+			</div>
+			<div>
+				<input type="checkbox" name="idCheck" id="idCheck"><label for="idCheck">아이디 저장</label>
+			</div>
+			<div>
+				<button type="button" th:text="#{user.login}" onclick="loginProcess()" class="btn0"></button>
+			</div>
+		</form>
+		</th:block>
+>>>>>>> merge
 	</main>
 </html>

@@ -8,7 +8,6 @@ body {
 main {
 	position: relative;
 	height: 100%;
-	margin-top: 150px;
 }
 
 .searchbar {
@@ -26,21 +25,18 @@ main {
 	height: 50px;
 	border: 1px solid #7cd5dc;
 	background: #ffffff;
+	border-radius: 0 10px 10px 0;
 }
 
 .input_txt {
 	width: 800px;
-	height: 30px;
+	height: 100%;
 	font-size: 14px;
 	padding: 10px;
 	border: 0px;
 	outline: none;
 	float: left;
 }
-
-.input_txt:focus {
-	outline: 1px solid #98dde3;
-	} /* outline 테두리 속성 수정 */
 
 .input_btn {
 	width: 100px;

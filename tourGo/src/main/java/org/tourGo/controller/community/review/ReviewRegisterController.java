@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.tourGo.config.auth.PrincipalDetail;
@@ -22,6 +23,11 @@ public class ReviewRegisterController {
 	private ReviewSaveService reviewService;
 	@Autowired
 	private FileUploadService uploadService;
+	@ModelAttribute("siteTitle")
+	public String getSiteTitle() {
+		
+		return "TourGo-여행후기";
+	}
 
 
 	private String baseUrl = "community/review/";

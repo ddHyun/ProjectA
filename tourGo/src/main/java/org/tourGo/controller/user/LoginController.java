@@ -6,6 +6,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +16,11 @@ import org.tourGo.config.auth.PrincipalDetail;
 public class LoginController {
 	
 	private String fixed_url = "user/";
-	
+	@ModelAttribute("siteTitle")
+	public String getSiteTitle() {
+		
+		return "TourGo-로그인";
+	}
 	@GetMapping("/user/login")
 	public String login(@RequestParam(value="error", required=false) String error,
 								@RequestParam(value="exception", required=false) String exception
@@ -23,6 +28,7 @@ public class LoginController {
 		
 		// 로그인 실패 시 error 표기 model로 보내줌
 		model.addAttribute("addScript", new String[] {"user/login"});
+		model.addAttribute("addCss", new String[] {"common"});
 		model.addAttribute("error", error);
 		model.addAttribute("exception", exception);
 		

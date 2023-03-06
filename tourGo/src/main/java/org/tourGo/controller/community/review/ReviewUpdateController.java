@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,12 @@ public class ReviewUpdateController {
 	private FileUploadService uploadService;
 	
 	private String baseUrl = "community/review/";
-	
+	@ModelAttribute("siteTitle")
+	public String getSiteTitle() {
+		
+		return "TourGo-여행후기";
+	}
+
 	private void addCommons(Model model) {
 		//static & board명 추가
 		model.addAttribute("board", "review");

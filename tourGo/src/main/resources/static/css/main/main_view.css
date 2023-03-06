@@ -7,31 +7,13 @@ body {
 main {
 	position: relative;
 	height: 100%;
-	margin: 0;
+
 }
 
 .start_content {
 	display: flex;
 }
 
-/* 이미지 왼쪽
-.left_video {
-	float: right;
-	width: 70%;
-}
-
-video {
-	width: 100%;
-}
-
-.right_text {
-	width: 20%;
-	position: relative;	
-} 
-*/
-
-
-/*이미지 오른쪽*/
 .left_video {
 	overflow: hidden;
 	height: 910px;
@@ -58,7 +40,6 @@ video {
 	top: 15%;
 	left: 40%;
 	text-align: center;
-	    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 .first_text {
@@ -90,9 +71,10 @@ video {
 	background-color: #98d0e3;
 }
 
-/*.Weather-slideshow-container {
-	position: relative;
-}*/
+.Weather-slideshow-container {
+	justify-content: center;
+	margin: 20px 0 0 0;
+}
 
 .link_page {
 	margin: 5rem;

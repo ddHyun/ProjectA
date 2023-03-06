@@ -16,6 +16,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,7 +51,12 @@ public class TravelDestinationMainController {
 	
 	@Autowired
 	private DestinationReadHitService destinationReadHitService;
-	
+	@ModelAttribute("siteTitle")
+	public String getSiteTitle() {
+		
+		return "TourGo-국내여행지";
+	}
+
 
 	@GetMapping(path={"/travel_destination_main"})
 	public String ex(@RequestParam(name="keyword", defaultValue = "전체") String keyword,

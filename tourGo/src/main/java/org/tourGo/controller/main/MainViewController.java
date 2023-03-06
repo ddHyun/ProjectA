@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.destination.entity.DestinationDetail;
 import org.tourGo.models.entity.user.User;
@@ -30,8 +31,12 @@ public class MainViewController {
 	
 	@Autowired
 	private DestinationMainService destinationMainService;
-
-
+	@ModelAttribute("siteTitle")
+	public String getSiteTitle() {
+		
+		return "TourGo";
+	}
+	
 	@GetMapping("/main_view")
 	public String main_view3(Model model, @AuthenticationPrincipal PrincipalDetail principal) {
 		Optional<User> _user = null;

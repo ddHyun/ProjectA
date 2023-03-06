@@ -7,6 +7,8 @@
 <title>Modal</title>
 <link th:href="@{/css/plan/makeDate.css}" rel="stylesheet"
 	type="text/css">
+		<link th:href="@{/css/newCommon.css}" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 
 <body>
@@ -32,8 +34,8 @@
 			</div>
 			<div class="width-70_w">
 				<input type="date" name="sdate" th:field="*{sdate}"
-					class="titleinput"> <select name="day"
-					th:field="*{day}" class="titleinput">
+					class="dateinput"> <select name="day"
+					th:field="*{day}" class="dateinput">
 
 					<option value="1">1일</option>
 					<option value="2">2일</option>
@@ -81,7 +83,7 @@
 				</div>
 			
 
-			<div>
+			<div class="width-70_w">
 				<select name="planSize" th:field="*{planSize}" class="titleinput">
 
 					<option value="1">1명</option>
@@ -131,10 +133,15 @@
 					</textarea>
 			</div>
 		</div>
-		<div style="position: absolute; right: 0px; bottom: 0px;">
-			<button class="makebutton"type="submit">일정
-				만들기</button>
+		<div>
+			
 
+<button class="makebutton" type="submit">
+<span class="material-symbols-outlined">
+arrow_forward
+
+</span>
+</button>
 		</div>
 	</form>
 

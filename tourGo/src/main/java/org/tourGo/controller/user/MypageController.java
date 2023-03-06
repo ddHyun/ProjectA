@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.tourGo.config.auth.PrincipalDetail;
 import org.tourGo.models.entity.user.User;
@@ -27,7 +28,11 @@ public class MypageController {
 	
 	@Autowired
 	private FileRUDService fileService;
-	
+	@ModelAttribute("siteTitle")
+	public String getSiteTitle() {
+		
+		return "TourGo-마이페이지";
+	}
 	@GetMapping("/user/mypage")
 	public String mypage(Model model
 									, @AuthenticationPrincipal PrincipalDetail principal) {
