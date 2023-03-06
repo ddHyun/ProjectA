@@ -20,12 +20,27 @@
       <li>UML상세</li>
        <img src="https://user-images.githubusercontent.com/107980962/223097515-1323b53d-996b-4e82-a7a8-ba4aaa9ab653.png">
       <li>시연영상</li>
-        
+        https://user-images.githubusercontent.com/107980962/223105034-d4f7ff2d-8270-4f12-acdd-a1967c0ac1c6.mp4 <br>
+        https://user-images.githubusercontent.com/107980962/223105067-4def342c-855e-4e1d-893c-a61249ddcf1f.mp4 <br>
+        https://user-images.githubusercontent.com/107980962/223105117-96647356-f103-4e16-91b4-6ced2d6978d4.mp4 <br>
+        https://user-images.githubusercontent.com/107980962/223105143-491169e6-2c62-4b8b-be3a-f52b5093ec06.mp4 <br>
       <li>페이지 구현</li>
-
+        <img src="https://user-images.githubusercontent.com/107980962/223107297-efe1ed21-a422-4291-8482-b2a69697d835.png">
+        <img src="https://user-images.githubusercontent.com/107980962/223107514-1641e01c-94a9-482f-90a6-bb7f820ebda6.png">
+        <img src="https://user-images.githubusercontent.com/107980962/223107660-8dfd0ac3-735d-4ad3-87d0-d5a2a9134c87.png">
+        <img src="https://user-images.githubusercontent.com/107980962/223107833-cfe22308-fc78-4dda-8e3e-7c0cae3c9ded.png">
+        <img src="https://user-images.githubusercontent.com/107980962/223107909-b956bf31-8f30-4e80-9e13-2e4efda67b39.png">
+        <img src="https://user-images.githubusercontent.com/107980962/223108073-281dea91-4754-4008-b300-e6ba69329b2d.png">
+        <img src="https://user-images.githubusercontent.com/107980962/223106058-7b1fe4a4-149a-4e88-b0b7-a6018010e42d.png">
+        <img src="https://user-images.githubusercontent.com/107980962/223106156-677e1694-9735-48f5-b340-f8d250cb9944.png">
+        <img src="https://user-images.githubusercontent.com/107980962/223106208-dde0efcb-edd5-4784-8573-36d1f6cd57db.png">
+        <img src="https://user-images.githubusercontent.com/107980962/223106260-966cf12e-7967-4197-ba8a-f0cb6e6b255f.png">
+        <img src="https://user-images.githubusercontent.com/107980962/223106302-8ae8c1aa-00cb-4196-8b27-3a57efbc1ba4.png">
+        <img src="https://user-images.githubusercontent.com/107980962/223106349-0b3f3c70-14c5-4e7c-b49d-84be9dc0819e.png">
+        <img src="https://user-images.githubusercontent.com/107980962/223106430-c59055c7-c501-495b-a746-b5a38a4a5eef.png">
+        <img src="https://user-images.githubusercontent.com/107980962/223106527-a8a38ea7-3643-48e2-8948-e0d9f556265d.png">
      </ul>
     </li>
-
   <li>진행 프로세스
   <ul>
       <li>개발일정</li>
@@ -78,7 +93,6 @@
         </table>
     </ul>
   </li>
-  <li>프로젝트 PPT</li>
   </ul>
 </li>
 </ul>
